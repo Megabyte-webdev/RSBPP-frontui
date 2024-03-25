@@ -2,7 +2,7 @@
 const DashCard = ({item}) => {
     return (
         <div className="shadow d-flex rounded p-2">
-            <div className="me-2">
+            <div className="me-2 py-4">
                 <img src={item.img} alt="" height={50} width={50} className="" />
             </div>
             <div>

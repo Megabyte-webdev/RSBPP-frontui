@@ -17,14 +17,14 @@ const RoundChart = () => {
               endAngle: 135,
               dataLabels: {
                 name: {
-                  fontSize: '16px',
-                  color: undefined,
-                  offsetY: 120
+                  fontSize: '12px',
+                  color: "#000",
+                  offsetY: 0
                 },
                 value: {
-                  offsetY: 76,
-                  fontSize: '22px',
-                  color: undefined,
+                  offsetY: 6,
+                  fontSize: '12px',
+                  color: "#000",
                   formatter: function (val) {
                     return val + "%";
                   }

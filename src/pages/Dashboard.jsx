@@ -9,6 +9,7 @@ import messagesIcon from "../assets/side-icons/messages-icon.png"
 import { Link } from "react-router-dom"
 import DashCard from "../components/dashboard/DashCard"
 import RoundChart from "../components/general/RoundChart"
+import Notification from "../components/dashboard/Notification"
 
 const cardItems = [
     {
@@ -33,6 +34,8 @@ const cardItems = [
     },
 ]
 
+const noOfNotes = [1, 2, 3, 4, 5]
+
 const Dashboard = () => {
     return (
         <div>
@@ -43,7 +46,7 @@ const Dashboard = () => {
             <div className="grid_card">
                 <Row>
                     <Col md={3}>
-                        <div className="shadow rounded p-3 py-4">
+                        <div className="shadow rounded h-100 p-3 py-4">
                             <div className="d-flex justify-content-center">
                                 <img src={currencyIcon} alt="" className="" />
                             </div>
@@ -68,8 +71,20 @@ const Dashboard = () => {
                         </Row>
                     </Col>
                     <Col md={3}>
-                        <div className="shadow rounded p-3 py-4">
+                        <div className="shadow rounded h-100 p-3 py-4">
                             <RoundChart />
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={6} className="my-4">
+                        <div className="shadow-sm p-3">
+                            <p className="fw-semibold">Noticeboard</p>
+                            {
+                                noOfNotes.map((note) => (
+                                    <Notification key={note} />
+                                ))
+                            }
                         </div>
                     </Col>
                 </Row>
