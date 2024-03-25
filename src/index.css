@@ -1,0 +1,27 @@
+body{
+  margin: 0;
+  width: 100%;
+}
+
+.poppins {
+  font-family: "Poppins", sans-serif !important;
+}
+.ash_btn{
+  background-color: #F1F1F1 !important;
+}
+
+p{
+  margin: 0;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.fs_sm{
+  font-size: .9rem;
+}
+
+.border_brown{
+  border-left: 1px solid #AB3335 !important;
+}
