@@ -43,6 +43,10 @@ input:focus-visible{
 .prime_blue{
   color: #03014C;
 }
+
+.blue_bg{
+  background-color: #03014C !important;
+}
 .sidebar_active{
   color: #AB3335 !important;
 }
@@ -69,4 +73,11 @@ input:focus-visible{
   font-size: 2.5rem;
   border: none;
   border-bottom: 2px solid #4e0076;
+}
+
+.login_layout{
+  background-image: url("./assets/login-bg.png");
+  background-size: cover;
+  /* background-repeat: no-repeat; */
+  background-position: center;
 }
