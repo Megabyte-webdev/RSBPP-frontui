@@ -10,6 +10,7 @@ import { Link } from "react-router-dom"
 import DashCard from "../components/dashboard/DashCard"
 import RoundChart from "../components/general/RoundChart"
 import Notification from "../components/dashboard/Notification"
+import LearningChart from "../components/dashboard/LearningChart"
 
 const cardItems = [
     {
@@ -73,11 +74,17 @@ const Dashboard = () => {
                     <Col md={3}>
                         <div className="shadow rounded h-100 p-3 py-4">
                             <RoundChart />
+                            <div className="border-top mt-3">
+                                <div className="d-flex justify-content-between fs_sm">
+                                    <p>Next Badge:</p>
+                                    <p>Not defined</p>
+                                </div>
+                            </div>
                         </div>
                     </Col>
                 </Row>
-                <Row>
-                    <Col md={6} className="my-4">
+                <Row className="my-5">
+                    <Col md={6}>
                         <div className="shadow-sm p-3">
                             <p className="fw-semibold">Noticeboard</p>
                             {
@@ -85,6 +92,11 @@ const Dashboard = () => {
                                     <Notification key={note} />
                                 ))
                             }
+                        </div>
+                    </Col>
+                    <Col md={6}>
+                        <div className="p-3" style={{ backgroundColor: "#FAFAFB" }}>
+                            <LearningChart />
                         </div>
                     </Col>
                 </Row>

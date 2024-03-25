@@ -25,3 +25,17 @@ p{
 .border_brown{
   border-left: 1px solid #AB3335 !important;
 }
+
+.prime_brown{
+  color: #AB3335 !important;
+}
+
+.sidebar_active{
+  color: #AB3335 !important;
+}
+
+.sidebar_height{
+  max-height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none !important;
+}

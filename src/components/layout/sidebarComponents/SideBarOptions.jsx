@@ -19,7 +19,7 @@ const SideBarOptions = () => {
   };
 
   return (
-    <div>
+    <div className="sidebar_height">
       {sidebarConstants.map((constant) => (
         <SidebarToggle
           key={constant.title}

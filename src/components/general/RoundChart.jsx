@@ -44,7 +44,7 @@ const RoundChart = () => {
             },
           },
           stroke: {
-            dashArray: 4
+            dashArray: 6
           },
           labels: ['Faithful user'],
         },    
