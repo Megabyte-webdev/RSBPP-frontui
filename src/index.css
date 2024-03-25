@@ -9,6 +9,9 @@ body{
 .ash_btn{
   background-color: #F1F1F1 !important;
 }
+.open_sans{
+  font-family: "Open Sans", sans-serif;
+}
 
 p{
   margin: 0;
@@ -26,10 +29,20 @@ p{
   border-left: 1px solid #AB3335 !important;
 }
 
+input:focus-visible{
+  outline: none !important;
+}
+
 .prime_brown{
   color: #AB3335 !important;
 }
+.brown_bg{
+  background-color: hsla(359, 54%, 44%, 1) !important;
+}
 
+.prime_blue{
+  color: #03014C;
+}
 .sidebar_active{
   color: #AB3335 !important;
 }
@@ -38,4 +51,22 @@ p{
   max-height: 100%;
   overflow-y: scroll;
   scrollbar-width: none !important;
+}
+
+.login_label{
+  color: hsla(242, 97%, 15%, 0.5);
+}
+
+.otp_container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.otp_style{
+  display: block;
+  height: 2.5rem;
+  width: 2.5rem !important;
+  font-size: 2.5rem;
+  border: none;
+  border-bottom: 2px solid #4e0076;
 }
