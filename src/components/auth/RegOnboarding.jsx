@@ -1,7 +1,14 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 
-const RegOnboarding = () => {
+const RegOnboarding = ({setDisplay}) => {
+    const navigate = useNavigate()
+
+    const handleOnboarding = () =>{
+        navigate("/")
+    }
+
     return (
         <div className='col-10'>
             <div className='my-5 text-center'>
@@ -20,7 +27,9 @@ const RegOnboarding = () => {
                 </div>
             </div>
             <div className="mt-5 col-6 mx-auto">
-                <Button type="submit" className="brown_bg rounded-3 border-0 w-100">
+                <Button 
+                onClick={handleOnboarding}
+                type="submit" className="brown_bg rounded-3 border-0 w-100">
                     {/* {isLoading && (
               <div className="spinner-border text-light" role="status">
                 <span className="visually-hidden">Loading...</span>

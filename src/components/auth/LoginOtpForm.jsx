@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import OtpInput from "react-otp-input";
+import { useNavigate } from "react-router-dom";
 
 const LoginOtpForm = () => {
 
   const [otp, setOtp] = useState('');
+  const navigate = useNavigate()
 
+  const handleSubmit = () => {
+      navigate("/")
+  }
   const handleOtpSubmit = async (event) => {
     event.preventDefault();
     alert(otp)
@@ -29,7 +34,9 @@ const LoginOtpForm = () => {
           />
         </div>
         <div className="mt-5 col-6 mx-auto">
-          <Button type="submit" className="brown_bg rounded-3 border-0 w-100">
+          <Button
+          onClick={handleSubmit}
+          type="submit" className="brown_bg rounded-3 border-0 w-100">
             {/* {isLoading && (
               <div className="spinner-border text-light" role="status">
                 <span className="visually-hidden">Loading...</span>

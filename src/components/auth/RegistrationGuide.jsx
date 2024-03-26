@@ -4,13 +4,16 @@ import { MdOutlineMail } from "react-icons/md";
 import { BsCameraReels } from "react-icons/bs";
 
 
-const RegistrationGuide = () => {
+const RegistrationGuide = ({display}) => {
+    const reg = display === "registration" ? "sidebar_active" : "";
+    const otp = display === "otp" ? "sidebar_active" : "";
+    const onboard = display === "onboarding" ? "sidebar_active" : "";
     return (
         <div className='brown_bg d-flex align-items-center justify-content-center poppins' style={{ minHeight: "100vh" }}>
             <div className="col-10">
                 <div className="d-flex">
                     <div className='icon_square mb-5'>
-                        <span>
+                        <span className={reg}>
                             <PiUser />
                         </span>
                         <div className="position-absolute pb-5 start-50 border-end"></div>
@@ -22,7 +25,7 @@ const RegistrationGuide = () => {
                 </div>
                 <div className="d-flex">
                     <div className='icon_square mb-5'>
-                        <span>
+                        <span className={otp}>
                             <MdOutlineMail />
                         </span>
                         <div className="position-absolute pb-5 start-50 border-end"></div>
@@ -58,7 +61,7 @@ const RegistrationGuide = () => {
                 </div> */}
                 <div className="d-flex">
                     <div className='icon_square mb-5'>
-                        <span>
+                        <span className={onboard}>
                             <BsCameraReels />
                         </span>
                         {/* <div className="position-absolute pb-5 start-50 border-end"></div> */}

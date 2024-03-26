@@ -7,19 +7,19 @@ import RegOnboarding from '../components/auth/RegOnboarding'
 
 const Registration = () => {
 
-    const [display, setDisplay] = useState("onboarding")
+    const [display, setDisplay] = useState("registration")
 
   return (
     <div>
         <Row className='g-0'>
             <Col md={5}>
-                <RegistrationGuide />
+                <RegistrationGuide display={display} />
             </Col>
             <Col md={7}>
                 <div className="d-flex h-100 align-items-center justify-content-center">
-                    {display === "registration" && (<RegistrationForm />)}
-                    {display === "otp" && (<RegOtpForm />)}
-                    {display === "onboarding" && (<RegOnboarding />)}
+                    {display === "registration" && (<RegistrationForm setDisplay={setDisplay} />)}
+                    {display === "otp" && (<RegOtpForm setDisplay={setDisplay} />)}
+                    {display === "onboarding" && (<RegOnboarding setDisplay={setDisplay} />)}
                     
                     {/* <RegOtpForm/> */}
                 </div>

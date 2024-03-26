@@ -2,14 +2,18 @@ import { useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import logo from "../assets/logo.png"
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import loginImg from "../assets/login-img1.png"
 import { FiUser } from 'react-icons/fi';
 
 const ResetPassword = () => {
     const [inputType, setInputType] = useState("password")
     const [otpPage, setOtpPage] = useState(false)
+    const navigate = useNavigate()
 
+    const handleSubmit = () => {
+        navigate("/")
+    }
     const handleToggle = () => {
         if (inputType === 'password') {
             setInputType('text');
@@ -39,14 +43,14 @@ const ResetPassword = () => {
                                 </div>
                                 <div>
                                     <form className='open_sans mb-3'>
-                                    <div className="my-5">
+                                        <div className="my-5">
                                             <div className='position-relative'>
                                                 <input type="email" className="btn border px-4 py-2 w-100" id="email" placeholder='Enter email or phone' />
                                                 <span className="position-absolute start-0 top-0 p-2"><FiUser /> </span>
                                             </div>
                                         </div>
                                         <button
-                                            onClick={handleLogin}
+                                            onClick={handleSubmit}
                                             className='btn btn-lg brown_bg text-white w-100'>VERIFY</button>
                                     </form>
                                     {/* <small className='text-nowrap'>Don’t have an account ? <Link className='text-decoration-none fw-semibold prime_brown'>Sign up</Link> </small> */}

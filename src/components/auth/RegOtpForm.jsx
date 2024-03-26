@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import OtpInput from "react-otp-input";
 
-const RegOtpForm = () => {
+const RegOtpForm = ({setDisplay}) => {
 
+  const handleOtp = () =>{
+    setDisplay("onboarding")
+}
   const [otp, setOtp] = useState('');
 
   const handleOtpSubmit = async (event) => {
@@ -30,7 +33,9 @@ const RegOtpForm = () => {
         </div>
         <p className="my-3" style={{ color: "hsla(270, 1%, 27%, 1)" }}>Didn’t get a code ? Resend</p>
         <div className="mt-5 col">
-          <Button type="submit" className="brown_bg rounded-3 border-0 w-100">
+          <Button
+          onClick={handleOtp}
+           type="submit" className="brown_bg rounded-3 border-0 w-100">
             {/* {isLoading && (
               <div className="spinner-border text-light" role="status">
                 <span className="visually-hidden">Loading...</span>

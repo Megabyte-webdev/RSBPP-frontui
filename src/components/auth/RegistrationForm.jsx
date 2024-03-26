@@ -6,12 +6,15 @@ import { TfiUnlock } from 'react-icons/tfi';
 import RegOtpForm from './RegOtpForm';
 
 
-const RegistrationForm = () => {
+const RegistrationForm = ({setDisplay}) => {
+    const handleRegistration = () =>{
+        setDisplay("otp")
+    }
     return (
         <div className='col-8 prime_blue'>
             <div className="open_sans reg_form my-4">
                 <h3>Create Account</h3>
-                <p className='pe-5 fw_sm'>Please complete the fields below.If you already have an existing accounts, please follow Get Access to login</p>
+                <p className='pe-5 fw_sm mb-4'>Please complete the fields below.If you already have an existing accounts, please follow Get Access to login</p>
                 <form action="">
                     <div className="overflow_y">
                         <div className="mb-4">
@@ -67,7 +70,7 @@ const RegistrationForm = () => {
                             </div>
                         </div>
                         <button
-                            // onClick={handleLogin}
+                            onClick={handleRegistration}
                             className='btn btn-lg brown_bg text-white fs_sm w-100'>Submit</button>
                     </div>
                 </form>
