@@ -5,7 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FiLock, FiUser } from "react-icons/fi";
 import { TfiLock } from "react-icons/tfi";
 import { Link } from 'react-router-dom';
-import OtpForm from './OtpForm';
+import LoginOtpForm from './LoginOtpForm';
 
 const LoginComponent = () => {
     const [inputType, setInputType] = useState("password")
@@ -69,13 +69,13 @@ const LoginComponent = () => {
                                             onClick={handleLogin}
                                             className='btn btn-lg blue_bg text-white fs_sm w-100'>Login to continue</button>
                                     </form>
-                                    <p className='text-nowrap text-center fs_sm'>Don’t have an account ? <Link className='text-decoration-none fw-semibold prime_brown'>Sign up</Link> </p>
+                                    <p className='text-nowrap text-center fs_sm'>Don’t have an account ? <Link to={"/registration"} className='text-decoration-none fw-semibold prime_brown'>Sign up</Link> </p>
                                 </div>
                             </div>
                         </div>
                     )
                         :
-                        <OtpForm />
+                        <LoginOtpForm />
                     }
                 </div>
             </Col>

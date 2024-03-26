@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import OtpInput from "react-otp-input";
 
-const OtpForm = () => {
+const RegOtpForm = () => {
 
   const [otp, setOtp] = useState('');
 
@@ -11,16 +11,16 @@ const OtpForm = () => {
     alert(otp)
   }
   return (
-    <div>
-      <div className="poppins" style={{ color: "hsla(270, 1%, 27%, 1)" }}>
-        <h4 className="text-center">Verify Email</h4>
-        <p className="fs_sm text-center">Code Send To Your Email</p>
+    <div className="poppins">
+      <div>
+        <h3 className="text-">Verify Email</h3>
+        <p className="fs_sm text-">We sent a code to jamesjohn@gmail.com</p>
       </div>
       <form onSubmit={handleOtpSubmit}>
-        <div className="otp d-flex justify-content-center my-5">
+        <div className="otp d-flex my-5">
           <OtpInput
             inputStyle="otp_style"
-            containerStyle={"otp_container col-6"}
+            containerStyle={"otp_container col-10"}
             value={otp}
             onChange={setOtp}
             numInputs={4}
@@ -28,7 +28,8 @@ const OtpForm = () => {
             renderInput={(props) => <input {...props} />}
           />
         </div>
-        <div className="mt-5 col-6 mx-auto">
+        <p className="my-3" style={{ color: "hsla(270, 1%, 27%, 1)" }}>Didn’t get a code ? Resend</p>
+        <div className="mt-5 col">
           <Button type="submit" className="brown_bg rounded-3 border-0 w-100">
             {/* {isLoading && (
               <div className="spinner-border text-light" role="status">
@@ -36,7 +37,7 @@ const OtpForm = () => {
               </div>
             )} */}
             {/* {!isLoading &&  */}
-            Verify
+            Create Account
             {/* } */}
           </Button>
         </div>
@@ -45,4 +46,4 @@ const OtpForm = () => {
   );
 };
 
-export default OtpForm;
+export default RegOtpForm;

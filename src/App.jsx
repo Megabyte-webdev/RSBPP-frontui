@@ -3,6 +3,7 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import ResetPassword from './pages/ResetPassword'
+import Registration from './pages/Registration'
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/registration" element={<Registration />} />
       </Routes>
     </Router>
   )
