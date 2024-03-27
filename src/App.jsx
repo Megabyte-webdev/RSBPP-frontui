@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import ResetPassword from './pages/ResetPassword'
 import Registration from './pages/Registration'
 import DashboardTwo from './pages/DashboardTwo'
+import VideoConference from './pages/VideoConference'
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path='/dashboard' element={<DashboardTwo />} />
+          <Route path='/video_live' element={<VideoConference />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/reset-password" element={<ResetPassword />} />

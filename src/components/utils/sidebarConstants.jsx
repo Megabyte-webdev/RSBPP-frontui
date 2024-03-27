@@ -28,13 +28,9 @@ export const sidebarConstants = [
         logo: iconTwo,
         subOptions: [
             {
-                title: "One",
-                link: "/",
+                title: "Live class",
+                link: "/video_live",
             },
-            {
-                title: "Two",
-                link: "",
-            }
         ]
     },
     {

@@ -1,4 +1,4 @@
-body{
+body {
   margin: 0;
   width: 100%;
 }
@@ -6,67 +6,67 @@ body{
 .poppins {
   font-family: "Poppins", sans-serif !important;
 }
-.ash_btn{
-  background-color: #F1F1F1 !important;
+.ash_btn {
+  background-color: #f1f1f1 !important;
 }
-.open_sans{
+.open_sans {
   font-family: "Open Sans", sans-serif;
 }
 
-p{
+p {
   margin: 0;
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
 }
 
-.fs_sm{
-  font-size: .9rem;
+.fs_sm {
+  font-size: 0.9rem;
 }
 
-.border_brown{
-  border-left: 1px solid #AB3335 !important;
+.border_brown {
+  border-left: 1px solid #ab3335 !important;
 }
 
-input:focus-visible{
+input:focus-visible {
   outline: none !important;
 }
 
-.prime_brown{
-  color: #AB3335 !important;
+.prime_brown {
+  color: #ab3335 !important;
 }
-.brown_bg{
+.brown_bg {
   background-color: hsla(359, 54%, 44%, 1) !important;
 }
 
-.prime_blue{
-  color: #03014C;
+.prime_blue {
+  color: #03014c !important;
 }
 
-.blue_bg{
-  background-color: #03014C !important;
+.blue_bg {
+  background-color: #03014c !important;
 }
-.sidebar_active{
-  color: #AB3335 !important;
+.sidebar_active {
+  color: #ab3335 !important;
 }
 
-.sidebar_height{
+.sidebar_height {
   max-height: 100%;
   overflow-y: scroll;
   scrollbar-width: none !important;
 }
 
-.login_label{
+.login_label {
   color: hsla(242, 97%, 15%, 0.5);
 }
 
-.otp_container{
+.otp_container {
   display: flex;
   justify-content: space-between;
 }
 
-.otp_style{
+.otp_style {
   display: block;
   height: 2.5rem;
   width: 2.5rem !important;
@@ -75,13 +75,13 @@ input:focus-visible{
   border-bottom: 2px solid #4e0076;
 }
 
-.login_layout{
+.login_layout {
   background-image: url("./assets/login-bg.png");
   background-size: cover;
   /* background-repeat: no-repeat; */
   background-position: center;
 }
-.icon_square{
+.icon_square {
   height: 45px;
   width: 45px;
   display: flex;
@@ -92,39 +92,82 @@ input:focus-visible{
   position: relative;
 }
 
-.icon_square div{
+.icon_square div {
   transform: translate(-50%, 100%) !important;
 }
 
-.input_bg{
+.input_bg {
   background-color: hsla(0, 0%, 96%, 1) !important;
   text-align: start;
 }
-.input_bg:focus-visible{
+.input_bg:focus-visible {
   background-color: hsla(0, 0%, 96%, 1) !important;
 }
 
-.overflow_y{
+.overflow_y {
   max-height: 400px;
   overflow-y: scroll;
   scrollbar-width: none;
 }
 
-.video_card{
+.video_card {
   height: 300px;
   border-radius: 10px;
 }
 
-.iframe{
+.iframe {
   width: 100%;
   height: 100%;
 }
 
-.dash_grid{
+.dash_grid {
   max-height: 250px;
   min-height: 250px;
 }
 
-.fs_xsm{
+.fs_xsm {
   font-size: 0.7rem !important;
+}
+
+.light_sky{
+  background-color: hsla(219, 50%, 95%, 1);
+}
+
+.icon_mic {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  width: 25px;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  background-color: #03014c;
+  border-radius: 50%;
+}
+.video_btns{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no_arrow::after{
+  border: none !important;
+  margin: 0px !important;
+}
+
+.red{
+  background-color: hsla(4, 89%, 58%, 1) !important;
+}
+
+.red_text{
+  color: hsla(4, 89%, 58%, 1) !important;
+}
+
+.chat_img{
+  height: 35px;
+  width: 35px;
 }

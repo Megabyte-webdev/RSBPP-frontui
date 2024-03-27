@@ -39,7 +39,7 @@ const noOfNotes = [1, 2, 3, 4, 5]
 
 const Dashboard = () => {
     return (
-        <div>
+        <div className="p-5" style={{ backgroundColor: "hsla(0, 0%, 85%, .1)" }}>
             <h5 className="">Dashboard</h5>
             <div className="carousel_div my-4">
                 <img src={carousel} alt="" className=" w-100" />
