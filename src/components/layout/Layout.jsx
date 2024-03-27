@@ -10,7 +10,7 @@ const Layout = () => {
             <Row className="g-0  poppins">
                 <SideBar />
                 <Col md={10}>
-                    <main className="my-3 px-3">
+                    <main style={{ backgroundColor: "hsla(0, 0%, 85%, .1)" }} className="p-4">
                     <Outlet />
                     </main>
                 </Col>

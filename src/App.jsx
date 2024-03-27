@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import ResetPassword from './pages/ResetPassword'
 import Registration from './pages/Registration'
+import DashboardTwo from './pages/DashboardTwo'
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
+          <Route path='/dashboard' element={<DashboardTwo />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/reset-password" element={<ResetPassword />} />

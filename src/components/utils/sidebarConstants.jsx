@@ -9,20 +9,20 @@ import iconEight from "../../assets/side-icons/icon8.png"
 import iconNine from "../../assets/side-icons/icon9.png"
 
 export const sidebarConstants = [
-    {
-        title: "Dasboard",
-        logo: iconOne,
-        subOptions: [
-            {
-                title: "One",
-                link: "/",
-            },
-            {
-                title: "Two",
-                link: "",
-            }
-        ]
-    },
+    // {
+    //     title: "Dashboard",
+    //     logo: iconOne,
+    //     subOptions: [
+    //         {
+    //             title: "One",
+    //             link: "/",
+    //         },
+    //         {
+    //             title: "Two",
+    //             link: "",
+    //         }
+    //     ]
+    // },
     {
         title: "Courses",
         logo: iconTwo,
