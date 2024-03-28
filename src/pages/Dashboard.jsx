@@ -11,6 +11,8 @@ import DashCard from "../components/dashboard/DashCard"
 import RoundChart from "../components/general/RoundChart"
 import Notification from "../components/dashboard/Notification"
 import LearningChart from "../components/dashboard/LearningChart"
+import { useContext } from "react"
+import { ThemeContext } from "../context/ThemeContext"
 
 const cardItems = [
     {
@@ -38,6 +40,9 @@ const cardItems = [
 const noOfNotes = [1, 2, 3, 4, 5]
 
 const Dashboard = () => {
+    const { setSideBg } = useContext(ThemeContext);
+
+    setSideBg("")
     return (
         <div className="p-5" style={{ backgroundColor: "hsla(0, 0%, 85%, .1)" }}>
             <h5 className="">Dashboard</h5>

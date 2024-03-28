@@ -31,6 +31,10 @@ export const sidebarConstants = [
                 title: "Live class",
                 link: "/video_live",
             },
+            {
+                title: "courses",
+                link: "/courses",
+            },
         ]
     },
     {

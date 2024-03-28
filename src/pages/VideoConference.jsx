@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import videoConference from "../assets/main-video-screen.png"
 import Listeners from '../components/video_conference/Listeners'
@@ -7,8 +7,12 @@ import { FiChevronDown, FiChevronUp, FiSearch, FiUser } from 'react-icons/fi'
 import { MdOutlineGroupAdd, MdAttachFile, MdSend  } from "react-icons/md";
 import VideoParticipants from '../components/video_conference/VideoParticipants'
 import VideoChats from '../components/video_conference/VideoChats'
+import { ThemeContext } from '../context/ThemeContext'
 
 const VideoConference = () => {
+    const { setSideBg } = useContext(ThemeContext);
+
+    setSideBg("brown_sidebar")
     return (
         <div className='p-5 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, 1)" }}>
             <Row>
@@ -97,7 +101,7 @@ const VideoConference = () => {
                                 <MdAttachFile className='text-dark' size={20}/>
                             </p>
                             <div className='position-relative me-2'>
-                                <input type="text" className="btn border rounded-pill bg-white text-start px-5 w-100" id="search" placeholder='Search' />
+                                <input type="text" className="btn border rounded-pill bg-white text-start px-3 w-100" id="search" placeholder='Type Something....' />
                             </div>
                             <div className='border-dark border  border-2 video_btns'>
                                 <MdSend  color='#000' />

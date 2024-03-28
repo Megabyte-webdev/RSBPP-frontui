@@ -18,7 +18,7 @@ const NavBar = () => {
                         <button className='btn rounded-4 d-flex ash_btn me-3'><span className='me-2'><LuLayoutGrid /></span> <span>Categories</span></button>
                         <div className="w-100 d-flex justify-content-between">
                             <div className="d-flex">
-                                <Link to={""} className='nav-link me-3'>Home</Link>
+                                <Link to={"/"} className='nav-link me-3'>Home</Link>
                                 <Link to={""} className='nav-link me-3'>Course</Link>
                                 <Link to={""} className='nav-link me-3'>Instructors</Link>
                                 <Link to={""} className='nav-link me-3'>Store</Link>

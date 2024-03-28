@@ -7,6 +7,7 @@ import Registration from './pages/Registration'
 import DashboardTwo from './pages/DashboardTwo'
 import VideoConference from './pages/VideoConference'
 import ThemeContextProvider from './context/ThemeContext'
+import Courses from './pages/Courses'
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
             <Route index element={<Dashboard />} />
             <Route path='/dashboard' element={<DashboardTwo />} />
             <Route path='/video_live' element={<VideoConference />} />
+            <Route path='/courses' element={<Courses />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />

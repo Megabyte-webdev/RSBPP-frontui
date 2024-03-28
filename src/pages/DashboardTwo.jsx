@@ -11,7 +11,7 @@ const DashboardTwo = () => {
     const { setSideBg } = useContext(ThemeContext);
 
     setSideBg("brown_sidebar")
-    
+
     return (
         <div className='p-5' style={{ backgroundColor: "hsla(0, 0%, 85%, .1)" }}>
             <Row>
