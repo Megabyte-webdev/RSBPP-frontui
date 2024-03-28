@@ -21,19 +21,21 @@ const SideBarOptions = () => {
 
   return (
     <div className="sidebar_height">
-      <div
-        onClick={() => handleSubOptionClick(constant.title)}
-        className="d-flex align-items-center mb-2 fs_sm justify-content-between pointer"
-      >
+      <div className={makeActive}>
         <div
-        onClick={()=> setIsOpenOption("Dashboard")}
-         className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
-          <span className="me-2">
-            <img width={20} height={20} src={icon} alt="" />
-          </span>
-          <Link to={"/dashboard"} className="nav-link">
-            <span className={makeActive}>Dashboard Two </span>
-          </Link>
+          onClick={() => handleSubOptionClick(constant.title)}
+          className="d-flex align-items-center py-2 mb-2 fs_sm justify-content-between pointer"
+        >
+          <div
+            onClick={() => setIsOpenOption("Dashboard")}
+            className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
+            <span className="me-2">
+              <img width={20} height={20} src={icon} alt="" />
+            </span>
+            <Link to={"/dashboard"} className="nav-link">
+              <span>Dashboard Two </span>
+            </Link>
+          </div>
         </div>
       </div>
       {sidebarConstants.map((constant) => (

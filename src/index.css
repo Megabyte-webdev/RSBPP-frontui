@@ -40,6 +40,10 @@ input:focus-visible {
   background-color: hsla(359, 54%, 44%, 1) !important;
 }
 
+.brown_sidebar{
+  background-color: hsla(359, 54%, 44%, 1) !important;
+  color: #f1f1f1 !important;
+}
 .prime_blue {
   color: #03014c !important;
 }
@@ -48,7 +52,7 @@ input:focus-visible {
   background-color: #03014c !important;
 }
 .sidebar_active {
-  color: #ab3335 !important;
+  background-color: hsla(359, 4%, 8%, 0.5) !important;
 }
 
 .sidebar_height {
@@ -146,8 +150,8 @@ input:focus-visible {
   border-radius: 50%;
 }
 .video_btns{
-  height: 40px;
-  width: 40px;
+  height: 40px !important;
+  width: 40px !important;
   border-radius: 50%;
   display: flex;
   align-items: center;

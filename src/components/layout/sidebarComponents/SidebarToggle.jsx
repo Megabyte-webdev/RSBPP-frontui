@@ -8,16 +8,16 @@ const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant }) => {
 const subOption = constant.subOptions;
 const makeActive = isOpenOption === constant.title ? "sidebar_active" : "";
     return (
-        <div>
+        <div className={makeActive}>
             <div
                 onClick={() => handleSubOptionClick(constant.title)}
-                className="d-flex align-items-center mb-2 fs_sm justify-content-between pointer"
+                className="d-flex align-items-center mb-2 px-3 py-2 fs_sm justify-content-between pointer"
             >
                 <div className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
                     <span className="me-2">
                         <img width={20} height={20} src={constant.logo} alt="" />
                     </span>
-                    <span className={makeActive}>{constant.title} </span>
+                    <span>{constant.title} </span>
                 </div>
                 <span>
                     {isOpenOption === constant.title ? (

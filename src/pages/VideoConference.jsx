@@ -4,7 +4,7 @@ import videoConference from "../assets/main-video-screen.png"
 import Listeners from '../components/video_conference/Listeners'
 import VideoButtons from '../components/video_conference/VideoButtons'
 import { FiChevronDown, FiChevronUp, FiSearch, FiUser } from 'react-icons/fi'
-import { MdOutlineGroupAdd } from "react-icons/md";
+import { MdOutlineGroupAdd, MdAttachFile, MdSend  } from "react-icons/md";
 import VideoParticipants from '../components/video_conference/VideoParticipants'
 import VideoChats from '../components/video_conference/VideoChats'
 
@@ -65,7 +65,7 @@ const VideoConference = () => {
                                 <span className="position-absolute start-0 top-0 p-1 ps-2"><MdOutlineGroupAdd /> </span>
                             </div>
                             <span>
-                                <FiChevronUp color='#fff'/>
+                                <FiChevronUp color='#fff' />
                             </span>
                         </div>
                         <div className="p-3">
@@ -77,19 +77,31 @@ const VideoConference = () => {
                     <div className="bg-white rounded mb-5">
                         <div className="blue_bg p-2 px-3 d-flex align-items-center justify-content-between rounded">
                             <p className='text-white fs_sm me-2'>Chats</p>
-                           <div className="bg-white py-1 ps-1 pe-3 rounded-pill d-flex align-items-center">
-                            <button className='btn blue_bg text-white py-0 px-3 rounded-pill me-2'>Groups</button>
-                            <p>Personal</p>
-                           </div>
+                            <div className="bg-white py-1 ps-1 pe-3 rounded-pill d-flex align-items-center">
+                                <button className='btn blue_bg text-white py-0 px-3 rounded-pill me-2'>Groups</button>
+                                <p>Personal</p>
+                            </div>
                             <span>
-                                <FiChevronUp color='#fff'/>
+                                <FiChevronUp color='#fff' />
                             </span>
                         </div>
                         <div className="p-3 py-4">
                             <VideoChats />
                             <VideoChats />
                             <VideoChats />
-                            <VideoChats />
+                        </div>
+                    </div>
+                    <div className="typing_section">
+                        <div className="bg-white p-2 px-3 d-flex align-items-center rounded">
+                            <p className='text-white fs_sm me-2'>
+                                <MdAttachFile className='text-dark' size={20}/>
+                            </p>
+                            <div className='position-relative me-2'>
+                                <input type="text" className="btn border rounded-pill bg-white text-start px-5 w-100" id="search" placeholder='Search' />
+                            </div>
+                            <div className='border-dark border  border-2 video_btns'>
+                                <MdSend  color='#000' />
+                            </div>
                         </div>
                     </div>
                 </Col>
