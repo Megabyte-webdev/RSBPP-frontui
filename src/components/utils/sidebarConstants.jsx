@@ -35,15 +35,19 @@ export const sidebarConstants = [
                 title: "courses",
                 link: "/courses",
             },
+            {
+                title: "courses analysis",
+                link: "/courses_analysis",
+            },
         ]
     },
     {
-        title: "Upcoming Courses",
+        title: "Forums",
         logo: iconThree,
         subOptions: [
              {
-                title: "One",
-                link: "/",
+                title: "Chats",
+                link: "/chats",
             },
             {
                 title: "Two",

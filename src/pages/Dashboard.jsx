@@ -36,7 +36,9 @@ const cardItems = [
         text: "Comments"
     },
 ]
-
+const strokeProps = {
+    shades : 6
+}
 const noOfNotes = [1, 2, 3, 4, 5]
 
 const Dashboard = () => {
@@ -78,7 +80,7 @@ const Dashboard = () => {
                     </Col>
                     <Col md={3}>
                         <div className="shadow rounded h-100 p-3 py-4">
-                            <RoundChart />
+                            <RoundChart  strokeProps={strokeProps} />
                             <div className="border-top mt-3">
                                 <div className="d-flex justify-content-between fs_sm">
                                     <p>Next Badge:</p>

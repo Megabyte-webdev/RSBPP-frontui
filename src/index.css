@@ -158,6 +158,15 @@ input:focus-visible {
   justify-content: center;
 }
 
+.tiny_circle{
+  height: 25px !important;
+  width: 25px !important;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .no_arrow::after{
   border: none !important;
   margin: 0px !important;

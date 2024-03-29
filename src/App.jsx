@@ -8,6 +8,7 @@ import DashboardTwo from './pages/DashboardTwo'
 import VideoConference from './pages/VideoConference'
 import ThemeContextProvider from './context/ThemeContext'
 import Courses from './pages/Courses'
+import CoursesAnalysis from './pages/CoursesAnalysis'
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
             <Route path='/dashboard' element={<DashboardTwo />} />
             <Route path='/video_live' element={<VideoConference />} />
             <Route path='/courses' element={<Courses />} />
+            <Route path='/courses_analysis' element={<CoursesAnalysis />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />
