@@ -1,15 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { FiSearch } from 'react-icons/fi'
 import CoursesStats from '../components/courses/CoursesStats'
 import ReactCalendar from '../components/general/ReactCalendar'
 import FeatureCourses from '../components/courses/FeatureCourses'
 import { ThemeContext } from '../context/ThemeContext'
+import user from "../assets/user-icon.png"
+
 
 const Courses = () => {
     const { setSideBg } = useContext(ThemeContext);
 
-    setSideBg("brown_sidebar")
+    useEffect(()=>{
+      setSideBg("brown_sidebar")
+  }, [])
 
   return (
     <div className='p-5 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, 1)" }}>
@@ -25,7 +29,18 @@ const Courses = () => {
       </div>
       <Row>
         <Col md={9}>
-          <div className="brown_bg p-5 my-4 rounded"></div>
+          <div className="brown_bg p-5 my-4 rounded">
+                        <div className="d-flex align-items-center text-white">
+                            <div className="me-3 border border-4 rounded-pill">
+                                <img src={user} alt="" className="img-fluid" />
+                            </div>
+                            <div>
+                                <p>Ekong  Lawal</p>
+                                <p>S7 - Electronics and communication Engineering</p>
+                                <p className="fs_xsm">Course No : 673664646</p>
+                            </div>
+                        </div>
+                    </div>
           <div className="d-flex px-3 mb-3 justify-content-between">
             <h5 className="prime_blue">Course Stats</h5>
             <p>View all</p>

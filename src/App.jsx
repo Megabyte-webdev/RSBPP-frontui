@@ -9,6 +9,7 @@ import VideoConference from './pages/VideoConference'
 import ThemeContextProvider from './context/ThemeContext'
 import Courses from './pages/Courses'
 import CoursesAnalysis from './pages/CoursesAnalysis'
+import Chats from './pages/Chats'
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
             <Route path='/video_live' element={<VideoConference />} />
             <Route path='/courses' element={<Courses />} />
             <Route path='/courses_analysis' element={<CoursesAnalysis />} />
+            <Route path='/chats' element={<Chats />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />

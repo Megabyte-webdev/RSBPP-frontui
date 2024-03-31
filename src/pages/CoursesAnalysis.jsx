@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { FiClock, FiSearch } from 'react-icons/fi'
 import { PiHourglass } from "react-icons/pi";
@@ -14,7 +14,9 @@ import BarChart from '../components/general/BarCharts';
 const CoursesAnalysis = () => {
     const { setSideBg } = useContext(ThemeContext);
 
-    setSideBg("brown_sidebar")
+    useEffect(()=>{
+        setSideBg("brown_sidebar")
+    }, [])
 
     const strokeProps = {
         strokeCap: "round",

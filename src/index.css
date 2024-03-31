@@ -184,3 +184,15 @@ input:focus-visible {
   height: 35px;
   width: 35px;
 }
+
+.focus_brown:focus{
+  border-color: #ab3335 !important;
+}
+
+.dark_ash{
+  background-color: #CCCACA;
+}
+.px_4rem{
+  padding-left: 5rem !important;
+  padding-right: 6rem !important;
+}

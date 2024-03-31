@@ -1,5 +1,10 @@
 import { sidebarConstants } from "../../utils/sidebarConstants"
-import icon from "../../../assets/side-icons/activity (1) 1.png"
+import icon from "../../../assets/side-icons/new1.png"
+import iconEight from "../../../assets/side-icons/new8.png"
+import iconNine from "../../../assets/side-icons/new9.png"
+import iconTen from "../../../assets/side-icons/new10.png"
+import iconEleven from "../../../assets/side-icons/new11.png"
+
 import { IoChevronDownSharp, IoChevronUpSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -21,7 +26,7 @@ const SideBarOptions = () => {
 
   return (
     <div className="sidebar_height">
-      <div className={makeActive}>
+      <div className={""}>
         <div
           onClick={() => handleSubOptionClick(constant.title)}
           className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
@@ -33,7 +38,7 @@ const SideBarOptions = () => {
               <img width={20} height={20} src={icon} alt="" />
             </span>
             <Link to={"/dashboard"} className="nav-link">
-              <span>Dashboard Two </span>
+              <span>Home </span>
             </Link>
           </div>
         </div>
@@ -45,6 +50,76 @@ const SideBarOptions = () => {
           constant={constant}
           handleSubOptionClick={handleSubOptionClick} />
       ))}
+      <div className="border-top my-3 py-3 border-white">
+        <div className={""}>
+          <div
+            onClick={() => handleSubOptionClick(constant.title)}
+            className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
+          >
+            <div
+              onClick={() => setIsOpenOption("class")}
+              className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
+              <span className="me-2">
+                <img width={20} height={20} src={iconEight} alt="" />
+              </span>
+              <Link to={"/dashboard"} className="nav-link">
+                <span>Enter Class Room </span>
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className={""}>
+          <div
+            onClick={() => handleSubOptionClick(constant.title)}
+            className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
+          >
+            <div
+              onClick={() => setIsOpenOption("recommendation")}
+              className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
+              <span className="me-2">
+                <img width={20} height={20} src={iconNine} alt="" />
+              </span>
+              <Link to={"/dashboard"} className="nav-link">
+                <span>Recommendations </span>
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className={""}>
+          <div
+            onClick={() => handleSubOptionClick(constant.title)}
+            className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
+          >
+            <div
+              onClick={() => setIsOpenOption("test")}
+              className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
+              <span className="me-2">
+                <img width={20} height={20} src={iconTen} alt="" />
+              </span>
+              <Link to={"/dashboard"} className="nav-link">
+                <span>Test Management </span>
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className={makeActive}>
+          <div
+            onClick={() => handleSubOptionClick(constant.title)}
+            className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
+          >
+            <div
+              onClick={() => setIsOpenOption("register")}
+              className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
+              <span className="me-2">
+                <img width={20} height={20} src={iconEleven} alt="" />
+              </span>
+              <Link to={"/dashboard"} className="nav-link">
+                <span>Register New Course</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

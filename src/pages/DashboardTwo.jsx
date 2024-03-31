@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import dashVideo from "../assets/dashboard-video.png"
 import classVideo from "../assets/dash-icons/classes.svg"
@@ -10,7 +10,9 @@ import { ThemeContext } from '../context/ThemeContext'
 const DashboardTwo = () => {
     const { setSideBg } = useContext(ThemeContext);
 
-    setSideBg("brown_sidebar")
+    useEffect(()=>{
+        setSideBg("brown_sidebar")
+    }, [])
 
     return (
         <div className='p-5' style={{ backgroundColor: "hsla(0, 0%, 85%, .1)" }}>

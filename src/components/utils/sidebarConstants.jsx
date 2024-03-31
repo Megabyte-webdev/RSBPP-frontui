@@ -1,10 +1,10 @@
-import iconOne from "../../assets/side-icons/icon1.svg"
-import iconTwo from "../../assets/side-icons/icon2.svg"
-import iconThree from "../../assets/side-icons/icon3.png"
-import iconFour from "../../assets/side-icons/icon4.png"
-import iconFive from "../../assets/side-icons/icon5.png"
-import iconSix from "../../assets/side-icons/icon6.png"
-import iconSeven from "../../assets/side-icons/icon7.png"
+import iconOne from "../../assets/side-icons/new1.png"
+import iconTwo from "../../assets/side-icons/new2.png"
+import iconThree from "../../assets/side-icons/new3.png"
+import iconFour from "../../assets/side-icons/new4.png"
+import iconFive from "../../assets/side-icons/new5.png"
+import iconSix from "../../assets/side-icons/new6.png"
+import iconSeven from "../../assets/side-icons/new7.png"
 import iconEight from "../../assets/side-icons/icon8.png"
 import iconNine from "../../assets/side-icons/icon9.png"
 
@@ -42,20 +42,6 @@ export const sidebarConstants = [
         ]
     },
     {
-        title: "Forums",
-        logo: iconThree,
-        subOptions: [
-             {
-                title: "Chats",
-                link: "/chats",
-            },
-            {
-                title: "Two",
-                link: "",
-            }
-        ]
-    },
-    {
         title: "Assignment",
         logo: iconFour,
         subOptions: [
@@ -70,7 +56,27 @@ export const sidebarConstants = [
         ]
     },
     {
-        title: "Meetings",
+        title: "Facilitators",
+        logo: iconFour,
+        subOptions: [
+        ]
+    },
+    {
+        title: "Forums",
+        logo: iconThree,
+        subOptions: [
+             {
+                title: "Chats",
+                link: "/chats",
+            },
+            {
+                title: "Two",
+                link: "",
+            }
+        ]
+    },
+    {
+        title: "Library/ Resource",
         logo: iconFive,
         subOptions: [
              {
@@ -100,20 +106,6 @@ export const sidebarConstants = [
     {
         title: "Certificates",
         logo: iconSeven,
-        subOptions: [
-             {
-                title: "One",
-                link: "/",
-            },
-            {
-                title: "Two",
-                link: "",
-            }
-        ]
-    },
-    {
-        title: "Setting",
-        logo: iconEight,
         subOptions: [
              {
                 title: "One",
