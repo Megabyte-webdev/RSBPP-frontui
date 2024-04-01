@@ -209,7 +209,7 @@ const Chats = () => {
                             <form className='open_sans mb-2' style={{ color: "hsla(242, 97%, 15%, .6)" }}>
                                 <div className="px-3">
                                     <div className='position-relative'>
-                                        <input type="text" className="btn border rounded-pill bg-white text-start px-5 px_4rem py-2 w-100" id="search" placeholder='Search' />
+                                        <input type="text" className="btn border rounded-pill bg-white text-start px-5 px_4rem py-2 w-100" id="comment" placeholder='Search' />
                                         <div className="position-absolute top-50 translate-middle-y p-2">
                                             <span className=" p-1">
                                                 <IoAddOutline size={20} />

@@ -88,6 +88,7 @@ export const sidebarConstants = [
     {
         title: "Logout",
         logo: iconNine,
+        link : "/login",
         subOptions: null
     },
 ]

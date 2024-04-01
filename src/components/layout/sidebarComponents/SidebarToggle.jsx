@@ -18,7 +18,9 @@ const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant }) => {
                         <span className="me-2">
                             <img width={20} height={20} src={constant.logo} alt="" />
                         </span>
-                        <span>{constant.title} </span>
+                        <Link to={constant.link} className='nav-link'>
+                            <span>{constant.title} </span>
+                        </Link>
                     </div>
                     {subOption === null ? null : (
                         <span>

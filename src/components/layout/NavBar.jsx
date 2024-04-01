@@ -9,7 +9,7 @@ import { BiSolidMessage } from "react-icons/bi";
 
 const NavBar = () => {
     return (
-        <div className='border-bottom shadow-sm p-3 p-md-5'>
+        <div className='border-bottom shadow-sm p-3 px-md-5'>
             <div className="poppins d-flex justify-content-between">
                 <div className="col-md-2">
                     <Link to={"/"}>
