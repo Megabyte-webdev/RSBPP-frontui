@@ -196,3 +196,7 @@ input:focus-visible {
   padding-left: 5rem !important;
   padding-right: 6rem !important;
 }
+
+.light_danger{
+  background-color: hsla(0, 75%, 64%, 0.2);
+}

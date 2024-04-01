@@ -4,8 +4,6 @@ import iconEight from "../../../assets/side-icons/new8.png"
 import iconNine from "../../../assets/side-icons/new9.png"
 import iconTen from "../../../assets/side-icons/new10.png"
 import iconEleven from "../../../assets/side-icons/new11.png"
-
-import { IoChevronDownSharp, IoChevronUpSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import SidebarToggle from "./SidebarToggle";
@@ -37,7 +35,7 @@ const SideBarOptions = () => {
             <span className="me-2">
               <img width={20} height={20} src={icon} alt="" />
             </span>
-            <Link to={"/dashboard"} className="nav-link">
+            <Link to={"/"} className="nav-link">
               <span>Home </span>
             </Link>
           </div>

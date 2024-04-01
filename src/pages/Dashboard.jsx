@@ -37,7 +37,8 @@ const cardItems = [
     },
 ]
 const strokeProps = {
-    shades : 6
+    shades : 6,
+    strokeLabel: "Faithful user"
 }
 const noOfNotes = [1, 2, 3, 4, 5]
 

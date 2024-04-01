@@ -94,12 +94,8 @@ export const sidebarConstants = [
         logo: iconSix,
         subOptions: [
              {
-                title: "One",
-                link: "/",
-            },
-            {
-                title: "Two",
-                link: "",
+                title: "Quiz",
+                link: "/quiz",
             }
         ]
     },

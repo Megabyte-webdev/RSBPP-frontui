@@ -21,7 +21,8 @@ const CoursesAnalysis = () => {
     const strokeProps = {
         strokeCap: "round",
         strokeColor: "#AB3335",
-        strokeSize: "65%"
+        strokeSize: "65%",
+        strokeLabel: "Completed"
     }
 
     return (

@@ -10,6 +10,7 @@ import ThemeContextProvider from './context/ThemeContext'
 import Courses from './pages/Courses'
 import CoursesAnalysis from './pages/CoursesAnalysis'
 import Chats from './pages/Chats'
+import QuizPage from './pages/QuizPage'
 
 const App = () => {
   return (
@@ -17,12 +18,13 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Dashboard />} />
+            <Route index element={<DashboardTwo />} />
             <Route path='/dashboard' element={<DashboardTwo />} />
             <Route path='/video_live' element={<VideoConference />} />
             <Route path='/courses' element={<Courses />} />
             <Route path='/courses_analysis' element={<CoursesAnalysis />} />
             <Route path='/chats' element={<Chats />} />
+            <Route path='/quiz' element={<QuizPage />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />

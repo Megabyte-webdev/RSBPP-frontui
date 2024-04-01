@@ -51,7 +51,7 @@ const RoundChart = ({ strokeProps }) => {
         dashArray: strokeProps.shades ? strokeProps.shades : "",
         lineCap: strokeProps.strokeCap ? strokeProps.strokeCap : ""
       },
-      labels: ['Faithful user'],
+      labels: [strokeProps.strokeLabel],
     },
   }
 
