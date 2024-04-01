@@ -57,7 +57,7 @@ const CoursesAnalysis = () => {
                     <div className="rounded bg-white p-3">
                         <p>Subject Overview</p>
                         <Row className='my-3'>
-                            <Col md={4} className='m-2'>
+                            <Col md={4} className='my-2'>
                                 <div className="p-2 d-flex" style={{ backgroundColor: "hsla(242, 97%, 15%, 0.2)" }}>
                                     <div className="d-flex video_btns" style={{ backgroundColor: "hsla(242, 97%, 15%, 1)" }}>
                                         <span>
@@ -71,7 +71,7 @@ const CoursesAnalysis = () => {
                                     </div>
                                 </div>
                             </Col>
-                            <Col md={4} className='m-2'>
+                            <Col md={4} className='my-2'>
                                 <div className="p-2 d-flex" style={{ backgroundColor: "hsla(120, 23%, 95%, 1)" }}>
                                     <div className="d-flex video_btns" style={{ backgroundColor: "hsla(113, 21%, 76%, 1)" }}>
                                         <span>
@@ -85,7 +85,7 @@ const CoursesAnalysis = () => {
                                     </div>
                                 </div>
                             </Col>
-                            <Col md={4} className='m-2'>
+                            <Col md={4} className='my-2'>
                                 <div className="p-2 d-flex" style={{ backgroundColor: "hsla(8, 67%, 95%, 1)" }}>
                                     <div className="d-flex video_btns" style={{ backgroundColor: "hsla(2, 68%, 75%, 1)" }}>
                                         <span>

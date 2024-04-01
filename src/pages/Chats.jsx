@@ -162,46 +162,26 @@ const Chats = () => {
                     </div>
                 </div>
                 <Col className="w-100">
-                    <div className="h-100 v_100 fs_xsm position-relative p-5">
-                        <div className="conversation ">
+                    <div className="h-100 v_100 fs_xsm position-relative p-md-5">
+                        <div className="conversation p-1">
                             <div className="d-flex my-3">
                                 <div className="me-3">
-                                    <img src={chatImg} alt="" height="60" width="60" className="img-fluid" />
+                                    <img src={chatImg} alt="" height="60" width="60" className=" chat_pic" />
                                 </div>
-                                <div className="p-3 bg-white col-6 rounded">
+                                <div className="p-3 bg-white col-md-10 rounded">
                                     I was wondering why Danny still works on Sketch
                                     when Figma is now cheap and accessible.
                                     This could really boost our process.
                                 </div>
                             </div>
                             <div className="d-flex justify-content-end my-3">
-                                <div className="p-3 col-6 rounded rounded-bottom  rounded-4 rounded-end-0 dark_ash">
+                                <div className="p-3 col-md-10 rounded rounded-bottom  rounded-4 rounded-end-0 dark_ash">
                                     I was wondering why Danny still works on Sketch
                                     when Figma is now cheap and accessible.
                                     This could really boost our process.
                                 </div>
                                 <div className="ms-3">
-                                    <img src={img2} alt="" height="60" width="60" className="img-fluid" />
-                                </div>
-                            </div>
-                            <div className="d-flex my-3">
-                                <div className="me-3">
-                                    <img src={chatImg} alt="" height="60" width="60" className="img-fluid" />
-                                </div>
-                                <div className="p-3 bg-white col-6 rounded">
-                                    I was wondering why Danny still works on Sketch
-                                    when Figma is now cheap and accessible.
-                                    This could really boost our process.
-                                </div>
-                            </div>
-                            <div className="d-flex justify-content-end my-3">
-                                <div className="p-3 col-6 rounded rounded-bottom  rounded-4 rounded-end-0 dark_ash">
-                                    I was wondering why Danny still works on Sketch
-                                    when Figma is now cheap and accessible.
-                                    This could really boost our process.
-                                </div>
-                                <div className="ms-3">
-                                    <img src={img2} alt="" height="60" width="60" className="img-fluid" />
+                                    <img src={img2} alt="" height="60" width="60" className=" chat_pic" />
                                 </div>
                             </div>
                         </div>
@@ -227,7 +207,7 @@ const Chats = () => {
                         </div>
                     </div>
                 </Col>
-                <Col xs={2} className="bg-white px-3 py-5">
+                <Col xs={2} className="bg-white d-none d-md-block px-3 py-5">
                     <div className="d-flex justify-content-center">
                         <div className="">
                             <div className="position-relative">

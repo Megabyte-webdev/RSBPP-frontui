@@ -55,6 +55,10 @@ input:focus-visible {
   background-color: hsla(359, 4%, 8%, 0.5) !important;
 }
 
+.guide_active {
+  color: #ab3335 !important;
+}
+
 .sidebar_height {
   max-height: 100%;
   overflow-y: scroll;
@@ -210,4 +214,16 @@ input:focus-visible {
 }
 .yellow_bg{
   background-color: hsla(43, 100%, 51%, 1);
+}
+
+.chat_pic{
+  width: 60px !important;
+  height: 60px !important;
+}
+
+@media (max-width: 768px) {
+  .chat_pic{
+    width: 30px !important;
+    height: 30px !important;
+  }
 }

@@ -5,9 +5,9 @@ import { BsCameraReels } from "react-icons/bs";
 
 
 const RegistrationGuide = ({display}) => {
-    const reg = display === "registration" ? "sidebar_active" : "";
-    const otp = display === "otp" ? "sidebar_active" : "";
-    const onboard = display === "onboarding" ? "sidebar_active" : "";
+    const reg = display === "registration" ? "guide_active" : "";
+    const otp = display === "otp" ? "guide_active" : "";
+    const onboard = display === "onboarding" ? "guide_active" : "";
     return (
         <div className='brown_bg d-flex align-items-center justify-content-center poppins' style={{ minHeight: "100vh" }}>
             <div className="col-10">
