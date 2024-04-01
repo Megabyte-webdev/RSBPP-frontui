@@ -7,9 +7,9 @@ import { ThemeContext } from "../../context/ThemeContext"
 const SideBar = () => {
   const { sideBg } = useContext(ThemeContext)
   return (
-    <Col style={{ height: "100vh" }} className={'border-end'} md={2}>
+    <Col style={{ minHeight: "100vh" }} className={'border-end d-none d-md-block'} md={2}>
       <div className={sideBg}>
-        <div className=" py-3">
+        <div className=" py-4">
           <div className="user_details mb-5">
             <div className="d-flex justify-content-center mb-2">
               <img className="img-fluid" src={userPics} alt="" />

@@ -192,6 +192,10 @@ input:focus-visible {
 .dark_ash{
   background-color: #CCCACA;
 }
+
+.light_ash{
+  background-color: hsla(210, 15%, 29%, 0.04);
+}
 .px_4rem{
   padding-left: 5rem !important;
   padding-right: 6rem !important;
@@ -199,4 +203,11 @@ input:focus-visible {
 
 .light_danger{
   background-color: hsla(0, 75%, 64%, 0.2);
+}
+
+.yellow_text{
+  color: hsla(43, 100%, 51%, 1);
+}
+.yellow_bg{
+  background-color: hsla(43, 100%, 51%, 1);
 }

@@ -20,23 +20,29 @@ const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant }) => {
                         </span>
                         <span>{constant.title} </span>
                     </div>
-                    <span>
-                        {isOpenOption === constant.title ? (
-                            <IoChevronUpSharp />
-                        ) : (
-                            <IoChevronDownSharp />
-                        )}
-                    </span>
+                    {subOption === null ? null : (
+                        <span>
+                            {isOpenOption === constant.title ? (
+                                <IoChevronUpSharp />
+                            ) : (
+                                <IoChevronDownSharp />
+                            )}
+                        </span>
+                    )}
                 </div>
             </div>
-            {isOpenOption === constant.title && (
-                <ul style={{ listStyle: "none" }} className="border-start border_brown ms-4">
-                    {
-                        subOption?.map((sub, index) => (
-                            <li key={index}><Link to={sub.link ? sub.link : ""} className="nav-link">{sub.title}</Link></li>
-                        ))
-                    }
-                </ul>
+            {subOption === null ? null : (
+                <div>
+                    {isOpenOption === constant.title && (
+                        <ul style={{ listStyle: "none" }} className="border-start border_brown ms-4">
+                            {
+                                subOption?.map((sub, index) => (
+                                    <li key={index}><Link to={sub.link ? sub.link : ""} className="nav-link">{sub.title}</Link></li>
+                                ))
+                            }
+                        </ul>
+                    )}
+                </div>
             )}
         </div>
     )

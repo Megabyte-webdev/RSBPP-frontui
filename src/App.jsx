@@ -11,6 +11,7 @@ import Courses from './pages/Courses'
 import CoursesAnalysis from './pages/CoursesAnalysis'
 import Chats from './pages/Chats'
 import QuizPage from './pages/QuizPage'
+import Messages from './pages/Messages'
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
             <Route path='/courses_analysis' element={<CoursesAnalysis />} />
             <Route path='/chats' element={<Chats />} />
             <Route path='/quiz' element={<QuizPage />} />
+            <Route path='/messages' element={<Messages />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />

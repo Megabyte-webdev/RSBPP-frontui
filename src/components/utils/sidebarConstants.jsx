@@ -44,22 +44,12 @@ export const sidebarConstants = [
     {
         title: "Assignment",
         logo: iconFour,
-        subOptions: [
-             {
-                title: "One",
-                link: "/",
-            },
-            {
-                title: "Two",
-                link: "",
-            }
-        ]
+        subOptions: null
     },
     {
         title: "Facilitators",
         logo: iconFour,
-        subOptions: [
-        ]
+        subOptions: null
     },
     {
         title: "Forums",
@@ -70,24 +60,15 @@ export const sidebarConstants = [
                 link: "/chats",
             },
             {
-                title: "Two",
-                link: "",
+                title: "messages",
+                link: "/messages",
             }
         ]
     },
     {
         title: "Library/ Resource",
         logo: iconFive,
-        subOptions: [
-             {
-                title: "One",
-                link: "/",
-            },
-            {
-                title: "Two",
-                link: "",
-            }
-        ]
+        subOptions: null
     },
     {
         title: "Quizzes",
@@ -102,29 +83,11 @@ export const sidebarConstants = [
     {
         title: "Certificates",
         logo: iconSeven,
-        subOptions: [
-             {
-                title: "One",
-                link: "/",
-            },
-            {
-                title: "Two",
-                link: "",
-            }
-        ]
+        subOptions: null
     },
     {
         title: "Logout",
         logo: iconNine,
-        subOptions: [
-             {
-                title: "One",
-                link: "/",
-            },
-            {
-                title: "Two",
-                link: "",
-            }
-        ]
+        subOptions: null
     },
 ]

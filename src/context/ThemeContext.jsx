@@ -4,7 +4,7 @@ export const ThemeContext = createContext()
 
 const ThemeContextProvider = ({ children }) => {
 
-    const [sideBg, setSideBg] = useState("")
+    const [sideBg, setSideBg] = useState("brown_sidebar")
 
     return (
         <ThemeContext.Provider value={{
