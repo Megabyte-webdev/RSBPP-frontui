@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const Messages = () => {
     return (
         <div style={{ backgroundColor: "hsla(219, 50%, 95%, 1)" }}>
-            <div className="p-5">
+            <div className="p-3 p-md-5">
                 <Row>
                     <Col md={8}>
                         <h5>General</h5>

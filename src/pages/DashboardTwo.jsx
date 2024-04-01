@@ -15,7 +15,7 @@ const DashboardTwo = () => {
     }, [])
 
     return (
-        <div className='p-5' style={{ backgroundColor: "hsla(0, 0%, 85%, .1)" }}>
+        <div className='p-3 p-md-5' style={{ backgroundColor: "hsla(0, 0%, 85%, .1)" }}>
             <Row>
                 <Col md={8}>
                     <h6 className='my-4'>Ngozi, Introduction to Public Procurement</h6>

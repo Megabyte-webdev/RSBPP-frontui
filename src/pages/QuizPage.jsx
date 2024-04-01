@@ -26,7 +26,7 @@ const QuizPage = () => {
 
     return (
         <div style={{ backgroundColor: "hsla(219, 50%, 95%, 1)" }}>
-            <div className="py-5 px-4">
+            <div className="p-3 p-md-5">
                 <Row>
                     <Col md={4}>
                         <div className="brown_bg rounded text-white p-3">

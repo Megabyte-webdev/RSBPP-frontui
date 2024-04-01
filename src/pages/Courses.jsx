@@ -16,7 +16,7 @@ const Courses = () => {
   }, [])
 
   return (
-    <div className='p-5 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, 1)" }}>
+    <div className='p-3 p-md-5 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, 1)" }}>
       <div className='col-8 col-md-4'>
         <form className='open_sans mb-3 ' style={{ color: "hsla(242, 97%, 15%, .6)" }}>
           <div className="mb-4">

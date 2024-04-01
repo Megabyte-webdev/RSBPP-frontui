@@ -9,7 +9,7 @@ const MobileSidebar = () => {
 
     return (
         <div className="d-md-none">
-            <button className=" p-0 border rounded mt-5 ms-3 bg-white position-absolute top-0 start-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+            <button className=" p-0 border rounded mt-5 ms-2 bg-white position-absolute top-0 start-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                 <MdChevronRight size={30} />
             </button>
 

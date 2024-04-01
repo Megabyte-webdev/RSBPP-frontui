@@ -14,7 +14,7 @@ const VideoConference = () => {
 
     setSideBg("brown_sidebar")
     return (
-        <div className='p-5 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, 1)" }}>
+        <div className='p-3 p-md-5 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, 1)" }}>
             <Row>
                 <Col md={7}>
                     <div className="my-3">
