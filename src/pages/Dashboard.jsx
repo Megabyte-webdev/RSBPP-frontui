@@ -13,6 +13,7 @@ import Notification from "../components/dashboard/Notification"
 import LearningChart from "../components/dashboard/LearningChart"
 import { useContext } from "react"
 import { ThemeContext } from "../context/ThemeContext"
+import { UserContext } from "../context/AuthContext"
 
 const cardItems = [
     {
@@ -37,13 +38,15 @@ const cardItems = [
     },
 ]
 const strokeProps = {
-    shades : 6,
+    shades: 6,
     strokeLabel: "Faithful user"
 }
 const noOfNotes = [1, 2, 3, 4, 5]
 
 const Dashboard = () => {
     const { setSideBg } = useContext(ThemeContext);
+    const { userCredentials } = useContext(UserContext);
+console.log(userCredentials)
 
     setSideBg("")
     return (
@@ -81,7 +84,7 @@ const Dashboard = () => {
                     </Col>
                     <Col md={3}>
                         <div className="shadow rounded h-100 p-3 py-4">
-                            <RoundChart  strokeProps={strokeProps} />
+                            <RoundChart strokeProps={strokeProps} />
                             <div className="border-top mt-3">
                                 <div className="d-flex justify-content-between fs_sm">
                                     <p>Next Badge:</p>

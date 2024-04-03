@@ -6,9 +6,12 @@ import forum from "../assets/dash-icons/forum.svg"
 import schedule from "../assets/dash-icons/schedule.svg"
 import { Link } from 'react-router-dom'
 import { ThemeContext } from '../context/ThemeContext'
+import { UserContext } from '../context/AuthContext'
 
 const DashboardTwo = () => {
     const { setSideBg } = useContext(ThemeContext);
+    const { userCredentials } = useContext(UserContext);
+console.log(userCredentials) 
 
     useEffect(()=>{
         setSideBg("brown_sidebar")

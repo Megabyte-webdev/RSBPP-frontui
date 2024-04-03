@@ -12,28 +12,33 @@ import CoursesAnalysis from './pages/CoursesAnalysis'
 import Chats from './pages/Chats'
 import QuizPage from './pages/QuizPage'
 import Messages from './pages/Messages'
+import ToastProvider from './context/ToastProvider'
+import UserContextProvider from './context/AuthContext'
 
 const App = () => {
   return (
-    <ThemeContextProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<DashboardTwo />} />
-            <Route path='/dashboard' element={<DashboardTwo />} />
-            <Route path='/video_live' element={<VideoConference />} />
-            <Route path='/courses' element={<Courses />} />
-            <Route path='/courses_analysis' element={<CoursesAnalysis />} />
-            <Route path='/chats' element={<Chats />} />
-            <Route path='/quiz' element={<QuizPage />} />
-            <Route path='/messages' element={<Messages />} />
-          </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/registration" element={<Registration />} />
-        </Routes>
-      </Router>
-    </ThemeContextProvider> 
+    <UserContextProvider>
+      <ThemeContextProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<DashboardTwo />} />
+              <Route path='/dashboard' element={<DashboardTwo />} />
+              <Route path='/video_live' element={<VideoConference />} />
+              <Route path='/courses' element={<Courses />} />
+              <Route path='/courses_analysis' element={<CoursesAnalysis />} />
+              <Route path='/chats' element={<Chats />} />
+              <Route path='/quiz' element={<QuizPage />} />
+              <Route path='/messages' element={<Messages />} />
+            </Route>
+            <Route path="/login" element={<Login />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/registration" element={<Registration />} />
+          </Routes>
+        </Router>
+        <ToastProvider />
+      </ThemeContextProvider>
+    </UserContextProvider>
   )
 }
 

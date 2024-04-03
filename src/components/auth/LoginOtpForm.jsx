@@ -1,20 +1,45 @@
+import axios from "axios";
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import OtpInput from "react-otp-input";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/base";
+import toast from "react-hot-toast";
 
 const LoginOtpForm = () => {
+  const userData = JSON.parse(localStorage.getItem("userDetails"))
 
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState(userData.otp);
+  const [showMsg, setShowMsg] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [errorMsg, setErrorMsg] = useState("")
   const navigate = useNavigate()
 
-  const handleSubmit = () => {
-      navigate("/")
+  const handleOtpSubmit = (e) => {
+    const otpDetails = {
+      otp: otp,
+      email: userData.user.email
+    }
+    e.preventDefault();
+    setErrorMsg("")
+    setLoading(true)
+    axios.post(`${BASE_URL}verifyOtp`, otpDetails,)
+      .then((response) => {
+        navigate("/")
+        console.log(response)
+        toast.success("Login successfully");
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.log(error);
+        setErrorMsg(error.response.data.response)
+        setShowMsg(true)
+        setLoading(false);
+      });
   }
-  const handleOtpSubmit = async (event) => {
-    event.preventDefault();
-    alert(otp)
-  }
+
+
+  // console.log(userData)
   return (
     <div>
       <div className="poppins" style={{ color: "hsla(270, 1%, 27%, 1)" }}>
@@ -34,17 +59,12 @@ const LoginOtpForm = () => {
           />
         </div>
         <div className="mt-5 col-6 mx-auto">
+          {showMsg && (<p className="text-center mb-3 text-danger">{errorMsg}</p>)}
           <Button
-          onClick={handleSubmit}
-          type="submit" className="brown_bg rounded-3 border-0 w-100">
-            {/* {isLoading && (
-              <div className="spinner-border text-light" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-            )} */}
-            {/* {!isLoading &&  */}
+            type="submit" className="brown_bg rounded-3 border-0 w-100">
+
             Verify
-            {/* } */}
+            {loading && (<span className='ms-2'><Spinner size='sm' /></span>)}
           </Button>
         </div>
       </form>
