@@ -36,7 +36,7 @@ const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant }) => {
             {subOption === null ? null : (
                 <div>
                     {isOpenOption === constant.title && (
-                        <ul style={{ listStyle: "none" }} className="border-start border_brown ms-4">
+                        <ul style={{ listStyle: "none" }} className="border-start border-white ms-4">
                             {
                                 subOption?.map((sub, index) => (
                                     <li key={index}><Link to={sub.link ? sub.link : ""} className="nav-link">{sub.title}</Link></li>

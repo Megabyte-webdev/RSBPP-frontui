@@ -2,6 +2,7 @@ import React from 'react'
 import { PiUser, PiUserFocusThin } from "react-icons/pi";
 import { MdOutlineMail } from "react-icons/md";
 import { BsCameraReels } from "react-icons/bs";
+import { GiVideoConference } from "react-icons/gi";
 
 
 const RegistrationGuide = ({display}) => {
@@ -62,6 +63,18 @@ const RegistrationGuide = ({display}) => {
                 <div className="d-flex">
                     <div className='icon_square mb-5'>
                         <span className={onboard}>
+                            <GiVideoConference size={25} />
+                        </span>
+                        {/* <div className="position-absolute pb-5 start-50 border-end"></div> */}
+                    </div>
+                    <div className='ms-3 text-white mt-2'>
+                        <p className='fw-semibold'>Welcome video</p>
+                        <p className="fs_sm">Start your journey with a Click</p>
+                    </div>
+                </div>
+                <div className="d-flex">
+                    <div className='icon_square mb-5'>
+                        <span className={""}>
                             <BsCameraReels />
                         </span>
                         {/* <div className="position-absolute pb-5 start-50 border-end"></div> */}

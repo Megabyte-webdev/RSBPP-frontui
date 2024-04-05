@@ -8,6 +8,7 @@ import { MdOutlineGroupAdd, MdAttachFile, MdSend  } from "react-icons/md";
 import VideoParticipants from '../components/video_conference/VideoParticipants'
 import VideoChats from '../components/video_conference/VideoChats'
 import { ThemeContext } from '../context/ThemeContext'
+import VideoApp from '../components/video-sdk/VideoApp'
 
 const VideoConference = () => {
     const { setSideBg } = useContext(ThemeContext);
@@ -39,7 +40,10 @@ const VideoConference = () => {
                 <Col md={7}>
                     <div>
                         <div className=''>
-                            <img src={videoConference} alt="" className="img-fluid" />
+                            {/* <img src={videoConference} alt="" className="img-fluid" /> */}
+                        </div>
+                        <div>
+                            <VideoApp/>
                         </div>
                         <div className="bg-white p-3 rounded">
                             <Row>

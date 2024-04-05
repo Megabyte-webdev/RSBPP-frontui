@@ -39,6 +39,10 @@ export const sidebarConstants = [
                 title: "courses analysis",
                 link: "/courses_analysis",
             },
+            {
+                title: "my learning",
+                link: "/learning",
+            },
         ]
     },
     {

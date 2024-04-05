@@ -221,9 +221,35 @@ input:focus-visible {
   height: 60px !important;
 }
 
+.border_brown{
+  border-color: #ab3335 !important;
+}
+
 @media (max-width: 768px) {
   .chat_pic{
     width: 30px !important;
     height: 30px !important;
   }
+}
+
+.items_style{
+  padding: 0px 1rem;
+}
+
+.active_dot{
+  background-color: #ab3335;
+}
+
+.dots_list{
+  bottom: 0px;
+/* background-color: #03014c; */
+  display: flex;
+  justify-content: end;
+}
+
+#no_border{
+  border: none !important;
+  width: 30px;
+  margin-right: 5px;
+  padding: 2px 0;
 }

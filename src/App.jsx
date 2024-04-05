@@ -14,6 +14,8 @@ import QuizPage from './pages/QuizPage'
 import Messages from './pages/Messages'
 import ToastProvider from './context/ToastProvider'
 import UserContextProvider from './context/AuthContext'
+import MyLearning from './pages/MyLearning'
+import LearningDetails from './pages/LearningDetails'
 
 const App = () => {
   return (
@@ -26,6 +28,8 @@ const App = () => {
               <Route path='/dashboard' element={<DashboardTwo />} />
               <Route path='/video_live' element={<VideoConference />} />
               <Route path='/courses' element={<Courses />} />
+              <Route path='/learning' element={<MyLearning />} />
+              <Route path='/learning/:id' element={<LearningDetails />} />
               <Route path='/courses_analysis' element={<CoursesAnalysis />} />
               <Route path='/chats' element={<Chats />} />
               <Route path='/quiz' element={<QuizPage />} />

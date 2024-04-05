@@ -9,10 +9,10 @@ import user from "../assets/user-icon.png"
 
 
 const Courses = () => {
-    const { setSideBg } = useContext(ThemeContext);
+  const { setSideBg } = useContext(ThemeContext);
 
-    useEffect(()=>{
-      setSideBg("brown_sidebar")
+  useEffect(() => {
+    setSideBg("brown_sidebar")
   }, [])
 
   return (
@@ -30,17 +30,17 @@ const Courses = () => {
       <Row>
         <Col md={9}>
           <div className="brown_bg p-5 my-4 rounded">
-                        <div className="d-flex align-items-center text-white">
-                            <div className="me-3 border border-4 rounded-pill">
-                                <img src={user} alt="" className="img-fluid" />
-                            </div>
-                            <div>
-                                <p>Ekong  Lawal</p>
-                                <p>S7 - Electronics and communication Engineering</p>
-                                <p className="fs_xsm">Course No : 673664646</p>
-                            </div>
-                        </div>
-                    </div>
+            <div className="d-flex align-items-center text-white">
+              <div className="me-3 border border-4 rounded-pill">
+                <img src={user} alt="" className="img-fluid" />
+              </div>
+              <div>
+                <p>Ekong  Lawal</p>
+                <p>S7 - Electronics and communication Engineering</p>
+                <p className="fs_xsm">Course No : 673664646</p>
+              </div>
+            </div>
+          </div>
           <div className="d-flex px-3 mb-3 justify-content-between">
             <h5 className="prime_blue">Course Stats</h5>
             <p>View all</p>

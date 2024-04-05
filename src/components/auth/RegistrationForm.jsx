@@ -67,17 +67,17 @@ const RegistrationForm = ({ setDisplay }) => {
             });
     }
 
-    // console.log(regDetails)
-    // const handleRegistration = () => {
-    //     setDisplay("otp")
-    // }
+    console.log(regDetails)
+    const handleRegistrations = () => {
+        setDisplay("otp")
+    }
     return (
         <div className='col-8 prime_blue'>
             <div className="open_sans reg_form my-4">
                 <h3>Create Account</h3>
                 <p className='pe-5 fw_sm mb-4'>Please complete the fields below.If you already have an existing accounts, please follow Get Access to login</p>
                 <form 
-                onSubmit={handleRegistration}
+                onSubmit={handleRegistrations}
                 >
                     <div className="overflow_y">
                         <div className="mb-4">

@@ -4,8 +4,9 @@ import SideBarOptions from './sidebarComponents/SideBarOptions'
 import { ThemeContext } from "../../context/ThemeContext"
 import { MdChevronLeft, MdChevronRight } from "react-icons/md"
 
-const MobileSidebar = () => {
+const MobileSidebar = ({userCredentials}) => {
     const { sideBg } = useContext(ThemeContext);
+    const user = userCredentials?.user;
 
     return (
         <div className="d-md-none">
@@ -27,7 +28,7 @@ const MobileSidebar = () => {
                                 <div className="d-flex justify-content-center mb-2">
                                     <img className="img-fluid" src={userPics} alt="" />
                                 </div>
-                                <p className="text-center fw-semibold">Cameron Schofield</p>
+                                <p className="text-center fw-semibold">{user?.first_name} {user?.last_name}</p>
                                 <div className="d-flex justify-content-between py-2">
                                     <div className="border-end col">
                                         <p className="text-center"><b>0</b></p>
