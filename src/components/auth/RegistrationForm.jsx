@@ -3,7 +3,7 @@ import { SiSubtitleedit } from "react-icons/si";
 import { GrBusinessService } from "react-icons/gr";
 import { AiOutlineMail } from "react-icons/ai";
 import { TfiUnlock } from 'react-icons/tfi';
-import RegOtpForm from './RegOtpForm';
+// import RegOtpForm from './RegOtpForm';
 import { useContext, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -11,10 +11,12 @@ import { Spinner } from 'react-bootstrap';
 import { BASE_URL } from '../utils/base';
 import { UserContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 
 const RegistrationForm = ({ setDisplay }) => {
     const { userCredentials } = useContext(UserContext)
+    const [inputType, setInputType] = useState("password")
     const [loading, setLoading] = useState(false)
     const [errorMsg, setErrorMsg] = useState("")
     const [showMsg, setShowMsg] = useState(false)
@@ -31,6 +33,15 @@ const RegistrationForm = ({ setDisplay }) => {
         previousl_trained: true
     })
 
+    const handleToggle = () => {
+        if (inputType === 'password') {
+            setInputType('text');
+            //   setIcon(faEye);
+        } else {
+            setInputType('password');
+            //   setIcon(faEyeSlash);
+        }
+    };
 
     const handleOnChange = (e) => {
         const { value, name, type, checked } = e.target
@@ -76,8 +87,8 @@ const RegistrationForm = ({ setDisplay }) => {
             <div className="open_sans reg_form my-4">
                 <h3>Create Account</h3>
                 <p className='pe-5 fw_sm mb-4'>Please complete the fields below.If you already have an existing accounts, please follow Get Access to login</p>
-                <form 
-                onSubmit={handleRegistrations}
+                <form
+                    onSubmit={handleRegistration}
                 >
                     <div className="overflow_y">
                         <div className="mb-4">
@@ -150,12 +161,12 @@ const RegistrationForm = ({ setDisplay }) => {
                         </div>
                         <div className="mb-4">
                             <div className='position-relative'>
-                                <input type="password"
+                                <input type={inputType}
                                     name="password"
                                     value={regDetails.password}
                                     onChange={handleOnChange}
                                     className="btn input_bg px-5 py-2 w-100" placeholder='password' />
-                                <span className="position-absolute start-0 top-0 p-2"><TfiUnlock /> </span>
+                                <span onClick={handleToggle} className="position-absolute start-0 top-0 p-2">{inputType === "password" ? <FaEye /> : <FaEyeSlash />} </span>
                             </div>
                         </div>
                         {/* <div className="mb-4">
