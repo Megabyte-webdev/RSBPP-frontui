@@ -29,12 +29,12 @@ const App = () => {
               <Route path='/video_live' element={<VideoConference />} />
               <Route path='/courses' element={<Courses />} />
               <Route path='/learning' element={<MyLearning />} />
-              <Route path='/learning/:id' element={<LearningDetails />} />
               <Route path='/courses_analysis' element={<CoursesAnalysis />} />
               <Route path='/chats' element={<Chats />} />
               <Route path='/quiz' element={<QuizPage />} />
               <Route path='/messages' element={<Messages />} />
             </Route>
+            <Route path='/learning/:id' element={<LearningDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/registration" element={<Registration />} />

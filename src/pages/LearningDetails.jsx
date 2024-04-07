@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { BiSolidBadgeCheck } from 'react-icons/bi'
 import { MdArrowDropDown, MdOutlineVideoChat } from 'react-icons/md'
+import { CgTimelapse } from "react-icons/cg";
 import Curricullum from '../components/Learning/Curricullum'
+import user from "../assets/img-2.png"
+import NavBar from '../components/layout/NavBar'
+import { ThemeContext } from '../context/ThemeContext'
 
 const LearningDetails = () => {
+    const { searchField, setSearchField } = useContext(ThemeContext)
+
+    useEffect(() => {
+        setSearchField(true)
+    }, [])
+
+    console.log(searchField)
     return (
         <div>
+            <NavBar />
             <div className="brown_bg p-3 p-md-5 text-white">
                 <div className="d-flex justify-content-center align-items-center">
                     <div>
@@ -39,6 +51,9 @@ const LearningDetails = () => {
                         </span>
                         <span>Live Classes</span>
                     </div>
+                </div>
+                <div className="d-flex justify-content-center">
+                    <button className='btn blue_bg text-white py-2 px-5 rounded-0'>Enroll Now - $499.00</button>
                 </div>
             </div>
             <div className="p-3 px-md-5 border-bottom">
@@ -84,7 +99,27 @@ const LearningDetails = () => {
                             <Curricullum />
                         </div>
                     </Col>
-                    <Col md={4}></Col>
+                    <Col md={4}>
+                        <div className="rounded my-2 p-3 bg-white">
+                            <p className="fw-semibold mb-2">Target Participants:</p>
+                            <p>Forward thinking entrepreneurs, and professionals in heavily regulated industries</p>
+                            <div className="d-flex fw-semibold mt-3">
+                                <p><span className='prime_bg'><CgTimelapse /> 40</span> <span> Slot available</span></p>
+                            </div>
+                        </div>
+                        <div className="rounded my-2 p-3 bg-white">
+                            <p className="fw-semibold mb-2">Class Type</p>
+                            <p>Executive Class</p>
+                        </div>
+                        <div className="rounded my-2 p-3 py-4 bg-white">
+                            <div className="d-flex justify-content-center">
+                                <div>
+                                    <img src={user} alt="" className="" />
+                                </div>
+                            </div>
+                            <p className='fs_sm my-4'>How do you know your learners are retaining knowledge in appropriate volumes and timeframes? That’s right: You throw in assessments, and see if the students “catch your drift”. Obviously, there is a boring way to assess performance through brick-and-mortar tests, but there’s also an engaging way – through online quizzes. This seems easy as pie to Instructional Designers, yet there are certain techniques that will help you pick the right form and content for quizzing. Some handy tips for effective eLearning quiz questions in this article!</p>
+                        </div>
+                    </Col>
                 </Row>
             </div>
         </div>

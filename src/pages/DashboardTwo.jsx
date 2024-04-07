@@ -7,6 +7,7 @@ import schedule from "../assets/dash-icons/schedule.svg"
 import { Link } from 'react-router-dom'
 import { ThemeContext } from '../context/ThemeContext'
 import { UserContext } from '../context/AuthContext'
+import DashboardWidget from '../components/dashboard/DashboardWidget'
 
 const DashboardTwo = () => {
     const { setSideBg } = useContext(ThemeContext);
@@ -22,6 +23,7 @@ console.log(userCredentials)
             <Row>
                 <Col md={8}>
                     <h6 className='my-4'>Ngozi, Introduction to Public Procurement</h6>
+                    <DashboardWidget/>
                     <Row>
                         <Col md={6} className=' my-4 dash_grid'>
                             <div className="shadow h-100 p-0 rounded">

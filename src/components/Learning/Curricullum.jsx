@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { MdArrowDropDown } from 'react-icons/md';
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md';
 
 const Curricullum = () => {
 
@@ -32,18 +32,22 @@ const Curricullum = () => {
         <>
             {
                 items.map((item) => {
-                    const subItems =item.sub;
+                    const subItems = item.sub;
                     return (
                         <div key={item.topic} className="mb-2 bg-white rounded p-4">
                             <div className="d-flex justify-content-between">
                                 <h5>{item.topic}</h5>
-                                <button className='prime_brown btn border-0'><span>preview</span> <span> <MdArrowDropDown size={24} /> </span></button>
+                                <button
+                                onClick={()=>handleSubOptionClick(item.topic)}
+                                 className='prime_brown btn border-0'><span>preview</span> <span>{isOpenOption ?  <MdArrowDropUp size={24} />  : <MdArrowDropDown size={24} />} </span></button>
                             </div>
-                            <ol className="fs_sm my-1">
-                                {subItems.map((sub, index) =>(
-                                <li key={index}>{sub}</li>
-                                )) }
-                            </ol>
+                            {isOpenOption === item.topic && (
+                                <ol className="fs_sm my-1">
+                                    {subItems.map((sub, index) => (
+                                        <li key={index}>{sub}</li>
+                                    ))}
+                                </ol>
+                            )}
                         </div>
                     )
                 })

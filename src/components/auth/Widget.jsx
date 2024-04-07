@@ -6,23 +6,23 @@ import { BsInfoLg } from "react-icons/bs";
 import { GiVideoConference } from "react-icons/gi";
 import { MdOutlineOfflinePin } from "react-icons/md";
 
-const Widget = ({ display }) => {
+const Widget = ({ handleDisplay }) => {
 
     const navigate = useNavigate()
 
-    const handleOnboarding = () => {
-        navigate("/")
-    }
+    // const handleOnboarding = () => {
+    //     navigate("/")
+    // }
     return (
-        <div className='col-10'>
-            <div className='my-5 text-center'>
-                <h3>Video Introduction</h3>
-                <p>Get up and start running in a few minutes</p>
+        <div className=''>
+            <div className='my-3 my-md-5 text-center'>
+                <h3>Kindly use the Widget</h3>
+                <p>To select the Type of course you want to subscribe to</p>
             </div>
             <Row>
-                <Col md={4}>
-                    <Link to={""} className='nav-link'>
-                        <div className="p-3 rounded border-2 border_brown border">
+                <Col md={4} className='mb-3'>
+                    <Link to={"/learning"} className='nav-link h-100'>
+                        <div className="p-3 rounded border-2 border_brown border h-100">
                             <div className="d-flex justify-content-between">
                                 <h5>Certificate Course</h5>
                                 <div>
@@ -36,9 +36,9 @@ const Widget = ({ display }) => {
                         </div>
                     </Link>
                 </Col>
-                <Col md={4}>
-                    <Link to={""} className='nav-link'>
-                        <div className="p-3 rounded border-2 border_brown border">
+                <Col md={4} className='mb-3'>
+                    <Link to={"/learning"} className='nav-link h-100'>
+                        <div className="p-3 rounded border-2 border_brown border h-100">
                             <div className="d-flex justify-content-between">
                                 <h5>Executive Online</h5>
                                 <div>
@@ -52,8 +52,8 @@ const Widget = ({ display }) => {
                         </div>
                     </Link>
                 </Col>
-                <Col md={4}>
-                    <Link to={""} className='nav-link h-100'>
+                <Col md={4} className='mb-3'>
+                    <Link to={"/learning"} className='nav-link h-100'>
                         <div className="p-3 rounded border-2 border_brown border h-100">
                             <div className="d-flex justify-content-between">
                                 <h5>Offline</h5>
@@ -71,7 +71,7 @@ const Widget = ({ display }) => {
             </Row>
             <div className="mt-5 col-6 mx-auto">
                 <Button
-                    onClick={handleOnboarding}
+                    onClick={() => handleDisplay()}
                     type="submit" className="brown_bg rounded-3 border-0 w-100">
                     {/* {isLoading && (
               <div className="spinner-border text-light" role="status">

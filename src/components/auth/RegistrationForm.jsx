@@ -169,7 +169,7 @@ const RegistrationForm = ({ setDisplay }) => {
                                 <span onClick={handleToggle} className="position-absolute start-0 top-0 p-2">{inputType === "password" ? <FaEye /> : <FaEyeSlash />} </span>
                             </div>
                         </div>
-                        {/* <div className="mb-4">
+                        {/* <div className="mb-4"
                             <div className='position-relative'>
                                 <input type="password" className="btn input_bg px-5 py-2 w-100" placeholder='confirm password' />
                                 <span className="position-absolute start-0 top-0 p-2"><TfiUnlock /> </span>
