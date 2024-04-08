@@ -12,36 +12,42 @@ const MyLearning = () => {
             <div className="my-3">
                 <p className="fw-bold mb-2">Onsite</p>
                 <div className="d-md-flex">
-                    <div className="d-flex justify-content-between col-md-7">
-                        <div className="dropdown me-3">
-                            <button className="btn border-black border dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Faculty
-                            </button>
-                            <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="#">Action</a></li>
-                                <li><a className="dropdown-item" href="#">Another action</a></li>
-                                <li><a className="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
+                    <div className="row col-md-7">
+                        <div className="col">
+                            <div className="dropdown">
+                                <button className="btn border-black border w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Faculty
+                                </button>
+                                <ul className="dropdown-menu">
+                                    <li><a className="dropdown-item" href="#">Action</a></li>
+                                    <li><a className="dropdown-item" href="#">Another action</a></li>
+                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </div>
                         </div>
-                        <div className="dropdown me-5">
-                            <button className="btn border-black border dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Duration
-                            </button>
-                            <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="#">Action</a></li>
-                                <li><a className="dropdown-item" href="#">Another action</a></li>
-                                <li><a className="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
+                        <div className="col">
+                            <div className="dropdown">
+                                <button className="btn border-black border w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Duration
+                                </button>
+                                <ul className="dropdown-menu">
+                                    <li><a className="dropdown-item" href="#">Action</a></li>
+                                    <li><a className="dropdown-item" href="#">Another action</a></li>
+                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </div>
                         </div>
-                        <div className="dropdown me-3">
-                            <button className="btn border-black border dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Get Brochure
-                            </button>
-                            <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="#">Action</a></li>
-                                <li><a className="dropdown-item" href="#">Another action</a></li>
-                                <li><a className="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
+                        <div className="col">
+                            <div className="dropdown">
+                                <button className="btn border-black border w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Get Brochure
+                                </button>
+                                <ul className="dropdown-menu">
+                                    <li><a className="dropdown-item" href="#">Action</a></li>
+                                    <li><a className="dropdown-item" href="#">Another action</a></li>
+                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div className="col-md-1"></div>

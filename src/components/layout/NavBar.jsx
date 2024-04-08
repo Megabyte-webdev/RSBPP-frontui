@@ -20,7 +20,6 @@ const navigate = useNavigate()
                         <img src={companyLogo} alt="logo" className="img-fluid" />
                     </Link>
                 </div>
-                {searchField && (
                 <div className="col-md-8">
                     <form className='open_sans' style={{ color: "hsla(242, 97%, 15%, .6)" }}>
                         <div className="d-flex">
@@ -35,8 +34,8 @@ const navigate = useNavigate()
                              className='btn text-nowrap brown_bg text-white rounded-0'>Got to Dashboard</button>
                         </div>
                     </form>
-                </div>)}
-                <div className="d-flex align-items-center">
+                </div>
+                 <div className="d-flex align-items-center">
                     <Link to={""} className='nav-link me-3'><BiSolidMessage className='yellow_text' size={20} /></Link>
                     <Link to={""} className='nav-link me-3'><IoIosNotificationsOutline size={20} /></Link>
                     <Link to={""} className='nav-link d-flex justify-content-center align-items-center me-3 yellow_bg fs_xsm' style={{ width: "20px", height: "20px" }}><span>57</span> </Link>

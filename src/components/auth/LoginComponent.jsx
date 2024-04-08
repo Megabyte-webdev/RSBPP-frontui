@@ -77,7 +77,7 @@ const LoginComponent = () => {
     // console.log(logDetails)
     return (
         <Row className='d-flex justify-content-center pt-5'>
-            <Col md={7}>
+            <Col md={6}>
                 <div className="shadow-sm bg-white rounded-3 px-3 py-4">
                     <div className="mb-3 d-flex justify-content-center">
                         <div>
@@ -86,7 +86,7 @@ const LoginComponent = () => {
                     </div>
                     {!otpPage ? (
                         <div className=' h-100 d-flex align-items-center'>
-                            <div className='px-3 w-100'>
+                            <div className='px-3 px-md-4 w-100'>
                                 <h3 className="prime_blue mb-4">Login to your account!</h3>
                                 <div>
                                     <form
