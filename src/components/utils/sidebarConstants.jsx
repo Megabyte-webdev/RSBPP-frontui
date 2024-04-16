@@ -43,6 +43,10 @@ export const sidebarConstants = [
                 title: "my learning",
                 link: "/learning",
             },
+            {
+                title: "today classes",
+                link: "/today",
+            },
         ]
     },
     {

@@ -20,6 +20,7 @@ import LearningDetails from './pages/LearningDetails'
 import { useContext } from 'react'
 import UpComingClasses from './pages/UpComingClasses'
 import CreateSchedule from './pages/CreateSchedule'
+import TodayMeetings from './pages/TodayMeetings'
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
@@ -35,6 +36,7 @@ const App = () => {
             <Route path='/dashboard' element={<DashboardTwo />} />
             <Route path='/video_live' element={<VideoConference />} />
             <Route path='/courses' element={<Courses />} />
+            <Route path='/today' element={<TodayMeetings />} />
             <Route path='/learning' element={<MyLearning />} />
             <Route path='/courses_analysis' element={<CoursesAnalysis />} />
             <Route path='/chats' element={<Chats />} />
