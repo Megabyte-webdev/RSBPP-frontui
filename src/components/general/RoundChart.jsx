@@ -4,28 +4,29 @@ import Chart from 'react-apexcharts'
 const RoundChart = ({ strokeProps }) => {
 
   const data = {
-    series: [100],
+    series: ["100"],
     options: {
       chart: {
-        height: 350,
+        height: strokeProps.strokeHeight ? strokeProps.strokeHeight : 350,
         type: 'radialBar',
         offsetY: -10
       },
       plotOptions: {
         radialBar: {
           hollow: {
-            size: strokeProps.strokeSize ? strokeProps.strokeSize : "50%"
+            size: strokeProps.strokeSize ? strokeProps.strokeSize : "50%",
           },
-          startAngle: -135,
+          startAngle: -35,
           endAngle: 135,
           dataLabels: {
+            enables: false,
             name: {
               fontSize: '12px',
               color: "#000",
               offsetY: 0
             },
             value: {
-              offsetY: 6,
+              offsetY: 10,
               fontSize: '12px',
               color: "#000",
               formatter: function (val) {
@@ -51,7 +52,7 @@ const RoundChart = ({ strokeProps }) => {
         dashArray: strokeProps.shades ? strokeProps.shades : "",
         lineCap: strokeProps.strokeCap ? strokeProps.strokeCap : ""
       },
-      labels: [strokeProps.strokeLabel],
+      labels: [strokeProps.strokeLabel ? strokeProps.strokeLabel : undefined],
     },
   }
 

@@ -196,6 +196,9 @@ input:focus-visible {
 .dark_ash{
   background-color: #CCCACA;
 }
+.ash_text{
+  color: #9E9E9E;
+}
 
 .light_ash{
   background-color: hsla(210, 15%, 29%, 0.04);
@@ -252,4 +255,12 @@ input:focus-visible {
   width: 30px;
   margin-right: 5px;
   padding: 2px 0;
+}
+
+.inherit_bg{
+  background-color: inherit !important;
+}
+
+.normal_btn{
+  width: 150px;
 }

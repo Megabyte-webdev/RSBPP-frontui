@@ -79,7 +79,7 @@ const Widget = ({ handleDisplay }) => {
               </div>
             )} */}
                     {/* {!isLoading &&  */}
-                    Create Account
+                    Skip to proceed
                     {/* } */}
                 </Button>
             </div>

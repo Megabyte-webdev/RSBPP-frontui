@@ -89,10 +89,54 @@ export const sidebarConstants = [
         logo: iconSeven,
         subOptions: null
     },
+    // {
+    //     title: "Logout",
+    //     logo: iconNine,
+    //     link : "/login",
+    //     subOptions: null
+    // },
+]
+export const adminConstants = [
+    // {
+    //     title: "Dashboard",
+    //     logo: iconOne,
+    //     subOptions: [
+    //         {
+    //             title: "One",
+    //             link: "/",
+    //         },
+    //         {
+    //             title: "Two",
+    //             link: "",
+    //         }
+    //     ]
+    // },
     {
-        title: "Logout",
-        logo: iconNine,
-        link : "/login",
-        subOptions: null
+        title: "Admin",
+        logo: iconTwo,
+        subOptions: [
+            {
+                title: "Schedule class",
+                link: "/schedule_classes",
+            },
+            {
+                title: "Create schedule",
+                link: "/create_schedule",
+            },
+            {
+                title: "courses analysis",
+                link: "/courses_analysis",
+            },
+            {
+                title: "my learning",
+                link: "/learning",
+            },
+        ]
     },
+    // {
+    //     title: "Logout",
+    //     logo: iconNine,
+    //     link : "/login",
+    //     subOptions: null
+    // },
 ]
