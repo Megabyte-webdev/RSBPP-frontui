@@ -128,12 +128,12 @@ export const adminConstants = [
                 link: "/create_schedule",
             },
             {
-                title: "courses analysis",
-                link: "/courses_analysis",
+                title: "Faculty courses",
+                link: "/faculty_courses",
             },
             {
-                title: "my learning",
-                link: "/learning",
+                title: "Registered student",
+                link: "/students",
             },
         ]
     },

@@ -269,7 +269,7 @@ input:focus-visible {
   background-color: #CCCACA;
 }
 .ash_text{
-  color: #9E9E9E;
+  color: #9E9E9E !important;
 }
 
 .light_ash{
@@ -300,12 +300,6 @@ input:focus-visible {
   border-color: #ab3335 !important;
 }
 
-@media (max-width: 768px) {
-  .chat_pic{
-    width: 30px !important;
-    height: 30px !important;
-  }
-}
 
 .items_style{
   padding: 0px 1rem;
@@ -335,4 +329,22 @@ input:focus-visible {
 
 .normal_btn{
   width: 150px;
+}
+
+.student_stats_icon{
+  height: 60px;
+  width: 60px;
+  background-color: hsla(242, 97%, 15%, 0.15);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@media (max-width: 768px) {
+  .chat_pic{
+    width: 30px !important;
+    height: 30px !important;
+  }
 }
