@@ -13,7 +13,7 @@ import Chats from './pages/Chats'
 import QuizPage from './pages/QuizPage'
 import Messages from './pages/Messages'
 import ToastProvider from './context/ToastProvider'
-import UserContextProvider, {UserContext} from './context/AuthContext'
+import UserContextProvider, { UserContext } from './context/AuthContext'
 // import { UserContext } from './context/AuthContext'
 import MyLearning from './pages/MyLearning'
 import LearningDetails from './pages/LearningDetails'
@@ -22,6 +22,7 @@ import UpComingClasses from './pages/UpComingClasses'
 import CreateSchedule from './pages/CreateSchedule'
 import TodayMeetings from './pages/TodayMeetings'
 import RegisteredStudent from './pages/RegisteredStudent'
+import ResourceContextProvider from './context/ResourceContext'
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
@@ -29,33 +30,35 @@ const App = () => {
   // console.log(role)
   return (
     // <UserContextProvider>
-    <ThemeContextProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={role === "admin" ? <AdminDashboard /> : <DashboardTwo />} />
-            <Route path='/dashboard' element={<DashboardTwo />} />
-            <Route path='/video_live' element={<VideoConference />} />
-            <Route path='/courses' element={<Courses />} />
-            <Route path='/today' element={<TodayMeetings />} />
-            <Route path='/learning' element={<MyLearning />} />
-            <Route path='/courses_analysis' element={<CoursesAnalysis />} />
-            <Route path='/chats' element={<Chats />} />
-            <Route path='/quiz' element={<QuizPage />} />
-            <Route path='/messages' element={<Messages />} />
-            <Route path='/schedule_classes' element={<UpComingClasses />} />
-            <Route path='/create_schedule' element={<CreateSchedule />} />
-            <Route path='/faculty_courses' element={<MyLearning />} />
-            <Route path='/students' element={<RegisteredStudent />} />
-          </Route>
-          <Route path='/learning/:id' element={<LearningDetails />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/registration" element={<Registration />} />
-        </Routes>
-      </Router>
-      <ToastProvider />
-    </ThemeContextProvider>
+    <ResourceContextProvider>
+      <ThemeContextProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={role === "admin" ? <AdminDashboard /> : <DashboardTwo />} />
+              <Route path='/dashboard' element={<DashboardTwo />} />
+              <Route path='/video_live' element={<VideoConference />} />
+              <Route path='/courses' element={<Courses />} />
+              <Route path='/today' element={<TodayMeetings />} />
+              <Route path='/learning' element={<MyLearning />} />
+              <Route path='/courses_analysis' element={<CoursesAnalysis />} />
+              <Route path='/chats' element={<Chats />} />
+              <Route path='/quiz' element={<QuizPage />} />
+              <Route path='/messages' element={<Messages />} />
+              <Route path='/schedule_classes' element={<UpComingClasses />} />
+              <Route path='/create_schedule' element={<CreateSchedule />} />
+              <Route path='/faculty_courses' element={<MyLearning />} />
+              <Route path='/students' element={<RegisteredStudent />} />
+            </Route>
+            <Route path='/learning/:id' element={<LearningDetails />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/registration" element={<Registration />} />
+          </Routes>
+        </Router>
+        <ToastProvider />
+      </ThemeContextProvider>
+    </ResourceContextProvider>
     // </UserContextProvider> 
   )
 }

@@ -20,7 +20,7 @@ const navigate = useNavigate()
                         <img src={companyLogo} alt="logo" className="img-fluid" />
                     </Link>
                 </div>
-                <div className="col-md-8">
+                <div className="d-none d-md-block col-md-8">
                     <form className='open_sans' style={{ color: "hsla(242, 97%, 15%, .6)" }}>
                         <div className="d-flex">
                             <div className='position-relative text-black w-100 me-4'>

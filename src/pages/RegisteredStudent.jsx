@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { FaArrowUpLong } from 'react-icons/fa6';
 import { FiSearch } from 'react-icons/fi';
@@ -6,8 +6,53 @@ import { GrMonitor, GrUserExpert } from 'react-icons/gr';
 import { HiOutlineUsers } from "react-icons/hi2";
 import THead from '../components/general/THead';
 import { MdChevronLeft, MdChevronRight, MdEventAvailable } from 'react-icons/md';
+import { ResourceContext } from '../context/ResourceContext';
 
 const RegisteredStudent = () => {
+    const { getAllFaculty,
+        setGetAllFaculty,
+        getAllUsers,
+        getAllCourses,
+        setGetAllCourses,
+        setGetAllUsers } = useContext(ResourceContext)
+
+
+    useEffect(() => {
+        setGetAllUsers((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+
+    useEffect(() => {
+        setGetAllFaculty((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+
+    useEffect(() => {
+        setGetAllCourses((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+    // console.log(getAllFaculty.data?.length)
+    console.log(getAllCourses)
+    // console.log(getAllUsers.data?.length)
+    console.count("render")
+
+    useEffect(() => {
+        setGetAllFaculty((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+
     return (
         <div
             className="p-3 p-md-5"
@@ -23,8 +68,8 @@ const RegisteredStudent = () => {
                                 </span>
                             </div>
                             <div className="ms-2">
-                                <p className="fs_sm ash_text">Total Customers</p>
-                                <h4>5,423</h4>
+                                <p className="fs_sm ash_text">Total Users</p>
+                                <h4>{getAllUsers.data?.length}</h4>
                                 <p className='fs_xsm prime_brown'>
                                     <span> <FaArrowUpLong /> </span>
                                     <span>16%</span>
@@ -59,8 +104,8 @@ const RegisteredStudent = () => {
                                 </span>
                             </div>
                             <div className="ms-2">
-                                <p className="fs_sm ash_text">Active</p>
-                                <h4>5,423</h4>
+                                <p className="fs_sm ash_text">Faculties</p>
+                                <h4>{getAllFaculty.data?.length}</h4>
                                 <p className='fs_xsm prime_brown'>
                                     <span> <FaArrowUpLong /> </span>
                                     <span>16%</span>
@@ -77,8 +122,8 @@ const RegisteredStudent = () => {
                                 </span>
                             </div>
                             <div className="ms-2">
-                                <p className="fs_sm ash_text">Active</p>
-                                <h4>5,423</h4>
+                                <p className="fs_sm ash_text">Courses</p>
+                                <h4>{getAllCourses.data?.length}</h4>
                                 <p className='fs_xsm prime_brown'>
                                     <span> <FaArrowUpLong /> </span>
                                     <span>16%</span>
@@ -112,30 +157,35 @@ const RegisteredStudent = () => {
                         </div>
                     </div>
                 </div>
-                <div className="mt-4 table-responsive-md">
-                    <table className="table  table-hover">
-                        <thead>
-                            <tr>
-                                <THead name="customer Name" />
-                                <THead name="Company" />
-                                <THead name="Course Type" />
-                                <THead name="Email" />
-                                <THead name="Coutry" />
-                                <THead name="Status" />
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Jane Cooper</td>
-                                <td>Microsoft</td>
-                                <td>(225) 555-0118</td>
-                                <td>jane@microsoft.com</td>
-                                <td>United States</td>
-                                <td>
-                                    <button className='btn' style={{ border: "1px solid hsla(166, 79%, 42%, 1)", backgroundColor: "hsla(166, 79%, 42%, 0.38)", color: "hsla(166, 79%, 42%, 1)" }}>Active</button>
-                                </td>
-                            </tr>
-                            <tr>
+                <div className="overflow_y_50">
+                    <div className="mt-4 table-responsive-md">
+                        <table className="table  table-hover">
+                            <thead>
+                                <tr>
+                                    <THead name="Name" />
+                                    <THead name="Organization" />
+                                    <THead name="Position" />
+                                    <THead name="Email" />
+                                    <THead name="Role" />
+                                    <THead name="Status" />
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {getAllUsers.data?.map((user) => {
+                                    return (
+                                        <tr key={user.id}>
+                                            <td>{user.first_name}</td>
+                                            <td>{user.organization}</td>
+                                            <td>{user.position}</td>
+                                            <td>{user.email}</td>
+                                            <td>{user.role}</td>
+                                            <td>
+                                                <button className='btn' style={{ border: "1px solid hsla(166, 79%, 42%, 1)", backgroundColor: "hsla(166, 79%, 42%, 0.38)", color: "hsla(166, 79%, 42%, 1)" }}>Active</button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
+                                {/* <tr>
                                 <td>Jane Cooper</td>
                                 <td>Microsoft</td>
                                 <td>(225) 555-0118</td>
@@ -144,67 +194,22 @@ const RegisteredStudent = () => {
                                 <td>
                                     <button className='btn' style={{ border: "1px solid hsla(0, 97%, 44%, 1))", backgroundColor: "hsla(166, 79%, 42%, 0.38)", color: "hsla(166, 79%, 42%, 1)" }}>Active</button>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>Jane Cooper</td>
-                                <td>Microsoft</td>
-                                <td>(225) 555-0118</td>
-                                <td>jane@microsoft.com</td>
-                                <td>United States</td>
-                                <td>
-                                    <button className='btn' style={{ border: "1px solid hsla(166, 79%, 42%, 1)", backgroundColor: "hsla(166, 79%, 42%, 0.38)", color: "hsla(166, 79%, 42%, 1)" }}>Active</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Jane Cooper</td>
-                                <td>Microsoft</td>
-                                <td>(225) 555-0118</td>
-                                <td>jane@microsoft.com</td>
-                                <td>United States</td>
-                                <td>
-                                    <button className='btn' style={{ border: "1px solid hsla(166, 79%, 42%, 1)", backgroundColor: "hsla(166, 79%, 42%, 0.38)", color: "hsla(166, 79%, 42%, 1)" }}>Active</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Jane Cooper</td>
-                                <td>Microsoft</td>
-                                <td>(225) 555-0118</td>
-                                <td>jane@microsoft.com</td>
-                                <td>United States</td>
-                                <td>
-                                    <button className='btn' style={{ border: "1px solid hsla(166, 79%, 42%, 1)", backgroundColor: "hsla(166, 79%, 42%, 0.38)", color: "hsla(166, 79%, 42%, 1)" }}>Active</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Jane Cooper</td>
-                                <td>Microsoft</td>
-                                <td>(225) 555-0118</td>
-                                <td>jane@microsoft.com</td>
-                                <td>United States</td>
-                                <td>
-                                    <button className='btn' style={{ border: "1px solid hsla(166, 79%, 42%, 1)", backgroundColor: "hsla(166, 79%, 42%, 0.38)", color: "hsla(166, 79%, 42%, 1)" }}>Active</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            </tr> */}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div className="mt-5 ash_text d-flex justify-content-between">
+                <div className="mt-5 ash_text d-md-flex justify-content-between">
                     <div>
                         <p>Showing data 1 to 8 of  256K entries</p>
                     </div>
-                    <div className='d-flex'>
+                    <div className='d-flex my-4'>
                         <button className='border-0 rounded ms-2'> <MdChevronLeft /></button>
                         <button className='border-0 rounded ms-2'> 1</button>
                         <button className='border-0 rounded ms-2'> 2</button>
-                        <button className='border-0 rounded ms-2'> 3</button>
-                        <button className='border-0 rounded ms-2'> 4</button>
-                        <button className='border-0 rounded ms-2'> 5</button>
                         <button className='border-0 rounded ms-2'> ...</button>
-                        <button className='border-0 rounded ms-2'> 20</button>
-                        <button className='border-0 rounded ms-2'> 30</button>
                         <button className='border-0 rounded ms-2'> 40</button>
                         <button className='border-0 rounded ms-2'> <MdChevronRight /></button>
-
                     </div>
                 </div>
             </div>

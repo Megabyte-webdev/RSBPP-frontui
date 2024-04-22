@@ -8,7 +8,7 @@ export const getItemFunc = (
     endPoint,
     dataArray
   ) => {
-    const fleetTypesApi = `${BASE_URL}/${endPoint}`;
+    const fleetTypesApi = `${BASE_URL}${endPoint}`;
     let newFleetMakesData = [];
     if (token)
       axios
@@ -18,8 +18,8 @@ export const getItemFunc = (
           },
         })
         .then((response) => {
-          const apiData = response.data.data[dataArray];
-          console.log(apiData);
+          const apiData = response.data[dataArray];
+        //   console.log(apiData);
           apiData.map((item) => {
             newFleetMakesData.push({
               id: item.id,

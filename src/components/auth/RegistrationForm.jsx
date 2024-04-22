@@ -59,14 +59,15 @@ const RegistrationForm = ({ setDisplay }) => {
         setLoading(true)
         setShowMsg(false)
         axios.post(`${BASE_URL}NewUser`, regDetails, {
-            headers: {
-                Authorization: `Bearer ${userCredentials.token}`,
-            },
+            // headers: {
+            //     Authorization: `Bearer ${userCredentials.token}`,
+            // },
         },)
             .then((response) => {
                 console.log(response.data)
-                navigate("/")
-                // setDisplay("otp")
+                // navigate("/")
+                localStorage.setItem("regEmail", regDetails.email)
+                setDisplay("otp")
                 setLoading(false)
                 toast.success(response.data.message);
             })

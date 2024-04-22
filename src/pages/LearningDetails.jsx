@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { BiSolidBadgeCheck } from 'react-icons/bi'
 import { MdArrowDropDown, MdOutlineVideoChat } from 'react-icons/md'
@@ -7,15 +7,18 @@ import Curricullum from '../components/Learning/Curricullum'
 import user from "../assets/img-2.png"
 import NavBar from '../components/layout/NavBar'
 import { ThemeContext } from '../context/ThemeContext'
+import { useLocation } from 'react-router-dom';
 
 const LearningDetails = () => {
-    const { searchField, setSearchField } = useContext(ThemeContext)
+    const { searchField, setSearchField } = useContext(ThemeContext);
+    const [purchase, setPurchase] = useState(false)
+    const { state } = useLocation()
 
     useEffect(() => {
         setSearchField(true)
     }, [])
 
-    console.log(searchField)
+    console.log(state)
     return (
         <div>
             <NavBar />
@@ -28,9 +31,9 @@ const LearningDetails = () => {
                 </div>
                 <div className="text-center ">
                     <h3 className="my-3">
-                        Understanding and Managing Global Business
+                        {state.course.title}
                     </h3>
-                    <p>This course will equip participants with the process of crafting solutions, using creative</p>
+                    <p>{state.course.description}</p>
                 </div>
                 <div className="d-flex justify-content-center">
                     <div className="d-flex justify-content-between col-md-7 my-5 px-md-5">
@@ -55,7 +58,7 @@ const LearningDetails = () => {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center">
-                    <button className='btn blue_bg text-white py-2 px-5 rounded-0'>Enroll Now - $499.00</button>
+                    <button className='btn blue_bg text-white py-2 px-5 rounded-0'>Enroll Now - ${state.course.price}</button>
                 </div>
             </div>
             <div className="p-3 px-md-5 border-bottom">
@@ -70,7 +73,7 @@ const LearningDetails = () => {
             <div className="p-3 p-md-5 d-flex justify-content-center" style={{ backgroundColor: "hsla(219, 50%, 95%, .5)" }}>
                 <div className="col-md-10">
                     <Row>
-                        <Col md={8}>
+                        <Col md={7}>
                             <h6>Overview</h6>
                             <div className="fs_sm">
                                 <p>
@@ -102,27 +105,116 @@ const LearningDetails = () => {
                                 <Curricullum />
                             </div>
                         </Col>
-                        <Col md={4}>
-                            <div className="rounded my-2 p-3 bg-white">
-                                <p className="fw-semibold mb-2">Target Participants:</p>
-                                <p>Forward thinking entrepreneurs, and professionals in heavily regulated industries</p>
-                                <div className="d-flex fw-semibold mt-3">
-                                    <p><span className='prime_bg'><CgTimelapse /> 40</span> <span> Slot available</span></p>
-                                </div>
-                            </div>
-                            <div className="rounded my-2 p-3 bg-white">
-                                <p className="fw-semibold mb-2">Class Type</p>
-                                <p>Executive Class</p>
-                            </div>
-                            <div className="rounded my-2 p-3 py-4 bg-white">
-                                <div className="d-flex justify-content-center">
-                                    <div>
-                                        <img src={user} alt="" className="" />
+                        {purchase ? (
+                            <Col md={5}>
+                                <div className="rounded my-2 p-3 bg-white">
+                                    <p className="fw-semibold mb-2">Target Participants:</p>
+                                    <p>Forward thinking entrepreneurs, and professionals in heavily regulated industries</p>
+                                    <div className="d-flex fw-semibold mt-3">
+                                        <p><span className='prime_bg'><CgTimelapse /> {state.course.participate}</span> <span> Slot available</span></p>
                                     </div>
                                 </div>
-                                <p className='fs_sm my-4'>How do you know your learners are retaining knowledge in appropriate volumes and timeframes? That’s right: You throw in assessments, and see if the students “catch your drift”. Obviously, there is a boring way to assess performance through brick-and-mortar tests, but there’s also an engaging way – through online quizzes. This seems easy as pie to Instructional Designers, yet there are certain techniques that will help you pick the right form and content for quizzing. Some handy tips for effective eLearning quiz questions in this article!</p>
-                            </div>
-                        </Col>
+                                <div className="rounded my-2 p-3 bg-white">
+                                    <p className="fw-semibold mb-2">Class Type</p>
+                                    <p>{state.course.program}</p>
+                                </div>
+                                <div className="rounded my-2 p-3 bg-white">
+                                    <p className="fw-semibold mb-2">Duration</p>
+                                    <p>{state.course.duration}</p>
+                                </div>
+                                <div className="rounded my-2 p-3 py-4 bg-white">
+                                    <div className="d-flex justify-content-center">
+                                        <div>
+                                            <img src={user} alt="" className="" />
+                                        </div>
+                                    </div>
+                                    <p className='fs_sm my-4'>How do you know your learners are retaining knowledge in appropriate volumes and timeframes? That’s right: You throw in assessments, and see if the students “catch your drift”. Obviously, there is a boring way to assess performance through brick-and-mortar tests, but there’s also an engaging way – through online quizzes. This seems easy as pie to Instructional Designers, yet there are certain techniques that will help you pick the right form and content for quizzing. Some handy tips for effective eLearning quiz questions in this article!</p>
+                                </div>
+                            </Col>
+                        )
+                            : (
+                                <Col md={5}>
+                                    <div className="p-3 bg-white">
+                                        <form>
+                                            <div>
+                                                <h6 className='mb-3'>CONTACT INFORMATION</h6>
+                                                <div className="row">
+                                                    <div className="col mb-3">
+                                                        <label htmlFor="exampleInputPassword1" className="form-label">First Name</label>
+                                                        <input type="password" className="form-control" id="exampleInputPassword1" />
+                                                    </div>
+                                                    <div className="col mb-3">
+                                                        <label htmlFor="exampleInputPassword1" className="form-label">Last Name</label>
+                                                        <input type="password" className="form-control" id="exampleInputPassword1" />
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col mb-3">
+                                                        <label htmlFor="exampleInputPassword1" className="form-label">Email Address</label>
+                                                        <input type="password" className="form-control" id="exampleInputPassword1" />
+                                                    </div>
+                                                </div>
+                                                <h6 className='mb-3'>BILLING INFORMATION</h6>
+                                                <div className="row">
+                                                    <div className="col mb-3">
+                                                        <label htmlFor="exampleInputPassword1" className="form-label">Address</label>
+                                                        <input type="password" className="form-control" id="exampleInputPassword1" />
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col mb-3">
+                                                        <label htmlFor="exampleInputPassword1" className="form-label">City</label>
+                                                        <input type="password" className="form-control" id="exampleInputPassword1" />
+                                                    </div>
+                                                    <div className="col mb-3">
+                                                        <label htmlFor="exampleInputPassword1" className="form-label">Country</label>
+                                                        <select className="form-select" aria-label="Default select example">
+                                                            <option selected>select </option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col mb-3">
+                                                        <label htmlFor="exampleInputPassword1" className="form-label">Region </label>
+                                                        <input type="password" className="form-control" id="exampleInputPassword1" />
+                                                    </div>
+                                                    <div className="col mb-3">
+                                                        <label htmlFor="exampleInputPassword1" className="form-label">Postal Code</label>
+                                                        <input type="password" className="form-control" id="exampleInputPassword1" />
+                                                    </div>
+                                                </div>
+                                                <div className="col">
+                                                    <div className="form-check col">
+                                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                                        <label className="form-check-label" htmlFor="flexCheckChecked">
+                                                            Checked checkbox
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div className="col">
+                                                    <div className="form-check col">
+                                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                                        <label className="form-check-label" htmlFor="flexCheckChecked">
+                                                            Checked checkbox
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div className="col">
+                                                    <div className="form-check col">
+                                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                                        <label className="form-check-label" htmlFor="flexCheckChecked">
+                                                            Checked checkbox
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </Col>
+                            )}
                     </Row>
                 </div>
             </div>

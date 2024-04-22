@@ -13,7 +13,7 @@ import toast from "react-hot-toast"
 const SideBarOptions = () => {
   const [isOpenOption, setIsOpenOption] = useState(null); // Track which subOption is open
   const {userCredentials, setUserCredentials} = useContext(UserContext)
-console.log(userCredentials)
+// console.log(userCredentials)
 
 function Logout(){
   localStorage.removeItem("userDetails")

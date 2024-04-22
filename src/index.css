@@ -348,3 +348,9 @@ input:focus-visible {
     height: 30px !important;
   }
 }
+
+.overflow_y_50{
+  max-height: 50vh;
+  overflow-y: scroll;
+  scrollbar-width:thin;
+}

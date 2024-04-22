@@ -8,7 +8,7 @@ import Widget from '../components/auth/Widget'
 
 const Registration = () => {
 
-    const [display, setDisplay] = useState("registration")
+    const [display, setDisplay] = useState("otp")
 
   return (
     <div>

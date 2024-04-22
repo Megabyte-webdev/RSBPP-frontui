@@ -10,10 +10,12 @@ import axios from 'axios';
 import { BASE_URL } from '../utils/base';
 import toast from 'react-hot-toast';
 import { UserContext } from '../../context/AuthContext';
+import { useNavigate } from "react-router-dom";
 
 const LoginComponent = () => {
 
-    const {setUserCredentials} = useContext(UserContext)
+    const navigate = useNavigate()
+    const { setUserCredentials } = useContext(UserContext)
     const [inputType, setInputType] = useState("password")
     const [otpPage, setOtpPage] = useState(false)
     const [showMsg, setShowMsg] = useState(false)
@@ -56,9 +58,10 @@ const LoginComponent = () => {
                 console.log(response.data)
                 setUserCredentials(userData)
                 localStorage.setItem("userDetails", JSON.stringify(userData));
-                setOtpPage(true)
+                // setOtpPage(true)
+                navigate("/")
                 setLoading(false)
-                toast.success("proceed to verify");
+                toast.success("Login successful");
             })
             .catch((error) => {
                 console.log(error);

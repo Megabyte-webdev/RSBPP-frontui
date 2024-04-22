@@ -1,10 +1,57 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { FiSearch } from 'react-icons/fi'
 import LearningCourse from '../components/Learning/LearningCourse'
 import CourseCarousel from '../components/general/CourseCarousel'
+import { ResourceContext } from '../context/ResourceContext'
 
 const MyLearning = () => {
+
+    const { getAllFaculty,
+        setGetAllFaculty,
+        getAllUsers,
+        getAllCourses,
+        setGetAllCourses,
+        setGetAllUsers } = useContext(ResourceContext)
+
+
+    useEffect(() => {
+        setGetAllUsers((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+
+    useEffect(() => {
+        setGetAllCourses((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+
+
+
+    useEffect(() => {
+        setGetAllFaculty((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+    const offLineCourse = getAllCourses.data?.filter((course) => course.course_type === "offline")
+    const onLineCourse = getAllCourses.data?.filter((course) => course.course_type === "online")
+
+    console.log(offLineCourse)
+    console.log(onLineCourse)
+
+    const listUsers = getAllCourses.data?.map((course) => {
+        return (
+            <LearningCourse key={course.id} course={course} />
+        )
+    })
+
     return (
         <div className='p-3 p-md-5 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
             <h3>My Learning Paths</h3>
@@ -60,33 +107,32 @@ const MyLearning = () => {
                 </div>
                 <div>
                     <div className="my-5">
-                        <CourseCarousel>
-                            <LearningCourse />
-                            <LearningCourse />
-                            <LearningCourse />
-                            <LearningCourse />
-                            <LearningCourse />
-                            <LearningCourse />
-                            <LearningCourse />
-                            <LearningCourse />
-                            <LearningCourse />
-                        </CourseCarousel>
+                        {!getAllCourses.data &&(
+                            <div style={{ height:"80vh" }}> Loading data......</div>
+                        )}
+                        {getAllCourses.data && (
+                            <CourseCarousel>
+                                {onLineCourse?.map((course) => {
+                                    return (
+                                        <LearningCourse key={course.id} course={course} />
+                                    )
+                                })}
+                            </CourseCarousel>
+                        )}
                     </div>
                 </div>
                 <div className='my-5'>
                     <p className="fw-bold">Offline Course</p>
                     <div className="my-5">
-                        <CourseCarousel>
-                            <LearningCourse />
-                            <LearningCourse />
-                            <LearningCourse />
-                            <LearningCourse />
-                            <LearningCourse />
-                            <LearningCourse />
-                            <LearningCourse />
-                            <LearningCourse />
-                            <LearningCourse />
-                        </CourseCarousel>
+                        {getAllCourses.data && (
+                            <CourseCarousel>
+                                 {offLineCourse?.map((course) => {
+                                    return (
+                                        <LearningCourse key={course.id} course={course} />
+                                    )
+                                })}
+                            </CourseCarousel>
+                        )}
                     </div>
                 </div>
             </div>
