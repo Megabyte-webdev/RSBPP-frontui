@@ -8,10 +8,12 @@ import user from "../assets/img-2.png"
 import NavBar from '../components/layout/NavBar'
 import { ThemeContext } from '../context/ThemeContext'
 import { useLocation } from 'react-router-dom';
+import payPal from "../assets/dash-icons/paypal 1.svg"
+import payStack from "../assets/dash-icons/Paystack 1.svg"
 
 const LearningDetails = () => {
     const { searchField, setSearchField } = useContext(ThemeContext);
-    const [purchase, setPurchase] = useState(false)
+    const [purchase, setPurchase] = useState(true)
     const { state } = useLocation()
 
     useEffect(() => {
@@ -58,7 +60,7 @@ const LearningDetails = () => {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center">
-                    <button className='btn blue_bg text-white py-2 px-5 rounded-0'>Enroll Now - ${state.course.price}</button>
+                    <button onClick={()=> setPurchase(false)} className='btn blue_bg text-white py-2 px-5 rounded-0'>Enroll Now - ${state.course.price}</button>
                 </div>
             </div>
             <div className="p-3 px-md-5 border-bottom">
@@ -187,26 +189,18 @@ const LearningDetails = () => {
                                                     </div>
                                                 </div>
                                                 <div className="col">
-                                                    <div className="form-check col">
-                                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                                        <label className="form-check-label" htmlFor="flexCheckChecked">
-                                                            Checked checkbox
+                                                    <div className="form-check col d-flex align-items-center">
+                                                        <input className="form-check-input" type="radio" name="paymentMethod" value="" id="flexCheckChecked" />
+                                                        <label className="form-check-label ms-3" htmlFor="flexCheckChecked">
+                                                            <img src={payPal} alt="" className="img-fluid" />
                                                         </label>
                                                     </div>
                                                 </div>
                                                 <div className="col">
-                                                    <div className="form-check col">
-                                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                                        <label className="form-check-label" htmlFor="flexCheckChecked">
-                                                            Checked checkbox
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div className="col">
-                                                    <div className="form-check col">
-                                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                                        <label className="form-check-label" htmlFor="flexCheckChecked">
-                                                            Checked checkbox
+                                                    <div className="form-check col d-flex align-items-center">
+                                                        <input className="form-check-input" type="radio" name="paymentMethod" value="" id="paystack" />
+                                                        <label className="form-check-label ms-3" htmlFor="paystack">
+                                                            <img src={payStack} alt="" className="img-fluid" />
                                                         </label>
                                                     </div>
                                                 </div>
