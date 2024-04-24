@@ -56,7 +56,7 @@ function ResourceContextProvider({ children }) {
             const dataArray = "allCourses"
             getItemFunc(token, setGetAllCourses, setErrorMessage, endPoint, dataArray)
         }
-    }, [getAllFaculty.isDataNeeded]);
+    }, [getAllCourses.isDataNeeded]);
 
 
     return (

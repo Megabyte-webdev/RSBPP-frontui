@@ -23,6 +23,7 @@ import CreateSchedule from './pages/CreateSchedule'
 import TodayMeetings from './pages/TodayMeetings'
 import RegisteredStudent from './pages/RegisteredStudent'
 import ResourceContextProvider from './context/ResourceContext'
+import Carts from './pages/Carts'
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
@@ -51,6 +52,7 @@ const App = () => {
               <Route path='/students' element={<RegisteredStudent />} />
             </Route>
             <Route path='/learning/:id' element={<LearningDetails />} />
+            <Route path='/carts' element={<Carts />} />
             <Route path="/login" element={<Login />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/registration" element={<Registration />} />

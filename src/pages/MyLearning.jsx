@@ -9,7 +9,6 @@ const MyLearning = () => {
 
     const { getAllFaculty,
         setGetAllFaculty,
-        getAllUsers,
         getAllCourses,
         setGetAllCourses,
         setGetAllUsers } = useContext(ResourceContext)
@@ -42,9 +41,6 @@ const MyLearning = () => {
     }, [])
     const offLineCourse = getAllCourses.data?.filter((course) => course.course_type === "offline")
     const onLineCourse = getAllCourses.data?.filter((course) => course.course_type === "online")
-
-    console.log(offLineCourse)
-    console.log(onLineCourse)
 
     const listUsers = getAllCourses.data?.map((course) => {
         return (
