@@ -4,13 +4,16 @@ import CartsItem from '../components/carts/CartsItem';
 import { ResourceContext } from '../context/ResourceContext';
 import LearningCourse from '../components/Learning/LearningCourse';
 import CourseCarousel from '../components/general/CourseCarousel';
+import { useNavigate } from 'react-router-dom';
 
 const Carts = () => {
+    const navigate = useNavigate();
+
     const {
         getAllCourses,
         setGetAllCourses } = useContext(ResourceContext)
 
-
+const on = true
 
     useEffect(() => {
         setGetAllCourses((prev) => {
@@ -72,9 +75,9 @@ const Carts = () => {
                                         </label>
                                     </div>
                                 </div> */}
-                                <CartsItem />
-                                <CartsItem />
-                                <CartsItem />
+                                <CartsItem on={on} />
+                                <CartsItem on={on} />
+                                <CartsItem on={on} />
                             </div>
                         </div>
                         <div className="col-md-4">
@@ -109,7 +112,9 @@ const Carts = () => {
                                             <p>$124</p>
                                         </div>
                                         <div className='mt-4'>
-                                            <button className='col-12 btn bg-black rounded-pill py-2 text-white'>Checkout</button>
+                                            <button
+                                            onClick={()=> navigate("/checkout")}
+                                             className='col-12 btn bg-black rounded-pill py-2 text-white'>Checkout</button>
                                         </div>
                                     </div>
                                 </div>

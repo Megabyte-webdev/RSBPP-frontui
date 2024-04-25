@@ -3,7 +3,7 @@ import img from "../../assets/feature-courses.png"
 import { CgMathMinus, CgTimelapse } from "react-icons/cg";
 import { IoMdAdd } from 'react-icons/io';
 
-const CartsItem = () => {
+const CartsItem = ({on}) => {
 
     const [addItem, setAddItem] = useState(1)
 
@@ -28,6 +28,7 @@ const CartsItem = () => {
                         <p className="fw-bolder ">Python Programming - From Basics to Advanced level</p>
                         <p className="fw-bolder ">$292</p>
                     </div>
+                    {on &&(
                     <div className="d-flex">
                         <button onClick={reduceItemfunc}>
                             <CgMathMinus />
@@ -37,6 +38,7 @@ const CartsItem = () => {
                             <IoMdAdd />
                         </button>
                     </div>
+                    )}
                 </div>
             </label>
         </div>
