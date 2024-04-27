@@ -7,8 +7,8 @@ export const ResourceContext = createContext();
 function ResourceContextProvider({ children }) {
 
     const { userCredentials } = useContext(UserContext);
-    // console.log(userCredentials.token)
-    const token = userCredentials?.token ? userCredentials.token : "nothing"
+    const token = userCredentials?.token ? userCredentials.token : null ;
+    const userId = userCredentials?.user?.id;
 
     const [errorMesage, setErrorMessage] = useState('');
 
@@ -23,6 +23,11 @@ function ResourceContextProvider({ children }) {
     });
 
     const [getAllCourses, setGetAllCourses] = useState({
+        data: null,
+        isDataNeeded: false,
+    });
+
+    const [getAllCarts, setGetAllCarts] = useState({
         data: null,
         isDataNeeded: false,
     });
@@ -58,6 +63,17 @@ function ResourceContextProvider({ children }) {
         }
     }, [getAllCourses.isDataNeeded]);
 
+    //Carts Resource useEffect
+    useEffect(() => {
+        setErrorMessage('');
+        if (getAllCarts.isDataNeeded) {
+            const endPoint = `cart/getCart/${userId}`
+            const dataArray = "Cart"
+            getItemFunc(token, setGetAllCarts, setErrorMessage, endPoint, dataArray)
+        }
+    }, [getAllCarts.isDataNeeded]);
+
+
 
     return (
         <ResourceContext.Provider
@@ -68,6 +84,8 @@ function ResourceContextProvider({ children }) {
                 setGetAllFaculty,
                 getAllCourses,
                 setGetAllCourses,
+                getAllCarts,
+                setGetAllCarts,
             }}
         >
             {children}

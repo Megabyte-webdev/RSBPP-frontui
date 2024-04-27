@@ -60,20 +60,22 @@ const LearningDetails = () => {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center">
-                    <button onClick={()=> setPurchase(false)} className='btn blue_bg text-white py-2 px-5 rounded-0'>Enroll Now - ${state.course.price}</button>
+                    <button onClick={() => setPurchase(false)} className='btn blue_bg text-white py-2 px-5 rounded-0'>Enroll Now - ${state.course.price}</button>
                 </div>
             </div>
-            <div className="p-3 px-md-5 border-bottom">
-                <div className="d-flex">
-                    <button className='prime_brown fw-semibold bg-white border-0 fs-5 me-3'>About</button>
-                    <button className='fw-semibold bg-white border-0 fs-5 me-3'>Curriculum</button>
-                    <button className='fw-semibold bg-white border-0 fs-5 me-3'>Instructor</button>
-                    <button className='fw-semibold bg-white border-0 fs-5 me-3'>Enrollment</button>
-                    <button className='fw-semibold bg-white border-0 fs-5 me-3'>FAQS</button>
+            <div className="p-3 border-bottom">
+                <div className="container">
+                    <div className="d-flex">
+                        <button className='prime_brown fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>About</button>
+                        <button className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Curriculum</button>
+                        <button className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Instructor</button>
+                        <button className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Enrollment</button>
+                        <button className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>FAQS</button>
+                    </div>
                 </div>
             </div>
-            <div className="p-3 p-md-5 d-flex justify-content-center" style={{ backgroundColor: "hsla(219, 50%, 95%, .5)" }}>
-                <div className="col-md-10">
+            <div className="p-3 d-flex justify-content-center" style={{ backgroundColor: "hsla(219, 50%, 95%, .5)" }}>
+                <div className="container">
                     <Row>
                         <Col md={7}>
                             <h6>Overview</h6>

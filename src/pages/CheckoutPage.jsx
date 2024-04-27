@@ -1,8 +1,5 @@
-import React from 'react'
 import NavBar from '../components/layout/NavBar'
 import CartsItem from '../components/carts/CartsItem'
-import payPal from "../assets/dash-icons/paypal 1.svg"
-import payStack from "../assets/dash-icons/Paystack 1.svg"
 import { BsCreditCard, BsPaypal } from 'react-icons/bs'
 import visaCard from "../assets/dash-icons/visa-icon.svg"
 import masterCard from "../assets/dash-icons/master-card.svg"

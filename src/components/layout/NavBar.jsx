@@ -1,17 +1,30 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { LuLayoutGrid } from "react-icons/lu";
 import { FiSearch, FiShoppingCart } from "react-icons/fi";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import companyLogo from "../../assets/logo.png"
-import { BiSolidMessage } from "react-icons/bi";
+import { BiSolidCart, BiSolidMessage } from "react-icons/bi";
 import { TfiViewGrid } from 'react-icons/tfi';
 import { ThemeContext } from '../../context/ThemeContext';
+import { ResourceContext } from '../../context/ResourceContext';
 
 
 const NavBar = () => {
-const navigate = useNavigate()
-    const {searchField}= useContext(ThemeContext)
+    const navigate = useNavigate()
+    const { 
+        getAllCarts,
+        setGetAllCarts, } = useContext(ResourceContext);
+    
+        useEffect(() => {
+            setGetAllCarts((prev) => {
+                return {
+                    ...prev, isDataNeeded: true
+                }
+            })
+        }, [])
+
+        console.count("render")
     return (
         <div className='border-bottom shadow-sm p-3 px-md-5'>
             <div className="poppins d-flex justify-content-between align-items-center">
@@ -29,16 +42,21 @@ const navigate = useNavigate()
                                 <span className="position-absolute end-0 top-0 p-2"><FiSearch /> </span>
                             </div>
                             <button
-                            onClick={()=> navigate("/")}
-                            type='button'
-                             className='btn text-nowrap brown_bg text-white rounded-0'>Got to Dashboard</button>
+                                onClick={() => navigate("/")}
+                                type='button'
+                                className='btn text-nowrap brown_bg text-white rounded-0'>Got to Dashboard</button>
                         </div>
                     </form>
                 </div>
-                 <div className="d-flex align-items-center">
+                <div className="d-flex align-items-center">
                     <Link to={""} className='nav-link me-3'><BiSolidMessage className='yellow_text' size={20} /></Link>
                     <Link to={""} className='nav-link me-3'><IoIosNotificationsOutline size={20} /></Link>
-                    <Link to={"/carts"} className='nav-link d-flex justify-content-center align-items-center me-3 yellow_bg fs_xsm' style={{ width: "20px", height: "20px" }}><span>57</span> </Link>
+                    <div>
+                        <Link to={"/carts"} 
+                        className='nav-link d-flex justify-content-center align-items-center me-3 text-white rounded-circle brown_bg fs_xsm'
+                         style={{ width: "20px", height: "20px" }}><span>{getAllCarts.data?.length}</span> </Link>
+                        <span><BiSolidCart size={25} /></span>
+                    </div>
                 </div>
             </div>
         </div>

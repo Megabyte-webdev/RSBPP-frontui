@@ -4,15 +4,17 @@ import { FiSearch } from 'react-icons/fi'
 import LearningCourse from '../components/Learning/LearningCourse'
 import CourseCarousel from '../components/general/CourseCarousel'
 import { ResourceContext } from '../context/ResourceContext'
+import { UserContext } from '../context/AuthContext'
 
 const MyLearning = () => {
+    const { userCredentials } = useContext(UserContext);
 
     const { getAllFaculty,
         setGetAllFaculty,
         getAllCourses,
         setGetAllCourses,
-        setGetAllUsers } = useContext(ResourceContext)
-
+        setGetAllUsers,
+        getAllCarts, } = useContext(ResourceContext)
 
     useEffect(() => {
         setGetAllUsers((prev) => {
@@ -42,11 +44,11 @@ const MyLearning = () => {
     const offLineCourse = getAllCourses.data?.filter((course) => course.course_type === "offline")
     const onLineCourse = getAllCourses.data?.filter((course) => course.course_type === "online")
 
-    const listUsers = getAllCourses.data?.map((course) => {
-        return (
-            <LearningCourse key={course.id} course={course} />
-        )
-    })
+    // const listUsers = getAllCourses.data?.map((course) => {
+    //     return (
+    //         <LearningCourse key={course.id} userCredentials={userCredentials} course={course} />
+    //     )
+    // })
 
     return (
         <div className='p-3 p-md-5 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
@@ -103,14 +105,14 @@ const MyLearning = () => {
                 </div>
                 <div>
                     <div className="my-5">
-                        {!getAllCourses.data &&(
-                            <div style={{ height:"80vh" }}> Loading data......</div>
+                        {!getAllCourses.data && (
+                            <div style={{ height: "80vh", padding: "3rem" }}> Loading data......</div>
                         )}
                         {getAllCourses.data && (
                             <CourseCarousel>
                                 {onLineCourse?.map((course) => {
                                     return (
-                                        <LearningCourse key={course.id} course={course} />
+                                        <LearningCourse key={course.id} cartList={getAllCarts.data} userCredentials={userCredentials} course={course} />
                                     )
                                 })}
                             </CourseCarousel>
@@ -122,9 +124,9 @@ const MyLearning = () => {
                     <div className="my-5">
                         {getAllCourses.data && (
                             <CourseCarousel>
-                                 {offLineCourse?.map((course) => {
+                                {offLineCourse?.map((course) => {
                                     return (
-                                        <LearningCourse key={course.id} course={course} />
+                                        <LearningCourse key={course.id} cartList={getAllCarts.data} userCredentials={userCredentials} course={course} />
                                     )
                                 })}
                             </CourseCarousel>

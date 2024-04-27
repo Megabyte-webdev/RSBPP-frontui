@@ -292,8 +292,8 @@ input:focus-visible {
 }
 
 .chat_pic{
-  width: 60px !important;
-  height: 60px !important;
+  width: 30px !important;
+  height: 30px !important;
 }
 
 .border_brown{
@@ -342,10 +342,13 @@ input:focus-visible {
 }
 
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .chat_pic{
-    width: 30px !important;
-    height: 30px !important;
+    width: 60px !important;
+    height: 60px !important;
+  }
+  .fs-md-5{
+    font-size: 1.25rem !important;
   }
 }
 

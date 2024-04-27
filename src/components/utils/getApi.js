@@ -43,3 +43,27 @@ export const getItemFunc = (
           }
         });
   };
+
+  export const cartsTotalFunction = (token, setErrorMessage, setCurrentTotal) => {
+    const getApi = `${BASE_URL}cart/getCart/4`;
+  
+    if (token) {
+      axios
+        .get(getApi, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setCurrentTotal(response.data.totalPrice);
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.response) {
+            setErrorMessage(error.response.data.message);
+          } else {
+            setErrorMessage(error.message);
+          }
+        });
+    }
+  };
