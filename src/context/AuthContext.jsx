@@ -2,16 +2,25 @@ import { createContext, useState } from "react";
 
 export const UserContext = createContext()
 
-const UserContextProvider = ({children}) =>{
+const UserContextProvider = ({ children }) => {
     const fromLocal = JSON.parse(localStorage.getItem("userDetails"));
 
+    const [widgetOpen, setWidgetOpen] = useState({
+        backgroundColor: "rgba(0, 0, 0, 0.15)",
+        display: "none"
+    })
 
     const [userCredentials, setUserCredentials] = useState(fromLocal ? fromLocal : null)
-    return(
-<UserContext.Provider value={{ userCredentials, setUserCredentials }}
- >
-    {children}
-</UserContext.Provider>
+    return (
+        <UserContext.Provider value={{
+            userCredentials,
+            setUserCredentials,
+            widgetOpen,
+            setWidgetOpen
+        }}
+        >
+            {children}
+        </UserContext.Provider>
     )
 }
 

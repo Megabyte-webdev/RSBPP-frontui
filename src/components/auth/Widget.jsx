@@ -21,7 +21,12 @@ const Widget = ({ handleDisplay }) => {
             </div>
             <Row>
                 <Col md={4} className='mb-3'>
-                    <Link to={"/learning"} className='nav-link h-100'>
+                    <div
+                        onClick={() => {
+                            navigate("/learning")
+                            handleDisplay()
+                        }}
+                        className='nav-link pointer h-100'>
                         <div className="p-3 rounded border-2 border_brown border h-100">
                             <div className="d-flex justify-content-between">
                                 <h5>Certificate Course</h5>
@@ -34,10 +39,15 @@ const Widget = ({ handleDisplay }) => {
                                 <p className='fs_xsm'>Description about the certifate course is here</p>
                             </div>
                         </div>
-                    </Link>
+                    </div>
                 </Col>
                 <Col md={4} className='mb-3'>
-                    <Link to={"/learning"} className='nav-link h-100'>
+                    <div
+                        onClick={() => {
+                            navigate("/learning")
+                            handleDisplay()
+                        }}
+                        className='nav-link pointer h-100'>
                         <div className="p-3 rounded border-2 border_brown border h-100">
                             <div className="d-flex justify-content-between">
                                 <h5>Executive Online</h5>
@@ -50,10 +60,15 @@ const Widget = ({ handleDisplay }) => {
                                 <p className='fs_xsm'>Description about the certifate course is here</p>
                             </div>
                         </div>
-                    </Link>
+                    </div>
                 </Col>
                 <Col md={4} className='mb-3'>
-                    <Link to={"/learning"} className='nav-link h-100'>
+                    <div
+                        onClick={() => {
+                            navigate("/learning")
+                            handleDisplay()
+                        }}
+                        className='nav-link pointer h-100'>
                         <div className="p-3 rounded border-2 border_brown border h-100">
                             <div className="d-flex justify-content-between">
                                 <h5>Offline</h5>
@@ -66,7 +81,7 @@ const Widget = ({ handleDisplay }) => {
                                 <p className='fs_xsm'>Description about the certifate course is here</p>
                             </div>
                         </div>
-                    </Link>
+                    </div>
                 </Col>
             </Row>
             <div className="mt-5 col-6 mx-auto">
@@ -83,7 +98,7 @@ const Widget = ({ handleDisplay }) => {
                     {/* } */}
                 </Button>
             </div>
-        </div>
+        </div >
     )
 }
 

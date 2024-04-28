@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 const LoginComponent = () => {
 
     const navigate = useNavigate()
-    const { setUserCredentials } = useContext(UserContext)
+    const { setUserCredentials, widgetOpen, setWidgetOpen } = useContext(UserContext)
     const [inputType, setInputType] = useState("password")
     const [otpPage, setOtpPage] = useState(false)
     const [showMsg, setShowMsg] = useState(false)
@@ -60,19 +60,24 @@ const LoginComponent = () => {
                 localStorage.setItem("userDetails", JSON.stringify(userData));
                 // setOtpPage(true)
                 navigate("/")
+                setWidgetOpen((prev) => {
+                    return {
+                        ...prev, display: "block"
+                    }
+                })
                 setLoading(false)
                 toast.success("Login successful");
             })
             .catch((error) => {
-                console.log(error);
-                setErrorMsg(error.response.data.message)
-                setShowMsg(true)
-                setLoading(false);
-                // if (error.response) {
-                //   setErrorMessage(error.response.data.message);
-                // } else {
-                //   setErrorMessage(error.message);
-                // }
+                if (error.response) {
+                    setErrorMsg(error.response.data.message)
+                    setShowMsg(true)
+                    setLoading(false);
+                } else {
+                    setErrorMsg(error.message)
+                    setShowMsg(true)
+                    setLoading(false);
+                }
             });
         // setOtpPage(true)
     }

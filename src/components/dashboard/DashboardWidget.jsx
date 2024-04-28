@@ -1,11 +1,10 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import Widget from "../auth/Widget"
+import { UserContext } from "../../context/AuthContext"
 
 const DashboardWidget = () => {
-    const [widgetOpen, setWidgetOpen] = useState({
-        backgroundColor: "rgba(0, 0, 0, 0.15)",
-        display: "block"
-    })
+    const {widgetOpen, setWidgetOpen} = useContext(UserContext)
+    
     const handleDisplay = () => (
         setWidgetOpen((prev) => {
             return {

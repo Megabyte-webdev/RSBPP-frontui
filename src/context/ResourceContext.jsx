@@ -9,7 +9,10 @@ function ResourceContextProvider({ children }) {
     const { userCredentials } = useContext(UserContext);
     const token = userCredentials?.token ? userCredentials.token : null ;
     const userId = userCredentials?.user?.id;
-
+    const [widgetOpen, setWidgetOpen] = useState({
+        backgroundColor: "rgba(0, 0, 0, 0.15)",
+        display: "block"
+    })
     const [errorMesage, setErrorMessage] = useState('');
 
     const [getAllUsers, setGetAllUsers] = useState({

@@ -21,7 +21,6 @@ const MobileSidebar = ({userCredentials}) => {
                     </button>
                 </div>
                 <div className="offcanvas-body" style={{ scrollbarWidth: "none" }}>
-
                     <div className={sideBg}>
                         <div className=" py-4">
                             <div className="user_details mb-5">
