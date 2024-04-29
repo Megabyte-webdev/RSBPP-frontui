@@ -55,7 +55,7 @@ const hasItem = cartList?.some(item => item.id === course.id)
       });
   };
   return (
-    <div className='rounded bg-white mb-3'>
+    <div className='rounded bg-white mb-3 h-100 d-flex flex-column justify-content-between'>
       <div onClick={() => navigate(`/learning/${course.title}`, { state: { course: course } })} className='nav-link pointer'>
         <div>
           <img src={featurePics} alt="" className="img-fluid w-100" />
