@@ -2,10 +2,23 @@ import { useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import THead from '../general/THead'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
+import AddFacultyForm from '../faculty/AddFacultyForm'
 
 const AllFaculties = ({ getAllFaculty }) => {
     const [searchInput, setSearchInput] = useState("");
 
+    const [isOpen, setIsOpen] = useState({
+        backgroundColor: "rgba(0, 0, 0, 0.15)",
+        display: "none"
+    }
+    )
+    const handleDisplay = () => (
+        setIsOpen((prev) => {
+            return {
+                ...prev, display: "block"
+            }
+        })
+    )
     const sortType = getAllFaculty?.sort((a, b) => b.id - a.id)
 
     const typeSearch = sortType?.filter((user) =>
@@ -13,7 +26,10 @@ const AllFaculties = ({ getAllFaculty }) => {
     )
     return (
         <div>
-
+            <AddFacultyForm
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                handleDisplay={handleDisplay} />
             <div className="p-3 my-5 bg-white rounded-3 shadow-sm">
                 <div className="d-md-flex justify-content-between">
                     <div className="mb-3">
@@ -30,6 +46,10 @@ const AllFaculties = ({ getAllFaculty }) => {
                                     <span className="position-absolute start-0 top-0 p-2"><FiSearch /> </span>
                                 </div>
                             </div>
+                            <div className="col">
+                                <button onClick={() => handleDisplay()}
+                                    className='btn btn-success px-4'>Add Faculty</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -39,7 +59,7 @@ const AllFaculties = ({ getAllFaculty }) => {
                             <thead>
                                 <tr>
                                     {/* <THead name="No:" /> */}
-                                    <THead name="Title" />
+                                    <THead name="Faculty" />
                                     <THead name="Description" />
                                 </tr>
                             </thead>

@@ -2,10 +2,24 @@ import React, { useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import THead from '../general/THead'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
+import AddFacultyForm from '../faculty/AddFacultyForm'
+import AddCourseForm from '../courses/AddCourseForm'
 
 const AllCourses = ({ getAllCourses }) => {
     const [searchInput, setSearchInput] = useState("");
 
+    const [isOpen, setIsOpen] = useState({
+        backgroundColor: "rgba(0, 0, 0, 0.15)",
+        display: "none"
+    }
+)
+    const handleDisplay = () => (
+        setIsOpen((prev) => {
+            return {
+                ...prev, display: "block"
+            }
+        })
+    )
     const sortType = getAllCourses?.sort((a, b) => b.id - a.id)
 
     const typeSearch = sortType?.filter((user) =>
@@ -13,7 +27,10 @@ const AllCourses = ({ getAllCourses }) => {
     )
     return (
         <div>
-
+        <AddCourseForm
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            handleDisplay={handleDisplay} />
             <div className="p-3 my-5 bg-white rounded-3 shadow-sm">
                 <div className="d-md-flex justify-content-between">
                     <div className="mb-3">
@@ -29,6 +46,10 @@ const AllCourses = ({ getAllCourses }) => {
                                         type="text" className="btn border bg-white text-start px-5 py-2 w-100" id="search" placeholder='Search' />
                                     <span className="position-absolute start-0 top-0 p-2"><FiSearch /> </span>
                                 </div>
+                            </div>
+                             <div className="col">
+                                <button onClick={() => handleDisplay()}
+                                    className='btn btn-success px-4'>Create Course</button>
                             </div>
                         </div>
                     </div>

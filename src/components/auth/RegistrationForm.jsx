@@ -94,7 +94,6 @@ const RegistrationForm = ({ setDisplay }) => {
             });
     }
 
-    // console.log(regDetails)
     return (
         <div className='col-8 prime_blue'>
             <div className="open_sans reg_form my-4">
