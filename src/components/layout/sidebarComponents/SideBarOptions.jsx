@@ -12,8 +12,9 @@ import toast from "react-hot-toast"
 
 const SideBarOptions = () => {
   const [isOpenOption, setIsOpenOption] = useState(null); // Track which subOption is open
-  const {userCredentials, setUserCredentials} = useContext(UserContext)
-// console.log(userCredentials)
+  const {userCredentials, setUserCredentials} = useContext(UserContext);
+  const admin = userCredentials.user.role
+// console.log(userCredentials.user.role)
 
 function Logout(){
   localStorage.removeItem("userDetails")
@@ -58,7 +59,7 @@ function Logout(){
           constant={constant}
           handleSubOptionClick={handleSubOptionClick} />
       ))}
-      {adminConstants.map((constant) => (
+      {admin === "admin" && adminConstants.map((constant) => (
         <SidebarToggle
           key={constant.title}
           isOpenOption={isOpenOption}

@@ -47,10 +47,16 @@ const App = () => {
               <Route path='/chats' element={<Chats />} />
               <Route path='/quiz' element={<QuizPage />} />
               <Route path='/messages' element={<Messages />} />
-              <Route path='/schedule_classes' element={<UpComingClasses />} />
-              <Route path='/create_schedule' element={<CreateSchedule />} />
-              <Route path='/faculty_courses' element={<MyLearning />} />
-              <Route path='/students' element={<RegisteredStudent />} />
+              {
+                role === "admin" && (
+                  <>
+                    <Route path='/schedule_classes' element={<UpComingClasses />} />
+                    <Route path='/create_schedule' element={<CreateSchedule />} />
+                    <Route path='/faculty_courses' element={<MyLearning />} />
+                    <Route path='/registra' element={<RegisteredStudent />} />
+                  </>
+                )
+              }
             </Route>
             <Route path='/learning/:id' element={<LearningDetails />} />
             <Route path='/carts' element={<Carts />} />

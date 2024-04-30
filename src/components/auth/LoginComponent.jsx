@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Col, Row, Spinner } from 'react-bootstrap'
-import logo from "../../assets/logo.png"
+import logo from "../../assets/new-logo.png"
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FiLock, FiUser } from "react-icons/fi";
 import { TfiLock } from "react-icons/tfi";
@@ -88,7 +88,7 @@ const LoginComponent = () => {
             <Col md={6}>
                 <div className="shadow-sm bg-white rounded-3 px-3 py-4">
                     <div className="mb-3 d-flex justify-content-center">
-                        <div>
+                        <div className='col-6'>
                             <img src={logo} alt="logo" className="img-fluid" />
                         </div>
                     </div>

@@ -132,8 +132,8 @@ export const adminConstants = [
                 link: "/faculty_courses",
             },
             {
-                title: "Registered student",
-                link: "/students",
+                title: "Registra",
+                link: "/registra",
             },
         ]
     },

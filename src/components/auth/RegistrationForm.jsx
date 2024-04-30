@@ -12,6 +12,8 @@ import { BASE_URL } from '../utils/base';
 import { UserContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { IoCheckboxSharp } from 'react-icons/io5';
+import { MdOutlineCheckBoxOutlineBlank } from 'react-icons/md';
 
 
 const RegistrationForm = ({ setDisplay }) => {
@@ -28,10 +30,18 @@ const RegistrationForm = ({ setDisplay }) => {
         organization: "",
         position: "",
         email: "",
-        role: "",
+        role: "admin",
         password: "",
-        previousl_trained: true
+        previousl_trained: false
     })
+
+    const toggleAccept = () => {
+        setRegDetails((prev) => {
+            return {
+                ...prev, previousl_trained : !regDetails.previousl_trained
+            };
+        });
+    }
 
     const handleToggle = () => {
         if (inputType === 'password') {
@@ -72,17 +82,19 @@ const RegistrationForm = ({ setDisplay }) => {
                 toast.success(response.data.message);
             })
             .catch((error) => {
-                console.log(error);
-                setErrorMsg(error.response.data.message)
-                setShowMsg(true)
-                setLoading(false);
+                if (error.response) {
+                    setErrorMsg(error.response.data.message)
+                    setShowMsg(true)
+                    setLoading(false);
+                } else {
+                    setErrorMsg(error.message)
+                    setShowMsg(true)
+                    setLoading(false);
+                }
             });
     }
 
-    console.log(regDetails)
-    const handleRegistrations = () => {
-        setDisplay("otp")
-    }
+    // console.log(regDetails)
     return (
         <div className='col-8 prime_blue'>
             <div className="open_sans reg_form my-4">
@@ -113,13 +125,6 @@ const RegistrationForm = ({ setDisplay }) => {
                                 <span className="position-absolute start-0 top-0 p-2"><FiUser /> </span>
                             </div>
                         </div>
-                        {/* <div className="mb-4">
-                            <div className='position-relative'>
-                                <input type="text"
-                                 className="btn input_bg px-5 py-2 w-100" placeholder='Title' />
-                                <span className="position-absolute start-0 top-0 p-2"><SiSubtitleedit /> </span>
-                            </div>
-                        </div> */}
                         <div className="mb-4">
                             <div className='position-relative'>
                                 <input type="text"
@@ -140,13 +145,28 @@ const RegistrationForm = ({ setDisplay }) => {
                                 <span className="position-absolute start-0 top-0 p-2"><GrBusinessService /> </span>
                             </div>
                         </div>
-                        <div className="mb-4">
+                        {/* <div className="mb-4">
                             <div className='position-relative'>
                                 <input type="text"
                                     name="role"
                                     value={regDetails.role}
                                     onChange={handleOnChange}
                                     className="btn input_bg px-5 py-2 w-100" placeholder='Role' />
+                                <span className="position-absolute start-0 top-0 p-2"><SiSubtitleedit /> </span>
+                            </div>
+                        </div> */}
+                        <div className="mb-4">
+                            <div className='position-relative'>
+                                <select
+                                    name="role"
+                                    value={regDetails.role}
+                                    onChange={handleOnChange}
+                                    className="form- py-2 w-100 border-0 rounded px-5 input_bg" aria-label="Default select example">
+                                    {/* <option selected>Open this select menu</option> */}
+                                    <option value="admin">admin</option>
+                                    <option value="instructor">instructor</option>
+                                    <option value="student">student</option>
+                                </select>
                                 <span className="position-absolute start-0 top-0 p-2"><SiSubtitleedit /> </span>
                             </div>
                         </div>
@@ -170,24 +190,19 @@ const RegistrationForm = ({ setDisplay }) => {
                                 <span onClick={handleToggle} className="position-absolute start-0 top-0 p-2">{inputType === "password" ? <FaEye /> : <FaEyeSlash />} </span>
                             </div>
                         </div>
-                        {/* <div className="mb-4"
-                            <div className='position-relative'>
-                                <input type="password" className="btn input_bg px-5 py-2 w-100" placeholder='confirm password' />
-                                <span className="position-absolute start-0 top-0 p-2"><TfiUnlock /> </span>
-                            </div>
-                        </div> */}
-                        <div className="mb-4">
-                            <div>
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox"
-                                        name='previousl_trained'
-                                        checked={regDetails.previousl_trained}
-                                        onChange={handleOnChange}
-                                        value="" id="flexCheckDefault" />
-                                    <label className="form-check-label" htmlFor="flexCheckDefault">
-                                        Have you been trained by us or Members School before
-                                    </label>
-                                </div>
+                        <div className="mb-4 d-flex">
+                            <button
+                                onClick={() => toggleAccept()}
+                                type='button'
+                                className='border-0 prime_brown inherit_bg'>
+                                {regDetails.previousl_trained ? (
+                                    <IoCheckboxSharp size={25} />
+                                ) : (
+                                    <MdOutlineCheckBoxOutlineBlank size={25} />
+                                )}
+                            </button>
+                            <div className="">
+                                Have you been trained by us or Members School before
                             </div>
                         </div>
                         {showMsg && (<p className="text-center mb-3 text-danger">{errorMsg}</p>)}

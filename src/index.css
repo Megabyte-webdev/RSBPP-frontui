@@ -112,7 +112,7 @@ input:focus-visible {
   background-color: hsla(359, 54%, 44%, 1) !important;
 }
 
-.brown_sidebar{
+.brown_sidebar {
   background-color: hsla(359, 54%, 44%, 1) !important;
   color: #f1f1f1 !important;
 }
@@ -209,7 +209,7 @@ input:focus-visible {
   font-size: 0.7rem !important;
 }
 
-.light_sky{
+.light_sky {
   background-color: hsla(219, 50%, 95%, 1);
 }
 
@@ -225,7 +225,7 @@ input:focus-visible {
   background-color: #03014c;
   border-radius: 50%;
 }
-.video_btns{
+.video_btns {
   height: 40px !important;
   width: 40px !important;
   border-radius: 50%;
@@ -234,7 +234,7 @@ input:focus-visible {
   justify-content: center;
 }
 
-.tiny_circle{
+.tiny_circle {
   height: 25px !important;
   width: 25px !important;
   border-radius: 50%;
@@ -243,95 +243,94 @@ input:focus-visible {
   justify-content: center;
 }
 
-.no_arrow::after{
+.no_arrow::after {
   border: none !important;
   margin: 0px !important;
 }
 
-.red{
+.red {
   background-color: hsla(4, 89%, 58%, 1) !important;
 }
 
-.red_text{
+.red_text {
   color: hsla(4, 89%, 58%, 1) !important;
 }
 
-.chat_img{
+.chat_img {
   height: 35px;
   width: 35px;
 }
 
-.focus_brown:focus{
+.focus_brown:focus {
   border-color: #ab3335 !important;
 }
 
-.dark_ash{
-  background-color: #CCCACA;
+.dark_ash {
+  background-color: #cccaca;
 }
-.ash_text{
-  color: #9E9E9E !important;
+.ash_text {
+  color: #9e9e9e !important;
 }
 
-.light_ash{
+.light_ash {
   background-color: hsla(210, 15%, 29%, 0.04);
 }
-.px_4rem{
+.px_4rem {
   padding-left: 5rem !important;
   padding-right: 6rem !important;
 }
 
-.light_danger{
+.light_danger {
   background-color: hsla(0, 75%, 64%, 0.2);
 }
 
-.yellow_text{
+.yellow_text {
   color: hsla(43, 100%, 51%, 1);
 }
-.yellow_bg{
+.yellow_bg {
   background-color: hsla(43, 100%, 51%, 1);
 }
 
-.chat_pic{
+.chat_pic {
   width: 30px !important;
   height: 30px !important;
 }
 
-.border_brown{
+.border_brown {
   border-color: #ab3335 !important;
 }
 
-
-.items_style{
+.items_style {
   padding: 0px 1rem;
 }
 
-.active_dot{
+.active_dot {
   background-color: #ab3335;
 }
 
-.dots_list{
+.dots_list {
   bottom: 0px;
-/* background-color: #03014c; */
+  /* background-color: #03014c; */
   display: flex;
   justify-content: end;
 }
 
-#no_border{
+#no_border {
   border: none !important;
   width: 30px;
   margin-right: 5px;
   padding: 2px 0;
 }
 
-.inherit_bg{
+.inherit_bg {
   background-color: inherit !important;
 }
 
-.normal_btn{
+.normal_btn {
   width: 150px;
 }
 
-.student_stats_icon{
+.student_stats_icon {
   height: 60px;
   width: 60px;
   background-color: hsla(242, 97%, 15%, 0.15);
@@ -341,19 +340,24 @@ input:focus-visible {
   align-items: center;
 }
 
+.registra_nav{
+  background-color: hsla(359, 54%, 44%, 0.1) !important;
+  height: 100%;
+  border-radius: 5px;
+}
 
 @media (min-width: 768px) {
-  .chat_pic{
+  .chat_pic {
     width: 60px !important;
     height: 60px !important;
   }
-  .fs-md-5{
+  .fs-md-5 {
     font-size: 1.25rem !important;
   }
 }
 
-.overflow_y_50{
+.overflow_y_50 {
   max-height: 50vh;
   overflow-y: scroll;
-  scrollbar-width:thin;
+  scrollbar-width: thin;
 }

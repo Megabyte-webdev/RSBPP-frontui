@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { LuLayoutGrid } from "react-icons/lu";
 import { FiSearch, FiShoppingCart } from "react-icons/fi";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import companyLogo from "../../assets/logo.png"
+import companyLogo from "../../assets/new-logo.png"
 import { BiSolidCart, BiSolidMessage } from "react-icons/bi";
 import { TfiViewGrid } from 'react-icons/tfi';
 import { ThemeContext } from '../../context/ThemeContext';
@@ -28,7 +28,7 @@ const NavBar = () => {
     return (
         <div className='border-bottom shadow-sm p-3 px-md-5'>
             <div className="poppins d-flex justify-content-between align-items-center">
-                <div className="col-md-2">
+                <div className="col-md-2 ms-4 ms-md-0 col-6">
                     <Link to={"/"}>
                         <img src={companyLogo} alt="logo" className="img-fluid" />
                     </Link>

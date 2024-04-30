@@ -3,18 +3,25 @@ import CartsItem from '../components/carts/CartsItem'
 import { BsCreditCard, BsPaypal } from 'react-icons/bs'
 import visaCard from "../assets/dash-icons/visa-icon.svg"
 import masterCard from "../assets/dash-icons/master-card.svg"
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { IoCheckboxSharp } from "react-icons/io5";
+import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
+import { useState } from 'react'
 
 const CheckoutPage = () => {
+    const [accept, setAccept] = useState(true)
 
+    const toggleAccept = () => {
+        setAccept(prev => !prev)
+    }
     const on = false
     return (
         <div style={{ backgroundColor: "hsla(0, 0%, 95%, 1)" }}>
             <NavBar />
-            <div className="container">
-                <div className="row">
+            <div className="">
+                <div className="d-md-flex">
                     <div className="col-md-6">
-                        <div className="py-5">
+                        <div className="p-5 px-md-3">
                             <h4>CHECKOUT</h4>
                             <h5>Billing address</h5>
                             <div className="col-md-7 mb-3">
@@ -65,7 +72,7 @@ const CheckoutPage = () => {
                         </div>
                     </div>
                     <div className="col-md-6 d-flex align-items-center" style={{ backgroundColor: "hsla(359, 54%, 44%, 0.12)" }}>
-                        <div className="container ps-5">
+                        <div className="p-5 px-md-3 d-flex justify-content-center">
                             <div className="col-md-8">
                                 <h3 className='border-bottom border-black pb-4'>Summary</h3>
                                 <div className="fs_sm border-bottom border-black ">
@@ -87,13 +94,21 @@ const CheckoutPage = () => {
                                     <p className="fw-bold"> $400</p>
                                 </div>
                                 <div className="rounded bg-white p-4">
-                                    <div className="fs_sm">
-                                        <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" value="" id="TsAndCs" />
-                                            <label className="form-check-label" htmlFor="TsAndCs">
+                                    <div className="fs_sm d-flex">
+                                        <div className="form-check d-flex prime_brown">
+                                            <button
+                                                onClick={() => toggleAccept()}
+                                                className='border-0 prime_brown inherit_bg'>
+                                                {accept ? (
+                                                    <IoCheckboxSharp size={25} />
+                                                ) : (
+                                                    <MdOutlineCheckBoxOutlineBlank size={25} />
+                                                )}
+                                            </button>
+                                            <div className="">
                                                 By clicking this, I agree to Garazi <Link className='prime_brown fw-bold' to={""}>Terms &
                                                     Conditions and Privacy Policy</Link>
-                                            </label>
+                                            </div>
                                         </div>
                                     </div>
                                     <button className='btn brown_bg mt-4 text-white w-100'>Pay for my  Booking</button>
