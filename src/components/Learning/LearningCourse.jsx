@@ -7,24 +7,28 @@ import { useNavigate } from 'react-router-dom';
 import { BiSolidCart } from 'react-icons/bi';
 import { BASE_URL } from '../utils/base';
 import axios from 'axios';
-import ResourceContextProvider, { ResourceContext } from '../../context/ResourceContext';
+import { ResourceContext } from '../../context/ResourceContext';
 
 const LearningCourse = ({ course, userCredentials, cartList }) => {
 
   const navigate = useNavigate();
 
-  const { getAllCarts, setGetAllCarts } = useContext(ResourceContext);
+  const { getAllCarts, setGetAllCarts, setGetAllCourses } = useContext(ResourceContext);
 
   const [errorMesage, setErrorMessage] = useState('');
+  const [deleteError, setDeleteError] = useState('');
 
   const date = new Date(course.updated_at);
+  const userRole = userCredentials?.user.role
+  const token = userCredentials?.token
+  const itemId = course.id
 
   const details = {
     user_id: userCredentials?.user.id,
     course_id: course?.id
   }
 
-const hasItem = cartList?.some(item => item.id === course.id)
+  const hasItem = cartList?.some(item => item.id === course.id)
 
   const addToCart = () => {
     setGetAllCarts((prev) => {
@@ -54,6 +58,38 @@ const hasItem = cartList?.some(item => item.id === course.id)
         }
       });
   };
+  
+  const deleteFunction = () => {
+    setGetAllCourses((prev) => {
+      return {
+        ...prev, isDataNeeded: false
+      }
+    })
+     const params = {
+      headers: {
+          'Authorization': `Bearer ${userCredentials.token}`
+      }
+  }
+    axios.post(`${BASE_URL}course/deleteCourse/${itemId}`, params)
+      .then(response => {
+        console.log(response)
+        setGetAllCourses((prev) => {
+          return {
+            ...prev, isDataNeeded: true
+          }
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response) {
+          setErrorMessage(error.response.data.message);
+        } else {
+          setErrorMessage(error.message);
+        }
+      });
+  };
+
+
   return (
     <div className='rounded bg-white mb-3 h-100 d-flex flex-column justify-content-between'>
       <div onClick={() => navigate(`/learning/${course.title}`, { state: { course: course } })} className='nav-link pointer'>
@@ -81,11 +117,20 @@ const hasItem = cartList?.some(item => item.id === course.id)
           </div>
         </div>
       </div>
-      <div className='px-1'>
-        <button
-        disabled={hasItem}
-        onClick={()=> addToCart()}
-         className='btn w-100 btn-danger'>Add to Cart <span><BiSolidCart /></span></button>
+      <div>
+        <div className='px-1 mb-2'>
+          <button
+            disabled={hasItem}
+            onClick={() => addToCart()}
+            className='btn w-100 btn-danger'>Add to Cart <span><BiSolidCart /></span></button>
+        </div>
+        {/* {userRole === "admin" && ( */}
+          <div className='px-1'>
+            <button
+              onClick={() => deleteFunction()}
+              className='btn w-100 btn-secondary'>Delete Course</button>
+          </div>
+        {/* // )} */}
       </div>
     </div>
   )

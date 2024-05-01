@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 const RegOtpForm = ({ setDisplay }) => {
 
   const currentEmail = localStorage.getItem("regEmail");
-  console.log(currentEmail)
+  // console.log(currentEmail)
   const navigate = useNavigate();
 
   const handleOtp = () => {

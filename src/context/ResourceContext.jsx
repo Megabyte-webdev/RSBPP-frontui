@@ -81,6 +81,7 @@ function ResourceContextProvider({ children }) {
     return (
         <ResourceContext.Provider
             value={{
+                errorMesage,
                 getAllUsers,
                 setGetAllUsers,
                 getAllFaculty,

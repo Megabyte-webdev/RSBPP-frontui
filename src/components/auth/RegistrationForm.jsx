@@ -38,7 +38,7 @@ const RegistrationForm = ({ setDisplay }) => {
     const toggleAccept = () => {
         setRegDetails((prev) => {
             return {
-                ...prev, previousl_trained : !regDetails.previousl_trained
+                ...prev, previousl_trained: !regDetails.previousl_trained
             };
         });
     }
@@ -98,7 +98,7 @@ const RegistrationForm = ({ setDisplay }) => {
         <div className='col-8 prime_blue'>
             <div className="open_sans reg_form my-4">
                 <h3>Create Account</h3>
-                <p className='pe-5 fw_sm mb-4'>Please complete the fields below.If you already have an existing accounts, please follow Get Access to login</p>
+                <p className='pe-md-5 fw-light fs_sm mb-4'>Please complete the fields below.If you already have an existing accounts, please follow Get Access to login</p>
                 <form
                     onSubmit={handleRegistration}
                 >

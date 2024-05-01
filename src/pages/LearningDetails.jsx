@@ -6,19 +6,56 @@ import { CgTimelapse } from "react-icons/cg";
 import Curricullum from '../components/Learning/Curricullum'
 import user from "../assets/img-2.png"
 import NavBar from '../components/layout/NavBar'
-import { ThemeContext } from '../context/ThemeContext'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import payPal from "../assets/dash-icons/paypal 1.svg"
 import payStack from "../assets/dash-icons/Paystack 1.svg"
+import axios from 'axios';
+import { ResourceContext } from '../context/ResourceContext';
+import { UserContext } from '../context/AuthContext';
+import { BASE_URL } from '../components/utils/base';
 
 const LearningDetails = () => {
-    const { searchField, setSearchField } = useContext(ThemeContext);
+    const navigate = useNavigate();
+    const { getAllCarts, setGetAllCarts } = useContext(ResourceContext);
+    const { userCredentials } = useContext(UserContext);
     const [purchase, setPurchase] = useState(true)
-    const { state } = useLocation()
+    const [errorMessage, setErrorMessage] = useState(true)
+    const { state } = useLocation();
 
-    useEffect(() => {
-        setSearchField(true)
-    }, [])
+    const details = {
+        user_id: userCredentials?.user.id,
+        course_id: state.course?.id
+    }
+
+    const addToCart = () => {
+        setGetAllCarts((prev) => {
+            return {
+                ...prev, isDataNeeded: false
+            }
+        })
+        axios.post(`${BASE_URL}cart/addCart`, details, {
+            headers: {
+                'Authorization': `Bearer ${userCredentials.token}`,
+            },
+        })
+            .then(response => {
+                console.log(response)
+                setGetAllCarts((prev) => {
+                    return {
+                        ...prev, isDataNeeded: true
+                    }
+                })
+                navigate("/cart")
+            })
+            .catch((error) => {
+                console.log(error);
+                if (error.response) {
+                    setErrorMessage(error.response.data.message);
+                } else {
+                    setErrorMessage(error.message);
+                }
+            });
+    };
 
     console.log(state)
     return (
@@ -60,7 +97,7 @@ const LearningDetails = () => {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center">
-                    <button onClick={() => setPurchase(false)} className='btn blue_bg text-white py-2 px-5 rounded-0'>Enroll Now - ${state.course.price}</button>
+                    <button onClick={() => addToCart()} className='btn blue_bg text-white py-2 px-5 rounded-0'>Enroll Now - ${state.course.price}</button>
                 </div>
             </div>
             <div className="p-3 border-bottom">

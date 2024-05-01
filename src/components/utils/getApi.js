@@ -44,8 +44,8 @@ export const getItemFunc = (
         });
   };
 
-  export const cartsTotalFunction = (token, setErrorMessage, setCurrentTotal) => {
-    const getApi = `${BASE_URL}cart/getCart/4`;
+  export const cartsTotalFunction = (token, userId, setError, setCurrentTotal) => {
+    const getApi = `${BASE_URL}cart/getCart/${userId}`;
   
     if (token) {
       axios
@@ -56,13 +56,14 @@ export const getItemFunc = (
         })
         .then((response) => {
           setCurrentTotal(response.data.totalPrice);
+          console.log(response)
         })
         .catch((error) => {
           console.log(error);
           if (error.response) {
-            setErrorMessage(error.response.data.message);
+            setError(error.response.data.message);
           } else {
-            setErrorMessage(error.message);
+            setError(error.message);
           }
         });
     }

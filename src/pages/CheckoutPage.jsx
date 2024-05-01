@@ -3,17 +3,36 @@ import CartsItem from '../components/carts/CartsItem'
 import { BsCreditCard, BsPaypal } from 'react-icons/bs'
 import visaCard from "../assets/dash-icons/visa-icon.svg"
 import masterCard from "../assets/dash-icons/master-card.svg"
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { IoCheckboxSharp } from "react-icons/io5";
 import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { cartsTotalFunction } from '../components/utils/getApi'
+import { UserContext } from '../context/AuthContext'
 
 const CheckoutPage = () => {
     const [accept, setAccept] = useState(true)
+    const { state } = useLocation()
 
+    const { userCredentials } = useContext(UserContext);
+    
+    const [error, setError] = useState('');
+
+    const [currentTotal, setCurrentTotal] = useState('');
+
+
+    
+    const token = userCredentials.token;
+    const userId = userCredentials?.user.id;
     const toggleAccept = () => {
         setAccept(prev => !prev)
     }
+    useEffect(() => {
+        cartsTotalFunction(token, userId, setError, setCurrentTotal)
+    }, [])
+
+    console.log(currentTotal)
+    console.log(state.cartCourses)
     const on = false
     return (
         <div style={{ backgroundColor: "hsla(0, 0%, 95%, 1)" }}>
@@ -67,7 +86,9 @@ const CheckoutPage = () => {
                             </div>
                             <div className='my-4'>
                                 <h5>Order Deals</h5>
-                                <CartsItem on={on} />
+                                {state.cartCourses.data?.map((cart) => (
+                                    <CartsItem key={cart.id} cart={cart} on={on} />
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -76,22 +97,20 @@ const CheckoutPage = () => {
                             <div className="col-md-8">
                                 <h3 className='border-bottom border-black pb-4'>Summary</h3>
                                 <div className="fs_sm border-bottom border-black ">
-                                    <div className="d-flex mb-3 justify-content-between">
-                                        <p>Course Price</p>
-                                        <p className="fw-bold"> $400</p>
-                                    </div>
-                                    <div className="d-flex mb-3 justify-content-between">
-                                        <p>Discount</p>
-                                        <p className="fw-bold"> $400</p>
-                                    </div>
-                                    <div className="d-flex mb-3 justify-content-between">
+                                    {state.cartCourses.data?.map((cart) => (
+                                        <div key={cart.id} className="d-flex mb-3 justify-content-between">
+                                            <p>{cart.title}</p>
+                                            <p className="fw-bold"> ${cart.price}</p>
+                                        </div>
+                                    ))}
+                                    {/* <div className="d-flex mb-3 justify-content-between">
                                         <p>Course Date</p>
                                         <p className="fw-bold">Thu, 8 Feb 2024 - 10:00</p>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className='fw-bold my-4 d-flex justify-content-between'>
-                                    <p>Discount</p>
-                                    <p className="fw-bold"> $400</p>
+                                    <p>Total</p>
+                                    <p className="fw-bold"> ${currentTotal}</p>
                                 </div>
                                 <div className="rounded bg-white p-4">
                                     <div className="fs_sm d-flex">

@@ -7,7 +7,7 @@ import { ResourceContext } from '../context/ResourceContext'
 import { UserContext } from '../context/AuthContext'
 
 const MyLearning = () => {
-    const { userCredentials } = useContext(UserContext);
+    const { userCredentials, } = useContext(UserContext);
 
     const { getAllFaculty,
         setGetAllFaculty,
@@ -49,7 +49,7 @@ const MyLearning = () => {
     //         <LearningCourse key={course.id} userCredentials={userCredentials} course={course} />
     //     )
     // })
-
+// console.log(getAllCarts.data)
     return (
         <div className='p-3 p-md-5 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
             <h3>My Learning Paths</h3>

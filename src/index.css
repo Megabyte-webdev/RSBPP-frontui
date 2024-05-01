@@ -358,6 +358,9 @@ input:focus-visible {
   .fs-md-5 {
     font-size: 1.25rem !important;
   }
+  .vh_md_100{
+    height: 100vh !important;
+  }
 }
 
 .overflow_y_50 {

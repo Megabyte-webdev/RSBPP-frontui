@@ -198,7 +198,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                             <input
                                                 required
                                                 type="text"
-                                                value={details.program}
+                                                value={details.program.toLocaleLowerCase()}
                                                 name="program"
                                                 onChange={handleOnChange}
                                                 className="form-control" id="program" aria-describedby="emailHelp" />

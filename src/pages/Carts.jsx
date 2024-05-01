@@ -13,21 +13,23 @@ const Carts = () => {
     const { userCredentials } = useContext(UserContext);
 
     const {
+        errorMesage,
         getAllCourses,
         setGetAllCourses,
         getAllCarts,
         setGetAllCarts,
     } = useContext(ResourceContext)
 
-    const [errorMesage, setErrorMessage] = useState('');
+    const [error, setError] = useState('');
 
     const [currentTotal, setCurrentTotal] = useState('');
 
     const on = true
     const token = userCredentials.token;
+    const userId = userCredentials?.user.id;
 
     useEffect(() => {
-        cartsTotalFunction(token, setErrorMessage, setCurrentTotal)
+        cartsTotalFunction(token, userId, setError, setCurrentTotal)
     }, [])
 
     useEffect(() => {
@@ -70,7 +72,7 @@ const Carts = () => {
                 </div>
             </div>
             {!getAllCarts.data && (
-                <div style={{ height: "80vh", padding: "3rem"}}> Loading data......</div>
+                <div style={{ height: "80vh", padding: "3rem"}}> {errorMesage}</div>
             )}
             {getAllCarts.data && (
                 <div className="mt-5 border-top pb-5">
@@ -92,7 +94,7 @@ const Carts = () => {
                                         <div>
                                             {getAllCarts.data?.map((cart) => (
                                                 <div key={cart.id} className="d-flex mb-3 justify-content-between">
-                                                    <p>{cart.code}</p>
+                                                    <p>{cart.title}</p>
                                                     <p>{cart.price}</p>
                                                 </div>
                                             ))}
@@ -113,7 +115,7 @@ const Carts = () => {
                                             </div>
                                             <div className='mt-4'>
                                                 <button
-                                                    onClick={() => navigate("/checkout")}
+                                                    onClick={() => navigate("/checkout", { state: { cartCourses: getAllCarts?.data } })}
                                                     className='col-12 btn bg-black rounded-pill py-2 text-white'>Checkout</button>
                                             </div>
                                         </div>
