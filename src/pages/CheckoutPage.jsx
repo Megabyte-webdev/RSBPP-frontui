@@ -86,7 +86,7 @@ const CheckoutPage = () => {
                             </div>
                             <div className='my-4'>
                                 <h5>Order Deals</h5>
-                                {state.cartCourses.data?.map((cart) => (
+                                {state.cartCourses?.map((cart) => (
                                     <CartsItem key={cart.id} cart={cart} on={on} />
                                 ))}
                             </div>
@@ -97,7 +97,7 @@ const CheckoutPage = () => {
                             <div className="col-md-8">
                                 <h3 className='border-bottom border-black pb-4'>Summary</h3>
                                 <div className="fs_sm border-bottom border-black ">
-                                    {state.cartCourses.data?.map((cart) => (
+                                    {state.cartCourses?.map((cart) => (
                                         <div key={cart.id} className="d-flex mb-3 justify-content-between">
                                             <p>{cart.title}</p>
                                             <p className="fw-bold"> ${cart.price}</p>
