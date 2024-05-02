@@ -9,19 +9,21 @@ import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 import { useContext, useEffect, useState } from 'react'
 import { cartsTotalFunction } from '../components/utils/getApi'
 import { UserContext } from '../context/AuthContext'
+import PaystackPlatform from '../components/payment/PaystackPlatform'
+import { Spinner } from 'react-bootstrap'
 
 const CheckoutPage = () => {
-    const [accept, setAccept] = useState(true)
+    const [accept, setAccept] = useState(false)
     const { state } = useLocation()
 
     const { userCredentials } = useContext(UserContext);
-    
+
     const [error, setError] = useState('');
 
-    const [currentTotal, setCurrentTotal] = useState('');
+    const [currentTotal, setCurrentTotal] = useState(null);
 
 
-    
+
     const token = userCredentials.token;
     const userId = userCredentials?.user.id;
     const toggleAccept = () => {
@@ -110,7 +112,12 @@ const CheckoutPage = () => {
                                 </div>
                                 <div className='fw-bold my-4 d-flex justify-content-between'>
                                     <p>Total</p>
-                                    <p className="fw-bold"> ${currentTotal}</p>
+                                    {!currentTotal && (
+                                        <p className="fw-bold"> <Spinner size='sm' /></p>
+                                    )}
+                                    {currentTotal && (
+                                        <p className="fw-bold"> ${currentTotal}</p>
+                                    )}
                                 </div>
                                 <div className="rounded bg-white p-4">
                                     <div className="fs_sm d-flex">
@@ -130,7 +137,8 @@ const CheckoutPage = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <button className='btn brown_bg mt-4 text-white w-100'>Pay for my  Booking</button>
+                                    {/* <button className='btn brown_bg mt-4 text-white w-100'>Pay for my  Booking</button> */}
+                                    <PaystackPlatform accept={accept} currentTotal={currentTotal} />
                                 </div>
                             </div>
                         </div>

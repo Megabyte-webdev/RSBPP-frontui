@@ -350,6 +350,11 @@ input:focus-visible {
   border-radius: 5px;
 }
 
+input[type=radio].red_radio{
+  background-color: #ab3335;
+  /* accent-color: green!important; */
+}
+
 @media (min-width: 768px) {
   .chat_pic {
     width: 60px !important;
