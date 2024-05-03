@@ -181,7 +181,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                                 className="form-control" id="duration" aria-describedby="emailHelp" />
                                         </div>
                                         <div className="mb-3 col-md-6">
-                                            <label htmlFor="type" className="form-label">description</label>
+                                            <label htmlFor="type" className="form-label">Course Type</label>
                                             <select
                                                 id="type"
                                                 value={details.course_type}

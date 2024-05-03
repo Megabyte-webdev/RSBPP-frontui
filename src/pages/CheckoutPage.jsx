@@ -33,7 +33,7 @@ const CheckoutPage = () => {
         cartsTotalFunction(token, userId, setError, setCurrentTotal)
     }, [])
 
-    console.log(currentTotal)
+    // console.log(currentTotal)
     console.log(state.cartCourses)
     const on = false
     return (
@@ -138,7 +138,7 @@ const CheckoutPage = () => {
                                         </div>
                                     </div>
                                     {/* <button className='btn brown_bg mt-4 text-white w-100'>Pay for my  Booking</button> */}
-                                    <PaystackPlatform accept={accept} currentTotal={currentTotal} />
+                                    <PaystackPlatform userCredentials={userCredentials} cartCourses={state?.cartCourses} accept={accept} currentTotal={currentTotal} />
                                 </div>
                             </div>
                         </div>

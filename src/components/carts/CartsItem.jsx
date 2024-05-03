@@ -58,8 +58,8 @@ const CartsItem = ({ on, cart }) => {
                         {on && (
                             <div>
                                 <button disabled={isSubmitting}
-                                onClick={()=>deleteFleet()}
-                                 className='btn bg-danger text-light rounded-4'>Remove</button>
+                                    onClick={() => deleteFleet()}
+                                    className='btn bg-danger text-light rounded-4'>Remove</button>
                             </div>
                         )}
                         {/* {on &&(

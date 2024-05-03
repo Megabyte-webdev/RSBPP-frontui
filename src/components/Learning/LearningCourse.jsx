@@ -58,38 +58,71 @@ const LearningCourse = ({ course, userCredentials, cartList }) => {
         }
       });
   };
-  
-  const deleteFunction = () => {
+
+  // const deleteFunction = () => {
+  //   setGetAllCourses((prev) => {
+  //     return {
+  //       ...prev, isDataNeeded: false
+  //     }
+  //   })
+  //   axios.post(`${BASE_URL}course/deleteCourse/${itemId}`, {
+  //     headers: {
+  //       'Authorization': `Bearer ${userCredentials.token}`
+  //     }
+  //   })
+  //     .then(response => {
+  //       console.log(response)
+  //       setGetAllCourses((prev) => {
+  //         return {
+  //           ...prev, isDataNeeded: true
+  //         }
+  //       })
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       if (error.response) {
+  //         setErrorMessage(error.response.data.message);
+  //       } else {
+  //         setErrorMessage(error.message);
+  //       }
+  //     });
+  // };
+
+  const deleteFunc = async () => {
     setGetAllCourses((prev) => {
       return {
         ...prev, isDataNeeded: false
       }
     })
-     const params = {
+
+    const params = {
+      method: 'POST',
       headers: {
-          'Authorization': `Bearer ${userCredentials.token}`
-      }
-  }
-    axios.post(`${BASE_URL}course/deleteCourse/${itemId}`, params)
-      .then(response => {
+        'Content-Type': "application/json",
+        'Authorization': `Bearer ${userCredentials.token}`
+      },
+    }
+    try {
+      const response = await fetch(`${BASE_URL}course/deleteCourse/${itemId}`, params);
+      if (response.ok) {
+        await response.json();
         console.log(response)
         setGetAllCourses((prev) => {
           return {
             ...prev, isDataNeeded: true
           }
         })
-      })
-      .catch((error) => {
-        console.log(error);
-        if (error.response) {
-          setErrorMessage(error.response.data.message);
-        } else {
-          setErrorMessage(error.message);
-        }
-      });
-  };
 
-
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage(error.message);
+      }
+    }
+  }
   return (
     <div className='rounded bg-white mb-3 h-100 d-flex flex-column justify-content-between'>
       <div onClick={() => navigate(`/learning/${course.title}`, { state: { course: course } })} className='nav-link pointer'>
@@ -124,13 +157,11 @@ const LearningCourse = ({ course, userCredentials, cartList }) => {
             onClick={() => addToCart()}
             className='btn w-100 btn-danger'>Add to Cart <span><BiSolidCart /></span></button>
         </div>
-        {/* {userRole === "admin" && ( */}
-          <div className='px-1'>
-            <button
-              onClick={() => deleteFunction()}
-              className='btn w-100 btn-secondary'>Delete Course</button>
-          </div>
-        {/* // )} */}
+        <div className='px-1'>
+          <button
+            onClick={() => deleteFunc()}
+            className='btn w-100 btn-secondary'>Delete Course</button>
+        </div>
       </div>
     </div>
   )
