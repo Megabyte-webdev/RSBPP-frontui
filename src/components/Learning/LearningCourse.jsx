@@ -8,6 +8,7 @@ import { BiSolidCart } from 'react-icons/bi';
 import { BASE_URL } from '../utils/base';
 import axios from 'axios';
 import { ResourceContext } from '../../context/ResourceContext';
+import toast from 'react-hot-toast';
 
 const LearningCourse = ({ course, userCredentials, cartList }) => {
 
@@ -28,7 +29,9 @@ const LearningCourse = ({ course, userCredentials, cartList }) => {
     course_id: course?.id
   }
 
-  const hasItem = cartList?.some(item => item.id === course.id)
+  const hasItem = cartList?.some(item => item.courseId === course.id)
+  // console.log(course)
+  // console.log(cartList)
 
   const addToCart = () => {
     setGetAllCarts((prev) => {
@@ -43,6 +46,7 @@ const LearningCourse = ({ course, userCredentials, cartList }) => {
     })
       .then(response => {
         console.log(response)
+        toast.success(response.data.message)
         setGetAllCarts((prev) => {
           return {
             ...prev, isDataNeeded: true
@@ -106,7 +110,7 @@ const LearningCourse = ({ course, userCredentials, cartList }) => {
       const response = await fetch(`${BASE_URL}course/deleteCourse/${itemId}`, params);
       if (response.ok) {
         await response.json();
-        console.log(response)
+        // console.log(response)
         setGetAllCourses((prev) => {
           return {
             ...prev, isDataNeeded: true

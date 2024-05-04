@@ -4,6 +4,7 @@ import { BASE_URL } from '../utils/base'
 import axios from 'axios'
 import { UserContext } from '../../context/AuthContext'
 import { ResourceContext } from '../../context/ResourceContext'
+import toast from 'react-hot-toast'
 // import { CgMathMinus, CgTimelapse } from "react-icons/cg";
 // import { IoMdAdd } from 'react-icons/io';
 
@@ -11,33 +12,82 @@ const CartsItem = ({ on, cart }) => {
     const { userCredentials } = useContext(UserContext)
     const { setGetAllCarts } = useContext(ResourceContext)
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [errorMessage, setErrorMessage] = useState(false)
 
-    const deleteFleet = (() => {
-        setIsSubmitting(true)
-        //update fleet resource to false
+    // const deleteFunc = (() => {
+    //     setIsSubmitting(true)
+    //     //update fleet resource to false
+    //     setGetAllCarts((prev) => {
+    //         return {
+    //             ...prev, isDataNeeded: false
+    //         }
+    //     })
+    //     axios.post(`${BASE_URL}cart/removeCart/${cart.cartsId}`, {
+    //         headers: {
+    //             'Authorization': `Bearer ${userCredentials.token}`
+    //         }
+    //     })
+    //         .then(response => {
+    //             console.log(response)
+    //             //update fleet resource to true again to get new list after successful delet only
+    //             setGetAllCarts((prev) => {
+    //                 return {
+    //                     ...prev, isDataNeeded: true
+    //                 }
+    //             })
+    //             setIsSubmitting(false)
+    //         })
+    //         .catch(error => {
+    //             console.log(error);
+    //             if (error.response) {
+    //               setErrorMessage(error.response.data.message);
+    //               toast(error.response.data.message)
+    //             setIsSubmitting(false)
+    //             } else {
+    //                 toast(error.message)
+    //               setErrorMessage(error.message);
+    //             setIsSubmitting(false)
+    //             }
+    //         })
+    // })
+    const deleteFunc = async () => {
         setGetAllCarts((prev) => {
             return {
                 ...prev, isDataNeeded: false
             }
         })
-        axios.delete(`${BASE_URL}cart/removeCart/${cart.id}`, {
+
+        const params = {
+            method: 'POST',
             headers: {
+                'Content-Type': "application/json",
                 'Authorization': `Bearer ${userCredentials.token}`
-            }
-        })
-            .then(response => {
-                console.log(response)
-                //update fleet resource to true again to get new list after successful delet only
+            },
+        }
+        try {
+            const response = await fetch(`${BASE_URL}cart/removeCart/${cart.cartsId}`, params);
+            if (response.ok) {
+                await response.json();
+                // console.log(response)
                 setGetAllCarts((prev) => {
                     return {
                         ...prev, isDataNeeded: true
                     }
                 })
-                setIsSubmitting(false)
-            })
-            .catch(error => console.log(error))
-        setIsSubmitting(false)
-    })
+
+            }
+        } catch (error) {
+            console.log(error);
+            if (error.response) {
+                setErrorMessage(error.response.data.message);
+                console.log(error.response);
+            } else {
+                setErrorMessage(error.message);
+                console.log(error.message);
+            }
+        }
+    }
+
     return (
         <div className="border-bottom py-3">
             <div className="form-check col d-flex align-items-center">
@@ -58,7 +108,7 @@ const CartsItem = ({ on, cart }) => {
                         {on && (
                             <div>
                                 <button disabled={isSubmitting}
-                                    onClick={() => deleteFleet()}
+                                    onClick={() => deleteFunc()}
                                     className='btn bg-danger text-light rounded-4'>Remove</button>
                             </div>
                         )}

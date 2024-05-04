@@ -116,7 +116,7 @@ const CheckoutPage = () => {
                                         <p className="fw-bold"> <Spinner size='sm' /></p>
                                     )}
                                     {currentTotal && (
-                                        <p className="fw-bold"> ${currentTotal}</p>
+                                        <p className="fw-bold"> ${currentTotal}.00</p>
                                     )}
                                 </div>
                                 <div className="rounded bg-white p-4">

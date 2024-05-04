@@ -10,12 +10,12 @@ const PaystackPlatform = ({ currentTotal, accept, userCredentials, cartCourses }
 
     const courseIds = cartCourses?.map(({ id }) => id);
 
-    // console.log(cartCourses[0].id)
-    const [details, setDetails] = useState({
-        reference: "",
-        course_id: cartCourses[0].id,
-        student_id: userCredentials.user.id
-    })
+    // console.log(cartCourses[0].courseId)
+    // const [details, setDetails] = useState({
+    //     reference: "",
+    //     course_id: cartCourses[0].courseId,
+    //     student_id: userCredentials.user.id
+    // })
     const config = {
         reference: (new Date()).getTime().toString(),
         email: "climaxbiz@mail.com",
@@ -30,10 +30,17 @@ const PaystackPlatform = ({ currentTotal, accept, userCredentials, cartCourses }
                 ...prev, isDataNeeded: false
             }
         })
-
-        setDetails((prev) => ({
-            ...prev, reference: info.reference
-        }))
+        // setDetails((prev) => {
+        //     return {
+        //         ...prev, reference: info.reference
+        //     }
+        // })
+        const details = {
+            reference: info.reference,
+            course_id: cartCourses[0].courseId,
+            student_id: userCredentials.user.id
+        }
+        console.log(details)
         axios.post(`${BASE_URL}payment/pay`, details, {
             headers: {
                 Authorization: `Bearer ${userCredentials?.token}`,
@@ -50,7 +57,7 @@ const PaystackPlatform = ({ currentTotal, accept, userCredentials, cartCourses }
             })
             .catch((error) => {
                 if (error.response) {
-                    console.log(error.response.data.message)
+                    console.log(error.response)
                     // setErrorMsg(error.response.data.message)
                 } else {
                     console.log(error.message)
@@ -63,6 +70,7 @@ const PaystackPlatform = ({ currentTotal, accept, userCredentials, cartCourses }
     const handlePaystackSuccessAction = (info) => {
         // Implementation for whatever you want to do with reference and after success call.
         handlePayment(info)
+        console.log(info)
     };
 
     // you can call this function anything

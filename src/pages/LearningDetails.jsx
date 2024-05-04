@@ -27,37 +27,44 @@ const LearningDetails = () => {
         course_id: state.course?.id
     }
 
+    const hasItem = getAllCarts.data?.some(item => item.courseId === state.course?.id)
+
     const addToCart = () => {
-        setGetAllCarts((prev) => {
-            return {
-                ...prev, isDataNeeded: false
-            }
-        })
-        axios.post(`${BASE_URL}cart/addCart`, details, {
-            headers: {
-                'Authorization': `Bearer ${userCredentials.token}`,
-            },
-        })
-            .then(response => {
-                console.log(response)
-                setGetAllCarts((prev) => {
-                    return {
-                        ...prev, isDataNeeded: true
-                    }
-                })
-                navigate("/cart")
-            })
-            .catch((error) => {
-                console.log(error);
-                if (error.response) {
-                    setErrorMessage(error.response.data.message);
-                } else {
-                    setErrorMessage(error.message);
+        if (hasItem) {
+            navigate("/carts")
+        } else {
+            setGetAllCarts((prev) => {
+                return {
+                    ...prev, isDataNeeded: false
                 }
-            });
+            })
+            axios.post(`${BASE_URL}cart/addCart`, details, {
+                headers: {
+                    'Authorization': `Bearer ${userCredentials.token}`,
+                },
+            })
+                .then(response => {
+                    console.log(response)
+                    setGetAllCarts((prev) => {
+                        return {
+                            ...prev, isDataNeeded: true
+                        }
+                    })
+                    navigate("/carts")
+                })
+                .catch((error) => {
+                    console.log(error);
+                    if (error.response) {
+                        setErrorMessage(error.response.data.message);
+                    } else {
+                        setErrorMessage(error.message);
+                    }
+                });
+        }
     };
 
-    console.log(state)
+    // console.log(hasItem)
+    // console.log(state)
     return (
         <div>
             <NavBar />

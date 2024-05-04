@@ -89,7 +89,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
             },
         })
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 setGetAllCourses((prev) => {
                     return {
                         ...prev, isDataNeeded: true

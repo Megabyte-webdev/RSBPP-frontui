@@ -56,7 +56,7 @@ const Carts = () => {
 
     const listUsers = getAllCourses.data?.map((course) => {
         return (
-            <LearningCourse key={course.id} course={course} />
+            <LearningCourse key={course.id} cartList={getAllCarts.data} course={course} />
         )
     })
     return (
@@ -72,35 +72,36 @@ const Carts = () => {
                 </div>
             </div>
             {!getAllCarts.data && (
-                <div style={{ height: "80vh", padding: "3rem"}}> {errorMesage}</div>
+                <div style={{ height: "80vh", padding: "3rem" }}> {errorMesage}</div>
             )}
             {getAllCarts.data && (
                 <div className="mt-5 border-top pb-5">
                     <div className="container">
-                        <div className="row py-4 mb-5">
-                            <div className="col-md-8">
-                                <div className="">
-                                    <div className="border-bottom pb-3">
-                                        <h5>Shopping Chart</h5>
-                                        <p>Showing {getAllCarts.data?.length} products you added</p>
-                                    </div>
-                                    {cartList}
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div>
-                                    <div className="border border-black p-4">
-                                        <h4>Order Summary</h4>
-                                        <div>
-                                            {getAllCarts.data?.map((cart) => (
-                                                <div key={cart.id} className="d-flex mb-3 justify-content-between">
-                                                    <p>{cart.title}</p>
-                                                    <p>{cart.price}</p>
-                                                </div>
-                                            ))}
+                        {getAllCarts.data?.length > 0 ? (
+                            <div className="row py-4 mb-5">
+                                <div className="col-md-8">
+                                    <div className="">
+                                        <div className="border-bottom pb-3">
+                                            <h5>Shopping Chart</h5>
+                                            <p>Showing {getAllCarts.data?.length} products you added</p>
                                         </div>
-                                        <div className="border-top py-3 ash_text">
-                                            {/* <div className="d-flex mb-3 justify-content-between">
+                                        {cartList}
+                                    </div>
+                                </div>
+                                <div className="col-md-4">
+                                    <div>
+                                        <div className="border border-black p-4">
+                                            <h4>Order Summary</h4>
+                                            <div>
+                                                {getAllCarts.data?.map((cart) => (
+                                                    <div key={cart.id} className="d-flex mb-3 justify-content-between">
+                                                        <p>{cart.title}</p>
+                                                        <p>{cart.price}</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                            <div className="border-top py-3 ash_text">
+                                                {/* <div className="d-flex mb-3 justify-content-between">
                                             <p>Total Price (item)</p>
                                             <p>{currentTotal}</p>
                                         </div>
@@ -108,21 +109,24 @@ const Carts = () => {
                                             <p>Shipping Tax & Fee</p>
                                             <p>$24</p>
                                         </div> */}
-                                            <div className="d-flex mb-3 text-black fw-bold justify-content-between">
-                                                <p>Total Price</p>
-                                                <p>{currentTotal}</p>
+                                                <div className="d-flex mb-3 text-black fw-bold justify-content-between">
+                                                    <p>Total Price</p>
+                                                    <p>{currentTotal}</p>
 
-                                            </div>
-                                            <div className='mt-4'>
-                                                <button
-                                                    onClick={() => navigate("/checkout", { state: { cartCourses: getAllCarts?.data } })}
-                                                    className='col-12 btn bg-black rounded-pill py-2 text-white'>Checkout</button>
+                                                </div>
+                                                <div className='mt-4'>
+                                                    <button
+                                                        onClick={() => navigate("/checkout", { state: { cartCourses: getAllCarts?.data } })}
+                                                        className='col-12 btn bg-black rounded-pill py-2 text-white'>Checkout</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        ) : (
+                            <p className='fs-4 fw-bold text-center py-5'>Cart is empty</p>
+                        )}
                         <div className="row">
                             <h3 className='my-4'>SIMILAR COURSE</h3>
                             {getAllCourses.data && (
