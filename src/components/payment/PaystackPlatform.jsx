@@ -4,11 +4,12 @@ import { BASE_URL } from '../utils/base';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { ResourceContext } from '../../context/ResourceContext';
+import { useNavigate } from 'react-router-dom';
 
 const PaystackPlatform = ({ currentTotal, accept, userCredentials, cartCourses }) => {
     const { setGetAllCourses } = useContext(ResourceContext);
-
-    const courseIds = cartCourses?.map(({ id }) => id);
+    const navigate = useNavigate();
+    // const courseIds = cartCourses?.map(({ courseId }) => courseId);
 
     // console.log(cartCourses[0].courseId)
     // const [details, setDetails] = useState({
@@ -30,11 +31,6 @@ const PaystackPlatform = ({ currentTotal, accept, userCredentials, cartCourses }
                 ...prev, isDataNeeded: false
             }
         })
-        // setDetails((prev) => {
-        //     return {
-        //         ...prev, reference: info.reference
-        //     }
-        // })
         const details = {
             reference: info.reference,
             course_id: cartCourses[0].courseId,
@@ -53,6 +49,7 @@ const PaystackPlatform = ({ currentTotal, accept, userCredentials, cartCourses }
                         ...prev, isDataNeeded: true
                     }
                 })
+                navigate("/")
                 toast.success("successful payment");
             })
             .catch((error) => {

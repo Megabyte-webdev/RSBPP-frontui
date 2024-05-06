@@ -10,6 +10,7 @@ import { ResourceContext } from '../context/ResourceContext';
 import AllUsers from '../components/stats/AllUsers';
 import AllFaculties from '../components/stats/AllFaculties';
 import AllCourses from '../components/stats/AllCourses';
+import { UserContext } from '../context/AuthContext';
 
 const RegisteredStudent = () => {
     const { getAllFaculty,
@@ -19,6 +20,7 @@ const RegisteredStudent = () => {
         setGetAllCourses,
         setGetAllUsers } = useContext(ResourceContext)
 
+    const {userCredentials} = useContext(UserContext)
     const [show, setShow] = useState("users")
 
     useEffect(() => {
@@ -150,7 +152,7 @@ const RegisteredStudent = () => {
                     </Col>
                 </Row>
             </div>
-            {show === "users" && (<AllUsers getAllUsers={getAllUsers.data} />)}
+            {show === "users" && (<AllUsers userCredentials={userCredentials} getAllUsers={getAllUsers.data} />)}
             {show === "members" && (<AllUsers getAllUsers={getAllUsers.data} />)}
             {show === "faculty" && (<AllFaculties getAllFaculty={getAllFaculty.data} />)}
             {show === "courses" && (<AllCourses getAllCourses={getAllCourses.data} />)}

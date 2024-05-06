@@ -1,5 +1,5 @@
 import Layout from './components/layout/Layout'
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import Login from './pages/Login'
 import ResetPassword from './pages/ResetPassword'
 import Registration from './pages/Registration'
@@ -25,11 +25,12 @@ import RegisteredStudent from './pages/RegisteredStudent'
 import ResourceContextProvider from './context/ResourceContext'
 import Carts from './pages/Carts'
 import CheckoutPage from './pages/CheckoutPage'
+import NotFound from './pages/NotFound'
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
   const role = userCredentials?.user.role.toLowerCase();
-  // console.log(role)
+  // console.log(userCredentials)
   return (
     // <UserContextProvider>
     <ResourceContextProvider>
@@ -58,12 +59,21 @@ const App = () => {
                 )
               }
             </Route>
-            <Route path='/learning/:id' element={<LearningDetails />} />
-            <Route path='/carts' element={<Carts />} />
-            <Route path='/checkout' element={< CheckoutPage />} />
+            {userCredentials && (
+              <>
+                <Route path='/learning/:id' element={<LearningDetails />} />
+                <Route path='/carts' element={<Carts />} />
+                <Route path='/checkout' element={< CheckoutPage />} />
+              </>
+            )}
             <Route path="/login" element={<Login />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/registration" element={<Registration />} />
+            {/* Catch-all route for 404 */}
+            <Route path="*" element={<Navigate to="/not-found" replace />} />
+
+            {/* 404 page component */}
+            <Route path="/not-found" element={<NotFound />} />
           </Routes>
         </Router>
         <ToastProvider />

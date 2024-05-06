@@ -1,16 +1,71 @@
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import THead from '../general/THead'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
+import { ResourceContext } from '../../context/ResourceContext'
+import toast from 'react-hot-toast'
+import { BASE_URL } from '../utils/base'
 
-const AllUsers = ({ getAllUsers }) => {
+const AllUsers = ({ getAllUsers, userCredentials }) => {
     const [searchInput, setSearchInput] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const { setGetAllUsers } = useContext(ResourceContext);
 
     const sortType = getAllUsers?.sort((a, b) => b.id - a.id)
 
     const typeSearch = sortType?.filter((user) =>
         user.first_name.toLowerCase().includes(searchInput.toLowerCase())
     )
+
+    // useEffect(()=>{
+    //     toast.success("hello guys")
+    //     console.log(" I run")
+    // }, [])
+
+    const deleteFunc = async (id) => {
+        setIsSubmitting(true)
+        setGetAllUsers((prev) => {
+            return {
+                ...prev, isDataNeeded: false
+            }
+        })
+
+        const params = {
+            method: 'POST',
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': `Bearer ${userCredentials.token}`
+            },
+        }
+        try {
+            const response = await fetch(`${BASE_URL}user/deleteUser/${id}`, params);
+            if (response.ok) {
+                await response.json();
+                setIsSubmitting(false)
+                // console.log(response)
+                setGetAllUsers((prev) => {
+                    return {
+                        ...prev, isDataNeeded: true
+                    }
+                })
+
+            }
+        } catch (error) {
+            console.log(error);
+            if (error.response) {
+                setIsSubmitting(false)
+                toast.danger(error.response.data.message);
+                console.log(error.response);
+            } else {
+                setIsSubmitting(false)
+                toast.danger(error.message);
+                console.log(error.message);
+            }
+        }
+    }
+
+
     return (
         <div>
 
@@ -62,7 +117,10 @@ const AllUsers = ({ getAllUsers }) => {
                                             <td>{user.email}</td>
                                             <td>{user.role}</td>
                                             <td>
-                                                <button className='btn' style={{ border: "1px solid hsla(166, 79%, 42%, 1)", backgroundColor: "hsla(166, 79%, 42%, 0.38)", color: "hsla(166, 79%, 42%, 1)" }}>Active</button>
+                                                <button
+                                                disabled={isSubmitting}
+                                                onClick={()=>deleteFunc(user.id)}
+                                                 className='btn' style={{ border: "1px solid hsla(166, 79%, 42%, 1)", backgroundColor: "hsla(166, 79%, 42%, 0.38)", color: "hsla(166, 79%, 42%, 1)" }}>{isSubmitting? "Deleting.." : "Delete"}</button>
                                             </td>
                                         </tr>
                                     )
