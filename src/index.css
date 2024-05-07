@@ -356,6 +356,10 @@ input[type=radio].red_radio{
   /* accent-color: green!important; */
 }
 
+.light_brown{
+  background-color: hsla(359, 54%, 44%, 0.15) !important;
+}
+
 @media (min-width: 768px) {
   .chat_pic {
     width: 60px !important;

@@ -26,6 +26,8 @@ import ResourceContextProvider from './context/ResourceContext'
 import Carts from './pages/Carts'
 import CheckoutPage from './pages/CheckoutPage'
 import NotFound from './pages/NotFound'
+import MyCourses from './pages/MyCourses'
+import SuccessfulCheckoutPage from './pages/SuccessfulCheckoutPage'
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
@@ -38,10 +40,10 @@ const App = () => {
         <Router>
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={role === "admin" ? <AdminDashboard /> : <DashboardTwo />} />
+              <Route index element={role === "admin" ? <DashboardTwo /> : <DashboardTwo />} />
               <Route path='/dashboard' element={<DashboardTwo />} />
               <Route path='/video_live' element={<VideoConference />} />
-              <Route path='/courses' element={<Courses />} />
+              <Route path='/courses' element={<MyCourses />} />
               <Route path='/today' element={<TodayMeetings />} />
               <Route path='/learning' element={<MyLearning />} />
               <Route path='/courses_analysis' element={<CoursesAnalysis />} />
@@ -64,6 +66,7 @@ const App = () => {
                 <Route path='/learning/:id' element={<LearningDetails />} />
                 <Route path='/carts' element={<Carts />} />
                 <Route path='/checkout' element={< CheckoutPage />} />
+                <Route path='/success' element={< SuccessfulCheckoutPage />} />
               </>
             )}
             <Route path="/login" element={<Login />} />

@@ -77,6 +77,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setErrorMsg("")
         setGetAllCourses((prev) => {
             return {
                 ...prev, isDataNeeded: false
@@ -102,10 +103,12 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
             })
             .catch((error) => {
                 if (error.response) {
-                    setErrorMsg(error.response.data.message)
+                    console.log(error)
+                    setErrorMsg(error.response.data.errors.code ? error.response.data.errors.code : error.response.data.errors.program)
                     setShowMsg(true)
                     setLoading(false);
                 } else {
+                    console.log(error)
                     setErrorMsg(error.message)
                     setShowMsg(true)
                     setLoading(false);
@@ -113,7 +116,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
             });
     }
 
-    console.log(setGetAllFaculty)
+    // console.log(errorMsg)
     return (
         <div>
             {isOpen && (
