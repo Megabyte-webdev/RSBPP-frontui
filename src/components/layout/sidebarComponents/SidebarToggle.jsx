@@ -39,7 +39,9 @@ const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant }) => {
                         <ul style={{ listStyle: "none" }} className="border-start border-white ms-4">
                             {
                                 subOption?.map((sub, index) => (
-                                    <li key={index}><Link to={sub.link ? sub.link : ""} className="nav-link">{sub.title}</Link></li>
+                                    <li
+                                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
+                                     key={index}><Link to={sub.link ? sub.link : ""} className="nav-link">{sub.title}</Link></li>
                                 ))
                             }
                         </ul>
