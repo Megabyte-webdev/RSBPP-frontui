@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { ResourceContext } from '../../context/ResourceContext';
 import { useNavigate } from 'react-router-dom';
 
-const PaystackPlatform = ({ currentTotal, accept, userCredentials, cartCourses }) => {
+const PaystackPlatform = ({ accept, userCredentials, allDetails }) => {
     const { setGetAllCourses } = useContext(ResourceContext);
     const navigate = useNavigate();
     // const courseIds = cartCourses?.map(({ courseId }) => courseId);
@@ -20,10 +20,10 @@ const PaystackPlatform = ({ currentTotal, accept, userCredentials, cartCourses }
     const config = {
         reference: (new Date()).getTime().toString(),
         email: "climaxbiz@mail.com",
-        amount: `${currentTotal}00`, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+        amount: `${allDetails?.currentTotal}00`, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
         publicKey: 'pk_test_7ce279d181176a0c0af488855daf72c19ca5ff8e',
     };
-    // console.log(details)
+    // console.log(cartCourses)
 
     const handlePayment = (info) => {
         setGetAllCourses((prev) => {
@@ -33,7 +33,7 @@ const PaystackPlatform = ({ currentTotal, accept, userCredentials, cartCourses }
         })
         const details = {
             reference: info.reference,
-            course_id: cartCourses[0].courseId,
+            course_id: allDetails?.cartCourses[0].courseId,
             student_id: userCredentials.user.id
         }
         console.log(details)
@@ -49,7 +49,7 @@ const PaystackPlatform = ({ currentTotal, accept, userCredentials, cartCourses }
                         ...prev, isDataNeeded: true
                     }
                 })
-                navigate("/")
+                navigate(`/success`, { state: { allDetails: allDetails, info: info } })
                 toast.success("successful payment");
             })
             .catch((error) => {

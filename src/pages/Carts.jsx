@@ -30,7 +30,7 @@ const Carts = () => {
 
     useEffect(() => {
         cartsTotalFunction(token, userId, setError, setCurrentTotal)
-    }, [])
+    }, [getAllCarts])
 
     useEffect(() => {
         setGetAllCourses((prev) => {
@@ -47,10 +47,9 @@ const Carts = () => {
             }
         })
     }, [])
-
     const cartList = getAllCarts.data?.map((cart) => {
         return (
-            <CartsItem key={cart.id} cart={cart} on={on} />
+            <CartsItem key={cart.cartsId} cart={cart} on={on} />
         )
     })
 
@@ -94,7 +93,7 @@ const Carts = () => {
                                             <h4>Order Summary</h4>
                                             <div>
                                                 {getAllCarts.data?.map((cart) => (
-                                                    <div key={cart.id} className="d-flex mb-3 justify-content-between">
+                                                    <div key={cart.cartsId} className="d-flex mb-3 justify-content-between">
                                                         <p>{cart.title}</p>
                                                         <p>{cart.price}</p>
                                                     </div>
@@ -116,7 +115,7 @@ const Carts = () => {
                                                 </div>
                                                 <div className='mt-4'>
                                                     <button
-                                                        onClick={() => navigate("/checkout", { state: { cartCourses: getAllCarts?.data } })}
+                                                        onClick={() => navigate("/checkout", { state: { cartCourses: getAllCarts?.data, currentTotal: currentTotal } })}
                                                         className='col-12 btn bg-black rounded-pill py-2 text-white'>Checkout</button>
                                                 </div>
                                             </div>

@@ -1,10 +1,12 @@
 import React from 'react'
 import NavBar from '../components/layout/NavBar'
 import { TbChecklist } from 'react-icons/tb'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import approvalIcon from "../assets/approval-icon.svg"
 
 const SuccessfulCheckoutPage = () => {
+    const { state } = useLocation()
+    console.log(state)
     return (
         <div>
             <div style={{ backgroundColor: "hsla(0, 0%, 95%, 1)" }}>
@@ -22,16 +24,16 @@ const SuccessfulCheckoutPage = () => {
                                         <TbChecklist className='prime_brown' size={40} />
                                     </span>
                                 </div>
-                                <p className='fw-bold ash_text'>Order id : MMT786636612</p>
+                                <p className='fw-bold ash_text'>Order id : {state.info?.reference}</p>
                             </div>
                             <div className='d-flex'>
-                                <Link className='nav-link pb-2 border-bottom border-3 border-dark fw-bold' to={"/courses"}>Go back home</Link>
+                                <Link className='nav-link pb-2 border-bottom border-3 border-dark fw-bold' to={"/courses"}>Go to courses</Link>
                             </div>
                         </div>
                         <div className="col-md-6 my-3">
                             <div className="light_brown d-flex align-items-center justify-content-between p-4">
                                 <div>
-                                    <h1>₦460,432.00</h1>
+                                    <h1>₦{state.allDetails?.currentTotal}.00</h1>
                                     <p>Payment Successful</p>
                                 </div>
                                 <div className='col-2 me-4'>
@@ -41,18 +43,20 @@ const SuccessfulCheckoutPage = () => {
                             <div className="p-4">
                                 <div className="col-md-8">
                                     <h5 className='border-bottom border-dark p-3'>Transaction details</h5>
-                                        <div className="d-flex mb-3  justify-content-between">
-                                            <p>Course Price</p>
-                                            <p className='fw-bold'>$4000</p>
+                                    {state.allDetails?.cartCourses.map((each) => (
+                                        <div key={each.cartsId} className="d-flex mb-3  justify-content-between">
+                                            <p>{each.title}</p>
+                                            <p className='fw-bold'>${each.price}</p>
                                         </div>
-                                        <div className="d-flex border-bottom border-2 border-dark mb-4 pb-3 justify-content-between">
-                                            <p>Course Date</p>
-                                            <p className='fw-bold'>Thu, 8 Feb 2024 - 10:00</p>
-                                        </div>
-                                        <div className="d-flex fs-5 fw-bold justify-content-between">
-                                            <p>Total</p>
-                                            <p className=''>USD 1,850.00</p>
-                                        </div>
+                                    ))}
+                                    <div className="d-flex border-bottom border-2 border-dark mb-4 pb-3 justify-content-between">
+                                        <p>Course Date</p>
+                                        <p className='fw-bold'>Thu, 8 Feb 2024 - 10:00</p>
+                                    </div>
+                                    <div className="d-flex fs-5 fw-bold justify-content-between">
+                                        <p>Total</p>
+                                        <p className=''>{state.allDetails?.currentTotal}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

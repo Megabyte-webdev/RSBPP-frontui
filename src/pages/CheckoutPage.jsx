@@ -33,8 +33,8 @@ const CheckoutPage = () => {
         cartsTotalFunction(token, userId, setError, setCurrentTotal)
     }, [])
 
-    // console.log(currentTotal)
-    console.log(state.cartCourses)
+    console.log(currentTotal)
+    // console.log(state)
     const on = false
     return (
         <div style={{ backgroundColor: "hsla(0, 0%, 95%, 1)" }}>
@@ -112,12 +112,13 @@ const CheckoutPage = () => {
                                 </div>
                                 <div className='fw-bold my-4 d-flex justify-content-between'>
                                     <p>Total</p>
-                                    {!currentTotal && (
+                                    {/* {!currentTotal && (
                                         <p className="fw-bold"> <Spinner size='sm' /></p>
                                     )}
                                     {currentTotal && (
                                         <p className="fw-bold"> ${currentTotal}.00</p>
-                                    )}
+                                    )} */}
+                                        <p className="fw-bold"> ${state.currentTotal}.00</p>
                                 </div>
                                 <div className="rounded bg-white p-4">
                                     <div className="fs_sm d-flex">
@@ -138,7 +139,7 @@ const CheckoutPage = () => {
                                         </div>
                                     </div>
                                     {/* <button className='btn brown_bg mt-4 text-white w-100'>Pay for my  Booking</button> */}
-                                    <PaystackPlatform userCredentials={userCredentials} cartCourses={state?.cartCourses} accept={accept} currentTotal={currentTotal} />
+                                    <PaystackPlatform userCredentials={userCredentials} allDetails={state} accept={accept} />
                                 </div>
                             </div>
                         </div>
