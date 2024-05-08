@@ -33,7 +33,7 @@ console.log(userCredentials)
                             </div>
                         </Col>
                         <Col md={6} className=' my-4 dash_grid'>
-                            <Link to={""} className='nav-link h-100'>
+                            <Link to={"/courses"} className='nav-link h-100'>
                                 <div className="shadow p-0 h-100 rounded d-flex justify-content-center align-items-center">
                                     <div>
                                         <div>

@@ -30,8 +30,8 @@ const RegOtpForm = ({ setDisplay }) => {
     setLoading(true)
     axios.post(`${BASE_URL}verifyOtp`, otpDetails,)
       .then((response) => {
-        localStorage.removeItem("regEmail")
         navigate("/login")
+        localStorage.removeItem("regEmail")
         toast.success("Registration successfull");
         setLoading(false)
       })
@@ -42,11 +42,12 @@ const RegOtpForm = ({ setDisplay }) => {
         setLoading(false);
       });
   }
+
   return (
     <div className="poppins">
       <div>
         <h3 className="text-">Verify Email</h3>
-        <p className="fs_sm text-">We sent a code to jamesjohn@gmail.com</p>
+        <p className="fs_sm text-">We sent a code to {currentEmail}</p>
       </div>
       <form onSubmit={handleOtpSubmit}>
         <div className="otp d-flex my-5">

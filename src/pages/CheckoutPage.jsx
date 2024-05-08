@@ -37,12 +37,12 @@ const CheckoutPage = () => {
     // console.log(state)
     const on = false
     return (
-        <div style={{ backgroundColor: "hsla(0, 0%, 95%, 1)" }}>
+        <div style={{ backgroundColor: "hsla(0, 0%, 95%, 1)", minHeight: "100vh" }}>
             <NavBar />
             <div className="">
                 <div className="d-md-flex">
                     <div className="col-md-6">
-                        <div className="p-5 px-md-3">
+                        <div className="p-md-5 px-3">
                             <h4>CHECKOUT</h4>
                             <h5>Billing address</h5>
                             <div className="col-md-7 mb-3">
@@ -95,7 +95,7 @@ const CheckoutPage = () => {
                         </div>
                     </div>
                     <div className="col-md-6 d-flex align-items-center" style={{ backgroundColor: "hsla(359, 54%, 44%, 0.12)" }}>
-                        <div className="p-5 px-md-3 d-flex justify-content-center">
+                        <div className="p-md-5 px-3 d-flex justify-content-center">
                             <div className="col-md-8">
                                 <h3 className='border-bottom border-black pb-4'>Summary</h3>
                                 <div className="fs_sm border-bottom border-black ">
