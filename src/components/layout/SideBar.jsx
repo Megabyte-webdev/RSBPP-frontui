@@ -16,6 +16,7 @@ const SideBar = ({userCredentials}) => {
               <img className="img-fluid" src={userPics} alt="" />
             </div>
             <p className="text-center fw-semibold">{user?.first_name} {user?.last_name}</p>
+            <p className="text-center fw-light">{user?.role}</p>
             <div className="d-flex justify-content-between py-2">
               <div className="border-end col">
                 <p className="text-center"><b>0</b></p>

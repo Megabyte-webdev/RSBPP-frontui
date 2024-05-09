@@ -1,12 +1,14 @@
 import React from 'react'
 import icon from "../../../assets/side-icons/activity (1) 1.png"
 import { IoChevronDownSharp, IoChevronUpSharp } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant }) => {
 
     const subOption = constant.subOptions;
     const makeActive = isOpenOption === constant.title ? "sidebar_active" : "";
+
+    const navigate = useNavigate();
     return (
         <div>
             <div className={makeActive}>
@@ -39,9 +41,9 @@ const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant }) => {
                         <ul style={{ listStyle: "none" }} className="border-start border-white ms-4">
                             {
                                 subOption?.map((sub, index) => (
-                                    <li
+                                    <li className='pointer'
                                     data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
-                                     key={index}><Link to={sub.link ? sub.link : ""} className="nav-link">{sub.title}</Link></li>
+                                     key={index}><p onClick={()=> navigate(sub.link)} className="nav-link">{sub.title}</p></li>
                                 ))
                             }
                         </ul>

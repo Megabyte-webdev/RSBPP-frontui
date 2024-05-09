@@ -11,11 +11,13 @@ import { BASE_URL } from '../utils/base';
 import toast from 'react-hot-toast';
 import { UserContext } from '../../context/AuthContext';
 import { useNavigate } from "react-router-dom";
+import { ResourceContext } from '../../context/ResourceContext';
 
 const LoginComponent = () => {
 
     const navigate = useNavigate()
-    const { setUserCredentials, widgetOpen, setWidgetOpen } = useContext(UserContext)
+    const { setUserCredentials, setWidgetOpen } = useContext(UserContext)
+    const { setGetAllCarts } = useContext(ResourceContext)
     const [inputType, setInputType] = useState("password")
     const [otpPage, setOtpPage] = useState(false)
     const [showMsg, setShowMsg] = useState(false)
@@ -51,6 +53,11 @@ const LoginComponent = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
+        setGetAllCarts((prev) => {
+            return {
+                ...prev, isDataNeeded: false
+            }
+        })
         setLoading(true)
         axios.post(`${BASE_URL}login`, logDetails,)
             .then((response) => {
@@ -59,6 +66,11 @@ const LoginComponent = () => {
                 setUserCredentials(userData)
                 localStorage.setItem("userDetails", JSON.stringify(userData));
                 // setOtpPage(true)
+                setGetAllCarts((prev) => {
+                    return {
+                        ...prev, isDataNeeded: true
+                    }
+                })
                 navigate("/")
                 setWidgetOpen((prev) => {
                     return {

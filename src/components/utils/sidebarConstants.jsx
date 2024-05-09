@@ -63,7 +63,7 @@ export const sidebarConstants = [
         title: "Forums",
         logo: iconThree,
         subOptions: [
-             {
+            {
                 title: "Chats",
                 link: "/chats",
             },
@@ -82,7 +82,7 @@ export const sidebarConstants = [
         title: "Quizzes",
         logo: iconSix,
         subOptions: [
-             {
+            {
                 title: "Quiz",
                 link: "/quiz",
             }
@@ -135,6 +135,28 @@ export const adminConstants = [
                 title: "Registra",
                 link: "/registra",
             },
+        ]
+    },
+    // {
+    //     title: "Logout",
+    //     logo: iconNine,
+    //     link : "/login",
+    //     subOptions: null
+    // },
+]
+export const sheddulingConstants = [
+    {
+        title: "Scheduling",
+        logo: iconTwo,
+        subOptions: [
+            {
+                title: "Schedule class",
+                link: "/schedule_classes",
+            },
+            {
+                title: "Create schedule",
+                link: "/create_schedule",
+            }
         ]
     },
     // {

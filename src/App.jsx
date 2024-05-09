@@ -40,7 +40,7 @@ const App = () => {
         <Router>
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={role === "admin" ? <DashboardTwo /> : <DashboardTwo />} />
+              <Route index element={role === "admin" ? <AdminDashboard /> : <DashboardTwo />} />
               <Route path='/dashboard' element={<DashboardTwo />} />
               <Route path='/video_live' element={<VideoConference />} />
               <Route path='/courses' element={<MyCourses />} />

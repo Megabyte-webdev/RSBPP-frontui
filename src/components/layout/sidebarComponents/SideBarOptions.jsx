@@ -1,4 +1,4 @@
-import { adminConstants, sidebarConstants } from "../../utils/sidebarConstants"
+import { adminConstants, sheddulingConstants, sidebarConstants } from "../../utils/sidebarConstants"
 import icon from "../../../assets/side-icons/new1.png"
 import iconEight from "../../../assets/side-icons/new8.png"
 import iconNine from "../../../assets/side-icons/icon9.png"
@@ -12,16 +12,18 @@ import toast from "react-hot-toast"
 
 const SideBarOptions = () => {
   const [isOpenOption, setIsOpenOption] = useState(null); // Track which subOption is open
-  const {userCredentials, setUserCredentials} = useContext(UserContext);
-  const admin = userCredentials.user.role.toLowerCase()
-console.log(admin)
+  const { userCredentials, setUserCredentials } = useContext(UserContext);
+  const role = userCredentials.user.role.toLowerCase()
+  // console.log(role)
+  const adminOrInstructor = role === "admin" || role === "instructor"
+  // console.log(adminOrInstructor)
 
-function Logout(){
-  localStorage.removeItem("userDetails")
-  setUserCredentials(null)
-  toast.success("logout successful");
+  function Logout() {
+    localStorage.removeItem("userDetails")
+    setUserCredentials(null)
+    toast.success("logout successful");
 
-}
+  }
   const handleSubOptionClick = (clickedOptionTitle) => {
     setIsOpenOption((prevIsOpenOption) => {
       if (prevIsOpenOption === clickedOptionTitle) {
@@ -59,7 +61,14 @@ function Logout(){
           constant={constant}
           handleSubOptionClick={handleSubOptionClick} />
       ))}
-      {admin === "admin" && adminConstants.map((constant) => (
+      {adminOrInstructor && sheddulingConstants.map((constant) => (
+        <SidebarToggle
+          key={constant.title}
+          isOpenOption={isOpenOption}
+          constant={constant}
+          handleSubOptionClick={handleSubOptionClick} />
+      ))}
+      {role === "admin" && adminConstants.map((constant) => (
         <SidebarToggle
           key={constant.title}
           isOpenOption={isOpenOption}
@@ -129,7 +138,7 @@ function Logout(){
                 <img width={20} height={20} src={iconNine} alt="" />
               </span>
               {/* <Link to={"/dashboard"} className="nav-link"> */}
-                <span>Log Out</span>
+              <span>Log Out</span>
               {/* </Link> */}
             </div>
           </div>

@@ -33,7 +33,7 @@ const CheckoutPage = () => {
         cartsTotalFunction(token, userId, setError, setCurrentTotal)
     }, [])
 
-    console.log(currentTotal)
+    // console.log(currentTotal)
     // console.log(state)
     const on = false
     return (

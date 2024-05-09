@@ -77,7 +77,7 @@ const AllCourses = ({ getAllCourses }) => {
                                             <td>{user.title}</td>
                                             <td>{user.code}</td>
                                             <td>{user.description}</td>
-                                            <td>{user.duration}</td>
+                                            <td>{user.duration} {user.duration &&("")}</td>
                                             <td>{user.course_type}</td>
                                             <td>{user.program}</td>
                                             <td>{user.price}</td>
