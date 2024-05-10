@@ -149,10 +149,10 @@ export const sheddulingConstants = [
         title: "Scheduling",
         logo: iconTwo,
         subOptions: [
-            {
-                title: "Schedule class",
-                link: "/schedule_classes",
-            },
+            // {
+            //     title: "Schedule class",
+            //     link: "/schedule_classes",
+            // },
             {
                 title: "Create schedule",
                 link: "/create_schedule",

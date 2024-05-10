@@ -247,7 +247,7 @@ const CreateForm = () => {
                 <div className="my-3 d-flex justify-content-center">
                     <div className="fw-semibold col-6">
                         {/* <button className='btn fw-semibold normal_btn Fborder-primary outline-primary me-3 text-primary'>Cancel</button> */}
-                        <button className='btn w-100 fw-semibold normal_btn btn-primary text-white'>Save{loading && (<Spinner size='sm' />)} </button>
+                        <button className='btn w-100 fw-semibold normal_btn btn-primary text-white'>Save {loading && (<Spinner size='sm' />)} </button>
                     </div>
                 </div>
             </form>

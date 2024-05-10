@@ -51,6 +51,14 @@ const App = () => {
               <Route path='/quiz' element={<QuizPage />} />
               <Route path='/messages' element={<Messages />} />
               {
+                role === "instructor" && (
+                  <>
+                    <Route path='/schedule_classes' element={<UpComingClasses />} />
+                    <Route path='/create_schedule' element={<CreateSchedule />} />
+                  </>
+                )
+              }
+              {
                 role === "admin" && (
                   <>
                     <Route path='/schedule_classes' element={<UpComingClasses />} />

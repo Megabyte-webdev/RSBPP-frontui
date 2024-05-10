@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CourseTimeTable = ({ themeProp, themeColor }) => {
+const CourseTimeTable = ({ themeProp, themeColor, courseSchedule }) => {
     return (
         <div
             style={themeProp ? themeProp : null}
@@ -12,7 +12,7 @@ const CourseTimeTable = ({ themeProp, themeColor }) => {
                         className="px-1 rounded"></div>
                     <div className="py-2 ms-3">
                         <p className="fw-bold">Design Thinking & Innovation</p>
-                        <p className="">8:00 Am - 9:00 PM</p>
+                        <p className="">{courseSchedule.start_time} -{courseSchedule.end_time}</p>
                     </div>
                 </div>
                 <div>

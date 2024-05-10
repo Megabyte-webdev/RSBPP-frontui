@@ -109,8 +109,8 @@ const CreateSchedule = () => {
             course_id: "",
         })
     }
-    const allInstructors = getAllUsers.data?.filter((user)=> user.role === "instructor")
-    console.log(allInstructors)
+    // const allInstructors = getAllUsers.data?.filter((user)=> user.role === "instructor")
+    // console.log(allInstructors)
     return (
         <div
             className="p-3 p-md-5"
