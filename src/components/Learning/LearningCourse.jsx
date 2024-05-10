@@ -161,11 +161,11 @@ const LearningCourse = ({ course, userCredentials, cartList }) => {
             onClick={() => addToCart()}
             className='btn w-100 btn-danger'>Add to Cart <span><BiSolidCart /></span></button>
         </div>
-        <div className='px-1'>
+       {userRole === "admin" &&( <div className='px-1'>
           <button
             onClick={() => deleteFunc()}
             className='btn w-100 btn-secondary'>Delete Course</button>
-        </div>
+        </div>)}
       </div>
     </div>
   )
