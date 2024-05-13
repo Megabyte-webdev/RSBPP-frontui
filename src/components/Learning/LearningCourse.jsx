@@ -21,7 +21,6 @@ const LearningCourse = ({ course, userCredentials, cartList }) => {
 
   const date = new Date(course.updated_at);
   const userRole = userCredentials?.user.role
-  const token = userCredentials?.token
   const itemId = course.id
 
   const details = {
@@ -30,8 +29,6 @@ const LearningCourse = ({ course, userCredentials, cartList }) => {
   }
 
   const hasItem = cartList?.some(item => item.courseId === course.id)
-  // console.log(course)
-  // console.log(cartList)
 
   const addToCart = () => {
     setGetAllCarts((prev) => {

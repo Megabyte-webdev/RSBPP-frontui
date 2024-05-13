@@ -12,19 +12,19 @@ import { ResourceContext } from '../../context/ResourceContext';
 
 const NavBar = () => {
     const navigate = useNavigate()
-    const { 
+    const {
         getAllCarts,
         setGetAllCarts, } = useContext(ResourceContext);
-    
-        useEffect(() => {
-            setGetAllCarts((prev) => {
-                return {
-                    ...prev, isDataNeeded: true
-                }
-            })
-        }, [])
 
-        console.count("render")
+    useEffect(() => {
+        setGetAllCarts((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+
+    console.count("render")
     return (
         <div className='border-bottom shadow-sm p-3 px-md-5'>
             <div className="poppins d-flex justify-content-between align-items-center">
@@ -52,14 +52,17 @@ const NavBar = () => {
                     <Link to={""} className='nav-link me-3'><BiSolidMessage className='yellow_text' size={20} /></Link>
                     <Link to={""} className='nav-link me-3'><IoIosNotificationsOutline size={20} /></Link>
                     <div>
-                        <Link to={"/carts"} 
-                        className='nav-link d-flex justify-content-center align-items-center me-3 text-white rounded-circle brown_bg fs_xsm'
-                         style={{ width: "20px", height: "20px" }}><span>{getAllCarts.data?.length}</span> </Link>
-                        <span><BiSolidCart size={25} /></span>
+                        <Link to={"/carts"}
+                            className='nav-link '>
+                            <div
+                                className='d-flex justify-content-center align-items-center me-3 text-white rounded-circle brown_bg fs_xsm'
+                                style={{ width: "20px", height: "20px" }}><span>{getAllCarts.data?.length}</span> </div>
+                            <span><BiSolidCart size={25} /></span>
+                        </Link>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

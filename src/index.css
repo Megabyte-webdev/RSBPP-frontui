@@ -191,7 +191,7 @@ input:focus-visible {
 .overflow_y {
   max-height: 400px;
   overflow-y: scroll;
-  scrollbar-width: none;
+  scrollbar-width: thin;
 }
 
 .video_card {
@@ -358,6 +358,12 @@ input[type="radio"].red_radio {
 .light_brown {
   background-color: hsla(359, 54%, 44%, 0.15) !important;
 }
+.overflow_y_80 {
+  max-height: 80vh;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
 
 @media (min-width: 768px) {
   .chat_pic {
@@ -374,10 +380,9 @@ input[type="radio"].red_radio {
     overflow: unset !important;
     padding-right: 0px !important;
   }
-}
-
-.overflow_y_50 {
-  max-height: 50vh;
-  overflow-y: scroll;
-  scrollbar-width: thin;
+  .overflow_y_50 {
+    max-height: 50vh;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+  }
 }
