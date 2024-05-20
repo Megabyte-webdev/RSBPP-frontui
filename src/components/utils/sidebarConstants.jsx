@@ -47,6 +47,10 @@ export const sidebarConstants = [
                 title: "today classes",
                 link: "/today",
             },
+            {
+                title: "Event Schedule",
+                link: "/time_table",
+            },
         ]
     },
     {
@@ -93,6 +97,10 @@ export const sidebarConstants = [
         logo: iconSeven,
         subOptions: null
     },
+            {
+                title: "Event Schedule",
+                link: "/taime_table",
+            },
     // {
     //     title: "Logout",
     //     logo: iconNine,
