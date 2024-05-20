@@ -29,6 +29,7 @@ import NotFound from './pages/NotFound'
 import MyCourses from './pages/MyCourses'
 import SuccessfulCheckoutPage from './pages/SuccessfulCheckoutPage'
 import ReactBigCalendar from './components/general/ReactBigCalendar'
+import NewLogin from './pages/NewLogin'
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
@@ -79,7 +80,7 @@ const App = () => {
                 <Route path='/success' element={< SuccessfulCheckoutPage />} />
               </>
             )}
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<NewLogin />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/registration" element={<Registration />} />
             {/* Catch-all route for 404 */}

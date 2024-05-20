@@ -1,19 +1,22 @@
 import { useContext, useState } from 'react'
-import { Col, Row, Spinner } from 'react-bootstrap'
-import logo from "../../assets/new-logo.png"
+import { Spinner } from 'react-bootstrap'
+import logo from "../assets/new-logo.png"
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FiLock, FiUser } from "react-icons/fi";
 import { TfiLock } from "react-icons/tfi";
 import { Link } from 'react-router-dom';
-import LoginOtpForm from './LoginOtpForm';
+// import LoginOtpForm from './LoginOtpForm';
 import axios from 'axios';
-import { BASE_URL } from '../utils/base';
+// import { BASE_URL } from '../utils/base';
 import toast from 'react-hot-toast';
-import { UserContext } from '../../context/AuthContext';
+import { UserContext } from '../context/AuthContext';
 import { useNavigate } from "react-router-dom";
-import { ResourceContext } from '../../context/ResourceContext';
+import { ResourceContext } from '../context/ResourceContext';
+import { BASE_URL } from '../components/utils/base';
+import { CiFacebook } from "react-icons/ci";
 
-const LoginComponent = () => {
+
+const NewLogin = () => {
 
     const navigate = useNavigate()
     const { setUserCredentials, setWidgetOpen } = useContext(UserContext)
@@ -93,51 +96,44 @@ const LoginComponent = () => {
             });
         // setOtpPage(true)
     }
-
-    // console.log(logDetails)
     return (
-        <Row className='d-flex justify-content-center pt-5'>
-            <Col md={6}>
-                <div className="shadow-sm bg-white rounded-3 px-3 py-4">
-                    <div className="mb-3 d-flex justify-content-center">
-                        <div className='col-6'>
-                            <img src={logo} alt="logo" className="img-fluid" />
-                        </div>
-                    </div>
-                    {!otpPage ? (
-                        <div className=' h-100 d-flex align-items-center'>
-                            <div className='px-3 px-md-4 w-100'>
-                                <h3 className="prime_blue mb-4">Login to your account!</h3>
+        <div>
+            <div className="container mt-5 pt-5">
+                <div className="d-flex justify-content-center">
+                    <div className="col-md-6">
+                        <div className="border border-black p-3 rounded-2 position-relative">
+                            <p>Please enter your email and password to resume this form </p>
+                            <div className="my-3">
                                 <div>
                                     <form
                                         onSubmit={handleLogin}
-                                        className='open_sans mb-3 ' style={{ color: "hsla(242, 97%, 15%, .6)" }}>
+                                        className='open_sans mb-3'>
                                         <div className="mb-4">
-                                            <label htmlFor="email" className="form-label login_label" >Email address</label>
+                                            <label htmlFor="email" className="form-label fw-semibold login_label" >Email address</label>
                                             <div className='position-relative'>
                                                 <input
                                                     type="email"
                                                     name='email'
                                                     value={logDetails.email}
                                                     onChange={handleOnChange}
-                                                    className="btn border px-4 py-2 w-100" id="email" placeholder='Youraddres@email.com' />
+                                                    className="btn border px-5 py-2 text-start w-100" id="email" placeholder='youraddres@email.com' />
                                                 <span className="position-absolute start-0 top-0 p-2"><FiUser /> </span>
                                             </div>
                                         </div>
                                         <div className="mb-4">
-                                            <label htmlFor="password" className="form-label login_label">Password</label>
+                                            <label htmlFor="password" className="form-label fw-semibold login_label">Password</label>
                                             <div className='position-relative'>
                                                 <input
                                                     type={inputType}
                                                     name='password'
                                                     value={logDetails.password}
                                                     onChange={handleOnChange}
-                                                    className="btn border w-100 px-4 pe-5 py-2" id="password" placeholder='***********' />
+                                                    className="btn border w-100 px-5 text-start pe-5 py-2" id="password" placeholder='***********' />
                                                 <span onClick={handleToggle} className='position-absolute end-0 top-0 px-2 py-2'>{inputType === "password" ? <FaEye /> : <FaEyeSlash />} </span>
                                                 <span className="position-absolute start-0 top-0 p-2"><TfiLock /> </span>
                                             </div>
                                         </div>
-                                        <div className="d-flex justify-content-between mb-3 fs_sm">
+                                        {/* <div className="d-flex justify-content-between mb-3 fs_sm">
                                             <div>
                                                 <div className="form-check">
                                                     <input className="form-check-input"
@@ -152,25 +148,62 @@ const LoginComponent = () => {
                                                 </div>
                                             </div>
                                             <p> <Link to={"/reset-password"} className='nav-link'>Forgot password?</Link> </p>
-                                        </div>
+                                        </div> */}
                                         {showMsg && (<p className="text-center mb-3 text-danger">{errorMsg}</p>)}
-                                        <button
-                                            // onClick={handleLogin}
-                                            className='btn btn-lg blue_bg d-flex align-items-center justify-content-center text-white fs_sm w-100'><span>Login to continue</span>
-                                            {loading && (<span className='ms-2'><Spinner size='sm' /></span>)}</button>
+                                        <div className=" d-flex align-items-center">
+                                            <button
+                                                // onClick={handleLogin}
+                                                className='btn btn-lg me-2 brown_bg d-flex align-items-center justify-content-center text-white fs_sm fw-semibold'><span>Login to continue</span>
+                                                {loading && (<span className='ms-2'><Spinner size='sm' /></span>)}
+                                            </button>
+                                            <div className="me-1">
+                                                <p className='text-nowrap text-center fs_sm'>| Don’t have an account ? <Link to={"/registration"} className='text-decoration-none fw-semibold prime_brown'>Sign up</Link> </p>
+                                            </div>
+                                        </div>
                                     </form>
-                                    <p className='text-nowrap text-center fs_sm'>Don’t have an account ? <Link to={"/registration"} className='text-decoration-none fw-semibold prime_brown'>Sign up</Link> </p>
+                                </div>
+                            </div>
+                            <p className="position-absolute top-0 start-50 translate-middle bg-white fw-semibold px-2">Identity Check</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="d-flex justify-content-center pt-5">
+                    <div className="col-md-10">
+                        <div className="border-top border-black px-2 border-2 pt-5">
+                            <div className='col-4 col-md-3 mb-3'>
+                                <img src={logo} alt="" className="img-fluid" />
+                            </div>
+                            <div className='d-flex justify-content-between'>
+                                <div className="fw-semibold ">
+                                    <div className="fw-semibold d-flex mb-2">
+                                        <Link to={""} className="nav-link prime_brown mx-1"> Contact us </Link> |
+                                        <Link to={""} className="nav-link prime_brown mx-1"> Location </Link> |
+                                        <Link to={""} className="nav-link ms-2"> 655 Knight way Rotterdam Netherland </Link>
+                                    </div>
+                                    <div className="fw-semibold d-flex mb-2">
+                                        <Link to={""} className="nav-link me-2"> Rotterdam School of Business and Public Policy </Link>
+                                        <Link to={""} className="nav-link prime_brown mx-1"> Accessibility </Link> |
+                                        <Link to={""} className="nav-link prime_brown mx-1"> Privacy Policy </Link> |
+                                        <Link to={""} className="nav-link prime_brown mx-1"> Terms of use </Link>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="d-flex">
+                                        <span className="me-1">
+                                            <CiFacebook />
+                                        </span>
+                                        <span className="me-1">
+                                            <CiFacebook />
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    )
-                        :
-                        <LoginOtpForm />
-                    }
+                    </div>
                 </div>
-            </Col>
-        </Row>
+            </div>
+        </div>
     )
 }
 
-export default LoginComponent
+export default NewLogin

@@ -141,9 +141,9 @@ input:focus-visible {
   scrollbar-width: none !important;
 }
 
-.login_label {
+/* .login_label {
   color: hsla(242, 97%, 15%, 0.5);
-}
+} */
 
 .otp_container {
   display: flex;

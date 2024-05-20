@@ -28,7 +28,7 @@ const ReactBigCalendar = (props) => {
         });
     }
 
-    console.log(testData);
+    // console.log(testData);
 
     const eventPropGetter = useCallback(
         (event, start, end, isSelected) => ({
