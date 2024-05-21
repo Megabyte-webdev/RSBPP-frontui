@@ -1,19 +1,19 @@
 import { useContext, useState } from 'react'
 import { Spinner } from 'react-bootstrap'
 import logo from "../assets/new-logo.png"
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { FiLock, FiUser } from "react-icons/fi";
+import { FaEye, FaEyeSlash, FaYoutube, FaArrowUp } from "react-icons/fa";
+import { FiUser } from "react-icons/fi";
 import { TfiLock } from "react-icons/tfi";
 import { Link } from 'react-router-dom';
-// import LoginOtpForm from './LoginOtpForm';
 import axios from 'axios';
-// import { BASE_URL } from '../utils/base';
 import toast from 'react-hot-toast';
 import { UserContext } from '../context/AuthContext';
 import { useNavigate } from "react-router-dom";
 import { ResourceContext } from '../context/ResourceContext';
 import { BASE_URL } from '../components/utils/base';
-import { CiFacebook } from "react-icons/ci";
+import { CiFacebook, CiInstagram } from "react-icons/ci";
+import { RiTwitterXLine } from 'react-icons/ri';
+import { TiSocialLinkedinCircular } from 'react-icons/ti';
 
 
 const NewLogin = () => {
@@ -41,6 +41,9 @@ const NewLogin = () => {
             setInputType('password');
             //   setIcon(faEyeSlash);
         }
+    };
+    const handleScrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const handleOnChange = (e) => {
@@ -173,7 +176,7 @@ const NewLogin = () => {
                             <div className='col-4 col-md-3 mb-3'>
                                 <img src={logo} alt="" className="img-fluid" />
                             </div>
-                            <div className='d-flex justify-content-between'>
+                            <div className='d-md-flex justify-content-between mb-5'>
                                 <div className="fw-semibold ">
                                     <div className="fw-semibold d-flex mb-2">
                                         <Link to={""} className="nav-link prime_brown mx-1"> Contact us </Link> |
@@ -188,12 +191,27 @@ const NewLogin = () => {
                                     </div>
                                 </div>
                                 <div>
+                                    <div className="d-flex mt-4 mt-md-0 mb-3 align-items-end prime_brown fw-bold">
+                                        <span>Return to Top</span>
+                                        <button className='ms-2 border-0 inherit_bg inherit_text' onClick={handleScrollToTop}>
+                                            <FaArrowUp size={30} />
+                                        </button>
+                                    </div>
                                     <div className="d-flex">
                                         <span className="me-1">
                                             <CiFacebook />
                                         </span>
                                         <span className="me-1">
-                                            <CiFacebook />
+                                            <CiInstagram />
+                                        </span>
+                                        <span className="me-1">
+                                            <TiSocialLinkedinCircular />
+                                        </span>
+                                        <span className="me-1">
+                                            <RiTwitterXLine />
+                                        </span>
+                                        <span className="me-1">
+                                            <FaYoutube />
                                         </span>
                                     </div>
                                 </div>

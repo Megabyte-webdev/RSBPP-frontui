@@ -6,6 +6,9 @@ import axios from "axios"
 import { ResourceContext } from "../../context/ResourceContext"
 import { BASE_URL } from "../utils/base"
 import { Spinner } from "react-bootstrap"
+import ReactQuill from "react-quill"
+import 'react-quill/dist/quill.snow.css';
+import { editorFormats, editorModules } from "../utils/textEditor"
 
 const AddCourseForm = ({ isOpen, setIsOpen }) => {
     const { getAllFaculty,
@@ -143,6 +146,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                             <div className="modal-body px-md-5">
                                 <form onSubmit={handleSubmit}>
                                     <div className="row">
+                                       
                                         <div className="mb-3 col-md-6">
                                             <label htmlFor="title" className="form-label">Course title</label>
                                             <input
@@ -241,6 +245,13 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                                 name="participate"
                                                 onChange={handleOnChange}
                                                 className="form-control" id="participant" aria-describedby="emailHelp" />
+                                        </div>
+                                        <div className="my-4">
+                                            <ReactQuill 
+                                            value={details.outlines}
+                                                modules={editorModules}
+                                                formats={editorFormats}
+                                            />
                                         </div>
                                     </div>
                                     {showMsg && (<p className="text-center mb-3 text-danger">{errorMsg}</p>)}

@@ -112,7 +112,7 @@ const CreateForm = () => {
         })
     }
     const allInstructors = getAllUsers.data?.filter((user) => user.role === "instructor")
-    // console.log(details)
+    console.log(details)
 
     return (
         <div className='p-3 py-5'>
@@ -243,7 +243,7 @@ const CreateForm = () => {
                         </div>
                     </div>
                 </div> */}
-                {errorMsg && (<p className="text-danger text-center my-3">{errorMsg}</p>)}
+                {errorMsg && (<p className="text-danger text-center my-3">{errorMsg} erro</p>)}
                 <div className="my-3 d-flex justify-content-center">
                     <div className="fw-semibold col-6">
                         {/* <button className='btn fw-semibold normal_btn Fborder-primary outline-primary me-3 text-primary'>Cancel</button> */}

@@ -8,8 +8,16 @@ import { BASE_URL } from "../components/utils/base"
 import { UserContext } from "../context/AuthContext"
 
 const MyCourses = () => {
-    const { getAllCourses, setGetAllCourses } = useContext(ResourceContext)
+    const { getAllCourses, setGetAllCourses, getEnrolledCourses, setGetEnrolledCourses, } = useContext(ResourceContext)
     const { userCredentials } = useContext(UserContext)
+    useEffect(() => {
+        setGetEnrolledCourses((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+
     useEffect(() => {
         setGetAllCourses((prev) => {
             return {
@@ -48,9 +56,13 @@ const MyCourses = () => {
           });
       };
 
+const enrollCourses = getAllCourses.data?.filter(
+    (course) => getEnrolledCourses.data?.some((enroll) => enroll.courseId === course.id)
+  );
+//   console.log(enrollCourses)
     return (
         <div className='p-3 p-md-5 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, 1)", minHeight: "100vh" }}>
-            <div className="d-flex justify-content-between">
+           {enrollCourses && ( <div className="d-flex justify-content-between">
                 <div className="d-flex">
                     <h3 className="prime_brown bottom_brown py-3">My Courses</h3>
                 </div>
@@ -71,17 +83,18 @@ const MyCourses = () => {
                     </span>
                 </div>
 
-            </div>
+            </div>)}
             <div className="my-5">
                 <div className="col-md-11">
                     {
-                        getAllCourses.data?.map((course) => (
+                        enrollCourses?.map((course) => (
                             <EnrolledCourse
                              key={course.id} 
                              course={course}
                              getScheduleById={getScheduleById} />
                         ))
                     }
+                    {enrollCourses < 1 &&(<p>Empty course list</p>)}
                 </div>
             </div>
         </div>

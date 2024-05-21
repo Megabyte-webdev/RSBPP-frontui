@@ -7,7 +7,7 @@ import { ResourceContext } from '../../context/ResourceContext';
 import { useNavigate } from 'react-router-dom';
 
 const PaystackPlatform = ({ accept, userCredentials, allDetails }) => {
-    const { setGetAllCourses } = useContext(ResourceContext);
+    const { setGetAllCourses, setGetAllCarts } = useContext(ResourceContext);
     const navigate = useNavigate();
     // const courseIds = cartCourses?.map(({ courseId }) => courseId);
 
@@ -26,14 +26,20 @@ const PaystackPlatform = ({ accept, userCredentials, allDetails }) => {
     // console.log(cartCourses)
 
     const handlePayment = (info) => {
+        
         setGetAllCourses((prev) => {
+            return {
+                ...prev, isDataNeeded: false
+            }
+        })
+        setGetAllCarts((prev) => {
             return {
                 ...prev, isDataNeeded: false
             }
         })
         const details = {
             reference: info.reference,
-            course_id: allDetails?.cartCourses[0].courseId,
+            // course_id: allDetails?.cartCourses[0].courseId,
             student_id: userCredentials.user.id
         }
         console.log(details)
@@ -45,6 +51,11 @@ const PaystackPlatform = ({ accept, userCredentials, allDetails }) => {
             .then((response) => {
                 console.log(response)
                 setGetAllCourses((prev) => {
+                    return {
+                        ...prev, isDataNeeded: true
+                    }
+                })
+                setGetAllCarts((prev) => {
                     return {
                         ...prev, isDataNeeded: true
                     }

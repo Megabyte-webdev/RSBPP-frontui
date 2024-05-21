@@ -36,6 +36,12 @@ function ResourceContextProvider({ children }) {
     });
 
 
+    const [getEnrolledCourses, setGetEnrolledCourses] = useState({
+        data: null,
+        isDataNeeded: false,
+    });
+
+
     //Users Resource useEffect
     useEffect(() => {
         setErrorMessage('');
@@ -76,6 +82,16 @@ function ResourceContextProvider({ children }) {
         }
     }, [getAllCarts.isDataNeeded]);
 
+    //Enroll Courses Resource useEffect
+    useEffect(() => {
+        setErrorMessage('');
+        if (getEnrolledCourses.isDataNeeded) {
+            const endPoint = `enroll/getEnrollByUserId/${userId}`
+            const dataArray = "enrolled_users"
+            getItemFunc(token, setGetEnrolledCourses, setErrorMessage, endPoint, dataArray)
+        }
+    }, [getEnrolledCourses.isDataNeeded]);
+
 
 
     return (
@@ -90,6 +106,8 @@ function ResourceContextProvider({ children }) {
                 setGetAllCourses,
                 getAllCarts,
                 setGetAllCarts,
+                getEnrolledCourses,
+                setGetEnrolledCourses,
             }}
         >
             {children}

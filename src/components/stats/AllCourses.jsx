@@ -12,7 +12,7 @@ const AllCourses = ({ getAllCourses }) => {
         backgroundColor: "rgba(0, 0, 0, 0.15)",
         display: "none"
     }
-)
+    )
     const handleDisplay = () => (
         setIsOpen((prev) => {
             return {
@@ -27,31 +27,33 @@ const AllCourses = ({ getAllCourses }) => {
     )
     return (
         <div>
-        <AddCourseForm
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            handleDisplay={handleDisplay} />
+            <AddCourseForm
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                handleDisplay={handleDisplay} />
             <div className="p-3 my-5 bg-white rounded-3 shadow-sm">
-                <div className="d-md-flex justify-content-between">
-                    <div className="mb-3">
-                        <h5>All Courses</h5>
-                        <span className='prime_blue fs_sm'>Availale Courses</span>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="row">
-                            <div className="col">
-                                <div className='position-relative'>
-                                    <input
-                                        onChange={(e) => setSearchInput(e.target.value)}
-                                        type="text" className="btn border bg-white text-start px-5 py-2 w-100" id="search" placeholder='Search' />
-                                    <span className="position-absolute start-0 top-0 p-2"><FiSearch /> </span>
-                                </div>
-                            </div>
-                             <div className="col">
-                                <button onClick={() => handleDisplay()}
-                                    className='btn btn-success px-4'>Create Course</button>
+                <div className="mb-4">
+                    <div className="row">
+                        <div className="col">
+                            <div className='position-relative'>
+                                <input
+                                    onChange={(e) => setSearchInput(e.target.value)}
+                                    type="text" className="btn border bg-white text-start px-5 py-2 w-100" id="search" placeholder='Search' />
+                                <span className="position-absolute start-0 top-0 p-2"><FiSearch /> </span>
                             </div>
                         </div>
+                        <div className="col text-end">
+                            <button onClick={() => handleDisplay()}
+                                className='btn brown_bg text-white px-4'>Create Course</button>
+                        </div>
+                    </div>
+                </div>
+                <div className="row text-white">
+                    <div className="mb-3 py-3 brown_bg col">
+                        <h5>All Courses</h5>
+                    </div>
+                    <div className="mb-3 ps-4 py-3 bg-black col">
+                        <h5>Details</h5>
                     </div>
                 </div>
                 <div className="overflow_y_md_50 overflow_y_80">
@@ -60,11 +62,11 @@ const AllCourses = ({ getAllCourses }) => {
                             <thead>
                                 <tr>
                                     {/* <THead name="No:" /> */}
-                                    <THead name="Course" />
-                                    <THead name="Code" />
-                                    <THead name="Description" />
-                                    <THead name="Duration" />
                                     <THead name="Type" />
+                                    <THead name="Course" />
+                                    {/* <THead name="Code" /> */}
+                                    {/* <THead name="Description" /> */}
+                                    {/* <THead name="Author" /> */}
                                     <THead name="program" />
                                     <THead name="price" />
                                 </tr>
@@ -73,12 +75,11 @@ const AllCourses = ({ getAllCourses }) => {
                                 {typeSearch?.map((user) => {
                                     return (
                                         <tr key={user.id}>
-                                            {/* <td>{user.id}</td> */}
-                                            <td>{user.title}</td>
-                                            <td>{user.code}</td>
-                                            <td>{user.description}</td>
-                                            <td>{user.duration} {user.duration &&("")}</td>
                                             <td>{user.course_type}</td>
+                                            <td>{user.title}</td>
+                                            {/* <td>{user.code}</td> */}
+                                            {/* <td>{user.description}</td> */}
+                                            {/* <td>{user.duration} {user.duration && ("")}</td> */}
                                             <td>{user.program}</td>
                                             <td>{user.price}</td>
                                             {/* <td>
@@ -101,7 +102,7 @@ const AllCourses = ({ getAllCourses }) => {
                         </table>
                     </div>
                 </div>
-                <div className="mt-5 ash_text d-md-flex justify-content-between">
+                {/* <div className="mt-5 ash_text d-md-flex justify-content-between">
                     <div>
                         <p>Showing data 1 to 8 of  256K entries</p>
                     </div>
@@ -113,7 +114,7 @@ const AllCourses = ({ getAllCourses }) => {
                         <button className='border-0 rounded ms-2'> 40</button>
                         <button className='border-0 rounded ms-2'> <MdChevronRight /></button>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

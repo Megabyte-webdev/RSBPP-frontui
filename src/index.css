@@ -330,6 +330,10 @@ input:focus-visible {
   padding: 2px 0;
 }
 
+.inherit_text {
+  color: inherit !important;
+}
+
 .inherit_bg {
   background-color: inherit !important;
 }
@@ -368,6 +372,29 @@ input[type="radio"].red_radio {
   scrollbar-width: thin;
 }
 
+.ql-toolbar {
+  background-color: hsla(359, 54%, 44%, 1) !important;
+  fill: white !important;
+}
+.ql-snow .ql-picker{
+  background-color: hsla(359, 54%, 44%, 1) !important;
+  color: white !important;
+}
+
+.ql-picker-options{
+  background-color: hsla(359, 54%, 44%, 1) !important;
+  color: white !important;
+}
+
+.ql-editor{
+  min-height: 100px;
+}
+.ql-snow .ql-stroke{
+  stroke: white;
+}
+.ql-snow .ql-fill{
+  stroke: white;
+}
 
 @media (min-width: 768px) {
   .chat_pic {

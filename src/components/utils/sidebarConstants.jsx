@@ -47,10 +47,6 @@ export const sidebarConstants = [
                 title: "today classes",
                 link: "/today",
             },
-            {
-                title: "Event Schedule",
-                link: "/time_table",
-            },
         ]
     },
     {
