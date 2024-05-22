@@ -103,7 +103,7 @@ const NewLogin = () => {
         <div>
             <div className="container pt-5">
                 <div className="container mb-4 row justify-content-center">
-                    <div className='col-8 col-md-6 mb-3'>
+                    <div className='col-8 col-md-3 mb-3'>
                         <img src={logo} alt="" className="img-fluid" />
                     </div>
                 </div>
