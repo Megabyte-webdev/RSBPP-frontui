@@ -101,7 +101,12 @@ const NewLogin = () => {
     }
     return (
         <div>
-            <div className="container mt-5 pt-5">
+            <div className="container pt-5">
+                <div className="container mb-4 row justify-content-center">
+                    <div className='col-8 col-md-6 mb-3'>
+                        <img src={logo} alt="" className="img-fluid" />
+                    </div>
+                </div>
                 <div className="row g-0 justify-content-center">
                     <div className="col-md-6">
                         <div className="border border-black p-3 rounded-2 position-relative">
@@ -173,9 +178,9 @@ const NewLogin = () => {
                 <div className="d-flex justify-content-center pt-5">
                     <div className="col-md-10">
                         <div className="border-top border-black px-2 border-2 pt-5">
-                            <div className='col-4 col-md-3 mb-3'>
+                            {/* <div className='col-6 col-md-3 mb-3'>
                                 <img src={logo} alt="" className="img-fluid" />
-                            </div>
+                            </div> */}
                             <div className='d-md-flex justify-content-between mb-5'>
                                 <div className="fw-semibold ">
                                     <div className="fw-semibold d-flex mb-2">
