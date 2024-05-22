@@ -20,7 +20,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
     const [loading, setLoading] = useState(false)
     const [errorMsg, setErrorMsg] = useState("")
     const [showMsg, setShowMsg] = useState("")
-
+    const [comments, setComments] = useState('');
     const [details, setDetails] = useState({
         title: "",
         code: "",
@@ -78,6 +78,15 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
         setErrorMsg("");
     };
 
+    const handleOutline = (event) => {
+        setDetails((prev) => {
+            return {
+                ...prev, outlines: event
+            };
+        });
+        setErrorMsg("");
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrorMsg("")
@@ -119,7 +128,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
             });
     }
 
-    // console.log(errorMsg)
+    console.log(details)
     return (
         <div>
             {isOpen && (
@@ -146,7 +155,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                             <div className="modal-body px-md-5">
                                 <form onSubmit={handleSubmit}>
                                     <div className="row">
-                                       
+
                                         <div className="mb-3 col-md-6">
                                             <label htmlFor="title" className="form-label">Course title</label>
                                             <input
@@ -247,8 +256,9 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                                 className="form-control" id="participant" aria-describedby="emailHelp" />
                                         </div>
                                         <div className="my-4">
-                                            <ReactQuill 
-                                            value={details.outlines}
+                                            <ReactQuill
+                                                onChange={handleOutline}
+                                                value={details.outlines}
                                                 modules={editorModules}
                                                 formats={editorFormats}
                                             />

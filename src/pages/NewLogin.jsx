@@ -102,7 +102,7 @@ const NewLogin = () => {
     return (
         <div>
             <div className="container mt-5 pt-5">
-                <div className="d-flex justify-content-center">
+                <div className="row g-0 justify-content-center">
                     <div className="col-md-6">
                         <div className="border border-black p-3 rounded-2 position-relative">
                             <p>Please enter your email and password to resume this form </p>
@@ -160,7 +160,7 @@ const NewLogin = () => {
                                                 {loading && (<span className='ms-2'><Spinner size='sm' /></span>)}
                                             </button>
                                             <div className="me-1">
-                                                <p className='text-nowrap text-center fs_sm'>| Don’t have an account ? <Link to={"/registration"} className='text-decoration-none fw-semibold prime_brown'>Sign up</Link> </p>
+                                                <p className='text-nowrap text-center fs_sm'>| <Link to={"/registration"} className='text-decoration-none fw-semibold prime_brown'>Sign up</Link> </p>
                                             </div>
                                         </div>
                                     </form>

@@ -132,6 +132,7 @@ const LearningCourse = ({ course, userCredentials, cartList }) => {
         </div>
         <div className="p-2 fs_xsm">
           <p className="fw-semibold mb-1">{course.title}</p>
+          {/* <p dangerouslySetInnerHTML={{ __html: course.description }} /> */}
           <p className='my-3'>
             {course.description}
           </p>
