@@ -1,18 +1,18 @@
 import React from 'react'
 
-const CourseTimeTable = ({ themeProp, themeColor, courseSchedule }) => {
+const CourseTimeTable = ({ themeProp, themeColor, schedule }) => {
     return (
         <div
             style={themeProp ? themeProp : null}
-            className='shadow-sm p-3 rounded'>
+            className='shadow-sm p-3 mb-3  rounded'>
             <div className="d-flex fs_sm justify-content-between">
                 <div className='d-flex'>
                     <div
-                    style={themeColor}
+                        style={themeColor}
                         className="px-1 rounded"></div>
                     <div className="py-2 ms-3">
                         <p className="fw-bold">Design Thinking & Innovation</p>
-                        <p className="">{courseSchedule.start_time} -{courseSchedule.end_time}</p>
+                        <p className="">{schedule.start_time} -{schedule.end_time}</p>
                     </div>
                 </div>
                 <div>

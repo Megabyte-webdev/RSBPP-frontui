@@ -56,19 +56,19 @@ const EnrolledCourse = ({ course, getScheduleById }) => {
                 {/* {!courseSchedule && (
                     <p className="text-center"> <Spinner/> </p>
                 )} */}
-                {courseSchedule && (
+                {/* {courseSchedule && (
                     <p><b>{date.toDateString()}</b></p>
-                )}
+                )} */}
                 <div className="my-4">
                     <div className="row">
-                        <div className="col-md-6 col mb-3">
-                            {courseSchedule && (
-                                <CourseTimeTable courseSchedule={courseSchedule} themeProp={activeClass} themeColor={white} />
-                            )}
-                        </div>
+                        {courseSchedule?.map((schedule) => (
+                            <div key={schedule.id} className="col-md-6 col mb-3">
+                                <CourseTimeTable schedule={schedule} themeProp={activeClass} themeColor={white} />
+                            </div>
+                        ))}
                         {/* <div className="col-md-6 col mb-3">
                             <CourseTimeTable themeProp={activeClass} themeColor={white} />
-                        </div>
+                        </div>f
                         <div className="col-md-6 col mb-3">
                             <CourseTimeTable themeProp={NotActiveClass} themeColor={brown} />
                         </div>

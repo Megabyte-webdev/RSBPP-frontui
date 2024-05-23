@@ -47,6 +47,10 @@ export const sidebarConstants = [
                 title: "today classes",
                 link: "/today",
             },
+            {
+                title: "time table",
+                link: "/time_table",
+            },
         ]
     },
     {
@@ -54,11 +58,11 @@ export const sidebarConstants = [
         logo: iconFour,
         subOptions: null
     },
-    {
-        title: "Facilitators",
-        logo: iconFour,
-        subOptions: null
-    },
+    // {
+    //     title: "Facilitators",
+    //     logo: iconFour,
+    //     subOptions: null
+    // },
     {
         title: "Forums",
         logo: iconThree,
@@ -73,11 +77,11 @@ export const sidebarConstants = [
             }
         ]
     },
-    {
-        title: "Library/ Resource",
-        logo: iconFive,
-        subOptions: null
-    },
+    // {
+    //     title: "Library/ Resource",
+    //     logo: iconFive,
+    //     subOptions: null
+    // },
     {
         title: "Quizzes",
         logo: iconSix,
@@ -88,15 +92,15 @@ export const sidebarConstants = [
             }
         ]
     },
-    {
-        title: "Certificates",
-        logo: iconSeven,
-        subOptions: null
-    },
-            {
-                title: "Event Schedule",
-                link: "/taime_table",
-            },
+    // {
+    //     title: "Certificates",
+    //     logo: iconSeven,
+    //     subOptions: null
+    // },
+            // {
+            //     title: "Event Schedule",
+            //     link: "/time_table",
+            // },
     // {
     //     title: "Logout",
     //     logo: iconNine,

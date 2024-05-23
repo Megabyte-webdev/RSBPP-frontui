@@ -76,7 +76,7 @@ const SideBarOptions = () => {
           handleSubOptionClick={handleSubOptionClick} />
       ))}
       <div className="border-top my-3 py-3 border-white">
-        <div className={""}>
+        {/* <div className={""}>
           <div
             onClick={() => handleSubOptionClick(constant.title)}
             className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
@@ -92,7 +92,7 @@ const SideBarOptions = () => {
               </Link>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className={""}>
           <div
             onClick={() => handleSubOptionClick(constant.title)}

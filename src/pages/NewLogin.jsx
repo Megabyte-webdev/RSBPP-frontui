@@ -103,7 +103,7 @@ const NewLogin = () => {
         <div>
             <div className="container pt-5">
                 <div className="container mb-4 row justify-content-center">
-                    <div className='col-8 col-md-3 mb-3'>
+                    <div className='col-8 col-md-3 my-3'>
                         <img src={logo} alt="" className="img-fluid" />
                     </div>
                 </div>
@@ -177,7 +177,7 @@ const NewLogin = () => {
                 </div>
                 <div className="d-flex justify-content-center pt-5">
                     <div className="col-md-10">
-                        <div className="border-top border-black px-2 border-2 pt-5">
+                        <div className="border-top px-2 border-2 pt-5">
                             {/* <div className='col-6 col-md-3 mb-3'>
                                 <img src={logo} alt="" className="img-fluid" />
                             </div> */}

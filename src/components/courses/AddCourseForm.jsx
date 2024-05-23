@@ -33,6 +33,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
         faculty_id: "",
         price: "",
         participate: "",
+        curriculum: "",
     })
 
     useEffect(() => {
@@ -65,6 +66,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
             faculty_id: "",
             price: "",
             participate: "",
+            curriculum: "",
         });
     };
     const handleOnChange = (e) => {
@@ -86,16 +88,32 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
         });
         setErrorMsg("");
     };
+    const handleCurricullum = (event) => {
+        setDetails((prev) => {
+            return {
+                ...prev, curriculum: event
+            };
+        });
+        setErrorMsg("");
+    };
+    const handleObjectives = (event) => {
+        setDetails((prev) => {
+            return {
+                ...prev, objective: event
+            };
+        });
+        setErrorMsg("");
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrorMsg("")
+        setLoading(true);
         setGetAllCourses((prev) => {
             return {
                 ...prev, isDataNeeded: false
             }
         })
-        setLoading(true)
         axios.post(`${BASE_URL}course/addCourse`, details, {
             headers: {
                 Authorization: `Bearer ${userCredentials.token}`,
@@ -116,7 +134,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
             .catch((error) => {
                 if (error.response) {
                     console.log(error)
-                    setErrorMsg(error.response.data.errors.code ? error.response.data.errors.code : error.response.data.errors.program)
+                    setErrorMsg(error.response.data.message)
                     setShowMsg(true)
                     setLoading(false);
                 } else {
@@ -256,9 +274,31 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                                 className="form-control" id="participant" aria-describedby="emailHelp" />
                                         </div>
                                         <div className="my-4">
+                                            <label htmlFor="outlines" className="form-label">Create Outlines</label>
                                             <ReactQuill
+                                                id="outlines"
                                                 onChange={handleOutline}
                                                 value={details.outlines}
+                                                modules={editorModules}
+                                                formats={editorFormats}
+                                            />
+                                        </div>
+                                        <div className="my-4">
+                                            <label htmlFor="objectives" className="form-label">Create Objectives</label>
+                                            <ReactQuill
+                                                id="objectives"
+                                                onChange={handleObjectives}
+                                                value={details.objective}
+                                                modules={editorModules}
+                                                formats={editorFormats}
+                                            />
+                                        </div>
+                                        <div className="my-4">
+                                            <label htmlFor="curriculum" className="form-label">Create Curriculum</label>
+                                            <ReactQuill
+                                                id="curriculum"
+                                                onChange={handleCurricullum}
+                                                value={details.curriculum}
                                                 modules={editorModules}
                                                 formats={editorFormats}
                                             />
