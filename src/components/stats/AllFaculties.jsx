@@ -48,7 +48,7 @@ const AllFaculties = ({ getAllFaculty }) => {
                             </div>
                             <div className="col">
                                 <button onClick={() => handleDisplay()}
-                                    className='btn btn-success px-4'>Add Faculty</button>
+                                    className='btn brown_bg text-white px-4'>Add Faculty</button>
                             </div>
                         </div>
                     </div>
