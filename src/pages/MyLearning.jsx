@@ -49,7 +49,7 @@ const MyLearning = () => {
     //         <LearningCourse key={course.id} userCredentials={userCredentials} course={course} />
     //     )
     // })
-// console.log(getAllCarts.data)
+// console.log(getAllCourses.data)
     return (
         <div className='p-3 p-md-5 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
             <h3>My Learning Paths</h3>

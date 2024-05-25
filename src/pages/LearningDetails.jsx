@@ -20,12 +20,14 @@ const LearningDetails = () => {
     const { userCredentials } = useContext(UserContext);
     const [purchase, setPurchase] = useState(true)
     const [errorMessage, setErrorMessage] = useState(true)
+    const [view, setView] = useState("about")
     const { state } = useLocation();
 
     const details = {
         user_id: userCredentials?.user.id,
         course_id: state.course?.id
     }
+    const handleView = (viewItem) => (setView(viewItem))
 
     const hasItem = getAllCarts.data?.some(item => item.courseId === state.course?.id)
 
@@ -64,7 +66,7 @@ const LearningDetails = () => {
     };
 
     // console.log(hasItem)
-    // console.log(state)
+    console.log(view)
     return (
         <div>
             <NavBar />
@@ -110,11 +112,11 @@ const LearningDetails = () => {
             <div className="p-3 border-bottom">
                 <div className="container">
                     <div className="d-flex">
-                        <button className='prime_brown fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>About</button>
-                        <button className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Curriculum</button>
-                        <button className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Instructor</button>
-                        <button className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Enrollment</button>
-                        <button className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>FAQS</button>
+                        <button onClick={() => handleView('about')} style={{ color: view === "about" ? "#ab3335" : "" }} className=' fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>About</button>
+                        <button onClick={() => handleView('curriculum')} style={{ color: view === "curriculum" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Curriculum</button>
+                        <button onClick={() => handleView('about')} style={{ color: view === "about" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Instructor</button>
+                        <button onClick={() => handleView('about')} style={{ color: view === "about" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Enrollment</button>
+                        <button onClick={() => handleView('about')} style={{ color: view === "about" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>FAQS</button>
                     </div>
                 </div>
             </div>
@@ -122,36 +124,31 @@ const LearningDetails = () => {
                 <div className="container">
                     <Row>
                         <Col md={7}>
-                            <h6>Overview</h6>
-                            <div className="fs_sm">
-                                <p>
-                                    The course aims to equip participants with a broad understanding of the breadth and scope of international business and a solid foundation upon which to advance their careers and interests. <br />
-                                    This knowledge can be employed to advance in your current work, to prepare for international jobs and careers, and to generally understand the importance and role of international business practice on globalization and geopolitics
-                                </p>
-                                <div className="my-4">
-                                    <p className='fw-semibold'>Objectives:</p>
-                                    <p>
-                                        At the end of the course, participants should be able to:
-                                        Make macro economic and potential analysis of global business environment
-                                        Identify economic conditions and your business</p>
+                            {view === 'about' && (
+                                <div>
+                                    <h6 className='mb-4'>Objectives</h6>
+                                    <div className="fs_sm">
+                                        <p dangerouslySetInnerHTML={{ __html: state.course.objective }} />
+                                    </div>
+                                    <h6 className='mb-4'>Outline</h6>
+                                    <div className="fs_sm">
+                                        <p dangerouslySetInnerHTML={{ __html: state.course.outlines }} />
+                                    </div>
+                                    <div>
+                                    </div>
                                 </div>
-                            </div>
-                            <h6>Outline</h6>
-                            <div className="fs_sm">
-                                <ul>
-                                    <li>International Business Context</li>
-                                    <li>International Business & Culture</li>
-                                    <li>Global Business Research and Analysis</li>
-                                    <li>International Sales, Marketing and Negotiation</li>
-                                    <li>International Finance and Banking</li>
-                                    <li>Business Networking</li>
-                                    <li>Corporate Social Responsibility and International Development</li>
-                                </ul>
-                            </div>
-                            <h6>Courses Curriculun</h6>
-                            <div className="my-4 col-md-10">
-                                <Curricullum />
-                            </div>
+                            )}
+                            {view === 'curriculum' && (
+                                <div>
+                                    <div>
+                                        <h6>Courses Curriculun</h6>
+                                        <div className="my-4 col-md-10">
+                                            <p dangerouslySetInnerHTML={{ __html: state.course.curriculum }} />
+                                            {/* <Curricullum /> */}
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </Col>
                         {purchase ? (
                             <Col md={5}>
