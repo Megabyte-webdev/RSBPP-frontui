@@ -114,9 +114,9 @@ const LearningDetails = () => {
                     <div className="d-flex">
                         <button onClick={() => handleView('about')} style={{ color: view === "about" ? "#ab3335" : "" }} className=' fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>About</button>
                         <button onClick={() => handleView('curriculum')} style={{ color: view === "curriculum" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Curriculum</button>
-                        <button onClick={() => handleView('about')} style={{ color: view === "about" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Instructor</button>
-                        <button onClick={() => handleView('about')} style={{ color: view === "about" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Enrollment</button>
-                        <button onClick={() => handleView('about')} style={{ color: view === "about" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>FAQS</button>
+                        <button onClick={() => handleView('outlines')} style={{ color: view === "outlines" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Outline</button>
+                        <button onClick={() => handleView('enrollment')} style={{ color: view === "enrollment" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Enrollment</button>
+                        <button onClick={() => handleView('faqs')} style={{ color: view === "faqs" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>FAQS</button>
                     </div>
                 </div>
             </div>
@@ -130,12 +130,6 @@ const LearningDetails = () => {
                                     <div className="fs_sm">
                                         <p dangerouslySetInnerHTML={{ __html: state.course.objective }} />
                                     </div>
-                                    <h6 className='mb-4'>Outline</h6>
-                                    <div className="fs_sm">
-                                        <p dangerouslySetInnerHTML={{ __html: state.course.outlines }} />
-                                    </div>
-                                    <div>
-                                    </div>
                                 </div>
                             )}
                             {view === 'curriculum' && (
@@ -146,6 +140,16 @@ const LearningDetails = () => {
                                             <p dangerouslySetInnerHTML={{ __html: state.course.curriculum }} />
                                             {/* <Curricullum /> */}
                                         </div>
+                                    </div>
+                                </div>
+                            )}
+                            {view === 'outlines' && (
+                                <div>
+                                    <h6 className='mb-4'>Outline</h6>
+                                    <div className="fs_sm">
+                                        <p dangerouslySetInnerHTML={{ __html: state.course.outlines }} />
+                                    </div>
+                                    <div>
                                     </div>
                                 </div>
                             )}

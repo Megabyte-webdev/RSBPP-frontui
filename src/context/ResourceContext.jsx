@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { UserContext } from "./AuthContext";
-import { getItemFunc } from "../components/utils/getApi";
+import { getItemFunc, getTimeTable } from "../components/utils/getApi";
 
 export const ResourceContext = createContext();
 
@@ -37,6 +37,11 @@ function ResourceContextProvider({ children }) {
 
 
     const [getEnrolledCourses, setGetEnrolledCourses] = useState({
+        data: null,
+        isDataNeeded: false,
+    });
+
+    const [getAllSchedules, setGetAllSchedules] = useState({
         data: null,
         isDataNeeded: false,
     });
@@ -92,6 +97,16 @@ function ResourceContextProvider({ children }) {
         }
     }, [getEnrolledCourses.isDataNeeded]);
 
+    //Class Schedule Resource useEffect
+    useEffect(() => {
+        setErrorMessage('');
+        if (getAllSchedules.isDataNeeded) {
+            const endPoint = "schedule/allSchedule"
+            const dataArray = "schedule"
+            getTimeTable(token, setGetAllSchedules, setErrorMessage, endPoint, dataArray)
+        }
+    }, [getAllSchedules.isDataNeeded]);
+
 
 
     return (
@@ -108,6 +123,8 @@ function ResourceContextProvider({ children }) {
                 setGetAllCarts,
                 getEnrolledCourses,
                 setGetEnrolledCourses,
+                getAllSchedules,
+                setGetAllSchedules,
             }}
         >
             {children}

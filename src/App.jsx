@@ -28,8 +28,8 @@ import CheckoutPage from './pages/CheckoutPage'
 import NotFound from './pages/NotFound'
 import MyCourses from './pages/MyCourses'
 import SuccessfulCheckoutPage from './pages/SuccessfulCheckoutPage'
-import ReactBigCalendar from './components/general/ReactBigCalendar'
 import NewLogin from './pages/NewLogin'
+import ClassSchedules from './pages/ClassSchedules'
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
@@ -52,7 +52,7 @@ const App = () => {
               <Route path='/chats' element={<Chats />} />
               <Route path='/quiz' element={<QuizPage />} />
               <Route path='/messages' element={<Messages />} />
-              <Route path='/time_table' element={<ReactBigCalendar />} />
+              <Route path='/time_table' element={<ClassSchedules />} />
               {
                 role === "instructor" && (
                   <>

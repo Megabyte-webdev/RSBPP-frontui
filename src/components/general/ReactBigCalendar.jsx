@@ -4,7 +4,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css"
 import { useCallback } from "react"
 const localizer = momentLocalizer(moment)
 
-const ReactBigCalendar = (props) => {
+const ReactBigCalendar = ({timeTables}) => {
 
 
     const today = new Date();
@@ -13,7 +13,7 @@ const ReactBigCalendar = (props) => {
     const testData = [];
 
     // Loop 15 times to create objects
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 5; i++) {
         // Create random date within current month
         const randomDate = new Date(today.getFullYear(), currentMonth, Math.floor(Math.random() * 31) + 1);
 
@@ -28,7 +28,7 @@ const ReactBigCalendar = (props) => {
         });
     }
 
-    // console.log(testData);
+    console.log(testData);
 
     const eventPropGetter = useCallback(
         (event, start, end, isSelected) => ({
@@ -55,11 +55,11 @@ const ReactBigCalendar = (props) => {
             <div className='bg-white p-3 rounded-3'>
                 <Calendar
                     localizer={localizer}
-                    events={testData}
+                    events={timeTables}
                     startAccessor="start"
                     endAccessor="end"
                     style={{ height: 500 }}
-                    eventPropGetter={eventPropGetter}
+                    // eventPropGetter={eventPropGetter}
                 />
             </div>
         </div>
