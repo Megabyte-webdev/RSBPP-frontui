@@ -65,16 +65,15 @@ const LearningDetails = () => {
         }
     };
 
-    // console.log(hasItem)
-    console.log(view)
+    console.log(state)
     return (
-        <div>
+        <div className='poppins'>
             <NavBar />
             <div className="brown_bg p-3 p-md-5 text-white">
                 <div className="d-flex justify-content-center align-items-center">
                     <div>
                         <span> <BiSolidBadgeCheck size={25} /> </span>
-                        <span>ONSITE</span>
+                        <span>{state.course.course_type}</span>
                     </div>
                 </div>
                 <div className="text-center ">
@@ -106,16 +105,16 @@ const LearningDetails = () => {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center">
-                    <button onClick={() => addToCart()} className='btn blue_bg text-white py-2 px-5 rounded-0'>Enroll Now - ${state.course.price}</button>
+                    <button onClick={() => addToCart()} className='btn blue_bg text-white py-2 px-5 rounded-0'> {hasItem ? "proceed to cart" : " Enroll Now"} - ${state.course.price}</button>
                 </div>
             </div>
             <div className="p-3 border-bottom">
                 <div className="container">
                     <div className="d-flex">
                         <button onClick={() => handleView('about')} style={{ color: view === "about" ? "#ab3335" : "" }} className=' fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>About</button>
-                        <button onClick={() => handleView('curriculum')} style={{ color: view === "curriculum" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Curriculum</button>
+                        <button onClick={() => handleView('objectives')} style={{ color: view === "objectives" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Objectives</button>
                         <button onClick={() => handleView('outlines')} style={{ color: view === "outlines" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Outline</button>
-                        <button onClick={() => handleView('enrollment')} style={{ color: view === "enrollment" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Enrollment</button>
+                        <button onClick={() => handleView('curriculum')} style={{ color: view === "curriculum" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Curriculum</button>
                         <button onClick={() => handleView('faqs')} style={{ color: view === "faqs" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>FAQS</button>
                     </div>
                 </div>
@@ -125,6 +124,23 @@ const LearningDetails = () => {
                     <Row>
                         <Col md={7}>
                             {view === 'about' && (
+                                <div>
+                                    <h6 className='mb-4'>About</h6>
+                                    <div className="mb-3">
+                                        <p className="fw-bold fs-5">Description</p>
+                                        <p>{state.course.description}</p>
+                                    </div>
+                                    <div className="mb-3">
+                                        <p className="fw-bold fs-5">Course Type</p>
+                                        <p>{state.course.course_type}</p>
+                                    </div>
+                                    <div className="mb-3">
+                                        <p className="fw-bold fs-5">Course Code</p>
+                                        <p>{state.course.code}</p>
+                                    </div>
+                                </div>
+                            )}
+                            {view === 'objectives' && (
                                 <div>
                                     <h6 className='mb-4'>Objectives</h6>
                                     <div className="fs_sm">

@@ -58,7 +58,7 @@ const AllCourses = ({ getAllCourses }) => {
                 </div>
                 <div className="overflow_y_md_50 overflow_y_80">
                     <div className="mt-4 table-responsive-md">
-                        <table className="table table-bordered table-hover">
+                        <table className="table table-hover">
                             <thead>
                                 <tr>
                                     {/* <THead name="No:" /> */}
