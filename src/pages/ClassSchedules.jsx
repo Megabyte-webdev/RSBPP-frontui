@@ -16,7 +16,7 @@ const ClassSchedules = () => {
         })
     }, [])
 
-    console.log(getAllSchedules?.data)
+    // console.log(getAllSchedules?.data)
 
     return (
         <div>{getAllSchedules.data && (

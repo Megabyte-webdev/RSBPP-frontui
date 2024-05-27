@@ -1,6 +1,8 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const CourseTimeTable = ({ themeProp, themeColor, schedule }) => {
+    const navigate = useNavigate()
     return (
         <div
             style={themeProp ? themeProp : null}
@@ -16,7 +18,7 @@ const CourseTimeTable = ({ themeProp, themeColor, schedule }) => {
                     </div>
                 </div>
                 <div>
-                    <button className='bg-white btn rounded-pill btn-sm px-4 py-0 prime_brown border_brown'>Join</button>
+                    <button onClick={()=> navigate("/video_live")} className='bg-white btn rounded-pill btn-sm px-4 py-0 prime_brown border_brown'>Join</button>
                 </div>
             </div>
         </div>
