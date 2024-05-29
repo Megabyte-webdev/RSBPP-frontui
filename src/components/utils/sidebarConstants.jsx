@@ -109,27 +109,35 @@ export const sidebarConstants = [
     // },
 ]
 export const adminConstants = [
-    // {
-    //     title: "Dashboard",
-    //     logo: iconOne,
-    //     subOptions: [
-    //         {
-    //             title: "One",
-    //             link: "/",
-    //         },
-    //         {
-    //             title: "Two",
-    //             link: "",
-    //         }
-    //     ]
-    // },
+    {
+        title: "Course Admin",
+        logo: iconTwo,
+        subOptions: [
+            {
+                title: "Couses View",
+                link: "/courses_administration",
+            },
+            {
+                title: "Faculties View",
+                link: "/create_schedule",
+            },
+            {
+                title: "All Schedules",
+                link: "/time_table",
+            },
+            // {
+            //     title: "Registra",
+            //     link: "/registra",
+            // },
+        ]
+    },
     {
         title: "Admin",
         logo: iconTwo,
         subOptions: [
             {
                 title: "Schedule class",
-                link: "/schedule_classes",
+                link: "/time_table",
             },
             {
                 title: "Create schedule",

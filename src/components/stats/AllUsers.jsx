@@ -1,10 +1,13 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import THead from '../general/THead'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import { ResourceContext } from '../../context/ResourceContext'
 import toast from 'react-hot-toast'
 import { BASE_URL } from '../utils/base'
+import Pagination from '../general/Pagination'
+
+let PageSize = 5;
 
 const AllUsers = ({ getAllUsers, userCredentials }) => {
     const [searchInput, setSearchInput] = useState("");
@@ -18,10 +21,18 @@ const AllUsers = ({ getAllUsers, userCredentials }) => {
         user.first_name.toLowerCase().includes(searchInput.toLowerCase())
     )
 
-    // useEffect(()=>{
-    //     toast.success("hello guys")
-    //     console.log(" I run")
-    // }, [])
+    // pagination methods Starts here
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPage, setTotalPage] = useState();
+
+    const currentTableData = useMemo(() => {
+        const firstPageIndex = (currentPage - 1) * PageSize;
+        const lastPageIndex = firstPageIndex + PageSize;
+        return typeSearch?.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage, typeSearch]);
+
+    // pagination methods Ends here
 
     const deleteFunc = async (id) => {
         setIsSubmitting(true)
@@ -65,6 +76,11 @@ const AllUsers = ({ getAllUsers, userCredentials }) => {
         }
     }
 
+    useEffect(() => {
+        setTotalPage(Math.ceil(typeSearch?.length / PageSize));
+    }, [typeSearch, getAllUsers])
+
+    // console.log(currentTableData)
 
     return (
         <div>
@@ -85,12 +101,6 @@ const AllUsers = ({ getAllUsers, userCredentials }) => {
                                     <span className="position-absolute start-0 top-0 p-2"><FiSearch /> </span>
                                 </div>
                             </div>
-                            {/* <div className="col">
-                                <div className='position-relative'>
-                                    <input type="text" className="btn border bg-white text-start px-5 py-2 w-100" id="search" placeholder='Search' />
-                                    <span className="position-absolute start-0 top-0 p-2"><FiSearch /> </span>
-                                </div>
-                            </div> */}
                         </div>
                     </div>
                 </div>
@@ -108,7 +118,7 @@ const AllUsers = ({ getAllUsers, userCredentials }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {typeSearch?.map((user) => {
+                                {currentTableData?.map((user) => {
                                     return (
                                         <tr key={user.id}>
                                             <td>{user.first_name}</td>
@@ -118,9 +128,9 @@ const AllUsers = ({ getAllUsers, userCredentials }) => {
                                             <td>{user.role}</td>
                                             <td>
                                                 <button
-                                                disabled={isSubmitting}
-                                                onClick={()=>deleteFunc(user.id)}
-                                                 className='btn' style={{ border: "1px solid hsla(166, 79%, 42%, 1)", backgroundColor: "hsla(166, 79%, 42%, 0.38)", color: "hsla(166, 79%, 42%, 1)" }}>{isSubmitting? "Deleting.." : "Delete"}</button>
+                                                    disabled={isSubmitting}
+                                                    onClick={() => deleteFunc(user.id)}
+                                                    className='btn' style={{ border: "1px solid hsla(166, 79%, 42%, 1)", backgroundColor: "hsla(166, 79%, 42%, 0.38)", color: "hsla(166, 79%, 42%, 1)" }}>{isSubmitting ? "Deleting.." : "Delete"}</button>
                                             </td>
                                         </tr>
                                     )
@@ -129,19 +139,22 @@ const AllUsers = ({ getAllUsers, userCredentials }) => {
                         </table>
                     </div>
                 </div>
-                <div className="mt-5 ash_text d-md-flex justify-content-between">
-                    <div>
-                        <p>Showing data 1 to 8 of  256K entries</p>
+                {getAllUsers && (
+                    <div className="mt-5 ash_text d-md-flex justify-content-between">
+                        <div>
+                            <p>Showing {currentPage}/{totalPage} of  {typeSearch?.length} entries</p>
+                        </div>
+                        <div className='d-flex my-4'>
+                            <Pagination
+                                className="pagination-bar"
+                                currentPage={currentPage}
+                                totalCount={typeSearch?.length}
+                                pageSize={PageSize}
+                                onPageChange={page => setCurrentPage(page)}
+                            />
+                        </div>
                     </div>
-                    <div className='d-flex my-4'>
-                        <button className='border-0 rounded ms-2'> <MdChevronLeft /></button>
-                        <button className='border-0 rounded ms-2'> 1</button>
-                        <button className='border-0 rounded ms-2'> 2</button>
-                        <button className='border-0 rounded ms-2'> ...</button>
-                        <button className='border-0 rounded ms-2'> 40</button>
-                        <button className='border-0 rounded ms-2'> <MdChevronRight /></button>
-                    </div>
-                </div>
+                )}
             </div>
         </div>
     )

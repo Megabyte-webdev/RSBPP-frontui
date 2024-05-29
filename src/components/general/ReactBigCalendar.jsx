@@ -74,11 +74,11 @@ const ReactBigCalendar = ({ timeTables }) => {
       }, [dateView, date]);
 
       const dateText = useMemo(() => {
-        if (dateView === Views.DAY) return moment(date).format("dddd, MMMM DD");
+        if (dateView === Views.DAY) return moment(date).format(" MMMM DD");
         if (dateView === Views.WEEK) {
           const from = moment(date)?.startOf("week");
           const to = moment(date)?.endOf("week");
-          return `${from.format("MMMM DD")} to ${to.format("MMMM DD")}`;
+          return `${from.format(" DD")} to ${to.format(" DD")}`;
         }
         if (dateView === Views.MONTH) {
           return moment(date).format("MMMM YYYY");
@@ -104,14 +104,14 @@ const ReactBigCalendar = ({ timeTables }) => {
                     <div>
                         <div className="d-flex align-items-center">
                             <button onClick={()=> handlePrevDate()} className='btn rounded-circle text-secondary border mx-2'> <GoChevronLeft size={"20"} /> </button>
-                            <p className='col-7'>{dateText}</p>
+                            <p className='col col-md-7'>{dateText}</p>
                             <button onClick={() => handleNextDate()} className='btn rounded-circle text-secondary border mx-2'> <GoChevronRight size={"20"} /> </button>
                         </div>
                     </div>
                     <div>
-                        <div className="btn-group rounded-pill" role="group" aria-label="Basic mixed styles example">
+                        <div className="btn-md-group rounded-pill" role="group" aria-label="Basic mixed styles example">
                             {VIEW_OPTIONS.map(({ id, label }) => (
-                                <button key={id} onClick={() => setDateView(id)} style={{ fontWeight: id === dateView ? "600" : "normal" }} className="btn rounded-0 border">{label}</button>
+                                <button key={id} onClick={() => setDateView(id)} style={{ fontWeight: id === dateView ? "600" : "normal" }} className="btn btn-sm w-100 w_md_unset rounded-0 border">{label}</button>
                             ))}
                         </div>
                     </div>

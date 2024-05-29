@@ -6,7 +6,7 @@ const ClassSchedules = () => {
 
 
     const { getAllSchedules,
-        setGetAllSchedules } = useContext(ResourceContext)
+        setGetAllSchedules, errorMesage } = useContext(ResourceContext)
 
     useEffect(() => {
         setGetAllSchedules((prev) => {
@@ -16,11 +16,12 @@ const ClassSchedules = () => {
         })
     }, [])
 
-    // console.log(getAllSchedules?.data)
+    console.log(errorMesage)
 
     return (
         <div>{getAllSchedules.data && (
             <ReactBigCalendar timeTables={getAllSchedules?.data} />)}
+            {errorMesage && (<p className='text-center text-danger mt-5 fs-5'>{errorMesage}</p>)}
         </div>
     )
 }

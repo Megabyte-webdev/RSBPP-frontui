@@ -18,6 +18,7 @@ const CreateSchedule = () => {
         getAllCourses,
         setGetAllCourses,
         getAllUsers,
+        setGetAllSchedules,
         setGetAllUsers } = useContext(ResourceContext)
 
     const [errorMsg, setErrorMsg] = useState("")
@@ -67,6 +68,11 @@ const CreateSchedule = () => {
                 ...prev, isDataNeeded: false
             }
         })
+        setGetAllSchedules((prev) => {
+            return {
+                ...prev, isDataNeeded: false
+            }
+        })
         setLoading(true)
         axios.post(`${BASE_URL}schedule/addSchedule`, details, {
             headers: {
@@ -76,6 +82,11 @@ const CreateSchedule = () => {
             .then((response) => {
                 // console.log(response)
                 setGetAllCourses((prev) => {
+                    return {
+                        ...prev, isDataNeeded: true
+                    }
+                })
+                setGetAllSchedules((prev) => {
                     return {
                         ...prev, isDataNeeded: true
                     }

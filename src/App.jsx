@@ -30,6 +30,8 @@ import MyCourses from './pages/MyCourses'
 import SuccessfulCheckoutPage from './pages/SuccessfulCheckoutPage'
 import NewLogin from './pages/NewLogin'
 import ClassSchedules from './pages/ClassSchedules'
+import CustomPagination from './components/general/CustomPagination'
+import CourseAdmin from './pages/CourseAdmin'
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
@@ -53,6 +55,7 @@ const App = () => {
               <Route path='/quiz' element={<QuizPage />} />
               <Route path='/messages' element={<Messages />} />
               <Route path='/time_table' element={<ClassSchedules />} />
+              <Route path='/test' element={<CustomPagination />} />
               {
                 role === "instructor" && (
                   <>
@@ -68,6 +71,7 @@ const App = () => {
                     <Route path='/create_schedule' element={<CreateSchedule />} />
                     <Route path='/faculty_courses' element={<MyLearning />} />
                     <Route path='/registra' element={<RegisteredStudent />} />
+                    <Route path='/courses_administration' element={<CourseAdmin />} />
                   </>
                 )
               }

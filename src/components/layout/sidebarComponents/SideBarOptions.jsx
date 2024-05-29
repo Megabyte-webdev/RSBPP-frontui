@@ -16,6 +16,7 @@ const SideBarOptions = () => {
   const role = userCredentials.user.role.toLowerCase()
   // console.log(role)
   const adminOrInstructor = role === "admin" || role === "instructor"
+  const studentOrInstructor = role === "student" || role === "instructor"
   // console.log(adminOrInstructor)
 
   function Logout() {
@@ -54,7 +55,7 @@ const SideBarOptions = () => {
           </div>
         </div>
       </div>
-      {sidebarConstants.map((constant) => (
+      {studentOrInstructor && sidebarConstants.map((constant) => (
         <SidebarToggle
           key={constant.title}
           isOpenOption={isOpenOption}

@@ -24,7 +24,7 @@ const MyCourses = () => {
                 ...prev, isDataNeeded: true
             }
         })
-    }, [])
+    }, [getEnrolledCourses])
 
     const getScheduleById = (id, setState) => {
         // setGetAllCarts((prev) => {
@@ -59,7 +59,7 @@ const MyCourses = () => {
 const enrollCourses = getAllCourses.data?.filter(
     (course) => getEnrolledCourses.data?.some((enroll) => enroll.courseId === course.id)
   );
-//   console.log(enrollCourses)
+  console.log(getEnrolledCourses)
     return (
         <div className='p-3 p-md-5 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, 1)", minHeight: "100vh" }}>
            {enrollCourses && ( <div className="d-flex justify-content-between">

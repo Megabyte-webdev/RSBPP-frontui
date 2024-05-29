@@ -17,7 +17,7 @@ const LoginComponent = () => {
 
     const navigate = useNavigate()
     const { setUserCredentials, setWidgetOpen } = useContext(UserContext)
-    const { setGetAllCarts } = useContext(ResourceContext)
+    const { setGetAllCarts, getEnrolledCourses, setGetEnrolledCourses } = useContext(ResourceContext)
     const [inputType, setInputType] = useState("password")
     const [otpPage, setOtpPage] = useState(false)
     const [showMsg, setShowMsg] = useState(false)
@@ -53,6 +53,11 @@ const LoginComponent = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
+        setGetEnrolledCourses((prev) => {
+            return {
+                ...prev, isDataNeeded: false
+            }
+        })
         setGetAllCarts((prev) => {
             return {
                 ...prev, isDataNeeded: false
@@ -66,6 +71,11 @@ const LoginComponent = () => {
                 setUserCredentials(userData)
                 localStorage.setItem("userDetails", JSON.stringify(userData));
                 // setOtpPage(true)
+                setGetEnrolledCourses((prev) => {
+                    return {
+                        ...prev, isDataNeeded: true
+                    }
+                })
                 setGetAllCarts((prev) => {
                     return {
                         ...prev, isDataNeeded: true
@@ -94,7 +104,7 @@ const LoginComponent = () => {
         // setOtpPage(true)
     }
 
-    // console.log(logDetails)
+    console.log(getEnrolledCourses)
     return (
         <Row className='d-flex justify-content-center pt-5'>
             <Col md={6}>

@@ -112,7 +112,7 @@ const CreateForm = () => {
         })
     }
     const allInstructors = getAllUsers.data?.filter((user) => user.role === "instructor")
-    console.log(details)
+    // console.log(details)
 
     return (
         <div className='p-3 py-5'>

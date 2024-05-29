@@ -20,7 +20,7 @@ const NewLogin = () => {
 
     const navigate = useNavigate()
     const { setUserCredentials, setWidgetOpen } = useContext(UserContext)
-    const { setGetAllCarts } = useContext(ResourceContext)
+    const { setGetAllCarts, setGetEnrolledCourses } = useContext(ResourceContext)
     const [inputType, setInputType] = useState("password")
     const [otpPage, setOtpPage] = useState(false)
     const [showMsg, setShowMsg] = useState(false)
@@ -64,6 +64,11 @@ const NewLogin = () => {
                 ...prev, isDataNeeded: false
             }
         })
+        setGetEnrolledCourses((prev) => {
+            return {
+                ...prev, isDataNeeded: false
+            }
+        })
         setLoading(true)
         axios.post(`${BASE_URL}login`, logDetails,)
             .then((response) => {
@@ -81,6 +86,11 @@ const NewLogin = () => {
                 setWidgetOpen((prev) => {
                     return {
                         ...prev, display: "block"
+                    }
+                })
+                setGetEnrolledCourses((prev) => {
+                    return {
+                        ...prev, isDataNeeded: true
                     }
                 })
                 setLoading(false)

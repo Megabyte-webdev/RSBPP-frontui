@@ -121,6 +121,11 @@ input:focus-visible {
   color: #f1f1f1 !important;
 }
 
+.nav_btn:focus{
+  background-color: #c3a6a6 !important;
+  color:#441d1e !important;
+}
+
 .prime_blue {
   color: #03014c !important;
 }
@@ -416,5 +421,8 @@ input[type="radio"].red_radio {
     max-height: 50vh;
     overflow-y: scroll;
     scrollbar-width: thin;
+  }
+  .w_md_unset{
+    width: unset !important;
   }
 }
