@@ -67,7 +67,7 @@ export const getTimeTable = (
             id: item.id,
             start: new Date(`${item.day}T${item.start_time}`),
             end: new Date(`${item.day}T${item.end_time}`),
-            title: "Meeting day",
+            // title: "Meeting day",
             ...item,
           });
         });

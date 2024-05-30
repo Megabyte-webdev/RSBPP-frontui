@@ -1,5 +1,5 @@
 // import "./App.css";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import {
     MeetingProvider,
     MeetingConsumer,
@@ -10,7 +10,10 @@ import { authToken, createMeeting } from "./API";
 import ReactPlayer from "react-player";
 import { CiVideoOff, CiVideoOn } from "react-icons/ci";
 import { IoMic, IoMicOff } from "react-icons/io5";
-import { MdCallEnd } from "react-icons/md";
+import { MdArrowLeft, MdCallEnd } from "react-icons/md";
+import { UserContext } from "../../context/AuthContext";
+import Indicators from "./Indicators";
+import AvatarDp from "./AvatarDp";
 
 function JoinScreen({ getMeetingAndToken }) {
     const [meetingId, setMeetingId] = useState(null);
@@ -67,12 +70,8 @@ function ParticipantView(props) {
         }
     }, [micStream, micOn]);
     return (
-        <div key={props.participantId}>
-            <Controls webcamOn={webcamOn} micOn={micOn} />
-            <p className="my-3">
-                Participant: {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
-                {micOn ? "ON" : "OFF"}
-            </p>
+        <div className="my-4" key={props.participantId}>
+            {/* <Controls webcamOn={webcamOn} micOn={micOn} /> */}
             <audio className="w-50" ref={micRef} autoPlay muted={isLocal} />
             <div className="w-100 my-3">
                 {webcamOn && (
@@ -86,40 +85,44 @@ function ParticipantView(props) {
                         playing={true}
                         //
                         url={videoStream}
-                        className={"w-100 rounded"}
+                        // className={"w-100 rounded"}
                         //
-                        // height={"200px"}
-                        // width={"300px"}
+                        height={"200px"}
+                        width={"300px"}
                         onError={(err) => {
                             console.log(err, "participant video error");
                         }}
                     />
                 )}
+                {!webcamOn && <AvatarDp webcamOn={webcamOn} micOn={micOn} />}
             </div>
+            <Indicators webcamOn={webcamOn} micOn={micOn} displayName={displayName} />
         </div>
     );
 }
 
-function Controls({ webcamOn, micOn }) {
+function Controls() {
     const { leave, toggleMic, toggleWebcam } = useMeeting();
-    const camOn = webcamOn ? <CiVideoOn color="#fff" size={20} /> : <CiVideoOff color="#fff" size={20} />
-    const speakerOn = micOn ? <IoMic color="#fff" size={20} /> : <IoMicOff color="#fff" size={20} />
+    // console.log(toggleMic)
+    // const camOn = webcamOn ? <CiVideoOn color="#fff" size={20} /> : <CiVideoOff color="#fff" size={20} />
+    // const speakerOn = micOn ? <IoMic color="#fff" size={20} /> : <IoMicOff color="#fff" size={20} />
     return (
         <div className="d-flex">
-            <button className="video_btns me-2 border-0" style={{ backgroundColor: "#f00" }} onClick={() => leave()}><MdCallEnd color="#fff" size={20} /></button>
+            {/* <button className="video_btns me-2 border-0" style={{ backgroundColor: "#f00" }} onClick={() => leave()}><MdCallEnd color="#fff" size={20} /></button>
             <button className="video_btns blue_bg me-2 border-0" onClick={() => toggleMic()}>{speakerOn}</button>
-            <button className="video_btns blue_bg me-2 border-0" onClick={() => toggleWebcam()}>{camOn}</button>
-            {/* <button className="video_btns blue_bg me-2 border-0"  style={{ backgroundColor: "hsla(359, 54%, 44%, 0.2)" }} onClick={() => leave()}><MdCallEnd color="#fff" size={20} /></button>
+            <button className="video_btns blue_bg me-2 border-0" onClick={() => toggleWebcam()}>{camOn}</button> */}
+            <button className="video_btns brown_bg me-2 border-0" style={{ backgroundColor: "hsla(359, 54%, 44%, 0.2)" }} onClick={() => leave()}><MdCallEnd color="#fff" size={20} /></button>
             <button className="video_btns blue_bg me-2 border-0" onClick={() => toggleMic()}>{<IoMic color="#fff" size={20} />}</button>
-            <button className="video_btns blue_bg me-2 border-0" onClick={() => toggleWebcam()}><CiVideoOn color="#fff" size={20} /></button> */}
+            <button className="video_btns blue_bg me-2 border-0" onClick={() => toggleWebcam()}><CiVideoOn color="#fff" size={20} /></button>
         </div>
     );
 }
 
 function MeetingView(props) {
     const [joined, setJoined] = useState(null);
-    const { join } = useMeeting();
-    const { participants } = useMeeting({
+    // const { join } = useMeeting();
+
+    const { join, participants, startRecording, stopRecording } = useMeeting({
         onMeetingJoined: () => {
             setJoined("JOINED");
         },
@@ -132,29 +135,72 @@ function MeetingView(props) {
         join();
     };
 
+    const handleStartRecording = () => {
+        // Configuration for recording
+        const config = {
+            layout: {
+                type: "GRID",
+                priority: "SPEAKER",
+                gridSize: 4,
+            },
+            theme: "DARK",
+            mode: "video-and-audio",
+            quality: "high",
+            orientation: "landscape",
+        };
+
+        // Configuration for post transcription
+        let transcription = {
+            enabled: true,
+            summary: {
+                enabled: true,
+                prompt:
+                    "Write summary in sections like Title, Agenda, Speakers, Action Items, Outlines, Notes and Summary",
+            },
+        };
+
+        // Start Recording
+        // If you don't have a `webhookUrl` or `awsDirPath`, you should pass null.
+        startRecording(
+            "YOUR WEB HOOK URL",
+            "AWS Directory Path",
+            config,
+            transcription
+        );
+    };
+
+    const handleStopRecording = () => {
+        // Stop Recording
+        stopRecording();
+    };
+
     return (
         <div className="container">
             <h3>Meeting Id: {props.meetingId}</h3>
             {joined && joined == "JOINED" ? (
                 <div>
-                    {/* <Controls /> */}
+                    <Controls />
                     {[...participants.keys()].map((participantId) => (
                         <ParticipantView
                             participantId={participantId}
                             key={participantId}
                         />
                     ))}
+                    {/* <button onClick={handleStartRecording}>Start Recording</button>
+                    <button onClick={handleStopRecording}>Stop Recording</button> */}
                 </div>
             ) : joined && joined == "JOINING" ? (
                 <p>Joining the meeting...</p>
             ) : (
-                <button onClick={joinMeeting}>Join</button>
+                <button className="btn brown_bg text-white fs_sm text-nowrap" onClick={joinMeeting}> <MdArrowLeft />  Join</button>
             )}
         </div>
     );
 }
 
 function VideoApp() {
+
+    const { userCredentials } = useContext(UserContext)
     const [meetingId, setMeetingId] = useState(null);
 
     const getMeetingAndToken = async (id) => {
@@ -166,14 +212,16 @@ function VideoApp() {
     const onMeetingLeave = () => {
         setMeetingId(null);
     };
-
     return authToken && meetingId ? (
         <MeetingProvider
             config={{
                 meetingId,
                 micEnabled: true,
                 webcamEnabled: true,
-                name: "C.V. Raman",
+                screenShareEnabled: true,
+                chatEnabled: true,
+                raiseHandEnabled: true,
+                name: userCredentials.user.first_name,
             }}
             token={authToken}
         >
