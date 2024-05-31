@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import THead from '../general/THead'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import AddFacultyForm from '../faculty/AddFacultyForm'
 import AddCourseForm from '../courses/AddCourseForm'
+import Pagination from '../general/Pagination'
+
+const PageSize = 7;
 
 const AllCourses = ({ getAllCourses }) => {
     const [searchInput, setSearchInput] = useState("");
@@ -25,6 +28,25 @@ const AllCourses = ({ getAllCourses }) => {
     const typeSearch = sortType?.filter((user) =>
         user.title.toLowerCase().includes(searchInput.toLowerCase())
     )
+
+
+    // pagination methods Starts here
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPage, setTotalPage] = useState();
+
+    const currentTableData = useMemo(() => {
+        const firstPageIndex = (currentPage - 1) * PageSize;
+        const lastPageIndex = firstPageIndex + PageSize;
+        return typeSearch?.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage, typeSearch]);
+
+    useEffect(() => {
+        setTotalPage(Math.ceil(typeSearch?.length / PageSize));
+    }, [typeSearch, getAllCourses])
+
+    // pagination methods Ends here
+
     return (
         <div>
             <AddCourseForm
@@ -72,7 +94,7 @@ const AllCourses = ({ getAllCourses }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {typeSearch?.map((user) => {
+                                {currentTableData?.map((user) => {
                                     return (
                                         <tr key={user.id}>
                                             <td>{user.course_type}</td>
@@ -102,19 +124,22 @@ const AllCourses = ({ getAllCourses }) => {
                         </table>
                     </div>
                 </div>
-                {/* <div className="mt-5 ash_text d-md-flex justify-content-between">
-                    <div>
-                        <p>Showing data 1 to 8 of  256K entries</p>
+                {getAllCourses && (
+                    <div className="mt-5 ash_text d-md-flex justify-content-between">
+                        <div>
+                            <p>Showing {currentPage}/{totalPage} of  {typeSearch?.length} entries</p>
+                        </div>
+                        <div className='d-flex my-4'>
+                            <Pagination
+                                className="pagination-bar"
+                                currentPage={currentPage}
+                                totalCount={typeSearch?.length}
+                                pageSize={PageSize}
+                                onPageChange={page => setCurrentPage(page)}
+                            />
+                        </div>
                     </div>
-                    <div className='d-flex my-4'>
-                        <button className='border-0 rounded ms-2'> <MdChevronLeft /></button>
-                        <button className='border-0 rounded ms-2'> 1</button>
-                        <button className='border-0 rounded ms-2'> 2</button>
-                        <button className='border-0 rounded ms-2'> ...</button>
-                        <button className='border-0 rounded ms-2'> 40</button>
-                        <button className='border-0 rounded ms-2'> <MdChevronRight /></button>
-                    </div>
-                </div> */}
+                )}
             </div>
         </div>
     )

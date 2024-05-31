@@ -32,6 +32,10 @@ const AllUsers = ({ getAllUsers, userCredentials }) => {
         return typeSearch?.slice(firstPageIndex, lastPageIndex);
     }, [currentPage, typeSearch]);
 
+    useEffect(() => {
+        setTotalPage(Math.ceil(typeSearch?.length / PageSize));
+    }, [typeSearch, getAllUsers])
+
     // pagination methods Ends here
 
     const deleteFunc = async (id) => {
@@ -76,11 +80,6 @@ const AllUsers = ({ getAllUsers, userCredentials }) => {
         }
     }
 
-    useEffect(() => {
-        setTotalPage(Math.ceil(typeSearch?.length / PageSize));
-    }, [typeSearch, getAllUsers])
-
-    // console.log(currentTableData)
 
     return (
         <div>

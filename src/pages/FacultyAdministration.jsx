@@ -2,8 +2,6 @@ import { useContext, useEffect, useMemo, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import THead from '../components/general/THead'
 import { ResourceContext } from '../context/ResourceContext'
-import toast from 'react-hot-toast'
-import { BASE_URL } from '../components/utils/base'
 import { UserContext } from '../context/AuthContext'
 import Pagination from '../components/general/Pagination'
 import FacultyRow from '../components/stats/FacultyRow'
@@ -12,22 +10,10 @@ let PageSize = 7;
 const FacultyAdministration = () => {
 
     const [searchInput, setSearchInput] = useState("");
-    const [isSubmitting, setIsSubmitting] = useState(false);
-
-    const { userCredentials } = useContext(UserContext);
     const {
-        setGetAllCourses,
-        getAllCourses,
         getAllFaculty,
         setGetAllFaculty } = useContext(ResourceContext);
 
-    useEffect(() => {
-        setGetAllCourses((prev) => {
-            return {
-                ...prev, isDataNeeded: true
-            }
-        })
-    }, [])
 
     useEffect(() => {
         setGetAllFaculty((prev) => {
@@ -56,51 +42,10 @@ const FacultyAdministration = () => {
 
     // pagination methods Ends here
 
-    const deleteFunc = async (id) => {
-        setIsSubmitting(true)
-        setGetAllCourses((prev) => {
-            return {
-                ...prev, isDataNeeded: false
-            }
-        })
-
-        const params = {
-            method: 'POST',
-            headers: {
-                'Content-Type': "application/json",
-                'Authorization': `Bearer ${userCredentials.token}`
-            },
-        }
-        try {
-            const response = await fetch(`${BASE_URL}user/deleteUser/${id}`, params);
-            if (response.ok) {
-                await response.json();
-                setIsSubmitting(false)
-                // console.log(response)
-                setGetAllCourses((prev) => {
-                    return {
-                        ...prev, isDataNeeded: true
-                    }
-                })
-
-            }
-        } catch (error) {
-            console.log(error);
-            if (error.response) {
-                setIsSubmitting(false)
-                toast.danger(error.response.data.message);
-                console.log(error.response);
-            } else {
-                setIsSubmitting(false)
-                toast.danger(error.message);
-                console.log(error.message);
-            }
-        }
-    }
 
     useEffect(() => {
         setTotalPage(Math.ceil(typeSearch?.length / PageSize));
-    }, [typeSearch, getAllCourses.date])
+    }, [typeSearch, getAllFaculty.data])
 
     // console.log(currentTableData)
     return (

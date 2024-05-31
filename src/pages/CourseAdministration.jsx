@@ -100,7 +100,7 @@ const CourseAdministration = () => {
 
     useEffect(() => {
         setTotalPage(Math.ceil(typeSearch?.length / PageSize));
-    }, [typeSearch, getAllCourses.date])
+    }, [typeSearch, getAllCourses.data])
 
     // console.log(currentTableData)
     return (
