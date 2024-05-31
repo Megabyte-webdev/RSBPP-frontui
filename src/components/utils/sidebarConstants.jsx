@@ -119,7 +119,7 @@ export const adminConstants = [
             },
             {
                 title: "Faculties View",
-                link: "/create_schedule",
+                link: "/faculty_administration",
             },
             {
                 title: "All Schedules",

@@ -31,7 +31,9 @@ import SuccessfulCheckoutPage from './pages/SuccessfulCheckoutPage'
 import NewLogin from './pages/NewLogin'
 import ClassSchedules from './pages/ClassSchedules'
 import CustomPagination from './components/general/CustomPagination'
-import CourseAdmin from './pages/CourseAdmin'
+import CourseAdministration from './pages/CourseAdministration'
+import CourseMembers from './pages/CourseMembers'
+import FacultyAdministration from './pages/FacultyAdministration'
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
@@ -71,7 +73,9 @@ const App = () => {
                     <Route path='/create_schedule' element={<CreateSchedule />} />
                     <Route path='/faculty_courses' element={<MyLearning />} />
                     <Route path='/registra' element={<RegisteredStudent />} />
-                    <Route path='/courses_administration' element={<CourseAdmin />} />
+                    <Route path='/courses_administration' element={<CourseAdministration />} />
+                    <Route path='/courses_administration/:id' element={<CourseMembers />} />
+                    <Route path='/faculty_administration' element={<FacultyAdministration />} />
                   </>
                 )
               }

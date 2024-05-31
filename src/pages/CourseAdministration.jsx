@@ -9,7 +9,7 @@ import Pagination from '../components/general/Pagination'
 import CourseRow from '../components/stats/CourseRow'
 
 let PageSize = 7;
-const CourseAdmin = () => {
+const CourseAdministration = () => {
 
     const [searchInput, setSearchInput] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -145,7 +145,7 @@ const CourseAdmin = () => {
                                             {/* <THead name="Code" /> */}
                                             {/* <THead name="Description" /> */}
                                             <THead name="program" />
-                                            <THead name="price" />
+                                            <THead name="price ($)" />
                                             <THead name="More" />
                                         </tr>
                                     </thead>
@@ -184,4 +184,4 @@ const CourseAdmin = () => {
     )
 }
 
-export default CourseAdmin
+export default CourseAdministration

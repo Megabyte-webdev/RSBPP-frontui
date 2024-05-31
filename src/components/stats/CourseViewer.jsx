@@ -1,8 +1,10 @@
 
 import 'react-quill/dist/quill.snow.css';
+import { useNavigate } from 'react-router-dom';
 
 const CourseViewer = ({ isOpen, setIsOpen, user, data, faculty }) => {
 
+    const navigate = useNavigate()
     // close Modal
     const handleIsClose = () => (
         setIsOpen((prev) => {
@@ -11,7 +13,7 @@ const CourseViewer = ({ isOpen, setIsOpen, user, data, faculty }) => {
             }
         })
     )
-
+    // console.log(user)
     return (
         <div>
             {isOpen && (
@@ -41,7 +43,7 @@ const CourseViewer = ({ isOpen, setIsOpen, user, data, faculty }) => {
                                     <p>{user.description}</p>
                                 </div>
                                 <div className="row">
-                                    <div className="col-md-6">
+                                    <div className="col-6">
                                         {/* <div className="mb-3">
                                             <p className="fw-semibold">Description</p>
                                             <p>{user.description}</p>
@@ -63,18 +65,22 @@ const CourseViewer = ({ isOpen, setIsOpen, user, data, faculty }) => {
                                             <p>{faculty.title}</p>
                                         </div>
                                     </div>
-                                    <div className="col-md-6">
+                                    <div className="col-6">
                                         <div className="mb-3">
                                             <p className="fw-semibold">Price</p>
-                                            <p>{user.price}</p>
+                                            <p>${user.price}</p>
                                         </div>
                                         <div className="mb-3">
                                             <p className="fw-semibold">Participation</p>
                                             <p>{user.participate}</p>
                                         </div>
                                         <div className="mb-3">
-                                            <p className="fw-semibold">Registered Students</p>
-                                            <p>{data?.length? data.length : "Nil"}</p>
+                                            <p className="fw-semibold mb-3">Registered Students</p>
+                                            <p>{data?.length ?
+                                                <span
+                                                    onClick={() => navigate(`/courses_administration/${user.title}`, { state: { data: data } })}
+                                                    className='pointer border px-2 rounded py-1 text-info text-decoration-underline'>{data.length}</span>
+                                                : "Nil"}</p>
                                         </div>
                                     </div>
                                 </div>
