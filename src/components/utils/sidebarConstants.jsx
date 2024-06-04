@@ -160,9 +160,31 @@ export const adminConstants = [
     //     subOptions: null
     // },
 ]
-export const sheddulingConstants = [
+export const facultyConstants = [
     {
-        title: "Scheduling",
+        title: "Faculty",
+        logo: iconTwo,
+        subOptions: [
+            {
+                title: "Create schedule",
+                link: "/create_schedule",
+            },
+            {
+                title: "Meetings",
+                link: "/meetings_history",
+            },
+            {
+                title: "My Student List",
+                link: "/participant_list",
+            },
+            {
+                title: "Faculties",
+                link: "/faculty_list",
+            },
+        ]
+    },
+    {
+        title: "Meetings",
         logo: iconTwo,
         subOptions: [
             // {
@@ -175,10 +197,4 @@ export const sheddulingConstants = [
             }
         ]
     },
-    // {
-    //     title: "Logout",
-    //     logo: iconNine,
-    //     link : "/login",
-    //     subOptions: null
-    // },
 ]

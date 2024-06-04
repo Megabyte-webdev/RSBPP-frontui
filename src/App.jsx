@@ -34,6 +34,11 @@ import CustomPagination from './components/general/CustomPagination'
 import CourseAdministration from './pages/CourseAdministration'
 import CourseMembers from './pages/CourseMembers'
 import FacultyAdministration from './pages/FacultyAdministration'
+import FacultyDashboard from './pages/FacultyDashboard'
+import MeetingHistory from './pages/MeetingHistory'
+import MeetingView from './pages/MeetingView'
+import MeetingParticipant from './pages/MeetingParticipant'
+import FacultyList from './pages/FacultyList'
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
@@ -46,7 +51,7 @@ const App = () => {
         <Router>
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={role === "admin" ? <AdminDashboard /> : <DashboardTwo />} />
+              <Route index element={role === "admin" ? <AdminDashboard /> : role === "instructor" ? <FacultyDashboard /> : <DashboardTwo />} />
               <Route path='/dashboard' element={<DashboardTwo />} />
               <Route path='/video_live' element={<VideoConference />} />
               <Route path='/courses' element={<MyCourses />} />
@@ -63,6 +68,10 @@ const App = () => {
                   <>
                     <Route path='/schedule_classes' element={<UpComingClasses />} />
                     <Route path='/create_schedule' element={<CreateSchedule />} />
+                    <Route path='/meetings_history' element={<MeetingHistory />} />
+                    <Route path='/meetings_history/:id' element={<MeetingView />} />
+                    <Route path='/participant_list' element={<MeetingParticipant />} />
+                    <Route path='/faculty_list' element={<FacultyList />} />
                   </>
                 )
               }

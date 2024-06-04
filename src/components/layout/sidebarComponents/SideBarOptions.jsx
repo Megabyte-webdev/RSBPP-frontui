@@ -1,4 +1,4 @@
-import { adminConstants, sheddulingConstants, sidebarConstants } from "../../utils/sidebarConstants"
+import { adminConstants, facultyConstants, sidebarConstants } from "../../utils/sidebarConstants"
 import icon from "../../../assets/side-icons/new1.png"
 import iconEight from "../../../assets/side-icons/new8.png"
 import iconNine from "../../../assets/side-icons/icon9.png"
@@ -15,7 +15,8 @@ const SideBarOptions = () => {
   const { userCredentials, setUserCredentials } = useContext(UserContext);
   const role = userCredentials.user.role.toLowerCase()
   // console.log(role)
-  const adminOrInstructor = role === "admin" || role === "instructor"
+  const student = role === "admin"
+  const instructor = role === "instructor"
   const studentOrInstructor = role === "student" || role === "instructor"
   // console.log(adminOrInstructor)
 
@@ -55,14 +56,14 @@ const SideBarOptions = () => {
           </div>
         </div>
       </div>
-      {studentOrInstructor && sidebarConstants.map((constant) => (
+      {student && sidebarConstants.map((constant) => (
         <SidebarToggle
           key={constant.title}
           isOpenOption={isOpenOption}
           constant={constant}
           handleSubOptionClick={handleSubOptionClick} />
       ))}
-      {adminOrInstructor && sheddulingConstants.map((constant) => (
+      {instructor && facultyConstants.map((constant) => (
         <SidebarToggle
           key={constant.title}
           isOpenOption={isOpenOption}

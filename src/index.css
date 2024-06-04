@@ -75,6 +75,9 @@ body {
   font-style: italic;
 }
 
+.roboto{
+  font-family: "Roboto", sans-serif;
+}
 .poppins {
   font-family: "Poppins", sans-serif !important;
 }
@@ -95,6 +98,10 @@ p {
 
 .fs_sm {
   font-size: 0.9rem;
+}
+
+.brown_border {
+  border: 1px solid #ab3335 !important;
 }
 
 .border_brown {
