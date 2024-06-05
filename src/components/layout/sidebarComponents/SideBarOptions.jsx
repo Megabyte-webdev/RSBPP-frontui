@@ -15,7 +15,8 @@ const SideBarOptions = () => {
   const { userCredentials, setUserCredentials } = useContext(UserContext);
   const role = userCredentials.user.role.toLowerCase()
   // console.log(role)
-  const student = role === "admin"
+  const admin = role === "admin"
+  const student = role === "student"
   const instructor = role === "instructor"
   const studentOrInstructor = role === "student" || role === "instructor"
   // console.log(adminOrInstructor)

@@ -85,10 +85,10 @@ function ParticipantView(props) {
                         playing={true}
                         //
                         url={videoStream}
-                        // className={"w-100 rounded"}
+                        className={"w-10 col-3 rounded"}
                         //
-                        height={"200px"}
-                        width={"300px"}
+                        // height={"200px"}
+                        // width={"300px"}
                         onError={(err) => {
                             console.log(err, "participant video error");
                         }}
@@ -180,6 +180,7 @@ function MeetingView(props) {
             {joined && joined == "JOINED" ? (
                 <div>
                     <Controls />
+                    <div className="border d-flex">
                     {[...participants.keys()].map((participantId) => (
                         <ParticipantView
                             participantId={participantId}
@@ -188,7 +189,8 @@ function MeetingView(props) {
                     ))}
                     {/* <button onClick={handleStartRecording}>Start Recording</button>
                     <button onClick={handleStopRecording}>Stop Recording</button> */}
-                </div>
+                    </div>
+                   </div>
             ) : joined && joined == "JOINING" ? (
                 <p>Joining the meeting...</p>
             ) : (
