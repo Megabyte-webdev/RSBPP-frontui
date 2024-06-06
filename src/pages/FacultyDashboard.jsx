@@ -16,7 +16,7 @@ const FacultyDashboard = () => {
   //   console.log(userCredentials);
 
   useEffect(() => {
-    setSideBg("brown_sidebar");
+    setSideBg("white_sidebar");
   }, []);
 
   const strokeProps = {
@@ -175,7 +175,7 @@ const FacultyDashboard = () => {
           <Col className="my-3 my-md-0" md={3}>
             <div className="shadow rounded h-100 p-2">
               <p className="fw-bold">Class Progress</p>
-              <div className="light_sky my-2 rounded p-1">
+              <div className="light_sky hover_effect my-2 rounded p-1">
                 <div className="d-flex justify-content-between">
                   <div className="fs_xsm">
                     <p><b>Class A</b></p>
@@ -186,7 +186,7 @@ const FacultyDashboard = () => {
                   </div>
                 </div>
               </div>
-              <div className="light_sky my-2 rounded p-1">
+              <div className="light_sky hover_effect my-2 rounded p-1">
                 <div className="d-flex justify-content-between">
                   <div className="fs_xsm">
                     <p><b>Class A</b></p>
@@ -197,7 +197,7 @@ const FacultyDashboard = () => {
                   </div>
                 </div>
               </div>
-              <div className="light_sky my-2 rounded p-1">
+              <div className="light_sky hover_effect my-2 rounded p-1">
                 <div className="d-flex justify-content-between">
                   <div className="fs_xsm">
                     <p><b>Class A</b></p>
@@ -218,14 +218,14 @@ const FacultyDashboard = () => {
                   <p className="fw-bold">see all</p>
                 </Link>
               </div>
-              <div className="light_sky my-2 rounded p-1">
+              <div className="light_sky hover_effect my-2 rounded p-1">
                 <div className="d-flex align-items-center justify-content-center">
                   <div className="rounded p-1 px-2 text-white" style={{ backgroundColor: "#0052B4" }}>
-                    <span className="fw-bold">31</span>
+                    <span className="fw-semibold">31</span>
                   </div>
-                  <div className="px-2">
+                  <div className="px-2 fw-semibold">
                     <p className="fs_sm">Meeting with the VC</p>
-                    <p className="fs_xsm"> <Link to={""}>Meeting link//www.zoom.com Upcoming</Link> </p>
+                    <p className="fs_xsm"> <Link to={"https://zoom.us/"}>Meeting link//www.zoom.com Upcoming</Link> </p>
                   </div>
                   <div className="">
                     <p className="fs_xsm">10:25 am</p>
@@ -233,14 +233,14 @@ const FacultyDashboard = () => {
                   </div>
                 </div>
               </div>
-              <div className="light_sky my-2 rounded p-1">
+              <div className="light_sky hover_effect my-2 rounded p-1">
                 <div className="d-flex align-items-center justify-content-center">
                   <div className="rounded p-1 px-2 text-white" style={{ backgroundColor: "#0052B4" }}>
                     <span className="fw-bold">04</span>
                   </div>
-                  <div className="px-2">
+                  <div className="px-2 fw-semibold">
                     <p className="fs_sm">Meeting with the J..</p>
-                    <p className="fs_xsm"> <Link to={""}>Meeting link//www.zoom.com Upcoming</Link> </p>
+                    <p className="fs_xsm"> <Link to={"https://zoom.us/"}>Meeting link//www.zoom.com Upcoming</Link> </p>
                   </div>
                   <div className="">
                     <p className="fs_xsm">10:25 am</p>
@@ -248,14 +248,14 @@ const FacultyDashboard = () => {
                   </div>
                 </div>
               </div>
-              <div className="light_sky my-2 rounded p-1">
+              <div className="light_sky hover_effect my-2 rounded p-1">
                 <div className="d-flex align-items-center justify-content-center">
                   <div className="rounded p-1 px-2 text-white" style={{ backgroundColor: "#0052B4" }}>
                     <span className="fw-bold">31</span>
                   </div>
-                  <div className="px-2">
+                  <div className="px-2 fw-semibold">
                     <p className="fs_sm">Meeting with the VC</p>
-                    <p className="fs_xsm"> <Link to={""}>Meeting link//www.zoom.com Upcoming</Link> </p>
+                    <p className="fs_xsm"> <Link to={"https://zoom.us/"}>Meeting link//www.zoom.com Upcoming</Link> </p>
                   </div>
                   <div className="">
                     <p className="fs_xsm">10:25 am</p>

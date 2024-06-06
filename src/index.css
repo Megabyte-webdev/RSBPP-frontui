@@ -92,6 +92,14 @@ p {
   margin: 0;
 }
 
+.hover_effect{
+  transition: transform .1s !important;
+}
+
+.hover_effect:hover {
+  transform: scale(1.05) !important; 
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -128,6 +136,14 @@ input:focus-visible {
   color: #f1f1f1 !important;
 }
 
+.white_sidebar {
+  color: hsla(359, 54%, 44%, 1) !important;
+  background-color: white !important;
+}
+
+.white_sidebar .sidebar_icon{
+  background-color:  hsla(359, 54%, 44%, 1) !important;
+}
 .nav_btn:focus{
   background-color: #c3a6a6 !important;
   color:#441d1e !important;
