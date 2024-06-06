@@ -39,6 +39,7 @@ import MeetingHistory from './pages/MeetingHistory'
 import MeetingView from './pages/MeetingView'
 import MeetingParticipant from './pages/MeetingParticipant'
 import FacultyList from './pages/FacultyList'
+import UpdateProfile from './pages/UpdateProfile'
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
@@ -72,6 +73,7 @@ const App = () => {
                     <Route path='/meetings_history/:id' element={<MeetingView />} />
                     <Route path='/participant_list' element={<MeetingParticipant />} />
                     <Route path='/faculty_list' element={<FacultyList />} />
+                    <Route path='/profile_form' element={<UpdateProfile />} />
                   </>
                 )
               }
@@ -85,6 +87,7 @@ const App = () => {
                     <Route path='/courses_administration' element={<CourseAdministration />} />
                     <Route path='/courses_administration/:id' element={<CourseMembers />} />
                     <Route path='/faculty_administration' element={<FacultyAdministration />} />
+                    <Route path='/profile_form' element={<UpdateProfile />} />
                   </>
                 )
               }

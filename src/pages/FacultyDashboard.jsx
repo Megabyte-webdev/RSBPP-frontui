@@ -60,7 +60,7 @@ const FacultyDashboard = () => {
       </Col> */}
       <Row className="brown_border b-5 p-2 rounded-3">
         <Col md={3} className="my-3 my-md-0">
-          <div onClick={()=> navigate("/meetings_history")} className="border-end py-3 d-md-flex justify-content-center">
+          <div onClick={()=> navigate("/meetings_history")} className="border-end py-3 hover_effect pointer d-md-flex justify-content-center">
             <div className="d-flex align-items-center" >
               <div style={{ color: "#D1D0D0", marginRight: "1rem" }}>
                 <span>
@@ -75,7 +75,7 @@ const FacultyDashboard = () => {
           </div>
         </Col>
         <Col md={3} className="my-3 my-md-0">
-          <div className="border-end py-3 d-md-flex justify-content-center">
+          <div className="border-end py-3 hover_effect pointer d-md-flex justify-content-center">
             <div className="d-flex align-items-center" >
               <div style={{ color: "#D1D0D0", marginRight: "1rem" }}>
                 <span>
@@ -90,7 +90,7 @@ const FacultyDashboard = () => {
           </div>
         </Col>
         <Col md={3} className="my-3 my-md-0">
-          <div className="border-end py-3 d-md-flex justify-content-center">
+          <div className="border-end py-3 hover_effect pointer d-md-flex justify-content-center">
             <div className="d-flex align-items-center" >
               <div style={{ color: "#D1D0D0", marginRight: "1rem" }}>
                 <span>
@@ -105,7 +105,7 @@ const FacultyDashboard = () => {
           </div>
         </Col>
         <Col md={3} className="my-3 my-md-0">
-          <div className="border-end py-3 d-md-flex justify-content-center">
+          <div className="border-end py-3 hover_effect pointer d-md-flex justify-content-center">
             <div className="d-flex align-items-center" >
               <div style={{ color: "#D1D0D0", marginRight: "1rem" }}>
                 <span>

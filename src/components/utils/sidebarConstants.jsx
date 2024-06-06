@@ -97,10 +97,10 @@ export const sidebarConstants = [
     //     logo: iconSeven,
     //     subOptions: null
     // },
-            // {
-            //     title: "Event Schedule",
-            //     link: "/time_table",
-            // },
+    // {
+    //     title: "Event Schedule",
+    //     link: "/time_table",
+    // },
     // {
     //     title: "Logout",
     //     logo: iconNine,
@@ -136,20 +136,24 @@ export const adminConstants = [
         logo: iconTwo,
         subOptions: [
             {
-                title: "Schedule class",
-                link: "/time_table",
-            },
-            {
-                title: "Create schedule",
-                link: "/create_schedule",
-            },
-            {
                 title: "Faculty courses",
                 link: "/faculty_courses",
             },
             {
                 title: "Registra",
                 link: "/registra",
+            },
+            {
+                title: "Create schedule",
+                link: "/create_schedule",
+            },
+            {
+                title: "Add Instructor",
+                link: "/profile_form",
+            },
+            {
+                title: "Schedule class",
+                link: "/time_table",
             },
         ]
     },
@@ -165,6 +169,10 @@ export const facultyConstants = [
         title: "Faculty",
         logo: iconTwo,
         subOptions: [
+            {
+                title: "Update Profile",
+                link: "/profile_form",
+            },
             {
                 title: "Create schedule",
                 link: "/create_schedule",
