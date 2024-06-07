@@ -40,6 +40,8 @@ import MeetingView from './pages/MeetingView'
 import MeetingParticipant from './pages/MeetingParticipant'
 import FacultyList from './pages/FacultyList'
 import UpdateProfile from './pages/UpdateProfile'
+import FacultyAddCourse from './components/instructor/FacultyAddCourse'
+import AddInstructor from './components/stats/AddInstructor'
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
@@ -74,6 +76,7 @@ const App = () => {
                     <Route path='/participant_list' element={<MeetingParticipant />} />
                     <Route path='/faculty_list' element={<FacultyList />} />
                     <Route path='/profile_form' element={<UpdateProfile />} />
+                    <Route path='/faculty_add_course' element={<FacultyAddCourse />} />
                   </>
                 )
               }
@@ -87,7 +90,7 @@ const App = () => {
                     <Route path='/courses_administration' element={<CourseAdministration />} />
                     <Route path='/courses_administration/:id' element={<CourseMembers />} />
                     <Route path='/faculty_administration' element={<FacultyAdministration />} />
-                    <Route path='/profile_form' element={<UpdateProfile />} />
+                    <Route path='/add_instructor' element={<AddInstructor />} />
                   </>
                 )
               }

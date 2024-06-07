@@ -102,8 +102,8 @@ function ParticipantView(props) {
 }
 
 function Controls() {
-    const { leave, toggleMic, toggleWebcam } = useMeeting();
-    // console.log(toggleMic)
+    const { leave, toggleMic, toggleWebcam, webcamOn, micOn } = useMeeting();
+    // console.log(micOn)
     // const camOn = webcamOn ? <CiVideoOn color="#fff" size={20} /> : <CiVideoOff color="#fff" size={20} />
     // const speakerOn = micOn ? <IoMic color="#fff" size={20} /> : <IoMicOff color="#fff" size={20} />
     return (

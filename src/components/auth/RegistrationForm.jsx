@@ -30,7 +30,7 @@ const RegistrationForm = ({ setDisplay }) => {
         organization: "",
         position: "",
         email: "",
-        role: "admin",
+        role: "",
         password: "",
         previousl_trained: false
     })

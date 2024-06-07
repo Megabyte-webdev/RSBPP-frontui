@@ -6,7 +6,7 @@ import { ResourceContext } from '../../context/ResourceContext'
 import { BASE_URL } from '../utils/base'
 import { Spinner } from 'react-bootstrap'
 
-const UpdateForm = () => {
+const CreateInstructorForm = () => {
     const { userCredentials } = useContext(UserContext)
     const {
         getAllCourses,
@@ -19,14 +19,13 @@ const UpdateForm = () => {
     const [errorMsg, setErrorMsg] = useState(null)
     const [showMsg, setShowMsg] = useState(false)
     const [loading, setLoading] = useState(false)
-    const user = userCredentials?.user
 
     const [details, setDetails] = useState({
-        first_name: user?.first_name,
-        last_name: user?.last_name,
+        first_name: "",
+        last_name: "",
         gender: "",
-        email: user?.email,
-        faculty_id: user?.faculty_id,
+        email: "",
+        faculty_id: "",
         role: "instructor",
         contact_address: "",
         contact_number: "",
@@ -40,11 +39,11 @@ const UpdateForm = () => {
         course_taught: "",
         research_interest: "",
         publication: "",
-        position: user?.position,
+        position: "",
         bio: "",
         institution: "",
         password: "",
-        organization: user?.organization
+        organization: "",
     })
 
     useEffect(() => {
@@ -91,10 +90,10 @@ const UpdateForm = () => {
             }
         })
         setLoading(true)
-        axios.post(`${BASE_URL}instructor/add`, details, {
-            // headers: {
-            //     Authorization: `Bearer ${userCredentials.token}`,
-            // },
+        axios.post(`${BASE_URL}NewUser`, details, {
+            headers: {
+                Authorization: `Bearer ${userCredentials.token}`,
+            },
         })
             .then((response) => {
                 // console.log(response)
@@ -189,34 +188,6 @@ const UpdateForm = () => {
                             </div>
                         </div>
                         <div className="col-md-6">
-                            <div className="mb-3 row">
-                                <div className="">
-                                    <input type="text " onChange={handleOnChange} value={details.email} name='email' placeholder='Email *' required className="form-control border-0 input_bg" id="dateAndTime" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="mb-3 row">
-                                <div className="">
-                                    <input type="text" onChange={handleOnChange} value={details.position} name='position' placeholder='Position *' required className="form-control border-0 input_bg" id="dateAndTime" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="mb-3 row">
-                                <div className="">
-                                    <input type="text " onChange={handleOnChange} value={details.organization} name='organization' placeholder='Organization *' required className="form-control border-0 input_bg" id="dateAndTime" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="mb-3 row">
-                                <div className="">
-                                    <input type="text " onChange={handleOnChange} value={details.faculty_id} name='faculty_id' placeholder='faculty *' required className="form-control border-0 input_bg" id="dateAndTime" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
                             <div className="">
                                 <select id="setDuration" onChange={handleOnChange} value={details.gender} name='gender' className="form-select input_bg border-0">
                                     <option defaultValue={""} value={""}>Gender *</option>
@@ -236,6 +207,13 @@ const UpdateForm = () => {
                             <div className="mb-3 row">
                                 <div className="">
                                     <input type="text" onChange={handleOnChange} value={details.contact_number} name='contact_number' placeholder='Contact Number' className="form-control border-0 input_bg" id="dateAndTime" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="mb-3 row">
+                                <div className="">
+                                    <input type="text " onChange={handleOnChange} value={details.email} name='email' placeholder='Email *' required className="form-control border-0 input_bg" id="dateAndTime" />
                                 </div>
                             </div>
                         </div>
@@ -267,6 +245,20 @@ const UpdateForm = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className="col-md-6">
+                            <div className="mb-3 row">
+                                <div className="">
+                                    <input type="text" onChange={handleOnChange} value={details.position} name='position' placeholder='Position *' required className="form-control border-0 input_bg" id="dateAndTime" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="mb-3 row">
+                                <div className="">
+                                    <input type="text " onChange={handleOnChange} value={details.organization} name='organization' placeholder='Organization *' required className="form-control border-0 input_bg" id="dateAndTime" />
+                                </div>
+                            </div>
+                        </div>
                         <p className="fw-bold my-4">Professional Details</p>
                         <div className="col-md-6">
                             <div className="mb-3">
@@ -280,7 +272,7 @@ const UpdateForm = () => {
                                 </select>
                             </div>
                         </div>
-                        <div className="col-md-6">
+                        {/* <div className="col-md-6">
                             <div className="">
                                 <select id="setDuration" onChange={handleOnChange} value={details.experience} name='experience' className="form-select input_bg border-0">
                                     <option defaultValue={""}>--Years of Experience--</option>
@@ -347,7 +339,7 @@ const UpdateForm = () => {
                         <label htmlFor="description">About you...</label>
                         <div className="form-floating mt-3">
                             <textarea className="form-control  border-0 input_bg" onChange={handleOnChange} value={details.bio} name='bio' placeholder="About you here" id="description" style={{ height: "150px" }}></textarea>
-                        </div>
+                        </div> */}
                     </div>
 
                 </div>
@@ -365,4 +357,4 @@ const UpdateForm = () => {
     )
 }
 
-export default UpdateForm
+export default CreateInstructorForm

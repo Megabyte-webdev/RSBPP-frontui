@@ -149,10 +149,10 @@ export const adminConstants = [
             },
             {
                 title: "Add Instructor",
-                link: "/profile_form",
+                link: "/add_instructor",
             },
             {
-                title: "Schedule class",
+                title: "Scheduled class",
                 link: "/time_table",
             },
         ]
@@ -166,6 +166,24 @@ export const adminConstants = [
 ]
 export const facultyConstants = [
     {
+        title: "Courses",
+        logo: iconTwo,
+        subOptions: [
+            {
+                title: "Add Course",
+                link: "/faculty_add_course",
+            },
+            {
+                title: "Create schedule",
+                link: "/create_schedule",
+            },
+            {
+                title: "All Courses",
+                link: "/meetings_history",
+            }
+        ]
+    },
+    {
         title: "Faculty",
         logo: iconTwo,
         subOptions: [
@@ -173,10 +191,10 @@ export const facultyConstants = [
                 title: "Update Profile",
                 link: "/profile_form",
             },
-            {
-                title: "Create schedule",
-                link: "/create_schedule",
-            },
+            // {
+            //     title: "Create schedule",
+            //     link: "/create_schedule",
+            // },
             {
                 title: "Meetings",
                 link: "/meetings_history",

@@ -40,7 +40,7 @@ const SideBarOptions = () => {
 
   return (
     <div className="sidebar_height">
-      <div className={""}>
+      <div className={makeActive}>
         <div
           onClick={() => handleSubOptionClick(constant.title)}
           className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
@@ -48,7 +48,7 @@ const SideBarOptions = () => {
           <div
             onClick={() => setIsOpenOption("Dashboard")}
             className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
-            <span className="me-2">
+            <span className="me-2 sidebar_icon rounded">
               <img width={20} height={20} src={icon} alt="" />
             </span>
             <Link to={"/"} className="nav-link">
@@ -96,41 +96,45 @@ const SideBarOptions = () => {
             </div>
           </div>
         </div> */}
-        <div className={""}>
-          <div
-            onClick={() => handleSubOptionClick(constant.title)}
-            className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
-          >
-            <div
-              onClick={() => setIsOpenOption("recommendation")}
-              className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
-              <span className="me-2">
-                <img width={20} height={20} src={iconEleven} alt="" />
-              </span>
-              <Link to={"/dashboard"} className="nav-link">
-                <span>Recommendations </span>
-              </Link>
+        {!instructor && (
+          <>
+            <div className={""}>
+              <div
+                onClick={() => handleSubOptionClick(constant.title)}
+                className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
+              >
+                <div
+                  onClick={() => setIsOpenOption("recommendation")}
+                  className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
+                  <span className="me-2 sidebar_icon rounded">
+                    <img width={20} height={20} src={iconEleven} alt="" />
+                  </span>
+                  <Link to={"/dashboard"} className="nav-link">
+                    <span>Recommendations </span>
+                  </Link>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className={""}>
-          <div
-            onClick={() => handleSubOptionClick(constant.title)}
-            className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
-          >
-            <div
-              onClick={() => setIsOpenOption("test")}
-              className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
-              <span className="me-2">
-                <img width={20} height={20} src={iconTen} alt="" />
-              </span>
-              <Link to={"/dashboard"} className="nav-link">
-                <span>Test Management </span>
-              </Link>
+            <div className={""}>
+              <div
+                onClick={() => handleSubOptionClick(constant.title)}
+                className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
+              >
+                <div
+                  onClick={() => setIsOpenOption("test")}
+                  className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
+                  <span className="me-2 sidebar_icon rounded">
+                    <img width={20} height={20} src={iconTen} alt="" />
+                  </span>
+                  <Link to={"/dashboard"} className="nav-link">
+                    <span>Test Management </span>
+                  </Link>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className={makeActive}>
+          </>
+        )}
+        <div className={""}>
           <div
             onClick={() => Logout()}
             className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"

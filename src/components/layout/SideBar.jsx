@@ -7,9 +7,11 @@ import { ThemeContext } from "../../context/ThemeContext"
 const SideBar = ({userCredentials}) => {
   const { sideBg } = useContext(ThemeContext)
   const user = userCredentials?.user;
+  const role = userCredentials.user?.role;
+  console.log(role === "instructor"? "white_sidebar" : "brown_sidebar")
   return (
     <Col style={{ minHeight: "100vh" }} className={'border-end d-none d-md-block'} md={2}>
-      <div className={sideBg}>
+      <div className={role === "instructor"? "white_sidebar" : "brown_sidebar"}>
         <div className=" py-4">
           <div className="user_details mb-5">
             <div className="d-flex justify-content-center mb-2">

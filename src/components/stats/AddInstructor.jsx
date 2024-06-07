@@ -1,15 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
-import createIcon from "../assets/add-schedule.svg"
+import CoursesWithTime from '../Learning/CoursesWithTime'
+import { Link } from 'react-router-dom'
+import createIcon from "../../assets/add-schedule.svg"
 import { MdAddBox } from "react-icons/md";
 import axios from 'axios'
-import { UserContext } from '../context/AuthContext'
-import { ResourceContext } from '../context/ResourceContext'
+import { UserContext } from '../../context/AuthContext'
+import { ResourceContext } from '../../context/ResourceContext'
 import toast from 'react-hot-toast'
-import { BASE_URL } from '../components/utils/base'
-import UpdateForm from '../components/instructor/UpdateForm';
+import { BASE_URL } from '../utils/base'
+import UpdateForm from '../instructor/UpdateForm'
+import CreateInstructorForm from '../instructor/CreateInstructorForm'
 
-const UpdateProfile = () => {
+const AddInstructor = () => {
 
     const { userCredentials } = useContext(UserContext)
     const {
@@ -30,6 +33,7 @@ const UpdateProfile = () => {
         instructor_id: "",
         course_id: "",
     })
+
     useEffect(() => {
         setGetAllCourses((prev) => {
             return {
@@ -129,13 +133,13 @@ const UpdateProfile = () => {
                     <img src={createIcon} className='img-fluid' alt="" />
                 </div>
                 <div className='ms-3'>
-                    <p className="fw-semibold">Complete Your Profile</p>
-                    <p>Connect and sync your calendar events with Google Calendar</p>
+                    <p className="fw-semibold">Create Insttructor</p>
+                    {/* <p>Connect and sync your calendar events with Google Calendar</p> */}
                 </div>
             </div>
             <Row>
                 <Col md={9} className='mb-3'>
-                    <UpdateForm />
+                    <CreateInstructorForm />
                 </Col>
                 <Col md={3} className='mb-3'>
                     <div className="" style={{ color: "#8A8A8A" }}>
@@ -183,4 +187,4 @@ const UpdateProfile = () => {
     )
 }
 
-export default UpdateProfile
+export default AddInstructor
