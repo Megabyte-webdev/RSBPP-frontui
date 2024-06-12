@@ -18,7 +18,7 @@ const MeetingRow = ({list, userData, oneCourse}) => {
 
     return (
         <tr 
-        onClick={()=> navigate(`/meetings_history/${oneCourse.title}`, {state : {oneCourse : oneCourse}} )}
+        onClick={()=> navigate(`/meetings_history/${oneCourse ? oneCourse.title : "no_data"}`, {state : {oneCourse : oneCourse, list : list}} )}
         className='fs_sm'>
             <td>
                 <div className="d-flex align-items-center">

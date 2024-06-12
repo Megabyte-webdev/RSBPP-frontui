@@ -27,7 +27,8 @@ const LearningCourse = ({ course, userCredentials, cartList }) => {
     user_id: userCredentials?.user.id,
     course_id: course?.id
   }
-
+const adminAndInstructor = userRole === "admin" || userRole === "instructor"
+console.log(adminAndInstructor)
   const hasItem = cartList?.some(item => item.courseId === course.id)
 
   const addToCart = () => {
@@ -159,7 +160,7 @@ const LearningCourse = ({ course, userCredentials, cartList }) => {
             onClick={() => addToCart()}
             className='btn w-100 btn-danger'>Add to Cart <span><BiSolidCart /></span></button>
         </div>
-       {userRole === "admin" &&( <div className='px-1'>
+       {adminAndInstructor &&( <div className='px-1'>
           <button
             onClick={() => deleteFunc()}
             className='btn w-100 btn-secondary'>Delete Course</button>

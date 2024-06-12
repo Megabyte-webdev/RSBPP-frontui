@@ -16,6 +16,7 @@ const CreateForm = ({ meetingCode, setMeetingCode }) => {
         getAllInstructors,
         setGetAllInstructors,
         setGetAllSchedules,
+        setGetAllInstructorsSchedules,
     } = useContext(ResourceContext);
 
     const userId = userCredentials.user?.id;
@@ -87,7 +88,7 @@ const CreateForm = ({ meetingCode, setMeetingCode }) => {
             }
         })
 
-        setGetAllSchedules((prev) => {
+        setGetAllInstructorsSchedules((prev) => {
             return {
                 ...prev, isDataNeeded: false
             }
@@ -105,7 +106,7 @@ const CreateForm = ({ meetingCode, setMeetingCode }) => {
                         ...prev, isDataNeeded: true
                     }
                 })
-                setGetAllSchedules((prev) => {
+                setGetAllInstructorsSchedules((prev) => {
                     return {
                         ...prev, isDataNeeded: true
                     }
@@ -150,6 +151,8 @@ const CreateForm = ({ meetingCode, setMeetingCode }) => {
             meeting_code: "",
         })
     }
+
+    console.log(details )
 
     return (
         <div className='p-3 py-5'>
@@ -214,7 +217,8 @@ const CreateForm = ({ meetingCode, setMeetingCode }) => {
                             type="text"
                             value={details.meeting_code}
                             name="meeting_code"
-                            onChange={handleOnChange}
+                            defaultValue={details.meeting_code}
+                            // onChange={handleOnChange}
                             className="form-control" id="end_time" placeholder="name@example.com" />
                         <label htmlFor="end_time">Meeting Code</label>
                     </div>

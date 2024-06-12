@@ -51,6 +51,11 @@ function ResourceContextProvider({ children }) {
         isDataNeeded: false,
     });
 
+    const [getAllInstructorsSchedules, setGetAllInstructorsSchedules] = useState({
+        data: null,
+        isDataNeeded: false,
+    });
+
 
     //Users Resource useEffect
     useEffect(() => {
@@ -122,6 +127,16 @@ function ResourceContextProvider({ children }) {
         }
     }, [getAllInstructors.isDataNeeded]);
 
+    //All Instructors Schedules Resource useEffect
+    useEffect(() => {
+        setErrorMessage('');
+        if (getAllInstructorsSchedules.isDataNeeded) {
+            const endPoint = `schedule/scheduleByInstructorId/${userId}`
+            const dataArray = "schedule"
+            getItemFunc(token, setGetAllInstructorsSchedules, setErrorMessage, endPoint, dataArray)
+        }
+    }, [getAllInstructorsSchedules.isDataNeeded]);
+
 
 
     return (
@@ -141,7 +156,9 @@ function ResourceContextProvider({ children }) {
                 getAllSchedules,
                 setGetAllSchedules,
                 getAllInstructors,
-                setGetAllInstructors
+                setGetAllInstructors,
+                getAllInstructorsSchedules,
+                setGetAllInstructorsSchedules,
             }}
         >
             {children}

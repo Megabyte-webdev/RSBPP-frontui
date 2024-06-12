@@ -9,8 +9,8 @@ const MeetingHistory = () => {
         setGetAllCourses,
         setGetAllInstructors,
         getAllInstructors,
-        setGetAllSchedules,
-        getAllSchedules } = useContext(ResourceContext)
+        getAllInstructorsSchedules,
+        setGetAllInstructorsSchedules, } = useContext(ResourceContext)
 
     const { userCredentials } = useContext(UserContext)
     const userInfo = userCredentials?.user
@@ -30,7 +30,7 @@ const MeetingHistory = () => {
         })
     }, [])
     useEffect(() => {
-        setGetAllSchedules((prev) => {
+        setGetAllInstructorsSchedules((prev) => {
             return {
                 ...prev, isDataNeeded: true
             }
@@ -38,12 +38,12 @@ const MeetingHistory = () => {
     }, [])
 
     const myCourses = getAllCourses.data?.filter((course) => course.created_by_id == userInfo.id)
-    const mySchedules = getAllSchedules.data?.filter((course) => course.instructor_id == userInfo.id)
+    // const mySchedules = getAllSchedules.data?.filter((course) => course.instructor_id == userInfo.id)
 
-    mySchedules?.sort((a, b) =>{
-        const smaller  = new Date(a.day)
-        const biggerr  = new Date(b.day)
-        return  smaller - biggerr
+   const mySchedules= getAllInstructorsSchedules.data?.sort((a, b) => {
+        const smaller = new Date(a.day)
+        const biggerr = new Date(b.day)
+        return smaller - biggerr
     })
 
     const userData = getAllInstructors.data?.find((instructor) => instructor.user_id == userInfo.id)
@@ -72,9 +72,9 @@ const MeetingHistory = () => {
                             </thead>
                             <tbody>
                                 {mySchedules?.map((list) => {
-                                    const oneCourse = myCourses?.find((item)=> item.id === list.course_id);
+                                    const oneCourse = myCourses?.find((item) => item.id === list.course_id);
                                     // console.log(oneCourse)
-                                    return(
+                                    return (
                                         <MeetingRow key={list.id} oneCourse={oneCourse} list={list} userData={userData} />
                                     )
                                 })}

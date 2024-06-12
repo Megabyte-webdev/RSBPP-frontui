@@ -17,7 +17,7 @@ import UserContextProvider, { UserContext } from './context/AuthContext'
 // import { UserContext } from './context/AuthContext'
 import MyLearning from './pages/MyLearning'
 import LearningDetails from './pages/LearningDetails'
-import { useContext } from 'react'
+import { Suspense, lazy, useContext } from 'react'
 import UpComingClasses from './pages/UpComingClasses'
 import CreateSchedule from './pages/CreateSchedule'
 import TodayMeetings from './pages/TodayMeetings'
@@ -43,6 +43,7 @@ import UpdateProfile from './pages/UpdateProfile'
 import FacultyAddCourse from './components/instructor/FacultyAddCourse'
 import AddInstructor from './components/stats/AddInstructor'
 import InstructorCourses from './pages/InstructorCourses'
+const LazyMeeting = lazy(() => import('./pages/MeetingHistory'));
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
@@ -53,67 +54,69 @@ const App = () => {
     <ResourceContextProvider>
       <ThemeContextProvider>
         <Router>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={role === "admin" ? <AdminDashboard /> : role === "instructor" ? <FacultyDashboard /> : <DashboardTwo />} />
-              <Route path='/dashboard' element={<DashboardTwo />} />
-              <Route path='/video_live' element={<VideoConference />} />
-              <Route path='/courses' element={<MyCourses />} />
-              <Route path='/today' element={<TodayMeetings />} />
-              <Route path='/learning' element={<MyLearning />} />
-              <Route path='/courses_analysis' element={<CoursesAnalysis />} />
-              <Route path='/chats' element={<Chats />} />
-              <Route path='/quiz' element={<QuizPage />} />
-              <Route path='/messages' element={<Messages />} />
-              <Route path='/time_table' element={<ClassSchedules />} />
-              <Route path='/test' element={<CustomPagination />} />
-              {
-                role === "instructor" && (
-                  <>
-                    <Route path='/schedule_classes' element={<UpComingClasses />} />
-                    <Route path='/create_schedule' element={<CreateSchedule />} />
-                    <Route path='/meetings_history' element={<MeetingHistory />} />
-                    <Route path='/meetings_history/:id' element={<MeetingView />} />
-                    <Route path='/participant_list' element={<MeetingParticipant />} />
-                    <Route path='/faculty_list' element={<FacultyList />} />
-                    <Route path='/profile_form' element={<UpdateProfile />} />
-                    <Route path='/faculty_add_course' element={<FacultyAddCourse />} />
-                    <Route path='/instructor_courses' element={<InstructorCourses />} />
-                  </>
-                )
-              }
-              {
-                role === "admin" && (
-                  <>
-                    <Route path='/schedule_classes' element={<UpComingClasses />} />
-                    <Route path='/create_schedule' element={<CreateSchedule />} />
-                    <Route path='/faculty_courses' element={<MyLearning />} />
-                    <Route path='/registra' element={<RegisteredStudent />} />
-                    <Route path='/courses_administration' element={<CourseAdministration />} />
-                    <Route path='/courses_administration/:id' element={<CourseMembers />} />
-                    <Route path='/faculty_administration' element={<FacultyAdministration />} />
-                    <Route path='/add_instructor' element={<AddInstructor />} />
-                  </>
-                )
-              }
-            </Route>
-            {userCredentials && (
-              <>
-                <Route path='/learning/:id' element={<LearningDetails />} />
-                <Route path='/carts' element={<Carts />} />
-                <Route path='/checkout' element={< CheckoutPage />} />
-                <Route path='/success' element={< SuccessfulCheckoutPage />} />
-              </>
-            )}
-            <Route path="/login" element={<NewLogin />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/registration" element={<Registration />} />
-            {/* Catch-all route for 404 */}
-            <Route path="*" element={<Navigate to="/not-found" replace />} />
+          {/* <Suspense fallback={<div>Loading...</div>}> */}
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={role === "admin" ? <AdminDashboard /> : role === "instructor" ? <FacultyDashboard /> : <DashboardTwo />} />
+                <Route path='/dashboard' element={<DashboardTwo />} />
+                <Route path='/video_live' element={<VideoConference />} />
+                <Route path='/courses' element={<MyCourses />} />
+                <Route path='/today' element={<TodayMeetings />} />
+                <Route path='/learning' element={<MyLearning />} />
+                <Route path='/courses_analysis' element={<CoursesAnalysis />} />
+                <Route path='/chats' element={<Chats />} />
+                <Route path='/quiz' element={<QuizPage />} />
+                <Route path='/messages' element={<Messages />} />
+                <Route path='/time_table' element={<ClassSchedules />} />
+                <Route path='/test' element={<CustomPagination />} />
+                {
+                  role === "instructor" && (
+                    <>
+                      <Route path='/schedule_classes' element={<UpComingClasses />} />
+                      <Route path='/create_schedule' element={<CreateSchedule />} />
+                      <Route path='/meetings_history' element={<MeetingHistory />} />
+                      <Route path='/meetings_history/:id' element={<MeetingView />} />
+                      <Route path='/participant_list' element={<MeetingParticipant />} />
+                      <Route path='/faculty_list' element={<FacultyList />} />
+                      <Route path='/profile_form' element={<UpdateProfile />} />
+                      <Route path='/faculty_add_course' element={<FacultyAddCourse />} />
+                      <Route path='/instructor_courses' element={<InstructorCourses />} />
+                    </>
+                  )
+                }
+                {
+                  role === "admin" && (
+                    <>
+                      <Route path='/schedule_classes' element={<UpComingClasses />} />
+                      <Route path='/create_schedule' element={<CreateSchedule />} />
+                      <Route path='/faculty_courses' element={<MyLearning />} />
+                      <Route path='/registra' element={<RegisteredStudent />} />
+                      <Route path='/courses_administration' element={<CourseAdministration />} />
+                      <Route path='/courses_administration/:id' element={<CourseMembers />} />
+                      <Route path='/faculty_administration' element={<FacultyAdministration />} />
+                      <Route path='/add_instructor' element={<AddInstructor />} />
+                    </>
+                  )
+                }
+              </Route>
+              {userCredentials && (
+                <>
+                  <Route path='/learning/:id' element={<LearningDetails />} />
+                  <Route path='/carts' element={<Carts />} />
+                  <Route path='/checkout' element={< CheckoutPage />} />
+                  <Route path='/success' element={< SuccessfulCheckoutPage />} />
+                </>
+              )}
+              <Route path="/login" element={<NewLogin />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/registration" element={<Registration />} />
+              {/* Catch-all route for 404 */}
+              <Route path="*" element={<Navigate to="/not-found" replace />} />
 
-            {/* 404 page component */}
-            <Route path="/not-found" element={<NotFound />} />
-          </Routes>
+              {/* 404 page component */}
+              <Route path="/not-found" element={<NotFound />} />
+            </Routes>
+          {/* </Suspense> */}
         </Router>
         <ToastProvider />
       </ThemeContextProvider>
