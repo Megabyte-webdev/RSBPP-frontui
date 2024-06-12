@@ -5,123 +5,11 @@ import { Link } from 'react-router-dom'
 import CreateForm from '../components/create_schedule/CreateForm'
 import createIcon from "../assets/add-schedule.svg"
 import { MdAddBox } from "react-icons/md";
-import axios from 'axios'
-import { UserContext } from '../context/AuthContext'
-import { ResourceContext } from '../context/ResourceContext'
-import toast from 'react-hot-toast'
-import { BASE_URL } from '../components/utils/base'
+import CreateLiveClass from '../components/video-sdk/CreateLiveClass'
 
 const CreateSchedule = () => {
 
-    const { userCredentials } = useContext(UserContext)
-    const {
-        getAllCourses,
-        setGetAllCourses,
-        getAllUsers,
-        setGetAllSchedules,
-        setGetAllUsers } = useContext(ResourceContext)
-
-    const [errorMsg, setErrorMsg] = useState("")
-    const [showMsg, setShowMsg] = useState(false)
-    const [loading, setLoading] = useState(false)
-
-    const [details, setDetails] = useState({
-        day: "",
-        start_time: "",
-        end_time: "",
-        instructor_id: "",
-        course_id: "",
-    })
-
-    useEffect(() => {
-        setGetAllCourses((prev) => {
-            return {
-                ...prev, isDataNeeded: true
-            }
-        })
-    }, [])
-
-    useEffect(() => {
-        setGetAllUsers((prev) => {
-            return {
-                ...prev, isDataNeeded: true
-            }
-        })
-    }, [])
-
-    const handleOnChange = (e) => {
-        const { value, name, type, checked } = e.target
-        setDetails((prev) => {
-            return {
-                ...prev,
-                [name]: type === "checkbox" ? checked : value
-            };
-        });
-        setErrorMsg("");
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setErrorMsg("")
-        setGetAllCourses((prev) => {
-            return {
-                ...prev, isDataNeeded: false
-            }
-        })
-        setGetAllSchedules((prev) => {
-            return {
-                ...prev, isDataNeeded: false
-            }
-        })
-        setLoading(true)
-        axios.post(`${BASE_URL}schedule/addSchedule`, details, {
-            headers: {
-                Authorization: `Bearer ${userCredentials.token}`,
-            },
-        })
-            .then((response) => {
-                // console.log(response)
-                setGetAllCourses((prev) => {
-                    return {
-                        ...prev, isDataNeeded: true
-                    }
-                })
-                setGetAllSchedules((prev) => {
-                    return {
-                        ...prev, isDataNeeded: true
-                    }
-                })
-                resetStates()
-                setLoading(false)
-                toast.success("successful");
-            })
-            .catch((error) => {
-                if (error.response) {
-                    console.log(error)
-                    setErrorMsg(error.response.data.errors.code ? error.response.data.errors.code : error.response.data.errors.program)
-                    setShowMsg(true)
-                    setLoading(false);
-                } else {
-                    console.log(error)
-                    setErrorMsg(error.message)
-                    setShowMsg(true)
-                    setLoading(false);
-                }
-            });
-    }
-
-
-    const resetStates = () => {
-        setDetails({
-            day: "",
-            start_time: "",
-            end_time: "",
-            instructor_id: "",
-            course_id: "",
-        })
-    }
-    // const allInstructors = getAllUsers.data?.filter((user)=> user.role === "instructor")
-    // console.log(allInstructors)
+    const [meetingCode, setMeetingCode] = useState("");
     return (
         <div
             className="p-3 p-md-5"
@@ -135,12 +23,12 @@ const CreateSchedule = () => {
                     <p className="fw-semibold">Schedule a class</p>
                     <p>Connect and sync your calendar events with Google Calendar</p>
                 </div>
-            </div>
+            </div> 
             <Row>
                 <Col md={9} className='mb-3'>
-                    <CreateForm />
+                    <CreateForm meetingCode={meetingCode} setMeetingCode={setMeetingCode} />
                 </Col>
-                <Col md={3} className='mb-3'>
+                <Col md={3} className='mb-3'>  
                     <div className="" style={{ color: "#8A8A8A" }}>
                         <div className='d-flex mb-3 text-primary justify-content-md-between'>
                             <div>
@@ -173,6 +61,7 @@ const CreateSchedule = () => {
                                 </label>
                             </div>
                         </div>
+                        <CreateLiveClass meetingCode={meetingCode} setMeetingCode={setMeetingCode} />
                     </div>
                 </Col>
             </Row>

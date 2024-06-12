@@ -22,6 +22,7 @@ const UpdateForm = () => {
     const user = userCredentials?.user
 
     const [details, setDetails] = useState({
+        // user_id: user?.id,
         first_name: user?.first_name,
         last_name: user?.last_name,
         gender: "",
@@ -70,7 +71,7 @@ const UpdateForm = () => {
             }
         })
     }, [])
-    console.log(getAllFaculty.data)
+    // console.log(getAllFaculty.data)
     const handleOnChange = (e) => {
         const { value, name, type, checked } = e.target
         setDetails((prev) => {
@@ -92,9 +93,9 @@ const UpdateForm = () => {
         })
         setLoading(true)
         axios.post(`${BASE_URL}instructor/add`, details, {
-            // headers: {
-            //     Authorization: `Bearer ${userCredentials.token}`,
-            // },
+            headers: {
+                Authorization: `Bearer ${userCredentials.token}`,
+            },
         })
             .then((response) => {
                 // console.log(response)
@@ -103,7 +104,7 @@ const UpdateForm = () => {
                         ...prev, isDataNeeded: true
                     }
                 })
-                resetStates()
+                // resetStates()
                 setLoading(false)
                 toast.success("successful");
             })
@@ -111,7 +112,7 @@ const UpdateForm = () => {
                 // console.log(error.response.data.message)
                 // setErrorMsg(error.response.data.message)
                 if (error.response) {
-                    console.log(error.response.data.message)
+                    console.log(error.response)
                     setErrorMsg(error.response.data.message)
                     // if (error.response.data.message.course_id) {
                     //     setErrorMsg(error.response.data.message.course_id)
@@ -133,36 +134,36 @@ const UpdateForm = () => {
             });
     }
 
-    console.log(errorMsg)
-    const resetStates = () => {
-        setDetails({
-            first_name: "",
-            last_name: "",
-            gender: "",
-            email: "",
-            faculty_id: "",
-            role: "instructor",
-            contact_address: "",
-            contact_number: "",
-            date_of_birth: "",
-            country: "",
-            state: "",
-            experience: "",
-            specialization: "",
-            highest_degree: "",
-            year_of_graduation: "",
-            course_taught: "",
-            research_interest: "",
-            publication: "",
-            position: "",
-            bio: "",
-            institution: "",
-            password: "",
-            organization: "",
-        })
-    }
-    const allInstructors = getAllUsers.data?.filter((user) => user.role === "instructor")
-    // console.log(details)
+    // console.log(errorMsg)
+    // const resetStates = () => {
+    //     setDetails({
+    //         first_name: "",
+    //         last_name: "",
+    //         gender: "",
+    //         email: "",
+    //         faculty_id: "",
+    //         role: "instructor",
+    //         contact_address: "",
+    //         contact_number: "",
+    //         date_of_birth: "",
+    //         country: "",
+    //         state: "",
+    //         experience: "",
+    //         specialization: "",
+    //         highest_degree: "",
+    //         year_of_graduation: "",
+    //         course_taught: "",
+    //         research_interest: "",
+    //         publication: "",
+    //         position: "",
+    //         bio: "",
+    //         institution: "",
+    //         password: "",
+    //         organization: "",
+    //     })
+    // }
+    const userFaculty = getAllFaculty.data?.find((faculty) => faculty.id == user?.faculty_id)
+    console.log(details)
 
     return (
         <div className='p-3 py-5'>
@@ -210,10 +211,15 @@ const UpdateForm = () => {
                             </div>
                         </div>
                         <div className="col-md-6">
-                            <div className="mb-3 row">
-                                <div className="">
-                                    <input type="text " onChange={handleOnChange} value={details.faculty_id} name='faculty_id' placeholder='faculty *' required className="form-control border-0 input_bg" id="dateAndTime" />
-                                </div>
+                            <div className="mb-3">
+                                <select id="setDuration" onChange={handleOnChange} value={details.faculty_id} name='faculty_id' className="form-select input_bg border-0">
+                                    <option defaultValue={userFaculty?.id}>{userFaculty?.title}</option>
+                                    {/* {
+                                        getAllFaculty.data?.map((faculty) => (
+                                            <option key={faculty.id} value={faculty.id}>{faculty.title}</option>
+                                        ))
+                                    } */}
+                                </select>
                             </div>
                         </div>
                         <div className="col-md-6">
@@ -269,23 +275,11 @@ const UpdateForm = () => {
                         </div>
                         <p className="fw-bold my-4">Professional Details</p>
                         <div className="col-md-6">
-                            <div className="mb-3">
-                                <select id="setDuration" onChange={handleOnChange} value={details.faculty_id} name='faculty_id' className="form-select input_bg border-0">
-                                    <option defaultValue={""}>-- Faculty -- *</option>
-                                    {
-                                        getAllFaculty.data?.map((faculty) => (
-                                            <option key={faculty.id} value={faculty.id}>{faculty.title}</option>
-                                        ))
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
                             <div className="">
                                 <select id="setDuration" onChange={handleOnChange} value={details.experience} name='experience' className="form-select input_bg border-0">
                                     <option defaultValue={""}>--Years of Experience--</option>
                                     <option value={'one_year'}>1 year</option>
-                                    <option value={'below_5years'}>Beloww 5 years</option>
+                                    <option value={'below_5years'}>Below 5 years</option>
                                     <option value={'above_5years'}>Above 5 years</option>
                                 </select>
                             </div>
@@ -293,10 +287,10 @@ const UpdateForm = () => {
                         <div className="col-md-6">
                             <div className="">
                                 <select id="setDuration" onChange={handleOnChange} value={details.specialization} name='specialization' className="form-select input_bg border-0">
-                                    <option defaultValue={""}>Specialization</option>
-                                    <option value={"1"}>1 Hour</option>
-                                    <option value={"1"}>1 Hour</option>
-                                    <option value={"1"}>1 Hour</option>
+                                    <option defaultValue={""}>--Specialization--</option>
+                                    <option value={"Accountant"}>Accountant</option>
+                                    <option value={"Banking"}>Banking</option>
+                                    <option value={"Entrepreneurship"}>Entrepreneurship</option>
                                 </select>
                             </div>
                         </div>
@@ -305,7 +299,10 @@ const UpdateForm = () => {
                             <div className="">
                                 <select id="setDuration" onChange={handleOnChange} value={details.highest_degree} name='highest_degree' className="form-select input_bg border-0">
                                     <option defaultValue={""}>Highest Degree Obtainned</option>
-                                    <option>1 Hour</option>
+                                    <option value={"Doctorate"} >Doctorate (PhD)</option>
+                                    <option value={"Masters"} >Masters (MSc)</option>
+                                    <option value={"Degree"} >Degree (BSc)</option>
+                                    <option value={"Higher"} >Higher Diploma (HND)</option>
                                 </select>
                             </div>
                         </div>

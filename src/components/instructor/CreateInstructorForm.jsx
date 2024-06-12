@@ -132,7 +132,7 @@ const CreateInstructorForm = () => {
             });
     }
 
-    console.log(errorMsg)
+    // console.log(errorMsg)
     const resetStates = () => {
         setDetails({
             first_name: "",
@@ -161,7 +161,7 @@ const CreateInstructorForm = () => {
         })
     }
     const allInstructors = getAllUsers.data?.filter((user) => user.role === "instructor")
-    // console.log(details)
+    console.log(details)
 
     return (
         <div className='p-3 py-5'>

@@ -178,8 +178,8 @@ export const facultyConstants = [
                 link: "/create_schedule",
             },
             {
-                title: "All Courses",
-                link: "/meetings_history",
+                title: "My Courses",
+                link: "/instructor_courses",
             }
         ]
     },

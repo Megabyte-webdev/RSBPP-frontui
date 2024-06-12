@@ -1,13 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { UserContext } from "./AuthContext";
-import { getItemFunc, getTimeTable } from "../components/utils/getApi";
+import { getItemByPost, getItemFunc, getTimeTable } from "../components/utils/getApi";
 
 export const ResourceContext = createContext();
 
 function ResourceContextProvider({ children }) {
 
     const { userCredentials } = useContext(UserContext);
-    const token = userCredentials?.token ? userCredentials.token : null ;
+    const token = userCredentials?.token ? userCredentials.token : null;
     const userId = userCredentials?.user?.id;
     const [widgetOpen, setWidgetOpen] = useState({
         backgroundColor: "rgba(0, 0, 0, 0.15)",
@@ -42,6 +42,11 @@ function ResourceContextProvider({ children }) {
     });
 
     const [getAllSchedules, setGetAllSchedules] = useState({
+        data: null,
+        isDataNeeded: false,
+    });
+
+    const [getAllInstructors, setGetAllInstructors] = useState({
         data: null,
         isDataNeeded: false,
     });
@@ -107,6 +112,16 @@ function ResourceContextProvider({ children }) {
         }
     }, [getAllSchedules.isDataNeeded]);
 
+    //All Instructors Resource useEffect
+    useEffect(() => {
+        setErrorMessage('');
+        if (getAllInstructors.isDataNeeded) {
+            const endPoint = "instructor/get"
+            const dataArray = "instructors"
+            getItemFunc(token, setGetAllInstructors, setErrorMessage, endPoint, dataArray)
+        }
+    }, [getAllInstructors.isDataNeeded]);
+
 
 
     return (
@@ -125,6 +140,8 @@ function ResourceContextProvider({ children }) {
                 setGetEnrolledCourses,
                 getAllSchedules,
                 setGetAllSchedules,
+                getAllInstructors,
+                setGetAllInstructors
             }}
         >
             {children}

@@ -7,8 +7,10 @@ import { BASE_URL } from '../utils/base'
 import { Spinner } from 'react-bootstrap'
 import { editorFormats, editorModules } from '../utils/textEditor'
 import ReactQuill from 'react-quill'
+import { useNavigate } from 'react-router-dom'
 
 const FacultyAddCourse = () => {
+    const navigate = useNavigate()
     const { getAllFaculty,
         setGetAllFaculty,
         getAllCourses,
@@ -16,10 +18,11 @@ const FacultyAddCourse = () => {
     const { userCredentials } = useContext(UserContext);
 
     const [loading, setLoading] = useState(false)
-    const [errorMsg, setErrorMsg] = useState("")
+    const [errorMsg, setErrorMsg] = useState(null)
     const [showMsg, setShowMsg] = useState("")
     const [details, setDetails] = useState({
         title: "",
+        created_by_id: userCredentials.user?.id,
         code: "",
         description: "",
         objective: "",
@@ -51,6 +54,7 @@ const FacultyAddCourse = () => {
     const resetStates = () => {
         setDetails({
             title: "",
+            created_by_id: userCredentials.user?.id,
             code: "",
             description: "",
             objective: "",
@@ -115,7 +119,6 @@ const FacultyAddCourse = () => {
             },
         })
             .then((response) => {
-                // console.log(response)
                 setGetAllCourses((prev) => {
                     return {
                         ...prev, isDataNeeded: true
@@ -124,13 +127,48 @@ const FacultyAddCourse = () => {
                 resetStates()
                 setLoading(false)
                 toast.success("successful");
+                navigate("/instructor_courses")
             })
             .catch((error) => {
-                if (error.response) {
+                console.log(error.response.data.message)
+                if (error = error.response?.data) {
                     console.log(error)
-                    setErrorMsg(error.response.data.message)
-                    setShowMsg(true)
-                    setLoading(false);
+                    if (error.errors?.created_by_id) {
+                        console.log(error.errors.created_by_id)
+                        setErrorMsg(error.errors.created_by_id[0])
+                        setShowMsg(true)
+                        setLoading(false);
+                    } else if (error.errors?.curriculum) {
+                        console.log(error.errors.curriculum[0])
+                        setErrorMsg(error.errors.curriculum[0])
+                        setShowMsg(true)
+                        setLoading(false);
+                    } else if (error.errors?.objective) {
+                        console.log(error.errors.objective[0])
+                        setErrorMsg(error.errors.objective[0])
+                        setShowMsg(true)
+                        setLoading(false);
+                    } else if (error.errors?.outlines) {
+                        console.log(error.errors.outlines[0])
+                        setErrorMsg(error.errors.outlines[0])
+                        setShowMsg(true)
+                        setLoading(false);
+                    } else if (error.errors?.faculty_id) {
+                        console.log(error.errors.faculty_id[0])
+                        setErrorMsg(error.errors.faculty_id[0])
+                        setShowMsg(true)
+                        setLoading(false);
+                    } else if (error.errors?.program) {
+                        console.log(error.errors.program[0])
+                        setErrorMsg(error.errors.program[0])
+                        setShowMsg(true)
+                        setLoading(false);
+                    } else {
+                        console.log(error?.message)
+                        setErrorMsg(error.message)
+                        setShowMsg(true)
+                        setLoading(false);
+                    }
                 } else {
                     console.log(error)
                     setErrorMsg(error.message)
@@ -140,7 +178,7 @@ const FacultyAddCourse = () => {
             });
     }
     // const allInstructors = getAllUsers.data?.filter((user) => user.role === "instructor")
-    console.log(details)
+    // console.log(errorMsg)
 
     return (
         <div
@@ -281,6 +319,7 @@ const FacultyAddCourse = () => {
                             />
                         </div>
                     </div>
+
                     {showMsg && (<p className="text-center mb-3 text-danger">{errorMsg}</p>)}
                     <button
                         className='btn btn-lg brown_bg text-white fs_sm w-50'>Submit

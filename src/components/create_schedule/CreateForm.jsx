@@ -5,14 +5,20 @@ import { UserContext } from '../../context/AuthContext'
 import { ResourceContext } from '../../context/ResourceContext'
 import { BASE_URL } from '../utils/base'
 import { Spinner } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 
-const CreateForm = () => {
+const CreateForm = ({ meetingCode, setMeetingCode }) => {
+    const navigate = useNavigate()
     const { userCredentials } = useContext(UserContext)
     const {
         getAllCourses,
         setGetAllCourses,
-        getAllUsers,
-        setGetAllUsers } = useContext(ResourceContext)
+        getAllInstructors,
+        setGetAllInstructors,
+        setGetAllSchedules,
+    } = useContext(ResourceContext);
+
+    const userId = userCredentials.user?.id;
 
     const [errorMsg, setErrorMsg] = useState(null)
     const [showMsg, setShowMsg] = useState(false)
@@ -24,7 +30,16 @@ const CreateForm = () => {
         end_time: "",
         instructor_id: "",
         course_id: "",
+        meeting_code: "",
     })
+
+    useEffect(() => {
+        setDetails((prev) => {
+            return {
+                ...prev, meeting_code: meetingCode
+            }
+        })
+    }, [meetingCode])
 
     useEffect(() => {
         setGetAllCourses((prev) => {
@@ -35,7 +50,17 @@ const CreateForm = () => {
     }, [])
 
     useEffect(() => {
-        setGetAllUsers((prev) => {
+        setGetAllSchedules((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+
+    const instructorCourses = getAllCourses.data?.filter((item) => item.created_by_id == userId);
+    // console.log(instructorCourses )
+    useEffect(() => {
+        setGetAllInstructors((prev) => {
             return {
                 ...prev, isDataNeeded: true
             }
@@ -61,6 +86,12 @@ const CreateForm = () => {
                 ...prev, isDataNeeded: false
             }
         })
+
+        setGetAllSchedules((prev) => {
+            return {
+                ...prev, isDataNeeded: false
+            }
+        })
         setLoading(true)
         axios.post(`${BASE_URL}schedule/addSchedule`, details, {
             headers: {
@@ -74,9 +105,15 @@ const CreateForm = () => {
                         ...prev, isDataNeeded: true
                     }
                 })
+                setGetAllSchedules((prev) => {
+                    return {
+                        ...prev, isDataNeeded: true
+                    }
+                })
                 resetStates()
                 setLoading(false)
                 toast.success("successful");
+                navigate("/meetings_history")
             })
             .catch((error) => {
                 if (error.response) {
@@ -88,7 +125,8 @@ const CreateForm = () => {
                     } else if (error.response.data.message.start_time) {
                         setErrorMsg(error.response.data.message.start_time)
                     } else {
-                        setErrorMsg(error.response.data.message.end_time_time)
+                        setErrorMsg(error.response.data.message.end_time)
+                        console.log(error.response.data.message.end_time)
                     }
                     setShowMsg(true)
                     setLoading(false);
@@ -109,10 +147,9 @@ const CreateForm = () => {
             end_time: "",
             instructor_id: "",
             course_id: "",
+            meeting_code: "",
         })
     }
-    const allInstructors = getAllUsers.data?.filter((user) => user.role === "instructor")
-    // console.log(details)
 
     return (
         <div className='p-3 py-5'>
@@ -128,7 +165,7 @@ const CreateForm = () => {
                             onChange={handleOnChange}
                             className="form-select" id="course_id" aria-label="Floating label select example">
                             <option value="">...</option>
-                            {getAllCourses.data?.map((user) => (
+                            {instructorCourses?.map((user) => (
                                 <option key={user.id} value={user.id}>{user.title}</option>
                             ))}
                         </select>
@@ -141,8 +178,8 @@ const CreateForm = () => {
                             onChange={handleOnChange}
                             className="form-select" id="instructor" aria-label="Floating label select example">
                             <option value="">...</option>
-                            {allInstructors?.map((user) => (
-                                <option key={user.id} value={user.id}>{user.first_name} ({user.email})</option>
+                            {getAllInstructors.data?.map((user) => (
+                                <option key={user.id} value={user.user_id}>{user.first_name} ({user.email})</option>
                             ))}
                         </select>
                         <label htmlFor="instructor"> select Instructor</label>
@@ -171,79 +208,18 @@ const CreateForm = () => {
                             className="form-control" id="end_time" placeholder="name@example.com" />
                         <label htmlFor="end_time">End Time</label>
                     </div>
-                    {/* <div className="form-floating mb-3">
-                        <select className="form-select" id="program" aria-label="Floating label select example">
-                            <option selected>...</option>
-                            <option value="1">MANAGEMENT PROGRAMMES</option>
-                            <option value="2">Business class</option>
-                            <option value="3">Economic class</option>
-                        </select>
-                        <label htmlFor="program">Select a programme from faculty</label>
-                    </div>
                     <div className="form-floating mb-3">
-                        <select className="form-select" id="program" aria-label="Floating label select example">
-                            <option selected>...</option>
-                            <option value="1">Design Thinking & Innovation</option>
-                            <option value="2">Strategy Execution</option>
-                            <option value="3">Women in Leadership</option>
-                            <option value="3">Negotiation Dynamics</option>
-                        </select>
-                        <label htmlFor="program">Select Chapters</label>
+                        <input
+                            required
+                            type="text"
+                            value={details.meeting_code}
+                            name="meeting_code"
+                            onChange={handleOnChange}
+                            className="form-control" id="end_time" placeholder="name@example.com" />
+                        <label htmlFor="end_time">Meeting Code</label>
                     </div>
-                    <div className="form-floating mb-3">
-                        <select className="form-select" id="subTitles" aria-label="Floating label select example">
-                            <option selected>...</option>
-                            <option value="1">Read & Write</option>
-                            <option value="2">Display birthdays</option>
-                            <option value="3">anniversaries</option>
-                            <option value="3">Others</option>
-                        </select>
-                        <label htmlFor="subTitles">Select Sub Titles</label>
-                    </div>
-                    <div className="form-floating mb-3">
-                        <select className="form-select" id="subTitles" aria-label="Floating label select example">
-                            <option selected>...</option>
-                            <option value="1">Read only - To track team availability</option>
-                        </select>
-                        <label htmlFor="subTitles">Select Class Type</label>
-                    </div>
-                    <div className="form-floating">
-                        <textarea className="form-control" placeholder="Leave a comment here" id="description" style={{ height: "150px" }}></textarea>
-                        <label htmlFor="description">Description</label>
-                    </div> */}
                 </div>
-                {/* <div className="my-4">
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="mb-3 row">
-                                <label htmlFor="dateAndTime" className="col-5 col-form-label">Date and time *</label>
-                                <div className="col-7">
-                                    <input type="datetime-local" className="form-control" id="dateAndTime" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="mb-3 row">
-                                <label htmlFor="endTime" className="col-5 col-form-label">To</label>
-                                <div className="col-7">
-                                    <input type="datetime-local" className="form-control" id="endTime" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="mb-3 row">
-                                <label htmlFor="setDuration" className="col-5 col-form-label">Set Duration</label>
-                                <div className="col-7">
-                                    <select id="setDuration" className="form-select">
-                                        <option selected>Choose...</option>
-                                        <option>1 Hour</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
-                {errorMsg && (<p className="text-danger text-center my-3">{errorMsg} erro</p>)}
+                {errorMsg && (<p className="text-danger text-center my-3">{errorMsg}</p>)}
                 <div className="my-3 d-flex justify-content-center">
                     <div className="fw-semibold col-6">
                         {/* <button className='btn fw-semibold normal_btn Fborder-primary outline-primary me-3 text-primary'>Cancel</button> */}

@@ -43,6 +43,48 @@ export const getItemFunc = (
         }
       });
 };
+export const getItemByPost = (
+  token,
+  setDataState,
+  setErrorMessage,
+  endPoint,
+  dataArray
+) => {
+  const fleetTypesApi = `${BASE_URL}${endPoint}`;
+  let newFleetMakesData = [];
+  if (token)
+    axios
+      .post(fleetTypesApi, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const apiData = response.data[dataArray];
+          console.log(apiData);
+        apiData.map((item) => {
+          newFleetMakesData.push({
+            id: item.id,
+            ...item,
+          });
+        });
+
+        setDataState((prev) => {
+          return {
+            data: newFleetMakesData,
+            isDataNeeded: prev.isDataNeeded,
+          };
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response) {
+          setErrorMessage(error.response.data.message);
+        } else {
+          setErrorMessage(error.message);
+        }
+      });
+};
 
 export const getTimeTable = (
   token,
@@ -125,14 +167,15 @@ export const getEnrollById = (id, setState, token) => {
   //     ...prev, isDataNeeded: false
   //   }
   // })
-  axios.get(`${BASE_URL}enroll/getEnrollByCourceId/${id}`, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-  })
-    .then(response => {
+  axios
+    .get(`${BASE_URL}enroll/getEnrollByCourceId/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
       // console.log(response.data.schedule)
-      setState(response.data.enrolled_users)
+      setState(response.data.enrolled_users);
       // setGetAllCarts((prev) => {
       //   return {
       //     ...prev, isDataNeeded: true

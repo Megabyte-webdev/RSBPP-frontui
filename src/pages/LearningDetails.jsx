@@ -111,11 +111,11 @@ const LearningDetails = () => {
             <div className="p-3 border-bottom">
                 <div className="container">
                     <div className="d-flex">
-                        <button onClick={() => handleView('about')} style={{ color: view === "about" ? "#ab3335" : "" }} className=' fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>About</button>
-                        <button onClick={() => handleView('objectives')} style={{ color: view === "objectives" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Objectives</button>
-                        <button onClick={() => handleView('outlines')} style={{ color: view === "outlines" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Outline</button>
-                        <button onClick={() => handleView('curriculum')} style={{ color: view === "curriculum" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>Curriculum</button>
-                        <button onClick={() => handleView('faqs')} style={{ color: view === "faqs" ? "#ab3335" : "" }} className='fw-semibold bg-white border-0 fs-md-5 me-2 me-md-4'>FAQS</button>
+                        <button onClick={() => handleView('about')} style={{ color: view === "about" ? "#ab3335" : "" }} className=' fw-semibold hover_effect bg-white border-0 fs-md-5 me-2 me-md-4'>About</button>
+                        <button onClick={() => handleView('objectives')} style={{ color: view === "objectives" ? "#ab3335" : "" }} className='fw-semibold hover_effect bg-white border-0 fs-md-5 me-2 me-md-4'>Objectives</button>
+                        <button onClick={() => handleView('outlines')} style={{ color: view === "outlines" ? "#ab3335" : "" }} className='fw-semibold hover_effect bg-white border-0 fs-md-5 me-2 me-md-4'>Outline</button>
+                        <button onClick={() => handleView('curriculum')} style={{ color: view === "curriculum" ? "#ab3335" : "" }} className='fw-semibold hover_effect bg-white border-0 fs-md-5 me-2 me-md-4'>Curriculum</button>
+                        <button onClick={() => handleView('faqs')} style={{ color: view === "faqs" ? "#ab3335" : "" }} className='fw-semibold hover_effect bg-white border-0 fs-md-5 me-2 me-md-4'>FAQS</button>
                     </div>
                 </div>
             </div>

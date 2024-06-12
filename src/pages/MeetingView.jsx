@@ -3,10 +3,12 @@ import { Col, Row } from 'react-bootstrap'
 import THead from '../components/general/THead'
 import { Avatar } from '@mui/material'
 import img from "../assets/participant.png"
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const MeetingView = () => {
+    const {state} = useLocation()
     const navigate = useNavigate()
+    console.log(state)
     return (
         <div>
             <div
@@ -18,7 +20,7 @@ const MeetingView = () => {
                     <Col md={4}>
                         <div className="p-3 h-100 bg-white">
                             <small>Title</small>
-                            <p className='fw-semibold'>Design thinking and innovations</p>
+                            <p className='fw-semibold'>{state.oneCourse?.title}</p>
                         </div>
                     </Col>
                     <Col md={8}>

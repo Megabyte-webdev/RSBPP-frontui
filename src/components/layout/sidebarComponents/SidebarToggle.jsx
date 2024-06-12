@@ -14,7 +14,7 @@ const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant }) => {
             <div className={makeActive}>
                 <div
                     onClick={() => handleSubOptionClick(constant.title)}
-                    className="d-flex align-items-center mb-2 px-3 py-2 fs_sm justify-content-between pointer"
+                    className="d-flex align-items-center hover_effect mb-2 px-3 py-2 fs_sm justify-content-between pointer"
                 >
                     <div className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
                         <span className="me-2 brown_bg rounded sidebar_icon">
@@ -41,7 +41,7 @@ const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant }) => {
                         <ul style={{ listStyle: "none" }} className="border-start border-white ms-4">
                             {
                                 subOption?.map((sub, index) => (
-                                    <li className='pointer'
+                                    <li className='pointer hover_effect'
                                     data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
                                      key={index}><p onClick={()=> navigate(sub.link)} className="nav-link">{sub.title}</p></li>
                                 ))

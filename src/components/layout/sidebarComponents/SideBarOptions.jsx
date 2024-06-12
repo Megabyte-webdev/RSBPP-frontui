@@ -47,7 +47,7 @@ const SideBarOptions = () => {
         >
           <div
             onClick={() => setIsOpenOption("Dashboard")}
-            className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
+            className="ps-2 d-flex align-items-center hover_effect text-nowrap fw-semibold">
             <span className="me-2 sidebar_icon rounded">
               <img width={20} height={20} src={icon} alt="" />
             </span>
@@ -101,7 +101,7 @@ const SideBarOptions = () => {
             <div className={""}>
               <div
                 onClick={() => handleSubOptionClick(constant.title)}
-                className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
+                className="d-flex align-items-center hover_effect px-3 py-2 mb-2 fs_sm justify-content-between pointer"
               >
                 <div
                   onClick={() => setIsOpenOption("recommendation")}
@@ -137,7 +137,7 @@ const SideBarOptions = () => {
         <div className={""}>
           <div
             onClick={() => Logout()}
-            className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
+            className="d-flex align-items-center hover_effect px-3 py-2 mb-2 fs_sm justify-content-between pointer"
           >
             <div
               className="ps-2 d-flex align-items-center text-nowrap fw-semibold">

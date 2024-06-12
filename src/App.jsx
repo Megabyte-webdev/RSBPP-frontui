@@ -42,6 +42,7 @@ import FacultyList from './pages/FacultyList'
 import UpdateProfile from './pages/UpdateProfile'
 import FacultyAddCourse from './components/instructor/FacultyAddCourse'
 import AddInstructor from './components/stats/AddInstructor'
+import InstructorCourses from './pages/InstructorCourses'
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
@@ -77,6 +78,7 @@ const App = () => {
                     <Route path='/faculty_list' element={<FacultyList />} />
                     <Route path='/profile_form' element={<UpdateProfile />} />
                     <Route path='/faculty_add_course' element={<FacultyAddCourse />} />
+                    <Route path='/instructor_courses' element={<InstructorCourses />} />
                   </>
                 )
               }

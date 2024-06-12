@@ -205,7 +205,7 @@ function MeetingView(props) {
     );
 }
 
-function VideoApp({}) {
+function CreateLiveClass({meetingCode, setMeetingCode}) {
 
     const { userCredentials } = useContext(UserContext)
     const [meetingId, setMeetingId] = useState(null);
@@ -214,8 +214,9 @@ function VideoApp({}) {
         const meetingId =
             id == null ? await createMeeting({ token: authToken }) : id;
         setMeetingId(meetingId);
+        setMeetingCode(meetingId);
     };
-console.log(meetingId)
+// console.log(meetingCode)
     const onMeetingLeave = () => {
         setMeetingId(null);
     };
@@ -243,4 +244,4 @@ console.log(meetingId)
     );
 }
 
-export default VideoApp;
+export default CreateLiveClass;
