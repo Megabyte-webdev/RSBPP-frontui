@@ -63,7 +63,7 @@ const EnrolledCourse = ({ course, getScheduleById }) => {
                     <div className="row">
                         {courseSchedule?.map((schedule) => (
                             <div key={schedule.id} className="col-md-6 col mb-3">
-                                <CourseTimeTable schedule={schedule} themeProp={activeClass} themeColor={white} />
+                                <CourseTimeTable schedule={schedule} course={course} themeProp={activeClass} themeColor={white} />
                             </div>
                         ))}
                         {/* <div className="col-md-6 col mb-3">

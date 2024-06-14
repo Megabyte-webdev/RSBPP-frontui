@@ -4,14 +4,18 @@ import videoConference from "../assets/main-video-screen.png"
 import Listeners from '../components/video_conference/Listeners'
 import VideoButtons from '../components/video_conference/VideoButtons'
 import { FiChevronDown, FiChevronUp, FiSearch, FiUser } from 'react-icons/fi'
-import { MdOutlineGroupAdd, MdAttachFile, MdSend  } from "react-icons/md";
+import { MdOutlineGroupAdd, MdAttachFile, MdSend } from "react-icons/md";
 import VideoParticipants from '../components/video_conference/VideoParticipants'
 import VideoChats from '../components/video_conference/VideoChats'
 import { ThemeContext } from '../context/ThemeContext'
 import VideoApp from '../components/video-sdk/VideoApp'
+import { useLocation } from 'react-router-dom'
 
 const VideoConference = () => {
+    const { state } = useLocation()
     const { setSideBg } = useContext(ThemeContext);
+    // console.log(state)
+    const day = new Date(state.list.day).toDateString()
 
     setSideBg("brown_sidebar")
     return (
@@ -20,7 +24,7 @@ const VideoConference = () => {
                 <Col md={7}>
                     <div className="my-3">
                         <h4>Live class</h4>
-                        <p>June 12th, 2022 | 11:00 AM</p>
+                        <p>{day} | {state.list.start_time}</p>
                     </div>
                 </Col>
                 <Col md={5}>
@@ -43,7 +47,7 @@ const VideoConference = () => {
                             {/* <img src={videoConference} alt="" className="img-fluid" /> */}
                         </div>
                         <div>
-                            <VideoApp/>
+                            <VideoApp state={state} />
                         </div>
                         <div className="bg-white p-3 rounded">
                             <Row>
@@ -102,13 +106,13 @@ const VideoConference = () => {
                     <div className="typing_section">
                         <div className="bg-white p-2 px-3 d-flex align-items-center rounded">
                             <p className='text-white fs_sm me-2'>
-                                <MdAttachFile className='text-dark' size={20}/>
+                                <MdAttachFile className='text-dark' size={20} />
                             </p>
                             <div className='position-relative me-2'>
                                 <input type="text" className="btn border rounded-pill bg-white text-start px-3 w-100" id="search" placeholder='Type Something....' />
                             </div>
                             <div className='border-dark border  border-2 video_btns'>
-                                <MdSend  color='#000' />
+                                <MdSend color='#000' />
                             </div>
                         </div>
                     </div>

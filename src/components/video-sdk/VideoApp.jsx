@@ -37,7 +37,7 @@ function JoinScreen({ getMeetingAndToken }) {
                 <button className="btn blue_bg text-light" onClick={onClick}>Join</button>
                 {" or "}
                 {!studentRole && (
-                <button className="btn blue_bg text-light" onClick={onClick}>Create Meeting</button>
+                    <button className="btn blue_bg text-light" onClick={onClick}>Create Meeting</button>
                 )}
             </div>
         </div>
@@ -186,16 +186,16 @@ function MeetingView(props) {
                 <div>
                     <Controls />
                     <div className="border d-flex">
-                    {[...participants.keys()].map((participantId) => (
-                        <ParticipantView
-                            participantId={participantId}
-                            key={participantId}
-                        />
-                    ))}
-                    {/* <button onClick={handleStartRecording}>Start Recording</button>
+                        {[...participants.keys()].map((participantId) => (
+                            <ParticipantView
+                                participantId={participantId}
+                                key={participantId}
+                            />
+                        ))}
+                        {/* <button onClick={handleStartRecording}>Start Recording</button>
                     <button onClick={handleStopRecording}>Stop Recording</button> */}
                     </div>
-                   </div>
+                </div>
             ) : joined && joined == "JOINING" ? (
                 <p>Joining the meeting...</p>
             ) : (
@@ -205,17 +205,19 @@ function MeetingView(props) {
     );
 }
 
-function VideoApp({}) {
+function VideoApp({ state }) {
 
     const { userCredentials } = useContext(UserContext)
-    const [meetingId, setMeetingId] = useState(null);
-
+    const [meetingId, setMeetingId] = useState(state.list.meeting_code);
+    console.log(state) 
+    // console.log(new Date(state.list.day).toDateString())
+    // const day = new Date(state.list.day).toDateString()
     const getMeetingAndToken = async (id) => {
         const meetingId =
             id == null ? await createMeeting({ token: authToken }) : id;
         setMeetingId(meetingId);
     };
-console.log(meetingId)
+    console.log(meetingId)
     const onMeetingLeave = () => {
         setMeetingId(null);
     };
