@@ -10,7 +10,7 @@ import axios from 'axios';
 import { ResourceContext } from '../../context/ResourceContext';
 import toast from 'react-hot-toast';
 
-const LearningCourse = ({ course, userCredentials, cartList }) => {
+const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }) => {
 
   const navigate = useNavigate();
 
@@ -27,8 +27,8 @@ const LearningCourse = ({ course, userCredentials, cartList }) => {
     user_id: userCredentials?.user.id,
     course_id: course?.id
   }
-const adminAndInstructor = userRole === "admin" || userRole === "instructor"
-console.log(adminAndInstructor)
+  const adminAndInstructor = userRole === "admin" || userRole === "instructor"
+  // console.log(course)
   const hasItem = cartList?.some(item => item.courseId === course.id)
 
   const addToCart = () => {
@@ -60,7 +60,7 @@ console.log(adminAndInstructor)
         }
       });
   };
-
+  const instructorDetails = getAllInstructors.find((instructor) => instructor.user_id == course.created_by_id)
   // const deleteFunction = () => {
   //   setGetAllCourses((prev) => {
   //     return {
@@ -89,7 +89,8 @@ console.log(adminAndInstructor)
   //       }
   //     });
   // };
-
+  // console.log(instructorDetails)
+ 
   const deleteFunc = async () => {
     setGetAllCourses((prev) => {
       return {
@@ -124,10 +125,10 @@ console.log(adminAndInstructor)
         setErrorMessage(error.message);
       }
     }
-  } 
+  }
   return (
     <div className='rounded hover_effect bg-white mb-3 h-100 d-flex flex-column justify-content-between'>
-      <div onClick={() => navigate(`/learning/${course.title}`, { state: { course: course } })} className='nav-link pointer'>
+      <div onClick={() => navigate(`/learning/${course.title}`, { state: { course: course, instructorDetails : instructorDetails  } })} className='nav-link pointer'>
         <div>
           <img src={featurePics} alt="" className="img-fluid w-100" />
         </div>
@@ -160,7 +161,7 @@ console.log(adminAndInstructor)
             onClick={() => addToCart()}
             className='btn w-100 btn-danger'>Add to Cart <span><BiSolidCart /></span></button>
         </div>
-       {adminAndInstructor &&( <div className='px-1'>
+        {adminAndInstructor && (<div className='px-1'>
           <button
             onClick={() => deleteFunc()}
             className='btn w-100 btn-secondary'>Delete Course</button>

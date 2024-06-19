@@ -1,14 +1,50 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import THead from '../components/general/THead'
 import { Avatar } from '@mui/material'
 import img from "../assets/participant.png"
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import axios from "axios"
+import { UserContext } from "../context/AuthContext"
+import { BASE_URL } from '../components/utils/base'
+
 
 const MeetingView = () => {
+    const { userCredentials } = useContext(UserContext)
     const { state } = useLocation()
     const navigate = useNavigate()
     console.log(state)
+
+    const getEnrolledByCourseId = (id, setState) => {
+        // setGetAllCarts((prev) => {
+        //   return {
+        //     ...prev, isDataNeeded: false
+        //   }
+        // })
+        axios.get(`${BASE_URL}enroll/getEnrollByCourceId/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${userCredentials.token}`,
+          },
+        })
+          .then(response => {
+            // console.log(response.data.schedule)
+            setState(response.data.schedule)
+            // setGetAllCarts((prev) => {
+            //   return {
+            //     ...prev, isDataNeeded: true
+            //   }
+            // })
+          })
+          .catch((error) => {
+            console.log(error);
+            if (error.response) {
+              console.log(error.response.data.message);
+            } else {
+              console.log(error.message);
+            }
+          });
+      };
+
     return (
         <div>
             <div

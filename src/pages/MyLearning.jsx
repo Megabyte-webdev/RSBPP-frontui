@@ -5,6 +5,7 @@ import LearningCourse from '../components/Learning/LearningCourse'
 import CourseCarousel from '../components/general/CourseCarousel'
 import { ResourceContext } from '../context/ResourceContext'
 import { UserContext } from '../context/AuthContext'
+import Loading from '../components/loader/Loading'
 
 const MyLearning = () => {
     const { userCredentials, } = useContext(UserContext);
@@ -12,6 +13,8 @@ const MyLearning = () => {
     const { getAllFaculty,
         setGetAllFaculty,
         getAllCourses,
+        setGetAllInstructors,
+        getAllInstructors,
         setGetAllCourses,
         setGetAllUsers,
         getAllCarts, } = useContext(ResourceContext)
@@ -31,8 +34,15 @@ const MyLearning = () => {
             }
         })
     }, [])
+    useEffect(() => {
+        setGetAllInstructors((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
 
-
+    console.log(getAllInstructors.data)
 
     useEffect(() => {
         setGetAllFaculty((prev) => {
@@ -44,14 +54,8 @@ const MyLearning = () => {
     const offLineCourse = getAllCourses.data?.filter((course) => course.course_type === "offline")
     const onLineCourse = getAllCourses.data?.filter((course) => course.course_type === "online")
 
-    // const listUsers = getAllCourses.data?.map((course) => {
-    //     return (
-    //         <LearningCourse key={course.id} userCredentials={userCredentials} course={course} />
-    //     )
-    // })
-// console.log(getAllCourses.data)
     return (
-        <div className='p-3 p-md-5 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
+        <div className='p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
             <h3>My Learning Paths</h3>
             <p className="">On this page, you will be able to find all your learning paths along with the other learning paths available on the platform</p>
             <div className="my-3">
@@ -103,36 +107,42 @@ const MyLearning = () => {
                         </span>
                     </div>
                 </div>
-                <div>
+
+                {!getAllCourses.data && (
                     <div className="my-5">
-                        {!getAllCourses.data && (
-                            <div style={{ height: "80vh", padding: "3rem" }}> Loading data......</div>
-                        )}
-                        {getAllCourses.data && (
-                            <CourseCarousel>
-                                {onLineCourse?.map((course) => {
-                                    return (
-                                        <LearningCourse key={course.id} cartList={getAllCarts.data} userCredentials={userCredentials} course={course} />
-                                    )
-                                })}
-                            </CourseCarousel>
-                        )}
+                        <Loading />
                     </div>
-                </div>
-                <div className='my-5'>
-                    <p className="fw-bold">Offline Course</p>
-                    <div className="my-5">
-                        {getAllCourses.data && (
-                            <CourseCarousel>
-                                {offLineCourse?.map((course) => {
-                                    return (
-                                        <LearningCourse key={course.id} cartList={getAllCarts.data} userCredentials={userCredentials} course={course} />
-                                    )
-                                })}
-                            </CourseCarousel>
-                        )}
+                )}
+                {getAllCourses.data && (
+                    <div>
+                        <div className="my-5">
+                            {getAllCourses.data && (
+                                <CourseCarousel>
+                                    {onLineCourse?.map((course) => {
+                                        return (
+                                            <LearningCourse getAllInstructors={getAllInstructors.data} key={course.id} cartList={getAllCarts.data} userCredentials={userCredentials} course={course} />
+                                        )
+                                    })}
+                                </CourseCarousel>
+                            )}
+                        </div>
+
+                        <div className='my-5'>
+                            <p className="fw-bold">Offline Course</p>
+                            <div className="my-5">
+                                {getAllCourses.data && (
+                                    <CourseCarousel>
+                                        {offLineCourse?.map((course) => {
+                                            return (
+                                                <LearningCourse getAllInstructors={getAllInstructors.data} key={course.id} cartList={getAllCarts.data} userCredentials={userCredentials} course={course} />
+                                            )
+                                        })}
+                                    </CourseCarousel>
+                                )}
+                            </div>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </div>
     )

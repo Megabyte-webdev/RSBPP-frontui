@@ -8,33 +8,64 @@ import { Link } from 'react-router-dom'
 import { ThemeContext } from '../context/ThemeContext'
 import { UserContext } from '../context/AuthContext'
 import DashboardWidget from '../components/dashboard/DashboardWidget'
+import { ResourceContext } from '../context/ResourceContext'
+import LivesClassList from '../components/student-commponent/LivesClassList'
+import Loading from '../components/loader/Loading'
 
 const DashboardTwo = () => {
     const { setSideBg } = useContext(ThemeContext);
     const { userCredentials } = useContext(UserContext);
-console.log(userCredentials) 
+    const { getEnrolledCourses,
+        setGetEnrolledCourses,
+        getAllSchedules,
+        setGetAllSchedules } = useContext(ResourceContext);
 
-    useEffect(()=>{
+    useEffect(() => {
         setSideBg("brown_sidebar")
     }, [])
+
+    useEffect(() => {
+        setGetEnrolledCourses((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+
+    useEffect(() => {
+        setGetAllSchedules((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+
+    const myClasses = getAllSchedules.data?.filter((schedule) => getEnrolledCourses.data?.some((enrollCourse) => enrollCourse.courseId == schedule.course_id))
+
+    const sortClasses = myClasses?.sort((a, b) => {
+        const smaller = new Date(a.day)
+        const biggerr = new Date(b.day)
+        return smaller - biggerr
+    })
+    console.log(sortClasses)
 
     return (
         <div className='p-3 p-md-5' style={{ backgroundColor: "hsla(0, 0%, 85%, .1)" }}>
             <Row>
                 <Col md={8}>
-                    <h6 className='my-4'>Ngozi, Introduction to Public Procurement</h6>
-                    <DashboardWidget/>
+                    <h5 className='my-4'>Wellcome to your Dashboard, {userCredentials.user?.first_name}</h5>
+                    <DashboardWidget />
                     <Row>
                         <Col md={6} className=' my-4 dash_grid'>
-                            <div className="shadow h-100 p-0 rounded">
-                                <Link to={""} className='nav-link h-100'>
+                            <div className="shadow hover_effect h-100 p-0 rounded">
+                                <Link to={"/courses"} className='nav-link h-100'>
                                     <img src={dashVideo} alt="" className="img-fluid h-100 w-100" />
                                 </Link>
                             </div>
                         </Col>
                         <Col md={6} className=' my-4 dash_grid'>
                             <Link to={"/courses"} className='nav-link h-100'>
-                                <div className="shadow p-0 h-100 rounded d-flex justify-content-center align-items-center">
+                                <div className="shadow hover_effect p-0 h-100 rounded d-flex justify-content-center align-items-center">
                                     <div>
                                         <div>
                                             <img src={classVideo} alt="" className="img-fluid" />
@@ -45,8 +76,8 @@ console.log(userCredentials)
                             </Link>
                         </Col>
                         <Col md={6} className=' my-4 dash_grid'>
-                            <Link to={""} className='nav-link h-100'>
-                                <div className="shadow p-0 h-100 rounded d-flex justify-content-center align-items-center">
+                            <Link to={"/soon"} className='nav-link h-100'>
+                                <div className="shadow hover_effect p-0 h-100 rounded d-flex justify-content-center align-items-center">
                                     <div>
                                         <div>
                                             <img src={forum} alt="" className="img-fluid" />
@@ -57,8 +88,8 @@ console.log(userCredentials)
                             </Link>
                         </Col>
                         <Col md={6} className=' my-4 dash_grid'>
-                            <Link to={""} className='nav-link h-100'>
-                                <div className="shadow p-0 h-100 rounded d-flex justify-content-center align-items-center">
+                            <Link to={"/soon"} className='nav-link h-100'>
+                                <div className="shadow hover_effect p-0 h-100 rounded d-flex justify-content-center align-items-center">
                                     <div>
                                         <div>
                                             <img src={schedule} alt="" className="img-fluid" />
@@ -71,121 +102,18 @@ console.log(userCredentials)
                     </Row>
                 </Col>
                 <Col md={4}>
-                    <h6 className='my-4'>Class for the Week</h6>
-                    <div className='py-4'>
-                        <div className="d-flex mb-2" style={{ backgroundColor: "hsla(0, 0%, 85%, 1)" }}>
-                            <div className="brown_bg px-1 me-2"></div>
-                            <div className="w-100 fs_sm d-flex align-items-center">
-                                <p>New Class Published</p>
-                            </div>
-                            <div className='fs_xsm'>
-                                <div className="py-1 px-1 mb-1 blue_bg text-light">
-                                    <p>07/FEB/2024</p>
-                                </div>
-                                <div className="py-1 px-1 brown_bg text-light">
-                                    <p>07/FEB/2024</p>
-                                </div>
-                            </div>
+                    <h6 className='my-4'>Your Class Schedules</h6>
+                    {getAllSchedules.data && (
+                        <div className='py-4'>
+                            {sortClasses?.map((course) => {
+                                return (
+                                    <LivesClassList key={course.id} course={course} />
+                                )
+                            })}
                         </div>
-                        <div className="d-flex mb-2" style={{ backgroundColor: "hsla(0, 0%, 85%, 1)" }}>
-                            <div className="blue_bg px-1 me-2"></div>
-                            <div className="w-100 fs_sm d-flex align-items-center">
-                                <p>New Class Published</p>
-                            </div>
-                            <div className='fs_xsm'>
-                                <div className="py-1 px-1 mb-1 blue_bg text-light">
-                                    <p>07/FEB/2024</p>
-                                </div>
-                                <div className="py-1 px-1 brown_bg text-light">
-                                    <p>07/FEB/2024</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="d-flex mb-2" style={{ backgroundColor: "hsla(0, 0%, 85%, 1)" }}>
-                            <div className="brown_bg px-1 me-2"></div>
-                            <div className="w-100 fs_sm d-flex align-items-center">
-                                <p>New Class Published</p>
-                            </div>
-                            <div className='fs_xsm'>
-                                <div className="py-1 px-1 mb-1 blue_bg text-light">
-                                    <p>07/FEB/2024</p>
-                                </div>
-                                <div className="py-1 px-1 brown_bg text-light">
-                                    <p>07/FEB/2024</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="d-flex mb-2" style={{ backgroundColor: "hsla(0, 0%, 85%, 1)" }}>
-                            <div className="blue_bg px-1 me-2"></div>
-                            <div className="w-100 fs_sm d-flex align-items-center">
-                                <p>New Class Published</p>
-                            </div>
-                            <div className='fs_xsm'>
-                                <div className="py-1 px-1 mb-1 blue_bg text-light">
-                                    <p>07/FEB/2024</p>
-                                </div>
-                                <div className="py-1 px-1 brown_bg text-light">
-                                    <p>07/FEB/2024</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="d-flex mb-2" style={{ backgroundColor: "hsla(0, 0%, 85%, 1)" }}>
-                            <div className="brown_bg px-1 me-2"></div>
-                            <div className="w-100 fs_sm d-flex align-items-center">
-                                <p>New Class Published</p>
-                            </div>
-                            <div className='fs_xsm'>
-                                <div className="py-1 px-1 mb-1 blue_bg text-light">
-                                    <p>07/FEB/2024</p>
-                                </div>
-                                <div className="py-1 px-1 brown_bg text-light">
-                                    <p>07/FEB/2024</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="d-flex mb-2" style={{ backgroundColor: "hsla(0, 0%, 85%, 1)" }}>
-                            <div className="blue_bg px-1 me-2"></div>
-                            <div className="w-100 fs_sm d-flex align-items-center">
-                                <p>New Class Published</p>
-                            </div>
-                            <div className='fs_xsm'>
-                                <div className="py-1 px-1 mb-1 blue_bg text-light">
-                                    <p>07/FEB/2024</p>
-                                </div>
-                                <div className="py-1 px-1 brown_bg text-light">
-                                    <p>07/FEB/2024</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="d-flex mb-2" style={{ backgroundColor: "hsla(0, 0%, 85%, 1)" }}>
-                            <div className="brown_bg px-1 me-2"></div>
-                            <div className="w-100 fs_sm d-flex align-items-center">
-                                <p>New Class Published</p>
-                            </div>
-                            <div className='fs_xsm'>
-                                <div className="py-1 px-1 mb-1 blue_bg text-light">
-                                    <p>07/FEB/2024</p>
-                                </div>
-                                <div className="py-1 px-1 brown_bg text-light">
-                                    <p>07/FEB/2024</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="d-flex mb-2" style={{ backgroundColor: "hsla(0, 0%, 85%, 1)" }}>
-                            <div className="blue_bg px-1 me-2"></div>
-                            <div className="w-100 fs_sm d-flex align-items-center">
-                                <p>New Class Published</p>
-                            </div>
-                            <div className='fs_xsm'>
-                                <div className="py-1 px-1 mb-1 blue_bg text-light">
-                                    <p>07/FEB/2024</p>
-                                </div>
-                                <div className="py-1 px-1 brown_bg text-light">
-                                    <p>07/FEB/2024</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    )}
+                    {!getAllSchedules.data && <Loading />}
+
                 </Col>
             </Row>
         </div>

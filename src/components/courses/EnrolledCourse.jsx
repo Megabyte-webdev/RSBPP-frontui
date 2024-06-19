@@ -5,19 +5,16 @@ import CourseTimeTable from "./CourseTimeTable"
 import { useEffect, useState } from "react"
 import { Spinner } from "react-bootstrap"
 
-const EnrolledCourse = ({ course, getScheduleById }) => {
+const EnrolledCourse = ({ course, myClasses }) => {
 
-    const [courseSchedule, setCourseSchedule] = useState()
     const [classDropdown, setClassDropdown] = useState(false)
 
-    useEffect(() => {
-        getScheduleById(course.id, setCourseSchedule)
-    }, [])
 
     const handleClassDropdown = () => {
         setClassDropdown((prev) => !prev)
     }
-    // console.log(courseSchedule)
+    const list = myClasses?.filter((item) => item.course_id === course.id)
+    console.log(list) 
 
     const activeClass = {
         backgroundColor: "#ab3335",
@@ -31,9 +28,7 @@ const EnrolledCourse = ({ course, getScheduleById }) => {
 
     const brown = { backgroundColor: "#ab3335" }
     const white = { backgroundColor: "#fff" }
-
-    const date = new Date(courseSchedule?.day)
-    // console.log(courseSchedule)
+    
     return (
         <div>
             <div className="mb-3 d-flex">
@@ -61,7 +56,7 @@ const EnrolledCourse = ({ course, getScheduleById }) => {
                 )} */}
                 <div className="my-4">
                     <div className="row">
-                        {courseSchedule?.map((schedule) => (
+                        {list?.map((schedule) => (
                             <div key={schedule.id} className="col-md-6 col mb-3">
                                 <CourseTimeTable schedule={schedule} course={course} themeProp={activeClass} themeColor={white} />
                             </div>

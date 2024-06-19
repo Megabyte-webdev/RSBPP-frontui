@@ -112,6 +112,14 @@ p {
   border: 1px solid #ab3335 !important;
 }
 
+.class_list:nth-of-type(even) {
+  background-color:  #ab3335 !important;
+}
+
+.class_list:nth-of-type(odd) {
+  background-color:  #03014c !important;
+}
+
 .border_brown {
   border-left: 1px solid #ab3335 !important;
 }

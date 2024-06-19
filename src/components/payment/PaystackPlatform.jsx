@@ -7,7 +7,7 @@ import { ResourceContext } from '../../context/ResourceContext';
 import { useNavigate } from 'react-router-dom';
 
 const PaystackPlatform = ({ accept, userCredentials, allDetails }) => {
-    const { setGetAllCourses, setGetAllCarts } = useContext(ResourceContext);
+    const { setGetAllCourses, setGetAllCarts, setGetEnrolledCourses } = useContext(ResourceContext);
     const navigate = useNavigate();
     // const courseIds = cartCourses?.map(({ courseId }) => courseId);
 
@@ -26,8 +26,13 @@ const PaystackPlatform = ({ accept, userCredentials, allDetails }) => {
     // console.log(cartCourses)
 
     const handlePayment = (info) => {
-        
+
         setGetAllCourses((prev) => {
+            return {
+                ...prev, isDataNeeded: false
+            }
+        })
+        setGetEnrolledCourses((prev) => {
             return {
                 ...prev, isDataNeeded: false
             }
@@ -60,6 +65,11 @@ const PaystackPlatform = ({ accept, userCredentials, allDetails }) => {
                         ...prev, isDataNeeded: true
                     }
                 })
+                setGetEnrolledCourses((prev) => {
+                    return {
+                        ...prev, isDataNeeded: true
+                    }
+                })
                 navigate(`/success`, { state: { allDetails: allDetails, info: info } })
                 toast.success("successful payment");
             })
@@ -71,6 +81,11 @@ const PaystackPlatform = ({ accept, userCredentials, allDetails }) => {
                     console.log(error.message)
                     // setErrorMsg(error.message)
                 }
+                setGetEnrolledCourses((prev) => {
+                    return {
+                        ...prev, isDataNeeded: true
+                    }
+                })
             });
     }
 

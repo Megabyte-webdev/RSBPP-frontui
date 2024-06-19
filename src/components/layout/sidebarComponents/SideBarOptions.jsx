@@ -98,7 +98,7 @@ const SideBarOptions = () => {
         </div> */}
         {!instructor && (
           <>
-            <div className={""}>
+            {/* <div className={""}>
               <div
                 onClick={() => handleSubOptionClick(constant.title)}
                 className="d-flex align-items-center hover_effect px-3 py-2 mb-2 fs_sm justify-content-between pointer"
@@ -131,7 +131,7 @@ const SideBarOptions = () => {
                   </Link>
                 </div>
               </div>
-            </div>
+            </div> */}
           </>
         )}
         <div className={""}>

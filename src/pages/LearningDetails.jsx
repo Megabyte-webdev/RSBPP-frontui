@@ -65,6 +65,8 @@ const LearningDetails = () => {
         }
     };
 
+    const data = state?.instructorDetails
+
     console.log(state)
     return (
         <div className='poppins'>
@@ -193,7 +195,28 @@ const LearningDetails = () => {
                                             <img src={user} alt="" className="" />
                                         </div>
                                     </div>
-                                    <p className='fs_sm my-4'>How do you know your learners are retaining knowledge in appropriate volumes and timeframes? That’s right: You throw in assessments, and see if the students “catch your drift”. Obviously, there is a boring way to assess performance through brick-and-mortar tests, but there’s also an engaging way – through online quizzes. This seems easy as pie to Instructional Designers, yet there are certain techniques that will help you pick the right form and content for quizzing. Some handy tips for effective eLearning quiz questions in this article!</p>
+                                    {state.instructorDetails ? (
+                                        <div className='my-5'>
+                                            <div className="d-flex justify-content-between mb-3">
+                                                <p>Instructor :</p>
+                                                <p className='fw-semibold'> {data.title} {data.first_name} {data.last_name} ({data.degree})</p>
+                                            </div>
+                                            <div className="d-flex justify-content-between mb-3">
+                                                <p>Emails :</p>
+                                                <p className='fw-semibold'> {data.email}</p>
+                                            </div>
+                                            <div className="d-flex justify-content-between mb-3">
+                                                <p>Specialization :</p>
+                                                <p className='fw-semibold'> {data.specialization}</p>
+                                            </div>
+                                            <div className="d-flex justify-content-between mb-3">
+                                                <p>Country :</p>
+                                                <p className='fw-semibold'> {data.country}</p>
+                                            </div>
+                                        </div>
+                                    ) :
+                                        <p className='mt-4 text-center fs-5 fw-semibold'>Information not available</p>
+                                    }
                                 </div>
                             </Col>
                         )
@@ -274,6 +297,9 @@ const LearningDetails = () => {
                             )}
                     </Row>
                 </div>
+                <button
+                    onClick={() => navigate("/learning")}
+                    className='btn inherit_bg btn-sm btn-outline-danger position-fixed end-0 top-50'>Back</button>
             </div>
         </div>
     )

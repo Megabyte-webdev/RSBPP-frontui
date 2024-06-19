@@ -28,19 +28,11 @@ export const sidebarConstants = [
         logo: iconTwo,
         subOptions: [
             {
-                title: "Live class",
-                link: "/video_live",
-            },
-            {
-                title: "My courses",
+                title: "Live classes",
                 link: "/courses",
             },
             {
-                title: "courses analysis",
-                link: "/courses_analysis",
-            },
-            {
-                title: "my learning",
+                title: "Available courses",
                 link: "/learning",
             },
             {
@@ -54,59 +46,32 @@ export const sidebarConstants = [
         ]
     },
     {
-        title: "Assignment",
-        logo: iconFour,
-        subOptions: null
-    },
-    // {
-    //     title: "Facilitators",
-    //     logo: iconFour,
-    //     subOptions: null
-    // },
-    {
         title: "Forums",
         logo: iconThree,
         subOptions: [
             {
                 title: "Chats",
-                link: "/chats",
+                // link: "/chats",
+                link: "/soon",
             },
             {
                 title: "messages",
-                link: "/messages",
+                // link: "/messages",
+                link: "/soon",
             }
         ]
     },
-    // {
-    //     title: "Library/ Resource",
-    //     logo: iconFive,
-    //     subOptions: null
-    // },
     {
         title: "Quizzes",
         logo: iconSix,
         subOptions: [
             {
                 title: "Quiz",
-                link: "/quiz",
+                // link: "/quiz",
+                link: "/soon",
             }
         ]
     },
-    // {
-    //     title: "Certificates",
-    //     logo: iconSeven,
-    //     subOptions: null
-    // },
-    // {
-    //     title: "Event Schedule",
-    //     link: "/time_table",
-    // },
-    // {
-    //     title: "Logout",
-    //     logo: iconNine,
-    //     link : "/login",
-    //     subOptions: null
-    // },
 ]
 export const adminConstants = [
     {

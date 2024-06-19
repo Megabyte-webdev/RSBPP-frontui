@@ -43,6 +43,7 @@ import UpdateProfile from './pages/UpdateProfile'
 import FacultyAddCourse from './components/instructor/FacultyAddCourse'
 import AddInstructor from './components/stats/AddInstructor'
 import InstructorCourses from './pages/InstructorCourses'
+import ComingSoon from './pages/ComingSoon'
 const LazyMeeting = lazy(() => import('./pages/MeetingHistory'));
 
 const App = () => {
@@ -69,6 +70,7 @@ const App = () => {
               <Route path='/messages' element={<Messages />} />
               <Route path='/time_table' element={<ClassSchedules />} />
               <Route path='/test' element={<CustomPagination />} />
+              <Route path='/soon' element={<ComingSoon />} />
               {
                 role === "instructor" && (
                   <>

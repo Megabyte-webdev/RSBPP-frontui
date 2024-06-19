@@ -19,7 +19,7 @@ const VideoConference = () => {
 
     setSideBg("brown_sidebar")
     return (
-        <div className='p-3 p-md-5 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, 1)" }}>
+        <div className='p-3 p-md-5 poppins min-vh-100' style={{ backgroundColor: "hsla(219, 50%, 95%, 1)" }}>
             <Row>
                 <Col md={7}>
                     <div className="my-3">
@@ -49,7 +49,7 @@ const VideoConference = () => {
                         <div>
                             <VideoApp state={state} />
                         </div>
-                        <div className="bg-white p-3 rounded">
+                        {/* <div className="bg-white p-3 rounded">
                             <Row>
                                 <Col xs={6} md={3}>
                                     <Listeners />
@@ -65,10 +65,10 @@ const VideoConference = () => {
                                 </Col>
                             </Row>
                         </div>
-                        <VideoButtons />
+                        <VideoButtons /> */}
                     </div>
                 </Col>
-                <Col md={5}>
+                {/* <Col md={5}>
                     <div className="bg-white rounded mb-5">
                         <div className="brown_bg p-2 px-3 d-flex align-items-center rounded">
                             <p className='text-white fs_sm me-2'>Participants</p>
@@ -116,7 +116,7 @@ const VideoConference = () => {
                             </div>
                         </div>
                     </div>
-                </Col>
+                </Col> */}
             </Row>
         </div>
     )
