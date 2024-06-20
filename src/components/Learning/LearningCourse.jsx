@@ -60,7 +60,7 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
         }
       });
   };
-  const instructorDetails = getAllInstructors.find((instructor) => instructor.user_id == course.created_by_id)
+  const instructorDetails = getAllInstructors?.find((instructor) => instructor.user_id == course.created_by_id)
   // const deleteFunction = () => {
   //   setGetAllCourses((prev) => {
   //     return {
