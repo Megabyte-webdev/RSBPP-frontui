@@ -433,6 +433,29 @@ input[type="radio"].red_radio {
   stroke: white;
 }
 
+/* Live class UI */
+
+.grid_container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+
+.participant {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.video_container{
+  border-radius: 15px !important;
+  height: fit-content !important;
+}
+
+.video_container video{
+  border-radius: 15px !important;
+}
+
 @media (min-width: 768px) {
   .chat_pic {
     width: 60px !important;

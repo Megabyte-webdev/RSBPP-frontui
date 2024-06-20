@@ -74,10 +74,10 @@ function ParticipantView(props) {
         }
     }, [micStream, micOn]);
     return (
-        <div className="my-4" key={props.participantId}>
+        <div className="participant position-relative" key={props.participantId}>
             {/* <Controls webcamOn={webcamOn} micOn={micOn} /> */}
-            <audio className="w-50" ref={micRef} autoPlay muted={isLocal} />
-            <div className="w-100 my-3">
+            <audio ref={micRef} autoPlay muted={isLocal} />
+            <div className={ webcamOn ? "w-100 h-100" : ""}>
                 {webcamOn && (
                     <ReactPlayer
                         //
@@ -89,17 +89,14 @@ function ParticipantView(props) {
                         playing={true}
                         //
                         url={videoStream}
-                        className={"w-10 col-3 rounded"}
-                        //
-                        // height={"200px"}
-                        // width={"300px"}
+                        className={"w-100 h-100 video_container"}
                         onError={(err) => {
                             console.log(err, "participant video error");
                         }}
                     />
                 )}
-                {!webcamOn && <AvatarDp webcamOn={webcamOn} micOn={micOn} />}
             </div>
+            {!webcamOn && <AvatarDp webcamOn={webcamOn} micOn={micOn} />}
             <Indicators webcamOn={webcamOn} micOn={micOn} displayName={displayName} />
         </div>
     );
@@ -112,9 +109,6 @@ function Controls() {
     // const speakerOn = micOn ? <IoMic color="#fff" size={20} /> : <IoMicOff color="#fff" size={20} />
     return (
         <div className="d-flex">
-            {/* <button className="video_btns me-2 border-0" style={{ backgroundColor: "#f00" }} onClick={() => leave()}><MdCallEnd color="#fff" size={20} /></button>
-            <button className="video_btns blue_bg me-2 border-0" onClick={() => toggleMic()}>{speakerOn}</button>
-            <button className="video_btns blue_bg me-2 border-0" onClick={() => toggleWebcam()}>{camOn}</button> */}
             <button className="video_btns brown_bg me-2 border-0" style={{ backgroundColor: "hsla(359, 54%, 44%, 0.2)" }} onClick={() => leave()}><MdCallEnd color="#fff" size={20} /></button>
             <button className="video_btns blue_bg me-2 border-0" onClick={() => toggleMic()}>{<IoMic color="#fff" size={20} />}</button>
             <button className="video_btns blue_bg me-2 border-0" onClick={() => toggleWebcam()}><CiVideoOn color="#fff" size={20} /></button>
@@ -184,15 +178,17 @@ function MeetingView(props) {
             {joined && joined == "JOINED" ? (
                 <div>
                     <Controls />
-                    <div className="border d-flex">
-                        {[...participants.keys()].map((participantId) => (
-                            <ParticipantView
-                                participantId={participantId}
-                                key={participantId}
-                            />
-                        ))}
-                        {/* <button onClick={handleStartRecording}>Start Recording</button>
+                    <div className="border p-2">
+                        <div className="grid_container">
+                            {[...participants.keys()].map((participantId) => (
+                                <ParticipantView
+                                    participantId={participantId}
+                                    key={participantId}
+                                />
+                            ))}
+                            {/* <button onClick={handleStartRecording}>Start Recording</button>
                     <button onClick={handleStopRecording}>Stop Recording</button> */}
+                        </div>
                     </div>
                 </div>
             ) : joined && joined == "JOINING" ? (
@@ -208,7 +204,7 @@ function VideoApp({ state }) {
 
     const { userCredentials } = useContext(UserContext)
     const [meetingId, setMeetingId] = useState(state.list.meeting_code);
-    console.log(state) 
+    console.log(state)
     // console.log(new Date(state.list.day).toDateString())
     // const day = new Date(state.list.day).toDateString()
     const getMeetingAndToken = async (id) => {

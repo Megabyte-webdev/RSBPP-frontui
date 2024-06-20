@@ -14,7 +14,7 @@ const EnrolledCourse = ({ course, myClasses }) => {
         setClassDropdown((prev) => !prev)
     }
     const list = myClasses?.filter((item) => item.course_id === course.id)
-    console.log(list) 
+    // console.log(list) 
 
     const activeClass = {
         backgroundColor: "#ab3335",

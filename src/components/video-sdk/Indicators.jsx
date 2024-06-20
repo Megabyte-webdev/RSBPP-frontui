@@ -8,8 +8,11 @@ const Indicators = ({ webcamOn, micOn, displayName }) => {
     const speakerOn = micOn ? <IoMic color="#fff" size={20} /> : <IoMicOff color="#fff" size={20} />
 
     return (
-        <div className='d-flex align-items-center fs_sm'>
-            <p className='fw-semibold'>{displayName}</p>
+        <div style={{ bottom: "1.5rem" }} className='ps-2 d-flex align-items-center position-absolute start-50 translate-middle-x fs_sm'>
+            <p
+                style={{ backgroundColor: "hsla(0, 0%, 0%, 0.2)" }}
+                className='fw-semibold px-3 fs_sm text-light fw-lighter rounded-pill'
+            >{displayName}</p>
             {/* <p className='mx-3'>{camOn}</p>
             <p>{speakerOn}</p> */}
             {/* <button className="video_btns blue_bg me-2 border-0 mx-3">{speakerOn}</button>
