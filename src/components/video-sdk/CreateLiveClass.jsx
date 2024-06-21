@@ -34,8 +34,8 @@ function JoinScreen({ getMeetingAndToken }) {
                 }}
             />
             <div className="my-3">
-                <button className="btn blue_bg text-light" onClick={onClick}>Join</button>
-                {" or "}
+                {/* <button className="btn blue_bg text-light" onClick={onClick}>Join</button> */}
+                {/* {" or "} */}
                 {!studentRole && (
                 <button className="btn blue_bg text-light" onClick={onClick}>Create Meeting</button>
                 )}

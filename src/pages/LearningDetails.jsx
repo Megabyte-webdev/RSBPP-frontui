@@ -82,11 +82,11 @@ const LearningDetails = () => {
                     <h3 className="my-3">
                         {state.course.title}
                     </h3>
-                    <p>{state.course.description}</p>
+                    {/* <p>{state.course.description}</p> */}
                 </div>
                 <div className="d-flex justify-content-center">
-                    <div className="d-flex justify-content-between col-md-7 my-5 px-md-5">
-                        <div className="d-flex align-items-center">
+                    <div className="d-flex justify-content-center col-md-7 my-5 px-md-5">
+                        {/* <div className="d-flex align-items-center">
                             <span className="me-2">
                                 <MdOutlineVideoChat size={35} />
                             </span>
@@ -97,8 +97,10 @@ const LearningDetails = () => {
                                 <MdOutlineVideoChat size={35} />
                             </span>
                             <span>Live Classes</span>
-                        </div>
-                        <div className="d-flex align-items-center">
+                        </div> */}
+                        <div
+                        onClick={()=> navigate("/courses")}
+                         className="d-flex pointer align-items-center">
                             <span className="me-2">
                                 <MdOutlineVideoChat size={35} />
                             </span>

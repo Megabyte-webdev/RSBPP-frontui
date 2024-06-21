@@ -8,16 +8,53 @@ import DashboardWidget from "../components/dashboard/DashboardWidget";
 import { FaVideo } from "react-icons/fa6";
 import RoundChart from "../components/general/RoundChart";
 import BarChart from "../components/general/BarCharts";
+import { ResourceContext } from "../context/ResourceContext";
 
+const today = new Date();
 const FacultyDashboard = () => {
   const { setSideBg } = useContext(ThemeContext);
   const { userCredentials } = useContext(UserContext);
+  const {
+    getAllCourses,
+    setGetAllCourses,
+    getAllSchedules,
+    setGetAllSchedules, } = useContext(ResourceContext);
   const navigate = useNavigate()
-  //   console.log(userCredentials);
+  console.log(userCredentials);
 
   useEffect(() => {
-    setSideBg("white_sidebar");
-  }, []);
+    setGetAllCourses((prev) => {
+      return {
+        ...prev, isDataNeeded: true
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    setGetAllSchedules((prev) => {
+      return {
+        ...prev, isDataNeeded: true
+      }
+    })
+  }, [])
+
+  // console.log(getAllSchedules.data) 
+
+  const instructorSchedules = getAllSchedules.data?.filter((schedule => schedule.instructor_id === userCredentials.user.id))
+
+  // console.log(instructorSchedules)
+  const todaySchedules = instructorSchedules?.filter(classItem => {
+    // Assuming 'classItem' has a 'date' property for the class
+    const classDate = new Date(classItem.day);
+    // Compare year, month, and day to check if dates are the same
+    return (classDate.getFullYear() == today.getFullYear() &&
+      classDate.getMonth() == today.getMonth() &&
+      classDate.getDate() == today.getDate());
+  });
+
+  // const myClasses = todaySchedules?.filter((schedule) => getEnrolledCourses.data?.some((enrollCourse) => enrollCourse.courseId == schedule.course_id))
+
+  // console.log(myClasses);
 
   const strokeProps = {
     strokeCap: "round",
@@ -58,9 +95,9 @@ const FacultyDashboard = () => {
           <p className="fs_sm">Invite Participant</p>
         </Link>
       </Col> */}
-      <Row className="brown_border b-5 p-2 rounded-3">
+      <Row className="blue_border_color border b-5 p-2 rounded-3">
         <Col md={3} className="my-3 my-md-0">
-          <div onClick={()=> navigate("/meetings_history")} className="border-end py-3 hover_effect pointer d-md-flex justify-content-center">
+          <div onClick={() => navigate("/meetings_history")} className="border-end py-3 hover_effect pointer d-md-flex justify-content-center">
             <div className="d-flex align-items-center" >
               <div style={{ color: "#D1D0D0", marginRight: "1rem" }}>
                 <span>
@@ -130,7 +167,7 @@ const FacultyDashboard = () => {
                   <p className="fw-bold">see all</p>
                 </Link>
               </div>
-              <div className="d-flex align-items-center justify-content-center">
+              <div className="d-flex light_sky rounded mb-2 ps-1 hover_effect align-items-center justify-content-center">
                 <div className="light_sky rounded p-1 text-primary">
                   <span className="fw-bold">AA</span>
                 </div>
@@ -140,7 +177,7 @@ const FacultyDashboard = () => {
                 </div>
                 <p className="fs_xsm">10:25 am</p>
               </div>
-              <div className="d-flex align-items-center justify-content-center">
+              <div className="d-flex light_sky rounded mb-2 ps-1 hover_effect align-items-center justify-content-center">
                 <div className="light_sky rounded p-1 text-primary">
                   <span className="fw-bold">AA</span>
                 </div>
@@ -150,7 +187,7 @@ const FacultyDashboard = () => {
                 </div>
                 <p className="fs_xsm">10:25 am</p>
               </div>
-              <div className="d-flex align-items-center justify-content-center">
+              <div className="d-flex light_sky rounded mb-2 ps-1 hover_effect align-items-center justify-content-center">
                 <div className="light_sky rounded p-1 text-primary">
                   <span className="fw-bold">TA</span>
                 </div>
@@ -160,7 +197,7 @@ const FacultyDashboard = () => {
                 </div>
                 <p className="fs_xsm">10:25 am</p>
               </div>
-              <div className="d-flex align-items-center justify-content-center">
+              <div className="d-flex light_sky rounded mb-2 ps-1 hover_effect align-items-center justify-content-center">
                 <div className="light_sky rounded p-1 text-primary">
                   <span className="fw-bold">AA</span>
                 </div>
@@ -174,7 +211,7 @@ const FacultyDashboard = () => {
           </Col>
           <Col className="my-3 my-md-0" md={3}>
             <div className="shadow rounded h-100 p-2">
-              <p className="fw-bold">Class Progress</p>
+              <p className="fw-bold">Course Progress</p>
               <div className="light_sky hover_effect my-2 rounded p-1">
                 <div className="d-flex justify-content-between">
                   <div className="fs_xsm">
@@ -213,27 +250,32 @@ const FacultyDashboard = () => {
           <Col className="my-3 my-md-0" md={4}>
             <div className="shadow h-100 p-2">
               <div className="d-flex justify-content-between">
-                <p className="my-4">Upcoming Activities</p>
+                <p className="my-4">Upcoming Classes</p>
                 <Link className="d-flex nav-link text-primary align-items-center">
                   <p className="fw-bold">see all</p>
                 </Link>
               </div>
-              <div className="light_sky hover_effect my-2 rounded p-1">
-                <div className="d-flex align-items-center justify-content-center">
-                  <div className="rounded p-1 px-2 text-white" style={{ backgroundColor: "#0052B4" }}>
-                    <span className="fw-semibold">31</span>
-                  </div>
-                  <div className="px-2 fw-semibold">
-                    <p className="fs_sm">Meeting with the VC</p>
-                    <p className="fs_xsm"> <Link to={"https://zoom.us/"}>Meeting link//www.zoom.com Upcoming</Link> </p>
-                  </div>
-                  <div className="">
-                    <p className="fs_xsm">10:25 am</p>
-                    <p className="fs_xsm text-danger">Due soon</p>
+              {todaySchedules?.map((each) => (
+                <div key={each.id} className="light_sky hover_effect my-2 rounded p-1">
+                  <div className="d-flex align-items-center justify-content-center">
+                    <div className="rounded p-1 px-2 text-white" style={{ backgroundColor: "#0052B4" }}>
+                      <span className="fw-semibold">31</span>
+                    </div>
+                    <div className="px-2 fw-semibold">
+                      <p className="fs_sm">Meeting with :</p>
+                      <p className="fs_sm">{each.title}</p>
+                      <p className="fs_xsm text-info pointer text-decoration-underline"
+                        onClick={() => navigate("/video_live", { state: { list: each } })}
+                      >Meeting link//www.zoom.com Upcoming</p>
+                    </div>
+                    <div className="">
+                      <p className="fs_xsm">{each.start_time}</p>
+                      {/* <p className="fs_xsm text-danger">Due soon</p> */}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="light_sky hover_effect my-2 rounded p-1">
+              ))}
+              {/* <div className="light_sky hover_effect my-2 rounded p-1">
                 <div className="d-flex align-items-center justify-content-center">
                   <div className="rounded p-1 px-2 text-white" style={{ backgroundColor: "#0052B4" }}>
                     <span className="fw-bold">04</span>
@@ -262,7 +304,7 @@ const FacultyDashboard = () => {
                     <p className="fs_xsm text-danger">Due soon</p>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </Col>
         </Row>

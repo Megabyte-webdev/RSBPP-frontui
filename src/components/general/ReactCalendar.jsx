@@ -4,7 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 
 const ReactCalendar = () => {
   const [value, onChange] = useState(new Date());
-console.log(value)
+// console.log(value)
   return (
     <div>
       <div>

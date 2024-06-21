@@ -19,7 +19,7 @@ const CourseTimeTable = ({ themeProp, course, themeColor, schedule }) => {
                 </div>
                 <div>
                     <button 
-                  onClick={()=> navigate("/video_live", {state : {oneCourse : course, list : schedule}} )}
+                  onClick={()=> navigate("/video_live", {state : { list : schedule}} )}
                   className='bg-white btn hover_effect rounded-pill btn-sm px-4 py-0 prime_brown border_brown'>Join</button>
                 </div>
             </div>

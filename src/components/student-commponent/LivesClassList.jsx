@@ -5,7 +5,7 @@ const LivesClassList = ({ course }) => {
     const start = new Date(`${course.day}T${course.start_time}`);
     const end = new Date(`${course.day}T${course.end_time}`);
     return (
-        <div className="ps-2 class_list  mb-2">
+        <div className="ps-2 hover_effect class_list  mb-2">
             <div className="d-flex ps-2 mb-2" style={{ backgroundColor: "hsla(0, 0%, 85%, 1)" }}>
                 <div className="w-100 fs_sm d-flex align-items-center">
                     <p>{course?.title}</p>

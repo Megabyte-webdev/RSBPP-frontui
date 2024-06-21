@@ -48,7 +48,7 @@ const SideBarOptions = () => {
           <div
             onClick={() => setIsOpenOption("Dashboard")}
             className="ps-2 d-flex align-items-center hover_effect text-nowrap fw-semibold">
-            <span className="me-2 sidebar_icon rounded">
+            <span className={instructor ? "me-2 blue_bg rounded" : "me-2 sidebar_icon rounded"}>
               <img width={20} height={20} src={icon} alt="" />
             </span>
             <Link to={"/"} className="nav-link">
@@ -67,6 +67,7 @@ const SideBarOptions = () => {
       {instructor && facultyConstants.map((constant) => (
         <SidebarToggle
           key={constant.title}
+          instructor={instructor}
           isOpenOption={isOpenOption}
           constant={constant}
           handleSubOptionClick={handleSubOptionClick} />

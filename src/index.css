@@ -112,6 +112,10 @@ p {
   border: 1px solid #ab3335 !important;
 }
 
+.blue_border_color {
+  border-color: #03014c !important;
+}
+
 .class_list:nth-of-type(even) {
   background-color:  #ab3335 !important;
 }
@@ -122,6 +126,13 @@ p {
 
 .border_brown {
   border-left: 1px solid #ab3335 !important;
+}
+.outline_brown {
+  border: 1px solid #ab3335 !important;
+}
+
+.border_color_brown{
+  border-color: #ab3335 !important;
 }
 
 .bottom_brown {
@@ -228,7 +239,7 @@ input:focus-visible {
 .overflow_y {
   max-height: 400px;
   overflow-y: scroll;
-  scrollbar-width: thin;
+  scrollbar-width: none;
 }
 
 .video_card {

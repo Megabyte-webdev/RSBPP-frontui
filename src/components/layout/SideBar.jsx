@@ -24,7 +24,7 @@ const SideBar = ({ userCredentials }) => {
   // console.log(role === "instructor" ? "white_sidebar" : "brown_sidebar")
   return (
     <Col style={{ minHeight: "100vh" }}
-    className={role === "instructor" ? "white_sidebar border-end d-none d-md-block" : "brown_sidebar border-end d-none d-md-block"}
+    className={role === "instructor" ? "white_sidebar prime_blue border-end d-none d-md-block" : "brown_sidebar border-end d-none d-md-block"}
     md={2}>
       <div 
       // className={role === "instructor" ? "white_sidebar border-end d-none d-md-block" : "brown_sidebar border-end d-none d-md-block"}

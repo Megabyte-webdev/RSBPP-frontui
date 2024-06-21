@@ -58,7 +58,7 @@ const DashboardTwo = () => {
                     <Row>
                         <Col md={6} className=' my-4 dash_grid'>
                             <div className="shadow hover_effect h-100 p-0 rounded">
-                                <Link to={"/courses"} className='nav-link h-100'>
+                                <Link to={"/learning"} className='nav-link h-100'>
                                     <img src={dashVideo} alt="" className="img-fluid h-100 w-100" />
                                 </Link>
                             </div>
@@ -104,7 +104,7 @@ const DashboardTwo = () => {
                 <Col md={4}>
                     <h6 className='my-4'>Your Class Schedules</h6>
                     {getAllSchedules.data && (
-                        <div className='py-4'>
+                        <div className='py-4 overflow_y'>
                             {sortClasses?.map((course) => {
                                 return (
                                     <LivesClassList key={course.id} course={course} />

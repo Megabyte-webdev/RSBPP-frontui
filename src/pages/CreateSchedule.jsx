@@ -23,23 +23,23 @@ const CreateSchedule = () => {
                     <p className="fw-semibold">Schedule a class</p>
                     <p>Connect and sync your calendar events with Google Calendar</p>
                 </div>
-            </div> 
+            </div>
             <Row>
                 <Col md={9} className='mb-3'>
                     <CreateForm meetingCode={meetingCode} setMeetingCode={setMeetingCode} />
                 </Col>
-                <Col md={3} className='mb-3'>  
-                    <div className="" style={{ color: "#8A8A8A" }}>
-                        <div className='d-flex mb-3 text-primary justify-content-md-between'>
+                <Col md={3} className='mb-3'>
+                    <div className="h-100 d-flex align-items-end pb-5" style={{ color: "#8A8A8A" }}>
+                        {/* <div className='d-flex mb-3 text-primary justify-content-md-between'>
                             <div>
                                 <MdAddBox size={25} />
                             </div>
                             <p>Invite Other Participant</p>
-                        </div>
-                        <div className="mb-2">
+                        </div> */}
+                        {/* <div className="mb-2">
                             <button className='border rounded-pill w-100 btn bg-white'>Add Guest</button>
-                        </div>
-                        <div className="mt-3">
+                        </div> */}
+                        {/* <div className="mt-3">
                             <h5 className='text-dark'>Guest Permission</h5>
 
                             <div className="form-check">
@@ -60,8 +60,10 @@ const CreateSchedule = () => {
                                     See guest List
                                 </label>
                             </div>
+                        </div> */}
+                        <div className='mb-5 pb-5'>
+                            <CreateLiveClass meetingCode={meetingCode} setMeetingCode={setMeetingCode} />
                         </div>
-                        <CreateLiveClass meetingCode={meetingCode} setMeetingCode={setMeetingCode} />
                     </div>
                 </Col>
             </Row>
