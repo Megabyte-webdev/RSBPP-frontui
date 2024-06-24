@@ -47,7 +47,7 @@ function ParticipantView(props) {
     const micRef = useRef(null);
     const { webcamStream, micStream, webcamOn, micOn, isLocal, displayName } =
         useParticipant(props);
-    // console.log(props)
+    // console.log(props.participantId.displayName)
     const videoStream = useMemo(() => {
         if (webcamOn && webcamStream) {
             const mediaStream = new MediaStream();
@@ -61,7 +61,7 @@ function ParticipantView(props) {
             if (micOn && micStream) {
                 const mediaStream = new MediaStream();
                 mediaStream.addTrack(micStream.track);
-
+// console.log(props.participantsId)
                 micRef.current.srcObject = mediaStream;
                 micRef.current
                     .play()
@@ -169,10 +169,17 @@ function MeetingView(props) {
         );
     };
     // participants?.find((user) => user.value.displayName == firstName && role == "instructor")
-    console.log([participants.values()][0])
-    // const foundEntry = [...participants.entries().values].find(([key, user]) => user.value?.displayName == firstName);
-    // console.log(foundEntry)
-
+    const foundEntry = [...participants.values()]?.find((user) =>  user.displayName === firstName && role == "instructor")
+    // const foundEntry = [...participants.entries().values].find(([key, user]) => user.displayName == firstName);
+    // const foundEntry = [...participants.values()]?.find((user) =>  user.displayName === firstName && role == "instructor")
+    if (foundEntry) {
+        let index = [...participants.values()].indexOf(foundEntry);
+        [...participants.values()].splice(index, 1);
+        [...participants.values()].unshift(foundEntry);
+      }
+    console.log([...participants.values()])
+      
+// console.log(foundEntry)
     // if (foundEntry) {
     //     participants.set(foundEntry[0], foundEntry[1]);
     //     participants.delete(foundEntry[0]);
