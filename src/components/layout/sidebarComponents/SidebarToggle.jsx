@@ -3,6 +3,8 @@ import icon from "../../../assets/side-icons/activity (1) 1.png"
 import { IoChevronDownSharp, IoChevronUpSharp } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { FaLongArrowAltRight } from 'react-icons/fa';
+
 const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant, instructor }) => {
 
     const subOption = constant.subOptions;
@@ -42,8 +44,10 @@ const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant, instructo
                             {
                                 subOption?.map((sub, index) => (
                                     <li className='pointer hover_effect'
-                                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
-                                     key={index}><p onClick={()=> navigate(sub.link)} className="nav-link">{sub.title}</p></li>
+                                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
+                                        key={index}>
+                                        {/* <span><FaLongArrowAltRight /></span> */}
+                                        <p onClick={() => navigate(sub.link)} className="nav-link">{sub.title}</p></li>
                                 ))
                             }
                         </ul>

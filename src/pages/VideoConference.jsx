@@ -18,12 +18,13 @@ const VideoConference = () => {
     const day = new Date(state.list.day).toDateString()
 
     setSideBg("brown_sidebar")
-    return (
+    return ( 
         <div className='p-3 p-md-5 poppins min-vh-100' style={{ backgroundColor: "hsla(219, 50%, 95%, 1)" }}>
             <Row>
                 <Col md={7}>
                     <div className="my-3">
                         <h4>Live class</h4>
+                        <p className='fw-semibold'>{state.oneCourse?.title}</p>
                         <p>{day} | {state.list.start_time}</p>
                     </div>
                 </Col>

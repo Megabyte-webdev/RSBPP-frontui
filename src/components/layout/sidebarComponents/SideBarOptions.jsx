@@ -9,6 +9,7 @@ import { useContext, useState } from "react";
 import SidebarToggle from "./SidebarToggle";
 import { UserContext } from "../../../context/AuthContext"
 import toast from "react-hot-toast"
+import { FaLongArrowAltRight } from "react-icons/fa";
 
 const SideBarOptions = () => {
   const [isOpenOption, setIsOpenOption] = useState(null); // Track which subOption is open

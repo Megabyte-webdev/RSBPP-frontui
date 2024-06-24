@@ -46,8 +46,8 @@ function JoinScreen({ getMeetingAndToken }) {
 function ParticipantView(props) {
     const micRef = useRef(null);
     const { webcamStream, micStream, webcamOn, micOn, isLocal, displayName } =
-        useParticipant(props.participantId);
-
+        useParticipant(props);
+    // console.log(props)
     const videoStream = useMemo(() => {
         if (webcamOn && webcamStream) {
             const mediaStream = new MediaStream();
@@ -77,7 +77,7 @@ function ParticipantView(props) {
         <div className="participant position-relative" key={props.participantId}>
             {/* <Controls webcamOn={webcamOn} micOn={micOn} /> */}
             <audio ref={micRef} autoPlay muted={isLocal} />
-            <div className={ webcamOn ? "w-100 h-100" : ""}>
+            <div className={webcamOn ? "w-100 h-100" : ""}>
                 {webcamOn && (
                     <ReactPlayer
                         //
@@ -117,9 +117,11 @@ function Controls() {
 }
 
 function MeetingView(props) {
+    const { userCredentials } = useContext(UserContext)
     const [joined, setJoined] = useState(null);
     // const { join } = useMeeting();
-
+    const role = userCredentials.user?.role
+    const firstName = userCredentials.user?.first_name
     const { join, participants, startRecording, stopRecording } = useMeeting({
         onMeetingJoined: () => {
             setJoined("JOINED");
@@ -166,12 +168,23 @@ function MeetingView(props) {
             transcription
         );
     };
+    // participants?.find((user) => user.value.displayName == firstName && role == "instructor")
+    console.log([participants.values()][0])
+    // const foundEntry = [...participants.entries().values].find(([key, user]) => user.value?.displayName == firstName);
+    // console.log(foundEntry)
+
+    // if (foundEntry) {
+    //     participants.set(foundEntry[0], foundEntry[1]);
+    //     participants.delete(foundEntry[0]);
+    //     participants.set(foundEntry[0], foundEntry[1]);
+    // } 
+    // console.log([...participants.keys()])
+
 
     const handleStopRecording = () => {
         // Stop Recording
         stopRecording();
     };
-
     return (
         <div className="container">
             <h3>Meeting Id: {props.meetingId}</h3>
@@ -212,7 +225,7 @@ function VideoApp({ state }) {
             id == null ? await createMeeting({ token: authToken }) : id;
         setMeetingId(meetingId);
     };
-    console.log(meetingId)
+    // console.log(meetingId)
     const onMeetingLeave = () => {
         setMeetingId(null);
     };
@@ -226,6 +239,7 @@ function VideoApp({ state }) {
                 chatEnabled: true,
                 raiseHandEnabled: true,
                 name: userCredentials.user.first_name,
+                role: userCredentials.user.first_name,
             }}
             token={authToken}
         >

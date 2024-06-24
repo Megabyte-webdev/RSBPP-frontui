@@ -109,7 +109,7 @@ const LearningDetails = () => {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center">
-                    <button onClick={() => addToCart()} className='btn blue_bg text-white py-2 px-5 rounded-0'> {hasItem ? "proceed to cart" : " Enroll Now"} - ${state.course.price}</button>
+                    <button onClick={() => addToCart()} className='btn hover_effect blue_bg text-white py-2 px-5 rounded-0'> {hasItem ? "proceed to cart" : " Enroll Now"} - ${state.course.price}</button>
                 </div>
             </div>
             <div className="p-3 border-bottom">
@@ -300,7 +300,7 @@ const LearningDetails = () => {
                     </Row>
                 </div>
                 <button
-                    onClick={() => navigate("/learning")}
+                    onClick={() => navigate(userCredentials.user.role === "instructor" ? "/instructor_courses" : "/learning")}
                     className='btn inherit_bg btn-sm btn-outline-danger position-fixed end-0 top-50'>Back</button>
             </div>
         </div>

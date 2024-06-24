@@ -452,6 +452,10 @@ input[type="radio"].red_radio {
   grid-gap: 10px;
 }
 
+.full_width {
+  grid-column: span 3; /* Spans all three columns */
+}
+
 .participant {
   background-color: #fff;
   padding: 10px;

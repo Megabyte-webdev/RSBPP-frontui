@@ -90,7 +90,7 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
   //     });
   // };
   // console.log(instructorDetails)
- 
+
   const deleteFunc = async () => {
     setGetAllCourses((prev) => {
       return {
@@ -128,7 +128,7 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
   }
   return (
     <div className='rounded hover_effect bg-white mb-3 h-100 d-flex flex-column justify-content-between'>
-      <div onClick={() => navigate(`/learning/${course.title}`, { state: { course: course, instructorDetails : instructorDetails  } })} className='nav-link pointer'>
+      <div onClick={() => navigate(`/learning/${course.title}`, { state: { course: course, instructorDetails: instructorDetails } })} className='nav-link pointer'>
         <div>
           <img src={featurePics} alt="" className="img-fluid w-100" />
         </div>
@@ -162,6 +162,9 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
             className='btn w-100 btn-danger'>Add to Cart <span><BiSolidCart /></span></button>
         </div>
         {adminAndInstructor && (<div className='px-1'>
+          <button
+            onClick={() => navigate(`/instructor_courses/${course.id}`, { state: { course: course } })}
+            className='btn w-100 mb-2 blue_bg text-white'>Edit Course</button>
           <button
             onClick={() => deleteFunc()}
             className='btn w-100 btn-secondary'>Delete Course</button>

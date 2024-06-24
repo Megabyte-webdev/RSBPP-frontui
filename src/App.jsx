@@ -44,6 +44,7 @@ import FacultyAddCourse from './components/instructor/FacultyAddCourse'
 import AddInstructor from './components/stats/AddInstructor'
 import InstructorCourses from './pages/InstructorCourses'
 import ComingSoon from './pages/ComingSoon'
+import FacultyEditCourse from './components/instructor/FacultyEditCourse'
 const LazyMeeting = lazy(() => import('./pages/MeetingHistory'));
 
 const App = () => {
@@ -83,6 +84,7 @@ const App = () => {
                     <Route path='/profile_form' element={<UpdateProfile />} />
                     <Route path='/faculty_add_course' element={<FacultyAddCourse />} />
                     <Route path='/instructor_courses' element={<InstructorCourses />} />
+                    <Route path='/instructor_courses/:id' element={<FacultyEditCourse />} />
                   </>
                 )
               }

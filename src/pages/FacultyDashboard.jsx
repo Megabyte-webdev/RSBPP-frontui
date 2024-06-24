@@ -275,6 +275,7 @@ const FacultyDashboard = () => {
                   </div>
                 </div>
               ))}
+              {todaySchedules?.length < 1 && <p className="text-center fs-5">No live class today</p>}
               {/* <div className="light_sky hover_effect my-2 rounded p-1">
                 <div className="d-flex align-items-center justify-content-center">
                   <div className="rounded p-1 px-2 text-white" style={{ backgroundColor: "#0052B4" }}>

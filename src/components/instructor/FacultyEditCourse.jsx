@@ -7,10 +7,11 @@ import { BASE_URL } from '../utils/base'
 import { Spinner } from 'react-bootstrap'
 import { editorFormats, editorModules } from '../utils/textEditor'
 import ReactQuill from 'react-quill'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
-const FacultyAddCourse = () => {
+const FacultyEditCourse = () => {
     const navigate = useNavigate()
+    const { state } = useLocation()
     const { getAllFaculty,
         setGetAllFaculty,
         getAllCourses,
@@ -20,20 +21,24 @@ const FacultyAddCourse = () => {
     const [loading, setLoading] = useState(false)
     const [errorMsg, setErrorMsg] = useState(null)
     const [showMsg, setShowMsg] = useState("")
+
+    const prev = state.course
+
     const [details, setDetails] = useState({
-        title: "",
+        course_id: prev.id,
+        title: prev.title,
         created_by_id: userCredentials.user?.id,
-        code: "",
-        description: "",
-        objective: "",
-        outlines: "",
-        duration: "",
-        course_type: "",
-        program: "",
-        faculty_id: "",
-        price: "",
-        participate: "",
-        curriculum: "",
+        code: prev.code,
+        description: prev.description,
+        objective: prev.objective,
+        outlines: prev.outlines,
+        duration: prev.duration,
+        course_type: prev.course_type,
+        program: prev.program,
+        faculty_id: prev.faculty_id,
+        price: prev.price,
+        participate: prev.participate,
+        curriculum: prev.curriculum,
     })
     useEffect(() => {
         setGetAllCourses((prev) => {
@@ -104,7 +109,7 @@ const FacultyAddCourse = () => {
         setErrorMsg("");
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmitUpdate = (e) => {
         e.preventDefault();
         setErrorMsg("")
         setLoading(true);
@@ -113,7 +118,7 @@ const FacultyAddCourse = () => {
                 ...prev, isDataNeeded: false
             }
         })
-        axios.post(`${BASE_URL}course/addCourse`, details, {
+        axios.post(`${BASE_URL}course/updateCourse`, details, {
             headers: {
                 Authorization: `Bearer ${userCredentials.token}`,
             },
@@ -126,7 +131,7 @@ const FacultyAddCourse = () => {
                 })
                 resetStates()
                 setLoading(false)
-                toast.success("successful");
+                toast.success("successful update");
                 navigate("/instructor_courses")
             })
             .catch((error) => {
@@ -172,13 +177,13 @@ const FacultyAddCourse = () => {
                 } else {
                     console.log(error)
                     setErrorMsg(error.message)
-                    setShowMsg(true)
+                    setShowMsg(true) 
                     setLoading(false);
                 }
             });
     }
     // const allInstructors = getAllUsers.data?.filter((user) => user.role === "instructor")
-    // console.log(errorMsg)
+    console.log(details)
 
     return (
         <div
@@ -186,8 +191,8 @@ const FacultyAddCourse = () => {
             style={{ backgroundColor: "hsla(0, 0%, 85%, .1)" }}
         >
             <div className='p-3 bg-white shadow rounded py-5'>
-            <h4 className='mb-3'>Add Course</h4>
-                <form onSubmit={handleSubmit}>
+                <h4 className='mb-3'>Edit Course</h4>
+                <form onSubmit={handleSubmitUpdate}>
                     <div className="row">
 
                         <div className="mb-3 col-md-6">
@@ -335,4 +340,4 @@ const FacultyAddCourse = () => {
     )
 }
 
-export default FacultyAddCourse
+export default FacultyEditCourse
