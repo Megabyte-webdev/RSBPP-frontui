@@ -452,9 +452,13 @@ input[type="radio"].red_radio {
   grid-gap: 10px;
 }
 
-.full_width {
-  grid-column: span 3; /* Spans all three columns */
+.full_width:nth-child(1){
+  grid-column: span 3 !important; /* Spans all three columns */
 }
+
+/* .full_width {
+  grid-column: span 3; 
+} */
 
 .participant {
   background-color: #fff;

@@ -74,7 +74,7 @@ function ParticipantView(props) {
         }
     }, [micStream, micOn]);
     return (
-        <div className="participant position-relative" key={props.participantId}>
+        <div className="participant position-relative full_width" key={props.participantId}>
             {/* <Controls webcamOn={webcamOn} micOn={micOn} /> */}
             <audio ref={micRef} autoPlay muted={isLocal} />
             <div className={webcamOn ? "w-100 h-100" : ""}>
@@ -177,7 +177,7 @@ function MeetingView(props) {
         [...participants.values()].splice(index, 1);
         [...participants.values()].unshift(foundEntry);
       }
-    console.log([...participants.values()])
+    // console.log([...participants.values()])
       
 // console.log(foundEntry)
     // if (foundEntry) {
