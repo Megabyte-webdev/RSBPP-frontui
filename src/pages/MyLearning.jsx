@@ -10,6 +10,7 @@ import Loading from '../components/loader/Loading'
 const MyLearning = () => {
     const { userCredentials, } = useContext(UserContext);
     const [filterCourse, setFilterCourse] = useState("")
+    const [filterText, setFilterText] = useState()
 
     const { getAllFaculty,
         setGetAllFaculty,
@@ -58,12 +59,13 @@ const MyLearning = () => {
         })
     }, [])
 
-    const setCoursesFunc = (item) => setFilterCourse(item)
+    const setCoursesFunc = (item, obj) =>{
+        setFilterCourse(item)
+        setFilterText(obj)
+    }
  
 // const newCourses = getAllCourses.data?.filter(item => filterCourse?.includes(item.id))
 const newCourses = filterCourse === '' ? getAllCourses?.data : getAllCourses.data?.filter(obj => obj.faculty_id === filterCourse);
-
-    console.log(newCourses)
 
     const offLineCourse = newCourses?.filter((course) => course.course_type === "offline")
     const onLineCourse = newCourses?.filter((course) => course.course_type === "online")
@@ -79,7 +81,7 @@ const newCourses = filterCourse === '' ? getAllCourses?.data : getAllCourses.dat
                         <div className="col">
                             <div className="dropdown">
                                 <button className="btn border-black border w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                   {!filterCourse &&('Faculty')} {filterCourse}
+                                   {!filterCourse &&('Faculty')} {filterText?.title}
                                 </button>
                                 <ul className="dropdown-menu px-2">
                                     <li
@@ -87,7 +89,7 @@ const newCourses = filterCourse === '' ? getAllCourses?.data : getAllCourses.dat
                                         className='pointer'>Faculty</li>
                                     {getAllFaculty.data?.map((title) => (
                                         <li key={title.id}
-                                            onClick={() => setCoursesFunc(title.id)}
+                                            onClick={() => setCoursesFunc(title.id, title)}
                                             className='pointer'>{title.title}</li>
                                     ))}
                                 </ul>
