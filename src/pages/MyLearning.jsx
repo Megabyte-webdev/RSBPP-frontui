@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { FiSearch } from 'react-icons/fi'
 import LearningCourse from '../components/Learning/LearningCourse'
@@ -9,6 +9,7 @@ import Loading from '../components/loader/Loading'
 
 const MyLearning = () => {
     const { userCredentials, } = useContext(UserContext);
+    const [filterCourse, setFilterCourse] = useState("")
 
     const { getAllFaculty,
         setGetAllFaculty,
@@ -42,8 +43,6 @@ const MyLearning = () => {
         })
     }, [])
 
-    console.log(getAllInstructors.data)
-
     useEffect(() => {
         setGetAllFaculty((prev) => {
             return {
@@ -51,8 +50,23 @@ const MyLearning = () => {
             }
         })
     }, [])
-    const offLineCourse = getAllCourses.data?.filter((course) => course.course_type === "offline")
-    const onLineCourse = getAllCourses.data?.filter((course) => course.course_type === "online")
+    useEffect(() => {
+        setGetAllFaculty((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+
+    const setCoursesFunc = (item) => setFilterCourse(item)
+ 
+// const newCourses = getAllCourses.data?.filter(item => filterCourse?.includes(item.id))
+const newCourses = filterCourse === '' ? getAllCourses?.data : getAllCourses.data?.filter(obj => obj.faculty_id === filterCourse);
+
+    console.log(newCourses)
+
+    const offLineCourse = newCourses?.filter((course) => course.course_type === "offline")
+    const onLineCourse = newCourses?.filter((course) => course.course_type === "online")
 
     return (
         <div className='p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
@@ -65,12 +79,17 @@ const MyLearning = () => {
                         <div className="col">
                             <div className="dropdown">
                                 <button className="btn border-black border w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Faculty
+                                   {!filterCourse &&('Faculty')} {filterCourse}
                                 </button>
-                                <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="#">Action</a></li>
-                                    <li><a className="dropdown-item" href="#">Another action</a></li>
-                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
+                                <ul className="dropdown-menu px-2">
+                                    <li
+                                        onClick={() => setCoursesFunc("")}
+                                        className='pointer'>Faculty</li>
+                                    {getAllFaculty.data?.map((title) => (
+                                        <li key={title.id}
+                                            onClick={() => setCoursesFunc(title.id)}
+                                            className='pointer'>{title.title}</li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>

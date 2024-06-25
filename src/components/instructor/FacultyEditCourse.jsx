@@ -25,7 +25,7 @@ const FacultyEditCourse = () => {
     const prev = state.course
 
     const [details, setDetails] = useState({
-        course_id: prev.id,
+        // course_id: prev.id,
         title: prev.title,
         created_by_id: userCredentials.user?.id,
         code: prev.code,
@@ -118,7 +118,7 @@ const FacultyEditCourse = () => {
                 ...prev, isDataNeeded: false
             }
         })
-        axios.post(`${BASE_URL}course/updateCourse`, details, {
+        axios.post(`${BASE_URL}course/updateCourse/${prev.id}`, details, {
             headers: {
                 Authorization: `Bearer ${userCredentials.token}`,
             },
