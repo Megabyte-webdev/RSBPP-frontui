@@ -4,13 +4,14 @@ import createIcon from "../assets/add-schedule.svg"
 import { MdAddBox } from "react-icons/md";
 import { UserContext } from '../context/AuthContext'
 import UpdateForm from '../components/instructor/UpdateForm';
+import { CiCircleCheck } from "react-icons/ci";
 
 const UpdateProfile = () => {
 
     const { userCredentials } = useContext(UserContext)
-const [profileCV, setProfileCV ] = useState()
+    const [profileCV, setProfileCV] = useState()
 
-console.log(profileCV)
+    console.log(profileCV)
 
     return (
         <div
@@ -28,10 +29,10 @@ console.log(profileCV)
             </div>
             <Row>
                 <Col md={9} className='mb-3'>
-                    <UpdateForm setProfileCV={setProfileCV} />
+                    <UpdateForm setProfileCV={setProfileCV} profileCV={profileCV} />
                 </Col>
                 <Col md={3} className='mb-3'>
-                    <div className="" style={{ color: "#8A8A8A" }}>
+                    {/* <div className="" style={{ color: "#8A8A8A" }}>
                         <div className='d-flex mb-3 text-primary justify-content-m-between'>
                             <div>
                                 <MdAddBox size={25} />
@@ -39,7 +40,11 @@ console.log(profileCV)
                             <p className='ms-2'>Require Document</p>
                         </div>
                         <div className="mb-2">
-                            <label htmlFor="cv" style={{ backgroundColor : profileCV ? "green" : "white" }} className='border rounded-3 w-100 btn bg-white text-secondary'>C.V</label>
+                            <label htmlFor="cv" className='border rounded-3 w-100 bg-white btn text-secondary'>
+                                {profileCV ? profileCV.name : "C.V"}  <span className='text-success'>
+                                    {profileCV && <CiCircleCheck size={25} />}
+                                </span>
+                            </label>
                         </div>
                         <div className="mb-2">
                             <button className='border rounded-3 w-100 btn bg-white text-secondary'>Other related documents</button>
@@ -47,29 +52,7 @@ console.log(profileCV)
                         <div className="mb-2">
                             <button className='border rounded-3 w-100 btn bg-white text-secondary'>Aggrements</button>
                         </div>
-                        {/* <div className="mt-3">
-                            <h5 className='text-dark'>Guest Permission</h5>
-
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="" id="modify" />
-                                <label className="form-check-label" htmlFor="modify">
-                                    Modify Events
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="" id="invites" />
-                                <label className="form-check-label" htmlFor="invites">
-                                    Invite others
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="" id="guest" />
-                                <label className="form-check-label" htmlFor="guest">
-                                    See guest List
-                                </label>
-                            </div>
-                        </div> */}
-                    </div>
+                    </div> */}
                 </Col>
             </Row>
         </div>

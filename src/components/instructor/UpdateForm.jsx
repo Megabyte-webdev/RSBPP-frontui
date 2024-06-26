@@ -5,8 +5,9 @@ import { UserContext } from '../../context/AuthContext'
 import { ResourceContext } from '../../context/ResourceContext'
 import { BASE_URL } from '../utils/base'
 import { Spinner } from 'react-bootstrap'
+import { CiCircleCheck } from 'react-icons/ci'
 
-const UpdateForm = ({setProfileCV}) => {
+const UpdateForm = ({ setProfileCV, profileCV }) => {
     const { userCredentials } = useContext(UserContext)
     const {
         getAllCourses,
@@ -42,7 +43,7 @@ const UpdateForm = ({setProfileCV}) => {
         research_interest: "",
         publication: "",
         position: user?.position,
-        cv : "",
+        cv: null,
         bio: "",
         institution: "",
         password: "",
@@ -78,17 +79,28 @@ const UpdateForm = ({setProfileCV}) => {
         setDetails((prev) => {
             return {
                 ...prev,
-                [name]: type === "checkbox" ? checked : type === "file" ? files[0] : value
+                [name]: type === "checkbox" ? checked : type === "file" ? files[0] : value,
                 // [name]: name === 'cv' ? files[0] : value,
             };
         });
         if (name === "cv") {
-            setProfileCV(details.cv)
+            setProfileCV(files[0])
         }
         setErrorMsg(null);
     };
 
-    const handleCV = ()=> setProfileCV(details.cv)
+    const getImageURL = (e) => {
+        const { name } = e.target;
+        const file = e.target.files[0]; //filelist is an object carrying all details of file, .files[0] collects the value from key 0 (not array), and stores it in file
+
+        // if (file && (file.type === 'docx' || file.type === 'pdf')) {
+        setDetails({ ...details, [name]: file });
+        // } else {
+        //   // Handle invalid file type
+        //   alert('Please select a valid Doc or Pdf file.');
+        // }
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrorMsg(null)
@@ -101,6 +113,7 @@ const UpdateForm = ({setProfileCV}) => {
         axios.post(`${BASE_URL}instructor/add`, details, {
             headers: {
                 Authorization: `Bearer ${userCredentials.token}`,
+                'Content-Type': 'multipart/form-data',
             },
         })
             .then((response) => {
@@ -115,24 +128,25 @@ const UpdateForm = ({setProfileCV}) => {
                 toast.success("successful");
             })
             .catch((error) => {
+                console.log(error)
                 // console.log(error.response.data.message)
                 // setErrorMsg(error.response.data.message)
                 if (error.response) {
-                    console.log(error.response)
-                    setErrorMsg(error.response.data.message)
-                    // if (error.response.data.message.course_id) {
-                    //     setErrorMsg(error.response.data.message.course_id)
+                    // console.log(error.response)
+                    // setErrorMsg(error.response.data.message)
+                    if (error.response.data.message.email) {
+                        setErrorMsg(error.response.data.message.email)
                     // } else if (error.response.data.message.instructor_id) {
                     //     setErrorMsg(error.response.data.message.instructor_id)
                     // } else if (error.response.data.message.start_time) {
                     //     setErrorMsg(error.response.data.message.start_time)
-                    // } else {
-                    //     setErrorMsg(error.response.data.message.end_time_time)
-                    // }
+                    } else {
+                        setErrorMsg(error.response.data.message.data.error)
+                    }
                     setShowMsg(true)
                     setLoading(false);
                 } else {
-                    console.log(error.message)
+                    console.log(error)
                     setErrorMsg(error.message)
                     setShowMsg(true)
                     setLoading(false);
@@ -240,42 +254,42 @@ const UpdateForm = ({setProfileCV}) => {
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="date" onChange={handleOnChange} value={details.date_of_birth} name='date_of_birth' placeholder='Date of Birth *' className="form-control border-0 input_bg" id="dateAndTime" />
+                                    <input type="date" onChange={handleOnChange} value={details.date_of_birth} name='date_of_birth' placeholder='Date of Birth *' className="form-control border-0 input_bg" id="dateAndTime" required />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="text" onChange={handleOnChange} value={details.contact_number} name='contact_number' placeholder='Contact Number' className="form-control border-0 input_bg" id="dateAndTime" />
+                                    <input type="text" onChange={handleOnChange} value={details.contact_number} name='contact_number' placeholder='Contact Number' className="form-control border-0 input_bg" required />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="text " onChange={handleOnChange} value={details.country} name='country' placeholder='Country' className="form-control border-0 input_bg" id="dateAndTime" />
+                                    <input type="text " onChange={handleOnChange} value={details.country} name='country' placeholder='Country' className="form-control border-0 input_bg" id="dateAndTime" required />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="text " onChange={handleOnChange} value={details.state} name='state' placeholder='State' className="form-control border-0 input_bg" id="dateAndTime" />
+                                    <input type="text " onChange={handleOnChange} value={details.state} name='state' placeholder='State' className="form-control border-0 input_bg" id="dateAndTime" required />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="text " onChange={handleOnChange} value={details.contact_address} name='contact_address' placeholder='Address' className="form-control border-0 input_bg" id="dateAndTime" />
+                                    <input type="text " onChange={handleOnChange} value={details.contact_address} name='contact_address' placeholder='Address' className="form-control border-0 input_bg" required />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="text " onChange={handleOnChange} value={details.password} name='password' placeholder='Password *' required className="form-control border-0 input_bg" id="dateAndTime" />
+                                    <input type="text " onChange={handleOnChange} value={details.password} name='password' placeholder='Password *' required className="form-control border-0 input_bg"/>
                                 </div>
                             </div>
                         </div>
@@ -315,42 +329,53 @@ const UpdateForm = ({setProfileCV}) => {
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="text" onChange={handleOnChange} value={details.institution} name='institution' placeholder='University/Institution' className="form-control border-0 input_bg" id="dateAndTime" />
+                                    <input type="text" onChange={handleOnChange} value={details.institution} name='institution' placeholder='University/Institution' className="form-control border-0 input_bg" required/>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="text" onChange={handleOnChange} value={details.year_of_graduation} name='year_of_graduation' placeholder='Year of Graduation' className="form-control border-0 input_bg" id="dateAndTime" />
+                                    <input type="text" onChange={handleOnChange} value={details.year_of_graduation} name='year_of_graduation' placeholder='Year of Graduation' className="form-control border-0 input_bg" required />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="text" onChange={handleOnChange} value={details.course_taught} name='course_taught' placeholder='Courses Taught' className="form-control border-0 input_bg" id="dateAndTime" />
+                                    <input type="text" onChange={handleOnChange} value={details.course_taught} name='course_taught' placeholder='Courses Taught' className="form-control border-0 input_bg" required />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="text" onChange={handleOnChange} value={details.research_interest} name='research_interest' placeholder='Research Interest' className="form-control border-0 input_bg" id="dateAndTime" />
+                                    <input type="text" onChange={handleOnChange} value={details.research_interest} name='research_interest' placeholder='Research Interest' className="form-control border-0 input_bg" required />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="text" onChange={handleOnChange} value={details.publication} name='publication' placeholder='Publications' className="form-control border-0 input_bg" id="dateAndTime" />
+                                    <input type="text" onChange={handleOnChange} value={details.publication} name='publication' placeholder='Publications' className="form-control border-0 input_bg" required/>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
-                            <div className="mb-3 row">
-                                <div className="">
-                                    <input type="file" onChange={handleOnChange} name='cv' placeholder='Publications' className="form-control border-0 input_bg" id="cv" />
+                            <div className="mb-3">
+                        <label htmlFor="cv" className='border rounded-3 w-100 bg-white btn text-secondary'>
+                                {profileCV ? profileCV.name : "C.V"}  <span className='text-success'>
+                                    {profileCV && <CiCircleCheck size={25} />}
+                                </span>
+                            </label>
+                                <div className=" d-none">
+                                    <input
+                                        required type="file"
+                                        onChange={handleOnChange}
+                                        name='cv'
+                                        accept='.pdf, .doc, .docx'
+                                        placeholder='cv'
+                                        className="form-control border-0 input_bg" id="cv" />
                                 </div>
                             </div>
                         </div>
