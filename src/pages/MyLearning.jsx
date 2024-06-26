@@ -59,13 +59,13 @@ const MyLearning = () => {
         })
     }, [])
 
-    const setCoursesFunc = (item, obj) =>{
+    const setCoursesFunc = (item, obj) => {
         setFilterCourse(item)
         setFilterText(obj)
     }
- 
-// const newCourses = getAllCourses.data?.filter(item => filterCourse?.includes(item.id))
-const newCourses = filterCourse === '' ? getAllCourses?.data : getAllCourses.data?.filter(obj => obj.faculty_id === filterCourse);
+
+    // const newCourses = getAllCourses.data?.filter(item => filterCourse?.includes(item.id))
+    const newCourses = filterCourse === '' ? getAllCourses?.data : getAllCourses.data?.filter(obj => obj.faculty_id === filterCourse);
 
     const offLineCourse = newCourses?.filter((course) => course.course_type === "offline")
     const onLineCourse = newCourses?.filter((course) => course.course_type === "online")
@@ -78,10 +78,10 @@ const newCourses = filterCourse === '' ? getAllCourses?.data : getAllCourses.dat
                 <p className="fw-bold mb-2">Onsite</p>
                 <div className="d-md-flex">
                     <div className="row col-md-7">
-                        <div className="col">
+                        <div className="col"> 
                             <div className="dropdown">
                                 <button className="btn border-black border w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                   {!filterCourse &&('Faculty')} {filterText?.title}
+                                    {!filterCourse && ('Faculty')} {filterText?.title}
                                 </button>
                                 <ul className="dropdown-menu px-2">
                                     <li

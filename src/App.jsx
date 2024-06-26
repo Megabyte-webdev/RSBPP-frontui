@@ -45,6 +45,7 @@ import AddInstructor from './components/stats/AddInstructor'
 import InstructorCourses from './pages/InstructorCourses'
 import ComingSoon from './pages/ComingSoon'
 import FacultyEditCourse from './components/instructor/FacultyEditCourse'
+import MyClassSchedules from './pages/MyClassSchedules'
 const LazyMeeting = lazy(() => import('./pages/MeetingHistory'));
 
 const App = () => {
@@ -70,6 +71,7 @@ const App = () => {
               <Route path='/quiz' element={<QuizPage />} />
               <Route path='/messages' element={<Messages />} />
               <Route path='/time_table' element={<ClassSchedules />} />
+              <Route path='/my_liveclasses' element={<MyClassSchedules />} />
               <Route path='/test' element={<CustomPagination />} />
               <Route path='/soon' element={<ComingSoon />} />
               {

@@ -18,7 +18,7 @@ const SideBar = ({ userCredentials }) => {
       }
     })
   }, [])
-
+ 
   useEffect(() => {
     setGetAllCourses((prev) => {
       return {

@@ -6,7 +6,7 @@ import { ResourceContext } from '../../context/ResourceContext'
 import { BASE_URL } from '../utils/base'
 import { Spinner } from 'react-bootstrap'
 
-const UpdateForm = () => {
+const UpdateForm = ({setProfileCV}) => {
     const { userCredentials } = useContext(UserContext)
     const {
         getAllCourses,
@@ -42,6 +42,7 @@ const UpdateForm = () => {
         research_interest: "",
         publication: "",
         position: user?.position,
+        cv : "",
         bio: "",
         institution: "",
         password: "",
@@ -73,16 +74,21 @@ const UpdateForm = () => {
     }, [])
     // console.log(getAllFaculty.data)
     const handleOnChange = (e) => {
-        const { value, name, type, checked } = e.target
+        const { value, name, files, type, checked } = e.target
         setDetails((prev) => {
             return {
                 ...prev,
-                [name]: type === "checkbox" ? checked : value
+                [name]: type === "checkbox" ? checked : type === "file" ? files[0] : value
+                // [name]: name === 'cv' ? files[0] : value,
             };
         });
+        if (name === "cv") {
+            setProfileCV(details.cv)
+        }
         setErrorMsg(null);
     };
 
+    const handleCV = ()=> setProfileCV(details.cv)
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrorMsg(null)
@@ -338,6 +344,13 @@ const UpdateForm = () => {
                             <div className="mb-3 row">
                                 <div className="">
                                     <input type="text" onChange={handleOnChange} value={details.publication} name='publication' placeholder='Publications' className="form-control border-0 input_bg" id="dateAndTime" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="mb-3 row">
+                                <div className="">
+                                    <input type="file" onChange={handleOnChange} name='cv' placeholder='Publications' className="form-control border-0 input_bg" id="cv" />
                                 </div>
                             </div>
                         </div>
