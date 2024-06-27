@@ -74,7 +74,7 @@ function ParticipantView(props) {
         }
     }, [micStream, micOn]);
     return (
-        <div className="participant position-relative full_width" key={props.participantId}>
+        <div className={props.foundEntry ? "participant position-relative full_width" : "participant position-relative"} key={props.participantId}>
             {/* <Controls webcamOn={webcamOn} micOn={micOn} /> */}
             <audio ref={micRef} autoPlay muted={isLocal} />
             <div className={webcamOn ? "w-100 h-100" : ""}>
@@ -168,25 +168,24 @@ function MeetingView(props) {
             transcription
         );
     };
-    // participants?.find((user) => user.value.displayName == firstName && role == "instructor")
-    const foundEntry = [...participants.values()]?.find((user) =>  user.displayName === firstName && role == "instructor")
-    // const foundEntry = [...participants.entries().values].find(([key, user]) => user.displayName == firstName);
-    // const foundEntry = [...participants.values()]?.find((user) =>  user.displayName === firstName && role == "instructor")
-    if (foundEntry) {
-        let index = [...participants.values()].indexOf(foundEntry);
-        [...participants.values()].splice(index, 1);
-        [...participants.values()].unshift(foundEntry);
-      }
-    // console.log([...participants.values()])
-
-    // console.log(foundEntry)
-    // if (foundEntry) {
-    //     participants.set(foundEntry[0], foundEntry[1]);
-    //     participants.delete(foundEntry[0]);
-    //     participants.set(foundEntry[0], foundEntry[1]);
-    // } 
-    // console.log([...participants.keys()])
-
+     // participants?.find((user) => user.value.displayName == firstName && role == "instructor")
+    //  const foundEntry = [...participants.values()]?.find((user) =>  user.displayName === firstName && role == "instructor")
+     const foundEntry = [...participants.entries()].find(([key, user]) => user.displayName === firstName);
+     // const foundEntry = [...participants.values()]?.find((user) =>  user.displayName === firstName && role == "instructor")
+    //  if (foundEntry) {
+    //      let index = [...participants.values()].indexOf(foundEntry);
+    //      [...participants.values()].splice(index, 1);
+    //      [...participants.values()].unshift(foundEntry);
+    //    }
+     // console.log([...participants.values()])
+ 
+     console.log(foundEntry)
+     if (foundEntry) {
+         participants.set(foundEntry[0], foundEntry[1]);
+         participants.delete(foundEntry[0]);
+         participants.set(foundEntry[0], foundEntry[1]);
+     } 
+     console.log([...participants.values()])
 
     const handleStopRecording = () => {
         // Stop Recording
@@ -202,6 +201,7 @@ function MeetingView(props) {
                         <div className="grid_container">
                             {[...participants.keys()].map((participantId) => (
                                 <ParticipantView
+                                    foundEntry={foundEntry}
                                     participantId={participantId}
                                     key={participantId}
                                 />
@@ -225,8 +225,7 @@ function VideoApp({ state }) {
     const { userCredentials } = useContext(UserContext)
     const [meetingId, setMeetingId] = useState(state.list.meeting_code);
     console.log(state)
-    // console.log(new Date(state.list.day).toDateString())
-    // const day = new Date(state.list.day).toDateString()
+    
     const getMeetingAndToken = async (id) => {
         const meetingId =
             id == null ? await createMeeting({ token: authToken }) : id;
