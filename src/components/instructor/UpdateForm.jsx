@@ -183,7 +183,7 @@ const UpdateForm = ({ setProfileCV, profileCV }) => {
     //     })
     // }
     const userFaculty = getAllFaculty.data?.find((faculty) => faculty.id == user?.faculty_id)
-    console.log(details)
+    // console.log(details)
 
     return (
         <div className='p-3 py-5'>

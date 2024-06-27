@@ -46,7 +46,7 @@ function JoinScreen({ getMeetingAndToken }) {
 function ParticipantView(props) {
     const micRef = useRef(null);
     const { webcamStream, micStream, webcamOn, micOn, isLocal, displayName } =
-        useParticipant(props);
+        useParticipant(props.participantId);
     // console.log(props.participantId.displayName)
     const videoStream = useMemo(() => {
         if (webcamOn && webcamStream) {
@@ -61,7 +61,7 @@ function ParticipantView(props) {
             if (micOn && micStream) {
                 const mediaStream = new MediaStream();
                 mediaStream.addTrack(micStream.track);
-// console.log(props.participantsId)
+                // console.log(props.participantsId)
                 micRef.current.srcObject = mediaStream;
                 micRef.current
                     .play()
@@ -178,8 +178,8 @@ function MeetingView(props) {
         [...participants.values()].unshift(foundEntry);
       }
     // console.log([...participants.values()])
-      
-// console.log(foundEntry)
+
+    // console.log(foundEntry)
     // if (foundEntry) {
     //     participants.set(foundEntry[0], foundEntry[1]);
     //     participants.delete(foundEntry[0]);

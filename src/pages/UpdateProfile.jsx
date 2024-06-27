@@ -11,7 +11,7 @@ const UpdateProfile = () => {
     const { userCredentials } = useContext(UserContext)
     const [profileCV, setProfileCV] = useState()
 
-    console.log(profileCV)
+    // console.log(profileCV)
 
     return (
         <div
