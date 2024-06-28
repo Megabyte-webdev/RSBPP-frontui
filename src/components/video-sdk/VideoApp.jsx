@@ -196,29 +196,31 @@ function MeetingView(props) {
         <div className="container">
             <h3>Meeting Id: {props.meetingId}</h3>
             {joined && joined == "JOINED" ? (
-                <div>
-                    <div className="border p-2">
-                        <div className="grid_container">
-                            {/* {foundEntry &&(
+                <div className="d-flex w-100 justify-content-center">
+                    <div className="col-md-7">
+                        <div className="border p-2">
+                            <div className="grid_container">
+                                {/* {foundEntry &&(
                             <ParticipantView
                             // foundEntry={foundEntry}
                             participantId={foundEntry[1]}
                             key={foundEntry[0]}
                         />
                            )}  */}
-                            {[...participants.keys()].reverse().map((participantId) => (
-                                <ParticipantView
-                                    foundEntry={foundEntry}
-                                    participantId={participantId}
-                                    key={participantId}
-                                />
-                            ))}
-                            {/* <button onClick={handleStartRecording}>Start Recording</button>
+                                {[...participants.keys()].reverse().map((participantId) => (
+                                    <ParticipantView
+                                        foundEntry={foundEntry}
+                                        participantId={participantId}
+                                        key={participantId}
+                                    />
+                                ))}
+                                {/* <button onClick={handleStartRecording}>Start Recording</button>
                     <button onClick={handleStopRecording}>Stop Recording</button> */}
+                            </div>
                         </div>
-                    </div>
-                    <Controls />
+                        <Controls />
 
+                    </div>
                 </div>
             ) : joined && joined == "JOINING" ? (
                 <p>Joining the meeting...</p>

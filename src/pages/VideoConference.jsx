@@ -42,7 +42,7 @@ const VideoConference = () => {
                 </Col>
             </Row>
             <Row>
-                <Col md={7}>
+                <Col>
                     <div>
                         <div className=''>
                             {/* <img src={videoConference} alt="" className="img-fluid" /> */}
