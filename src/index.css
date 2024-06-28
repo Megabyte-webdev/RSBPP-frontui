@@ -104,6 +104,22 @@ p {
   cursor: pointer;
 }
 
+/* .sidelist:hover {
+  background-color: hsl(0, 0%, 96%) !important; 
+}
+
+.sidelist:hover .arrow_icon {
+  opacity: 1 !important; 
+} */
+
+.sidelist:active {
+  background-color: hsl(0, 0%, 96%) !important; /* Optional subtle hover background */
+}
+
+.sidelist:active .arrow_icon {
+  opacity: 1 !important; /* Make the arrow icon visible on hover */
+}
+
 .fs_sm {
   font-size: 0.9rem;
 }

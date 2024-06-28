@@ -227,26 +227,30 @@ const FacultyDashboard = () => {
                   <p className="fw-bold">see all</p>
                 </Link>
               </div>
-              {todaySchedules?.map((each) => (
-                <div key={each.id} className="light_sky hover_effect my-2 rounded p-1">
-                  <div className="d-flex align-items-center justify-content-center">
-                    <div className="rounded p-1 px-2 text-white" style={{ backgroundColor: "#0052B4" }}>
-                      <span className="fw-semibold">31</span>
-                    </div>
-                    <div className="px-2 fw-semibold">
-                      <p className="fs_sm">Meeting with :</p>
-                      <p className="fs_sm">{each.title}</p>
-                      <p className="fs_xsm text-info pointer text-decoration-underline"
-                        onClick={() => navigate("/video_live", { state: { list: each } })}
-                      >Meeting link//www.zoom.com Upcoming</p>
-                    </div>
-                    <div className="">
-                      <p className="fs_xsm">{each.start_time}</p>
-                      {/* <p className="fs_xsm text-danger">Due soon</p> */}
+              {todaySchedules?.map((each) => {
+                const day = new Date(each.day)
+
+                return (
+                  <div key={each.id} className="light_sky hover_effect my-2 rounded p-1">
+                    <div className="d-flex align-items-center justify-content-center">
+                      <div className="rounded p-1 px-2 text-white" style={{ backgroundColor: "#0052B4" }}>
+                        <span className="fw-semibold">{day.getDate()}</span>
+                      </div>
+                      <div className="px-2 fw-semibold">
+                        <p className="fs_sm">Meeting with :</p>
+                        <p className="fs_sm">{each.title}</p>
+                        <p className="fs_xsm text-info pointer text-decoration-underline"
+                          onClick={() => navigate("/video_live", { state: { list: each } })}
+                        >Meeting link//www.RSBPP.com.live</p>
+                      </div>
+                      <div className="">
+                        <p className="fs_xsm">{each.start_time}</p>
+                        {/* <p className="fs_xsm text-danger">Due soon</p> */}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
               {todaySchedules?.length < 1 && <p className="text-center fs-5">No live class today</p>}
               {/* <div className="light_sky hover_effect my-2 rounded p-1">
                 <div className="d-flex align-items-center justify-content-center">

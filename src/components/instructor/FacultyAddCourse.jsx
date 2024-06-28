@@ -216,7 +216,7 @@ const FacultyAddCourse = () => {
                                 className="form-control" id="title" aria-describedby="emailHelp" />
                         </div>
                         <div className="mb-3 col-md-6">
-                            <label htmlFor="desc" className="form-label">description</label>
+                            <label htmlFor="desc" className="form-label">Description</label>
                             <input
                                 required
                                 type="text"

@@ -8,6 +8,13 @@ import HoverList from '../../general/HoverList';
 
 const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant, instructor }) => {
 
+    const [clickedIndex, setClickedIndex] = useState(null);
+
+    const handleClick = (index) => {
+        setClickedIndex(index);
+    };
+
+
     const subOption = constant.subOptions;
     const makeActive = isOpenOption === constant.title ? "sidebar_active" : "";
 
@@ -44,7 +51,11 @@ const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant, instructo
                         <ul style={{ listStyle: "none" }} className="border-start border-white ps-0 ms-4">
                             {
                                 subOption?.map((sub, index) => (
-                                    <HoverList key={index} sub={sub} />
+                                    <HoverList
+                                        clickedIndex={clickedIndex}
+                                        handleClick={handleClick}
+                                        key={index}
+                                        sub={sub} />
                                 ))
                             }
                         </ul>
