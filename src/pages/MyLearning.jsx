@@ -10,6 +10,7 @@ import Loading from '../components/loader/Loading'
 const MyLearning = () => {
     const { userCredentials, } = useContext(UserContext);
     const [filterCourse, setFilterCourse] = useState("")
+    const [searchInput, setSearchInput] = useState("")
     const [filterText, setFilterText] = useState()
 
     const { getAllFaculty,
@@ -67,8 +68,12 @@ const MyLearning = () => {
     // const newCourses = getAllCourses.data?.filter(item => filterCourse?.includes(item.id))
     const newCourses = filterCourse === '' ? getAllCourses?.data : getAllCourses.data?.filter(obj => obj.faculty_id === filterCourse);
 
-    const offLineCourse = newCourses?.filter((course) => course.course_type === "offline")
-    const onLineCourse = newCourses?.filter((course) => course.course_type === "online")
+    const typeSearch = newCourses?.filter((user) =>
+        user.title.toLowerCase().includes(searchInput.toLowerCase())
+    )
+
+    const offLineCourse = typeSearch?.filter((course) => course.course_type === "offline")
+    const onLineCourse = typeSearch?.filter((course) => course.course_type === "online")
 
     return (
         <div className='p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
@@ -77,8 +82,8 @@ const MyLearning = () => {
             <div className="my-3">
                 <p className="fw-bold mb-2">Onsite</p>
                 <div className="d-md-flex">
-                    <div className="row col-md-7">
-                        <div className="col"> 
+                    <div className="row col-md-4">
+                        <div className="col">
                             <div className="dropdown">
                                 <button className="btn border-black border w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {!filterCourse && ('Faculty')} {filterText?.title}
@@ -95,34 +100,12 @@ const MyLearning = () => {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col">
-                            <div className="dropdown">
-                                <button className="btn border-black border w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Duration
-                                </button>
-                                <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="#">Action</a></li>
-                                    <li><a className="dropdown-item" href="#">Another action</a></li>
-                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className="dropdown">
-                                <button className="btn border-black border w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Get Brochure
-                                </button>
-                                <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="#">Action</a></li>
-                                    <li><a className="dropdown-item" href="#">Another action</a></li>
-                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                     <div className="col-md-1"></div>
-                    <div className="col-md-4 mt-4 mt-md-0 position-relative">
-                        <input type='text' className='py-1 border h-100 rounded px-4' />
+                    <div className="col-md-5 mt-4 mt-md-0 position-relative">
+                        <input
+                            onChange={(e) => setSearchInput(e.target.value)}
+                            type='text' className='py-1 border w-100 h-100 rounded px-4' />
                         <span className='position-absolute ps-1  top-50 start-0 translate-middle-y'>
                             <FiSearch />
                         </span>
@@ -141,7 +124,12 @@ const MyLearning = () => {
                                 <CourseCarousel>
                                     {onLineCourse?.map((course) => {
                                         return (
-                                            <LearningCourse getAllInstructors={getAllInstructors.data} key={course.id} cartList={getAllCarts.data} userCredentials={userCredentials} course={course} />
+                                            <LearningCourse
+                                                getAllInstructors={getAllInstructors.data}
+                                                key={course.id}
+                                                cartList={getAllCarts.data}
+                                                userCredentials={userCredentials}
+                                                course={course} />
                                         )
                                     })}
                                 </CourseCarousel>
@@ -155,7 +143,12 @@ const MyLearning = () => {
                                     <CourseCarousel>
                                         {offLineCourse?.map((course) => {
                                             return (
-                                                <LearningCourse getAllInstructors={getAllInstructors.data} key={course.id} cartList={getAllCarts.data} userCredentials={userCredentials} course={course} />
+                                                <LearningCourse
+                                                    getAllInstructors={getAllInstructors.data}
+                                                    key={course.id}
+                                                    cartList={getAllCarts.data}
+                                                    userCredentials={userCredentials}
+                                                    course={course} />
                                             )
                                         })}
                                     </CourseCarousel>

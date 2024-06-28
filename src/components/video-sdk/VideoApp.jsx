@@ -168,24 +168,24 @@ function MeetingView(props) {
             transcription
         );
     };
-     // participants?.find((user) => user.value.displayName == firstName && role == "instructor")
+    // participants?.find((user) => user.value.displayName == firstName && role == "instructor")
     //  const foundEntry = [...participants.values()]?.find((user) =>  user.displayName === firstName && role == "instructor")
-     const foundEntry = [...participants.entries()].find(([key, user]) => user.displayName === firstName);
-     // const foundEntry = [...participants.values()]?.find((user) =>  user.displayName === firstName && role == "instructor")
+    const foundEntry = [...participants.entries()].find(([key, user]) => user.displayName.includes("instructor"));
+    // const foundEntry = [...participants.values()]?.find((user) =>  user.displayName === firstName && role == "instructor")
     //  if (foundEntry) {
     //      let index = [...participants.values()].indexOf(foundEntry);
     //      [...participants.values()].splice(index, 1);
     //      [...participants.values()].unshift(foundEntry);
-    //    }
-     // console.log([...participants.values()])
- 
-     console.log(foundEntry)
-     if (foundEntry) {
-         participants.set(foundEntry[0], foundEntry[1]);
-         participants.delete(foundEntry[0]);
-         participants.set(foundEntry[0], foundEntry[1]);
-     } 
-     console.log([...participants.values()])
+    //    } 
+    // console.log([...participants.values()])
+
+    console.log(foundEntry)
+    if (foundEntry) {
+        participants.set(foundEntry[0], foundEntry[1]);
+        participants.delete(foundEntry[0]);
+        participants.set(foundEntry[0], foundEntry[1]);
+    }
+    console.log([...participants.values()])
 
     const handleStopRecording = () => {
         // Stop Recording
@@ -221,11 +221,18 @@ function MeetingView(props) {
 }
 
 function VideoApp({ state }) {
-
     const { userCredentials } = useContext(UserContext)
+    const user = userCredentials?.user
+    const getName = () => {
+        if (user.role === "instructor") {
+            return `instructor ${user.first_name}`
+        } else {
+            return user.first_name
+        }
+    }
     const [meetingId, setMeetingId] = useState(state.list.meeting_code);
     console.log(state)
-    
+
     const getMeetingAndToken = async (id) => {
         const meetingId =
             id == null ? await createMeeting({ token: authToken }) : id;
@@ -244,8 +251,7 @@ function VideoApp({ state }) {
                 screenShareEnabled: true,
                 chatEnabled: true,
                 raiseHandEnabled: true,
-                name: userCredentials.user.first_name,
-                role: userCredentials.user.first_name,
+                name: getName(),
             }}
             token={authToken}
         >

@@ -181,7 +181,7 @@ function MeetingView(props) {
 
     return (
         <div className="container">
-            <h3>Meeting Id: {props.meetingId}</h3>
+            <h5 className="mb-4"><span className="fs-4">Meeting Id:</span> <br/> {props.meetingId}</h5>
             {joined && joined == "JOINED" ? (
                 <div>
                     <Controls />

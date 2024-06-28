@@ -213,7 +213,6 @@ const FacultyAddCourse = () => {
                         <div className="mb-3 col-md-6">
                             <label htmlFor="code" className="form-label">Course Code</label>
                             <input
-                                required
                                 type="text"
                                 value={details.code}
                                 name="code"

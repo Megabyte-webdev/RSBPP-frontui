@@ -30,9 +30,9 @@ const EnrolledCourse = ({ course, myClasses }) => {
     const white = { backgroundColor: "#fff" }
     
     return (
-        <div>
+        <div className="">
             <div className="mb-3 d-flex">
-                <div className="w-100 p-2 py-5  d-flex" style={{ backgroundColor: "hsla(359, 54%, 44%, 0.15)" }}>
+                <div className="w-100 p-2 py-5 rounded-start d-flex" style={{ backgroundColor: "hsla(359, 54%, 44%, 0.15)" }}>
                     <div>
                         <img src={enrollIcon} alt="" className="me-2" />
                     </div>
@@ -44,7 +44,7 @@ const EnrolledCourse = ({ course, myClasses }) => {
                 </div>
                 <div
                     onClick={() => handleClassDropdown()}
-                    className="brown_bg p-1 text-white pointer d-flex align-items-center">{classDropdown ? <span><MdArrowLeft size={25} /></span> : <span><MdArrowRight size={25} /></span>}</div>
+                    className="brown_bg p-1 rounded-end text-white pointer d-flex align-items-center">{classDropdown ? <span><MdArrowLeft size={25} /></span> : <span><MdArrowRight size={25} /></span>}</div>
             </div>
             {classDropdown && (<div className=" my-5">
                 <button className="btn light_brown rounded-pill px-4 fw-bold mb-4 prime_brown">Class Schedules</button>

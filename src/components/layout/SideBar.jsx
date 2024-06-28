@@ -67,7 +67,7 @@ const SideBar = ({ userCredentials }) => {
                 </div>
                 <div className=" col">
                   <p className="text-center"><b>0</b></p>
-                  <p className="text-center">Following</p>
+                  <p className="text-center">Subsriber(s)</p>
                 </div>
               </div>
             )}

@@ -36,11 +36,11 @@ export const sidebarConstants = [
                 link: "/learning",
             },
             {
-                title: "today classes",
+                title: "Today classes",
                 link: "/today",
             },
             {
-                title: "time table",
+                title: "Time table",
                 link: "/time_table",
             },
         ]
@@ -55,7 +55,7 @@ export const sidebarConstants = [
                 link: "/soon",
             },
             {
-                title: "messages",
+                title: "Messages",
                 // link: "/messages",
                 link: "/soon",
             }

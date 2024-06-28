@@ -14,6 +14,8 @@ const InstructorCourses = () => {
     const [searchInput, setSearchInput] = useState("");
     const { getAllFaculty,
         setGetAllFaculty,
+        getAllInstructors,
+        setGetAllInstructors,
         getAllCourses,
         setGetAllCourses,
         setGetAllUsers,
@@ -25,6 +27,14 @@ const InstructorCourses = () => {
 
     useEffect(() => {
         setGetAllUsers((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+
+    useEffect(() => {
+        setGetAllInstructors((prev) => {
             return {
                 ...prev, isDataNeeded: true
             }
@@ -48,7 +58,7 @@ const InstructorCourses = () => {
             }
         })
     }, [])
-     const typeSearch = getAllCourses.data?.filter((user) =>
+    const typeSearch = getAllCourses.data?.filter((user) =>
         user.title?.toLowerCase().includes(searchInput.toLowerCase())
     )
     const offLineCourse = typeSearch?.filter((course) => course.course_type === "offline" && course.created_by_id == userId)
@@ -122,7 +132,12 @@ const InstructorCourses = () => {
                             <CourseCarousel>
                                 {onLineCourse?.map((course) => {
                                     return (
-                                        <LearningCourse key={course.id} cartList={getAllCarts.data} userCredentials={userCredentials} course={course} />
+                                        <LearningCourse
+                                            getAllInstructors={getAllInstructors.data}
+                                            key={course.id}
+                                            cartList={getAllCarts.data}
+                                            userCredentials={userCredentials}
+                                            course={course} />
                                     )
                                 })}
                             </CourseCarousel>
@@ -136,7 +151,12 @@ const InstructorCourses = () => {
                             <CourseCarousel>
                                 {offLineCourse?.map((course) => {
                                     return (
-                                        <LearningCourse key={course.id} cartList={getAllCarts.data} userCredentials={userCredentials} course={course} />
+                                        <LearningCourse
+                                            getAllInstructors={getAllInstructors.data}
+                                            key={course.id}
+                                            cartList={getAllCarts.data}
+                                            userCredentials={userCredentials}
+                                            course={course} />
                                     )
                                 })}
                             </CourseCarousel>

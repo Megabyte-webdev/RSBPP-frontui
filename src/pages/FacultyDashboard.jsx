@@ -310,7 +310,7 @@ const FacultyDashboard = () => {
           </Col>
         </Row>
       </Col>
-      <div className="rounded bg-white py-5">
+      {/* <div className="rounded bg-white py-5">
         <Row>
           <Col md={3}>
             <div className="border p-2 h-100 rounded">
@@ -334,7 +334,7 @@ const FacultyDashboard = () => {
             </div>
           </Col>
         </Row>
-      </div>
+      </div> */}
     </div>
   );
 };

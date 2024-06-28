@@ -29,7 +29,7 @@ const CreateSchedule = () => {
                     <CreateForm meetingCode={meetingCode} setMeetingCode={setMeetingCode} />
                 </Col>
                 <Col md={3} className='mb-3'>
-                    <div className="h-100 d-flex align-items-end pb-5" style={{ color: "#8A8A8A" }}>
+                    <div className="h-100 d-flex pb-5" style={{ color: "#8A8A8A" }}>
                         {/* <div className='d-flex mb-3 text-primary justify-content-md-between'>
                             <div>
                                 <MdAddBox size={25} />
