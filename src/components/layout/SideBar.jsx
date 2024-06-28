@@ -29,8 +29,6 @@ const SideBar = ({ userCredentials }) => {
 
   const myCoursesOnly = getAllCourses.data?.filter((course) => course.created_by_id == user.id)
 
-  console.log(myCoursesOnly?.length)
-
   // console.log(role === "instructor" ? "white_sidebar" : "brown_sidebar")
   return (
     <Col style={{ minHeight: "100vh" }}

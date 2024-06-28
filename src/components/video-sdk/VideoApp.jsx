@@ -74,7 +74,7 @@ function ParticipantView(props) {
         }
     }, [micStream, micOn]);
     return (
-        <div className="participant position-relative full_width" key={props.participantId}>
+        <div className={props.foundEntry ? "participant position-relative full_width" : "participant position-relative"} key={props.participantId}>
             {/* <Controls webcamOn={webcamOn} micOn={micOn} /> */}
             <audio ref={micRef} autoPlay muted={isLocal} />
             <div className={webcamOn ? "w-100 h-100" : ""}>

@@ -9,6 +9,7 @@ import { FaVideo } from "react-icons/fa6";
 import RoundChart from "../components/general/RoundChart";
 import BarChart from "../components/general/BarCharts";
 import { ResourceContext } from "../context/ResourceContext";
+import InstructorCourseAnalysis from "../components/instructor/InstructorCourseAnalysis";
 
 const today = new Date();
 const FacultyDashboard = () => {
@@ -38,11 +39,12 @@ const FacultyDashboard = () => {
     })
   }, [])
 
-  // console.log(getAllSchedules.data) 
+  const instructorCourses = getAllCourses.data?.filter((schedule => schedule.created_by_id == userCredentials.user.id))
 
   const instructorSchedules = getAllSchedules.data?.filter((schedule => schedule.instructor_id === userCredentials.user.id))
 
-  // console.log(instructorSchedules)
+  console.log(instructorCourses)
+
   const todaySchedules = instructorSchedules?.filter(classItem => {
     // Assuming 'classItem' has a 'date' property for the class
     const classDate = new Date(classItem.day);
@@ -212,39 +214,9 @@ const FacultyDashboard = () => {
           <Col className="my-3 my-md-0" md={3}>
             <div className="shadow rounded h-100 p-2">
               <p className="fw-bold">Course Progress</p>
-              <div className="light_sky hover_effect my-2 rounded p-1">
-                <div className="d-flex justify-content-between">
-                  <div className="fs_xsm">
-                    <p><b>Class A</b></p>
-                    <p className="ash_text">78 Registered</p>
-                  </div>
-                  <div className="">
-                    <RoundChart strokeProps={strokeProps} />
-                  </div>
-                </div>
-              </div>
-              <div className="light_sky hover_effect my-2 rounded p-1">
-                <div className="d-flex justify-content-between">
-                  <div className="fs_xsm">
-                    <p><b>Class A</b></p>
-                    <p className="ash_text">78 Registered</p>
-                  </div>
-                  <div className="">
-                    <RoundChart strokeProps={strokeProps} />
-                  </div>
-                </div>
-              </div>
-              <div className="light_sky hover_effect my-2 rounded p-1">
-                <div className="d-flex justify-content-between">
-                  <div className="fs_xsm">
-                    <p><b>Class A</b></p>
-                    <p className="ash_text">78 Registered</p>
-                  </div>
-                  <div className="">
-                    <RoundChart strokeProps={strokeProps} />
-                  </div>
-                </div>
-              </div>
+              {instructorCourses?.map((course) => (
+                <InstructorCourseAnalysis key={course.id} course={course} />
+              ))}
             </div>
           </Col>
           <Col className="my-3 my-md-0" md={4}>

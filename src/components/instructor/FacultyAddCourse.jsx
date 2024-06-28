@@ -23,7 +23,7 @@ const FacultyAddCourse = () => {
     const [details, setDetails] = useState({
         title: "",
         created_by_id: userCredentials.user?.id,
-        code: "",
+        // code: "",
         description: "",
         objective: "",
         outlines: "",
@@ -55,7 +55,7 @@ const FacultyAddCourse = () => {
         setDetails({
             title: "",
             created_by_id: userCredentials.user?.id,
-            code: "",
+            // code: "",
             description: "",
             objective: "",
             outlines: "",
@@ -186,10 +186,25 @@ const FacultyAddCourse = () => {
             style={{ backgroundColor: "hsla(0, 0%, 85%, .1)" }}
         >
             <div className='p-3 bg-white shadow rounded py-5'>
-            <h4 className='mb-3'>Add Course</h4>
+                <h4 className='mb-3'>Add Course</h4>
                 <form onSubmit={handleSubmit}>
                     <div className="row">
-
+                        <div className="mb-3 col-md-6">
+                            <label htmlFor="faculty" className="form-label">Faculty</label>
+                            <select
+                                id="faculty"
+                                value={details.faculty_id}
+                                name="faculty_id"
+                                onChange={handleOnChange}
+                                className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
+                                <option value="">--select --</option>
+                                {
+                                    getAllFaculty.data?.map((each) => (
+                                        <option key={each.id} value={each.id}>{each.title}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
                         <div className="mb-3 col-md-6">
                             <label htmlFor="title" className="form-label">Course title</label>
                             <input
@@ -210,7 +225,7 @@ const FacultyAddCourse = () => {
                                 onChange={handleOnChange}
                                 className="form-control" id="desc" aria-describedby="emailHelp" />
                         </div>
-                        <div className="mb-3 col-md-6">
+                        {/* <div className="mb-3 col-md-6">
                             <label htmlFor="code" className="form-label">Course Code</label>
                             <input
                                 type="text"
@@ -218,7 +233,7 @@ const FacultyAddCourse = () => {
                                 name="code"
                                 onChange={handleOnChange}
                                 className="form-control" id="code" aria-describedby="emailHelp" />
-                        </div>
+                        </div> */}
                         <div className="mb-3 col-md-6">
                             <label htmlFor="duration" className="form-label">Duration (in months)</label>
                             <input
@@ -253,22 +268,6 @@ const FacultyAddCourse = () => {
                                 <option value="">--select --</option>
                                 <option value="certificate">Certificate</option>
                                 <option value="executive">Executive</option>
-                            </select>
-                        </div>
-                        <div className="mb-3 col-md-6">
-                            <label htmlFor="faculty" className="form-label">Faculty</label>
-                            <select
-                                id="faculty"
-                                value={details.faculty_id}
-                                name="faculty_id"
-                                onChange={handleOnChange}
-                                className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
-                                <option value="">--select --</option>
-                                {
-                                    getAllFaculty.data?.map((each) => (
-                                        <option key={each.id} value={each.id}>{each.title}</option>
-                                    ))
-                                }
                             </select>
                         </div>
                         <div className="mb-3 col-md-6">

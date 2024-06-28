@@ -4,6 +4,7 @@ import { IoChevronDownSharp, IoChevronUpSharp } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FaLongArrowAltRight } from 'react-icons/fa';
+import HoverList from '../../general/HoverList';
 
 const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant, instructor }) => {
 
@@ -40,14 +41,10 @@ const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant, instructo
             {subOption === null ? null : (
                 <div>
                     {isOpenOption === constant.title && (
-                        <ul style={{ listStyle: "none" }} className="border-start border-white ms-4">
+                        <ul style={{ listStyle: "none" }} className="border-start border-white ps-0 ms-4">
                             {
                                 subOption?.map((sub, index) => (
-                                    <li className='pointer hover_effect'
-                                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
-                                        key={index}>
-                                        {/* <span><FaLongArrowAltRight /></span> */}
-                                        <p onClick={() => navigate(sub.link)} className="nav-link">{sub.title}</p></li>
+                                    <HoverList key={index} sub={sub} />
                                 ))
                             }
                         </ul>

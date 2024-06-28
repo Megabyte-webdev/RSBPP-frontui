@@ -28,7 +28,7 @@ const FacultyEditCourse = () => {
         // course_id: prev.id,
         title: prev.title,
         created_by_id: userCredentials.user?.id,
-        code: prev.code,
+        // code: prev.code,
         description: prev.description,
         objective: prev.objective,
         outlines: prev.outlines,
@@ -60,7 +60,7 @@ const FacultyEditCourse = () => {
         setDetails({
             title: "",
             created_by_id: userCredentials.user?.id,
-            code: "",
+            // code: "",
             description: "",
             objective: "",
             outlines: "",
@@ -215,7 +215,7 @@ const FacultyEditCourse = () => {
                                 onChange={handleOnChange}
                                 className="form-control" id="desc" aria-describedby="emailHelp" />
                         </div>
-                        <div className="mb-3 col-md-6">
+                        {/* <div className="mb-3 col-md-6">
                             <label htmlFor="code" className="form-label">Course Code</label>
                             <input
                                 required
@@ -224,7 +224,7 @@ const FacultyEditCourse = () => {
                                 name="code"
                                 onChange={handleOnChange}
                                 className="form-control" id="code" aria-describedby="emailHelp" />
-                        </div>
+                        </div> */}
                         <div className="mb-3 col-md-6">
                             <label htmlFor="duration" className="form-label">Duration (in months)</label>
                             <input

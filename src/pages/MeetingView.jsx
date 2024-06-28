@@ -76,6 +76,10 @@ const MeetingView = () => {
                                 </div>
                             </Col>
                             <Col md={8}>
+                                <button
+                                    onClick={() => navigate("/meetings_history")}
+                                    className='btn inherit_bg btn-sm btn-outline-danger position-fixed end-0 top-50'>Back</button>
+
                                 <div className="rounded h-100 pt-3 bg-white shadow-sm">
                                     <div className="mt-4 table-responsive-md">
                                         <table className="table roboto table-hover">

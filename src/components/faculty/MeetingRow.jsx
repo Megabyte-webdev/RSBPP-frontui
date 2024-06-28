@@ -38,19 +38,22 @@ const MeetingRow = ({ list, userData, oneCourse }) => {
             <td>
                 <button
                   onClick={()=> navigate("/video_live", {state : {oneCourse : oneCourse, list : list}} )}
-                 className="btn btn-success rounded-pill fs_xsm"> Live class</button>
+                 className="btn btn-danger rounded-pill fs_xsm"> Live class</button>
             </td>
             <td><span>{list.meeting_code}</span></td>
             <td><span>{start.toLocaleTimeString()} <br /> {start.toDateString()}</span></td>
             <td><span>{end.toLocaleTimeString()}</span></td>
             <td>
-                <div
+                <button
+                    onClick={() => navigate(`/meetings_history/${oneCourse ? oneCourse.title : "no_data"}`, { state: { oneCourse: oneCourse, list: list } })}
+                 className='btn btn-success'>View</button>
+                {/* <div
                     onClick={() => navigate(`/meetings_history/${oneCourse ? oneCourse.title : "no_data"}`, { state: { oneCourse: oneCourse, list: list } })}
                     className='d-flex pointer'>
                     <ImageGroup />
                     <span> <MdOutlineRadioButtonUnchecked />
                     </span>
-                </div>
+                </div> */}
             </td>
         </tr >
     )
