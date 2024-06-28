@@ -74,7 +74,7 @@ function ParticipantView(props) {
         }
     }, [micStream, micOn]);
     return (
-        <div className={props.foundEntry ? "participant position-relative full_width" : "participant position-relative"} key={props.participantId}>
+        <div className="participant position-relative full_width" key={props.participantId}>
             {/* <Controls webcamOn={webcamOn} micOn={micOn} /> */}
             <audio ref={micRef} autoPlay muted={isLocal} />
             <div className={webcamOn ? "w-100 h-100" : ""}>
@@ -184,6 +184,7 @@ function MeetingView(props) {
         participants.set(foundEntry[0], foundEntry[1]);
         participants.delete(foundEntry[0]);
         participants.set(foundEntry[0], foundEntry[1]);
+        [...participants.values()].reverse()
     }
     console.log([...participants.values()])
 
@@ -196,10 +197,16 @@ function MeetingView(props) {
             <h3>Meeting Id: {props.meetingId}</h3>
             {joined && joined == "JOINED" ? (
                 <div>
-                    <Controls />
                     <div className="border p-2">
                         <div className="grid_container">
-                            {[...participants.keys()].map((participantId) => (
+                            {/* {foundEntry &&(
+                            <ParticipantView
+                            // foundEntry={foundEntry}
+                            participantId={foundEntry[1]}
+                            key={foundEntry[0]}
+                        />
+                           )}  */}
+                            {[...participants.keys()].reverse().map((participantId) => (
                                 <ParticipantView
                                     foundEntry={foundEntry}
                                     participantId={participantId}
@@ -210,6 +217,8 @@ function MeetingView(props) {
                     <button onClick={handleStopRecording}>Stop Recording</button> */}
                         </div>
                     </div>
+                    <Controls />
+
                 </div>
             ) : joined && joined == "JOINING" ? (
                 <p>Joining the meeting...</p>
