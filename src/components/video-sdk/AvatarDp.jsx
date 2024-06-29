@@ -14,7 +14,7 @@ const AvatarDp = ({ webcamOn, micOn, participantId, checkSpeaker }) => {
                 <div className="rounded position-relative bg-dark w-100">
                     <div
                         style={{ border: currentSpeaker ? "4px solid #ab3335" : "" }}
-                        className='p-2'>
+                        className='p-2 rounded'>
                         <img src={avatarPics} alt="" className="img-fluid w-100" />
                     </div>
                     <div style={{ bottom: ".3rem" }} className="d-flex position-absolute px-2 w-100 justify-content-between">

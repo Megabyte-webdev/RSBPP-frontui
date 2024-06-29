@@ -140,6 +140,10 @@ p {
   background-color:  #03014c !important;
 }
 
+.mirror_effect{
+  transform: scaleX(-1);
+}
+
 .border_brown {
   border-left: 1px solid #ab3335 !important;
 }

@@ -94,7 +94,6 @@ function ParticipantView(props) {
         }
     }, [micStream, micOn]);
     const currentSpeaker = props.participantId === props.checkSpeaker;
-    console.log(currentSpeaker)
     return (
         <div className={props.foundEntry ? "participant position-relative full_width" : "participant position-relative"} key={props.participantId}>
             {/* <Controls webcamOn={webcamOn} micOn={micOn} /> */}
@@ -114,7 +113,7 @@ function ParticipantView(props) {
                         width={"100%"}
                         style={{ border: currentSpeaker ? "4px solid #ab3335" : "" }}
                         url={videoStream}
-                        className=" video_container d-flex"
+                        className=" video_container mirror_effect d-flex"
                         onError={(err) => {
                             console.log(err, "participant video error");
                         }}
