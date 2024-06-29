@@ -10,10 +10,12 @@ import { authToken, createMeeting } from "./API";
 import ReactPlayer from "react-player";
 import { CiVideoOff, CiVideoOn } from "react-icons/ci";
 import { IoMic, IoMicOff } from "react-icons/io5";
-import { MdArrowLeft, MdCallEnd } from "react-icons/md";
+import { MdArrowLeft, MdCallEnd, MdOutlineCancelPresentation } from "react-icons/md";
+import { FiUpload } from "react-icons/fi";
 import { UserContext } from "../../context/AuthContext";
 import Indicators from "./Indicators";
 import AvatarDp from "./AvatarDp";
+import PresenterView from "./PresenterView";
 
 function JoinScreen({ getMeetingAndToken }) {
     const { userCredentials } = useContext(UserContext)
@@ -45,9 +47,27 @@ function JoinScreen({ getMeetingAndToken }) {
 
 function ParticipantView(props) {
     const micRef = useRef(null);
+
+    //Callback for when the participant starts a stream
+    function onStreamEnabled(stream) {
+        if (stream.kind === 'share') {
+            console.log("Share Stream On: onStreamEnabled", stream);
+        }
+    }
+
+    //Callback for when the participant stops a stream
+    function onStreamDisabled(stream) {
+        if (stream.kind === 'share') {
+            console.log("Share Stream Off: onStreamDisabled", stream);
+        }
+    }
+
     const { webcamStream, micStream, webcamOn, micOn, isLocal, displayName } =
-        useParticipant(props.participantId);
-    // console.log(props.participantId.displayName)
+        useParticipant(props.participantId, {
+            onStreamEnabled,
+            onStreamDisabled
+        });
+
     const videoStream = useMemo(() => {
         if (webcamOn && webcamStream) {
             const mediaStream = new MediaStream();
@@ -73,6 +93,8 @@ function ParticipantView(props) {
             }
         }
     }, [micStream, micOn]);
+    const currentSpeaker = props.participantId === props.checkSpeaker;
+    console.log(currentSpeaker)
     return (
         <div className={props.foundEntry ? "participant position-relative full_width" : "participant position-relative"} key={props.participantId}>
             {/* <Controls webcamOn={webcamOn} micOn={micOn} /> */}
@@ -88,22 +110,48 @@ function ParticipantView(props) {
                         muted={true}
                         playing={true}
                         //
+                        height={"100%"}
+                        width={"100%"}
+                        style={{ border: currentSpeaker ? "4px solid #ab3335" : "" }}
                         url={videoStream}
-                        className={"w-100 h-100 video_container"}
+                        className=" video_container d-flex"
                         onError={(err) => {
                             console.log(err, "participant video error");
                         }}
                     />
                 )}
             </div>
-            {!webcamOn && <AvatarDp webcamOn={webcamOn} micOn={micOn} />}
+            {!webcamOn && <AvatarDp
+                participantId={props.participantId}
+                checkSpeaker={props.checkSpeaker}
+                webcamOn={webcamOn}
+                micOn={micOn} />}
             <Indicators webcamOn={webcamOn} micOn={micOn} displayName={displayName} />
         </div>
     );
 }
 
 function Controls() {
-    const { leave, toggleMic, toggleWebcam, webcamOn, micOn } = useMeeting();
+    const {
+        enableScreenShare,
+        disableScreenShare,
+        toggleScreenShare,
+        leave, toggleMic, toggleWebcam, webcamOn, micOn } = useMeeting();
+
+    const handleEnableScreenShare = () => {
+        // Enabling screen share
+        enableScreenShare();
+    };
+
+    const handleDisableScreenShare = () => {
+        // Disabling screen share
+        disableScreenShare();
+    };
+
+    const handleToggleScreenShare = () => {
+        // Toggling screen share
+        toggleScreenShare();
+    };
     // console.log(micOn)
     // const camOn = webcamOn ? <CiVideoOn color="#fff" size={20} /> : <CiVideoOff color="#fff" size={20} />
     // const speakerOn = micOn ? <IoMic color="#fff" size={20} /> : <IoMicOff color="#fff" size={20} />
@@ -112,6 +160,12 @@ function Controls() {
             <button className="video_btns brown_bg me-2 border-0" style={{ backgroundColor: "hsla(359, 54%, 44%, 0.2)" }} onClick={() => leave()}><MdCallEnd color="#fff" size={20} /></button>
             <button className="video_btns blue_bg me-2 border-0" onClick={() => toggleMic()}>{<IoMic color="#fff" size={20} />}</button>
             <button className="video_btns blue_bg me-2 border-0" onClick={() => toggleWebcam()}><CiVideoOn color="#fff" size={20} /></button>
+            <button className="video_btns blue_bg me-2 border-0" onClick={handleEnableScreenShare}><FiUpload color="#fff" size={20} /></button>
+            <button
+            style={{backgroundColor : "hsla(0, 79%, 63%, 0.4)"}}
+             className="video_btns me-2 border-0 prime_brown" onClick={handleDisableScreenShare}><MdOutlineCancelPresentation size={20} /></button>
+            {/* <button className="video_btns blue_bg me-2 border-0" onClick={handleToggleScreenShare}>Toggle Screen Share</button> */}
+
         </div>
     );
 }
@@ -119,10 +173,36 @@ function Controls() {
 function MeetingView(props) {
     const { userCredentials } = useContext(UserContext)
     const [joined, setJoined] = useState(null);
-    // const { join } = useMeeting();
+    const [checkSpeaker, setCheckSpeaker] = useState(null);
     const role = userCredentials.user?.role
     const firstName = userCredentials.user?.first_name
-    const { join, participants, startRecording, stopRecording } = useMeeting({
+
+    //Callback for when the presenter changes
+    function onPresenterChanged(presenterId) {
+        if (presenterId) {
+            console.log(presenterId, "started screen share");
+        } else {
+            console.log("someone stopped screen share");
+        }
+    }
+
+    // Callback when speaker changes
+    function onSpeakerChanged(activeSpeakerId) {
+        // console.log(" onSpeakerChanged", activeSpeakerId);
+        setCheckSpeaker(activeSpeakerId);
+    }
+
+    const { join,
+        participants,
+
+        // Enable screen Share
+        presenterId,
+        // enableScreenShare,
+        // disableScreenShare,
+        // toggleScreenShare
+    } = useMeeting({
+        onPresenterChanged,
+        onSpeakerChanged,
         onMeetingJoined: () => {
             setJoined("JOINED");
         },
@@ -130,68 +210,39 @@ function MeetingView(props) {
             props.onMeetingLeave();
         },
     });
+
     const joinMeeting = () => {
         setJoined("JOINING");
         join();
     };
 
-    const handleStartRecording = () => {
-        // Configuration for recording
-        const config = {
-            layout: {
-                type: "GRID",
-                priority: "SPEAKER",
-                gridSize: 4,
-            },
-            theme: "DARK",
-            mode: "video-and-audio",
-            quality: "high",
-            orientation: "landscape",
-        };
 
-        // Configuration for post transcription
-        let transcription = {
-            enabled: true,
-            summary: {
-                enabled: true,
-                prompt:
-                    "Write summary in sections like Title, Agenda, Speakers, Action Items, Outlines, Notes and Summary",
-            },
-        };
+    // const handleEnableScreenShare = () => {
+    //     // Enabling screen share
+    //     enableScreenShare();
+    // };
 
-        // Start Recording
-        // If you don't have a `webhookUrl` or `awsDirPath`, you should pass null.
-        startRecording(
-            "YOUR WEB HOOK URL",
-            "AWS Directory Path",
-            config,
-            transcription
-        );
-    };
-    // participants?.find((user) => user.value.displayName == firstName && role == "instructor")
-    //  const foundEntry = [...participants.values()]?.find((user) =>  user.displayName === firstName && role == "instructor")
+    // const handleDisableScreenShare = () => {
+    //     // Disabling screen share
+    //     disableScreenShare();
+    // };
+
+    // const handleToggleScreenShare = () => {
+    //     // Toggling screen share
+    //     toggleScreenShare();
+    // };
+
     const foundEntry = [...participants.entries()].find(([key, user]) => user.displayName.includes("instructor"));
-    // const foundEntry = [...participants.values()]?.find((user) =>  user.displayName === firstName && role == "instructor")
-    //  if (foundEntry) {
-    //      let index = [...participants.values()].indexOf(foundEntry);
-    //      [...participants.values()].splice(index, 1);
-    //      [...participants.values()].unshift(foundEntry);
-    //    } 
-    // console.log([...participants.values()])
 
-    console.log(foundEntry)
+    // console.log(foundEntry)
     if (foundEntry) {
         participants.set(foundEntry[0], foundEntry[1]);
         participants.delete(foundEntry[0]);
         participants.set(foundEntry[0], foundEntry[1]);
         [...participants.values()].reverse()
     }
-    console.log([...participants.values()])
+    // console.log([...participants.values()])
 
-    const handleStopRecording = () => {
-        // Stop Recording
-        stopRecording();
-    };
     return (
         <div className="container">
             <h3>Meeting Id: {props.meetingId}</h3>
@@ -200,26 +251,29 @@ function MeetingView(props) {
                     <div className="col-md-7">
                         <div className="border p-2">
                             <div className="grid_container">
-                                {/* {foundEntry &&(
-                            <ParticipantView
-                            // foundEntry={foundEntry}
-                            participantId={foundEntry[1]}
-                            key={foundEntry[0]}
-                        />
-                           )}  */}
-                                {[...participants.keys()].reverse().map((participantId) => (
-                                    <ParticipantView
-                                        foundEntry={foundEntry}
-                                        participantId={participantId}
-                                        key={participantId}
-                                    />
-                                ))}
+                                {presenterId && <PresenterView presenterId={presenterId} />}
+                                {[...participants.keys()].reverse().map((participantId) => {
+                                    // console.log(participantId)
+                                    // console.log(checkSpeaker)
+                                    // const currentSpeaker = participantId == checkSpeaker;
+                                    // console.log(currentSpeaker)
+                                    return (
+                                        <ParticipantView
+                                            foundEntry={foundEntry}
+                                            checkSpeaker={checkSpeaker}
+                                            participantId={participantId}
+                                            key={participantId}
+                                        />
+                                    )
+                                })}
                                 {/* <button onClick={handleStartRecording}>Start Recording</button>
                     <button onClick={handleStopRecording}>Stop Recording</button> */}
                             </div>
                         </div>
                         <Controls />
-
+                        {/* <button onClick={handleEnableScreenShare}>Enable Screen Share</button>
+                        <button onClick={handleDisableScreenShare}>Disable Screen Share</button>
+                        <button onClick={handleToggleScreenShare}>Toggle Screen Share</button> */}
                     </div>
                 </div>
             ) : joined && joined == "JOINING" ? (
@@ -242,7 +296,7 @@ function VideoApp({ state }) {
         }
     }
     const [meetingId, setMeetingId] = useState(state.list.meeting_code);
-    console.log(state)
+    // console.log(state)
 
     const getMeetingAndToken = async (id) => {
         const meetingId =

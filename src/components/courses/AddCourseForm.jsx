@@ -23,7 +23,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
     const [comments, setComments] = useState('');
     const [details, setDetails] = useState({
         title: "",
-        code: "",
+        // code: "",
         description: "",
         objective: "",
         outlines: "",
@@ -56,7 +56,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
     const resetStates = () => {
         setDetails({
             title: "",
-            code: "",
+            // code: "",
             description: "",
             objective: "",
             outlines: "",
@@ -132,11 +132,45 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                 toast.success("successful");
             })
             .catch((error) => {
-                if (error.response) {
+                console.log(error.response.data.message)
+                if (error = error.response?.data) {
                     console.log(error)
-                    setErrorMsg(error.response.data.message)
-                    setShowMsg(true)
-                    setLoading(false);
+                    if (error.errors?.created_by_id) {
+                        console.log(error.errors.created_by_id)
+                        setErrorMsg(error.errors.created_by_id[0])
+                        setShowMsg(true)
+                        setLoading(false);
+                    } else if (error.errors?.curriculum) {
+                        console.log(error.errors.curriculum[0])
+                        setErrorMsg(error.errors.curriculum[0])
+                        setShowMsg(true)
+                        setLoading(false);
+                    } else if (error.errors?.objective) {
+                        console.log(error.errors.objective[0])
+                        setErrorMsg(error.errors.objective[0])
+                        setShowMsg(true)
+                        setLoading(false);
+                    } else if (error.errors?.outlines) {
+                        console.log(error.errors.outlines[0])
+                        setErrorMsg(error.errors.outlines[0])
+                        setShowMsg(true)
+                        setLoading(false);
+                    } else if (error.errors?.faculty_id) {
+                        console.log(error.errors.faculty_id[0])
+                        setErrorMsg(error.errors.faculty_id[0])
+                        setShowMsg(true)
+                        setLoading(false);
+                    } else if (error.errors?.program) {
+                        console.log(error.errors.program[0])
+                        setErrorMsg(error.errors.program[0])
+                        setShowMsg(true)
+                        setLoading(false);
+                    } else {
+                        console.log(error?.message)
+                        setErrorMsg(error.message)
+                        setShowMsg(true)
+                        setLoading(false);
+                    }
                 } else {
                     console.log(error)
                     setErrorMsg(error.message)
@@ -146,7 +180,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
             });
     }
 
-    console.log(details)
+    // console.log(details)
     return (
         <div>
             {isOpen && (
@@ -173,7 +207,22 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                             <div className="modal-body px-md-5">
                                 <form onSubmit={handleSubmit}>
                                     <div className="row">
-
+                                        <div className="mb-3 col-md-6">
+                                            <label htmlFor="faculty" className="form-label">Faculty</label>
+                                            <select
+                                                id="faculty"
+                                                value={details.faculty_id}
+                                                name="faculty_id"
+                                                onChange={handleOnChange}
+                                                className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
+                                                <option value="">--select --</option>
+                                                {
+                                                    getAllFaculty.data?.map((each) => (
+                                                        <option key={each.id} value={each.id}>{each.title}</option>
+                                                    ))
+                                                }
+                                            </select>
+                                        </div>
                                         <div className="mb-3 col-md-6">
                                             <label htmlFor="title" className="form-label">Course title</label>
                                             <input
@@ -185,7 +234,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                                 className="form-control" id="title" aria-describedby="emailHelp" />
                                         </div>
                                         <div className="mb-3 col-md-6">
-                                            <label htmlFor="desc" className="form-label">description</label>
+                                            <label htmlFor="desc" className="form-label">Description</label>
                                             <input
                                                 required
                                                 type="text"
@@ -194,16 +243,15 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                                 onChange={handleOnChange}
                                                 className="form-control" id="desc" aria-describedby="emailHelp" />
                                         </div>
-                                        <div className="mb-3 col-md-6">
-                                            <label htmlFor="code" className="form-label">Course Code</label>
-                                            <input
-                                                required
-                                                type="text"
-                                                value={details.code}
-                                                name="code"
-                                                onChange={handleOnChange}
-                                                className="form-control" id="code" aria-describedby="emailHelp" />
-                                        </div>
+                                        {/* <div className="mb-3 col-md-6">
+                            <label htmlFor="code" className="form-label">Course Code</label>
+                            <input
+                                type="text"
+                                value={details.code}
+                                name="code"
+                                onChange={handleOnChange}
+                                className="form-control" id="code" aria-describedby="emailHelp" />
+                        </div> */}
                                         <div className="mb-3 col-md-6">
                                             <label htmlFor="duration" className="form-label">Duration (in months)</label>
                                             <input
@@ -221,7 +269,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                                 value={details.course_type}
                                                 name="course_type"
                                                 onChange={handleOnChange}
-                                                className="form- py-2 w-100 border rounded px-5" aria-label="Default select example">
+                                                className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
                                                 <option value="">--select --</option>
                                                 <option value="online">Online</option>
                                                 <option value="offline">Offline</option>
@@ -229,28 +277,15 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                         </div>
                                         <div className="mb-3 col-md-6">
                                             <label htmlFor="program" className="form-label">Program</label>
-                                            <input
-                                                required
-                                                type="text"
-                                                value={details.program.toLocaleLowerCase()}
+                                            <select
+                                                id="program"
+                                                value={details.program}
                                                 name="program"
                                                 onChange={handleOnChange}
-                                                className="form-control" id="program" aria-describedby="emailHelp" />
-                                        </div>
-                                        <div className="mb-3 col-md-6">
-                                            <label htmlFor="faculty" className="form-label">Faculty</label>
-                                            <select
-                                                id="faculty"
-                                                value={details.faculty_id}
-                                                name="faculty_id"
-                                                onChange={handleOnChange}
-                                                className="form- py-2 w-100 border rounded px-5" aria-label="Default select example">
+                                                className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
                                                 <option value="">--select --</option>
-                                                {
-                                                    getAllFaculty.data?.map((each) => (
-                                                        <option key={each.id} value={each.id}>{each.title}</option>
-                                                    ))
-                                                }
+                                                <option value="certificate">Certificate</option>
+                                                <option value="executive">Executive</option>
                                             </select>
                                         </div>
                                         <div className="mb-3 col-md-6">
@@ -304,6 +339,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                             />
                                         </div>
                                     </div>
+
                                     {showMsg && (<p className="text-center mb-3 text-danger">{errorMsg}</p>)}
                                     <button
                                         className='btn btn-lg brown_bg text-white fs_sm w-50'>Submit
