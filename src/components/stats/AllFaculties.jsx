@@ -1,14 +1,22 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import THead from '../general/THead'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import AddFacultyForm from '../faculty/AddFacultyForm'
 import Pagination from '../general/Pagination'
+import toast from 'react-hot-toast'
+import { ResourceContext } from '../../context/ResourceContext'
+import { BASE_URL } from '../utils/base'
+import FacultyList from './FacultyList'
 
 const PageSize = 7;
 
-const AllFaculties = ({ getAllFaculty }) => {
+const AllFaculties = ({ getAllFaculty, userCredentials }) => {
+
+    const { setGetAllFaculty } = useContext(ResourceContext);
+
     const [searchInput, setSearchInput] = useState("");
+    // const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [isOpen, setIsOpen] = useState({
         backgroundColor: "rgba(0, 0, 0, 0.15)",
@@ -45,6 +53,49 @@ const AllFaculties = ({ getAllFaculty }) => {
     }, [typeSearch, getAllFaculty])
 
     // pagination methods Ends here
+
+    const deleteFunc = async (id, setIsSubmitting) => {
+        setIsSubmitting(true)
+        setGetAllFaculty((prev) => {
+            return {
+                ...prev, isDataNeeded: false
+            }
+        })
+
+        const params = {
+            method: 'POST',
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': `Bearer ${userCredentials.token}`
+            },
+        }
+        try {
+            const response = await fetch(`${BASE_URL}faculty/deleteFaculty/${id}`, params);
+            if (response.ok) {
+                await response.json();
+                setIsSubmitting(false)
+                // console.log(response)
+                setGetAllFaculty((prev) => {
+                    return {
+                        ...prev, isDataNeeded: true
+                    }
+                })
+
+            }
+        } catch (error) {
+            console.log(error);
+            if (error.response) {
+                setIsSubmitting(false)
+                toast.danger(error.response.data.message);
+                console.log(error.response);
+            } else {
+                setIsSubmitting(false)
+                toast.danger(error.message);
+                console.log(error.message);
+            }
+        }
+    }
+
     return (
         <div>
             <AddFacultyForm
@@ -79,25 +130,15 @@ const AllFaculties = ({ getAllFaculty }) => {
                         <table className="table  table-hover">
                             <thead>
                                 <tr>
-                                    {/* <THead name="No:" /> */}
                                     <THead name="Faculty" />
                                     <THead name="Description" />
+                                    <THead name="Action" />
                                 </tr>
                             </thead>
                             <tbody>
                                 {currentTableData?.map((user) => {
                                     return (
-                                        <tr key={user.id}>
-                                            {/* <td>{user.id}</td> */}
-                                            <td>{user.title}</td>
-                                            <td>{user.description}</td>
-                                            {/* <td>{user.position}</td>
-                                            <td>{user.email}</td>
-                                            <td>{user.role}</td> */}
-                                            {/* <td>
-                                                <button className='btn' style={{ border: "1px solid hsla(166, 79%, 42%, 1)", backgroundColor: "hsla(166, 79%, 42%, 0.38)", color: "hsla(166, 79%, 42%, 1)" }}>Active</button>
-                                            </td> */}
-                                        </tr>
+                                        <FacultyList key={user.id} user={user} deleteFunc={deleteFunc} />
                                     )
                                 })}
                             </tbody>
@@ -120,7 +161,7 @@ const AllFaculties = ({ getAllFaculty }) => {
                         </div>
                     </div>
                 )}
-               
+
             </div>
         </div>
     )

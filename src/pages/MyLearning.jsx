@@ -77,7 +77,7 @@ const MyLearning = () => {
 
     return (
         <div className='p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
-            <h3>My Learning Paths</h3>
+            <h3>Learning Paths</h3>
             <p className="">On this page, you will be able to find all your learning paths along with the other learning paths available on the platform</p>
             <div className="my-3">
                 <p className="fw-bold mb-2">Onsite</p>
@@ -91,11 +91,11 @@ const MyLearning = () => {
                                 <ul className="dropdown-menu px-2">
                                     <li
                                         onClick={() => setCoursesFunc("")}
-                                        className='pointer'>Faculty</li>
+                                        className='pointer dark_hover'>Faculty</li>
                                     {getAllFaculty.data?.map((title) => (
                                         <li key={title.id}
                                             onClick={() => setCoursesFunc(title.id, title)}
-                                            className='pointer'>{title.title}</li>
+                                            className='pointer dark_hover'>{title.title}</li>
                                     ))}
                                 </ul>
                             </div>

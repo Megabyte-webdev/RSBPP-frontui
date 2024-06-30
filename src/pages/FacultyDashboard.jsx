@@ -214,9 +214,11 @@ const FacultyDashboard = () => {
           <Col className="my-3 my-md-0" md={3}>
             <div className="shadow rounded h-100 p-2">
               <p className="fw-bold">Course Progress</p>
-              {instructorCourses?.map((course) => (
-                <InstructorCourseAnalysis key={course.id} course={course} />
-              ))}
+              <div className="overflow_y">
+                {instructorCourses?.map((course) => (
+                  <InstructorCourseAnalysis key={course.id} course={course} />
+                ))}
+              </div>
             </div>
           </Col>
           <Col className="my-3 my-md-0" md={4}>

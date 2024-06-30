@@ -96,6 +96,7 @@ const App = () => {
                     <Route path='/schedule_classes' element={<UpComingClasses />} />
                     <Route path='/create_schedule' element={<CreateSchedule />} />
                     <Route path='/faculty_courses' element={<MyLearning />} />
+                    <Route path='/faculty_courses/:id' element={<FacultyEditCourse />} />
                     <Route path='/registra' element={<RegisteredStudent />} />
                     <Route path='/courses_administration' element={<CourseAdministration />} />
                     <Route path='/courses_administration/:id' element={<CourseMembers />} />

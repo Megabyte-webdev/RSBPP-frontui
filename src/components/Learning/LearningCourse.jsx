@@ -9,6 +9,7 @@ import { BASE_URL } from '../utils/base';
 import axios from 'axios';
 import { ResourceContext } from '../../context/ResourceContext';
 import toast from 'react-hot-toast';
+import { Spinner } from 'react-bootstrap';
 
 const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }) => {
 
@@ -18,6 +19,7 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
 
   const [errorMesage, setErrorMessage] = useState('');
   const [deleteError, setDeleteError] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const date = new Date(course.updated_at);
   const userRole = userCredentials?.user.role
@@ -28,7 +30,7 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
     course_id: course?.id
   }
   const adminAndInstructor = userRole === "admin" || userRole === "instructor"
-  // console.log(course)
+  const adminAuth = userRole === "admin"
   const hasItem = cartList?.some(item => item.courseId === course.id)
 
   const addToCart = () => {
@@ -97,7 +99,7 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
         ...prev, isDataNeeded: false
       }
     })
-
+    setIsDeleting(true)
     const params = {
       method: 'POST',
       headers: {
@@ -115,7 +117,7 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
             ...prev, isDataNeeded: true
           }
         })
-
+        setIsDeleting(false)
       }
     } catch (error) {
       console.log(error);
@@ -124,6 +126,7 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
       } else {
         setErrorMessage(error.message);
       }
+      setIsDeleting(false)
     }
   }
   return (
@@ -163,11 +166,11 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
         </div>
         {adminAndInstructor && (<div className='px-1'>
           <button
-            onClick={() => navigate(`/instructor_courses/${course.id}`, { state: { course: course } })}
+            onClick={() => navigate(adminAuth ? `/faculty_courses/${course.id}` : `/instructor_courses/${course.id}`, { state: { course: course } })}
             className='btn w-100 mb-2 blue_bg text-white'>Edit Course</button>
           <button
             onClick={() => deleteFunc()}
-            className='btn w-100 btn-secondary'>Delete Course</button>
+            className='btn w-100 btn-secondary'>Delete Course {isDeleting && <span><Spinner size='sm' /> </span>}  </button>
         </div>)}
       </div>
     </div>

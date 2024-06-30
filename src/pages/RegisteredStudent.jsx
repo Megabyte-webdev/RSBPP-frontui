@@ -154,7 +154,7 @@ const RegisteredStudent = () => {
             </div>
             {show === "users" && (<AllUsers userCredentials={userCredentials} getAllUsers={getAllUsers.data} />)}
             {show === "members" && (<AllUsers getAllUsers={getAllUsers.data} />)}
-            {show === "faculty" && (<AllFaculties getAllFaculty={getAllFaculty.data} />)}
+            {show === "faculty" && (<AllFaculties userCredentials={userCredentials} getAllFaculty={getAllFaculty.data} />)}
             {show === "courses" && (<AllCourses getAllCourses={getAllCourses.data} />)}
 
         </div>

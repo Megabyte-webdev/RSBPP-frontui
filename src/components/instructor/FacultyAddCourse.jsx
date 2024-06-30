@@ -291,21 +291,21 @@ const FacultyAddCourse = () => {
                                 className="form-control" id="participant" aria-describedby="emailHelp" />
                         </div>
                         <div className="my-4">
-                            <label htmlFor="outlines" className="form-label">Create Outlines</label>
-                            <ReactQuill
-                                id="outlines"
-                                onChange={handleOutline}
-                                value={details.outlines}
-                                modules={editorModules}
-                                formats={editorFormats}
-                            />
-                        </div>
-                        <div className="my-4">
                             <label htmlFor="objectives" className="form-label">Create Objectives</label>
                             <ReactQuill
                                 id="objectives"
                                 onChange={handleObjectives}
                                 value={details.objective}
+                                modules={editorModules}
+                                formats={editorFormats}
+                            />
+                        </div>
+                        <div className="my-4">
+                            <label htmlFor="outlines" className="form-label">Create Outlines</label>
+                            <ReactQuill
+                                id="outlines"
+                                onChange={handleOutline}
+                                value={details.outlines}
                                 modules={editorModules}
                                 formats={editorFormats}
                             />

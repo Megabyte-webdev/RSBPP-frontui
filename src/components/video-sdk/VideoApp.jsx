@@ -16,6 +16,7 @@ import { UserContext } from "../../context/AuthContext";
 import Indicators from "./Indicators";
 import AvatarDp from "./AvatarDp";
 import PresenterView from "./PresenterView";
+import { useNavigate } from "react-router-dom";
 
 function JoinScreen({ getMeetingAndToken }) {
     const { userCredentials } = useContext(UserContext)
@@ -131,6 +132,7 @@ function ParticipantView(props) {
 }
 
 function Controls() {
+    const navigate =useNavigate()
     const {
         enableScreenShare,
         disableScreenShare,
@@ -151,12 +153,18 @@ function Controls() {
         // Toggling screen share
         toggleScreenShare();
     };
+
+    const leaveMeetingToHome = () => {
+        // Toggling screen share
+        leave();
+        navigate("/")
+    };
     // console.log(micOn)
     // const camOn = webcamOn ? <CiVideoOn color="#fff" size={20} /> : <CiVideoOff color="#fff" size={20} />
     // const speakerOn = micOn ? <IoMic color="#fff" size={20} /> : <IoMicOff color="#fff" size={20} />
     return (
         <div className="d-flex">
-            <button className="video_btns brown_bg me-2 border-0" style={{ backgroundColor: "hsla(359, 54%, 44%, 0.2)" }} onClick={() => leave()}><MdCallEnd color="#fff" size={20} /></button>
+            <button className="video_btns brown_bg me-2 border-0" style={{ backgroundColor: "hsla(359, 54%, 44%, 0.2)" }} onClick={() => leaveMeetingToHome()}><MdCallEnd color="#fff" size={20} /></button>
             <button className="video_btns blue_bg me-2 border-0" onClick={() => toggleMic()}>{<IoMic color="#fff" size={20} />}</button>
             <button className="video_btns blue_bg me-2 border-0" onClick={() => toggleWebcam()}><CiVideoOn color="#fff" size={20} /></button>
             <button className="video_btns blue_bg me-2 border-0" onClick={handleEnableScreenShare}><FiUpload color="#fff" size={20} /></button>

@@ -104,6 +104,17 @@ p {
   cursor: pointer;
 }
 
+.dark_hover {
+  transition: filter 0.2s ease-in-out; /* Smooth transition */
+  background-color:#fff;
+
+}
+
+.dark_hover:hover {
+  filter: brightness(90%); /* 50% darker on hover */
+  /* background-color:#cccccc; */
+}
+
 /* .sidelist:hover {
   background-color: hsl(0, 0%, 96%) !important; 
 }
