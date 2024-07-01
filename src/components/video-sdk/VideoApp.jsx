@@ -96,7 +96,7 @@ function ParticipantView(props) {
     }, [micStream, micOn]);
     const currentSpeaker = props.participantId === props.checkSpeaker;
     return (
-        <div className={props.foundEntry ? "participant position-relative full_width" : "participant position-relative"} key={props.participantId}>
+        <div className={`participant position-relative ${props.foundEntry ? "full_width" : ""}`} key={props.participantId}>
             {/* <Controls webcamOn={webcamOn} micOn={micOn} /> */}
             <audio ref={micRef} autoPlay muted={isLocal} />
             <div className={webcamOn ? "w-100 h-100" : ""}>
@@ -201,12 +201,7 @@ function MeetingView(props) {
 
     const { join,
         participants,
-
-        // Enable screen Share
         presenterId,
-        // enableScreenShare,
-        // disableScreenShare,
-        // toggleScreenShare
     } = useMeeting({
         onPresenterChanged,
         onSpeakerChanged,
@@ -222,22 +217,6 @@ function MeetingView(props) {
         setJoined("JOINING");
         join();
     };
-
-
-    // const handleEnableScreenShare = () => {
-    //     // Enabling screen share
-    //     enableScreenShare();
-    // };
-
-    // const handleDisableScreenShare = () => {
-    //     // Disabling screen share
-    //     disableScreenShare();
-    // };
-
-    // const handleToggleScreenShare = () => {
-    //     // Toggling screen share
-    //     toggleScreenShare();
-    // };
 
     const foundEntry = [...participants.entries()].find(([key, user]) => user.displayName.includes("instructor"));
 

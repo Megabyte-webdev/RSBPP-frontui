@@ -115,16 +115,8 @@ p {
   /* background-color:#cccccc; */
 }
 
-/* .sidelist:hover {
-  background-color: hsl(0, 0%, 96%) !important; 
-}
-
-.sidelist:hover .arrow_icon {
-  opacity: 1 !important; 
-} */
-
 .sidelist:active {
-  background-color: hsl(0, 0%, 96%) !important; /* Optional subtle hover background */
+  background-color: #595790 !important; /* Optional subtle hover background */
 }
 
 .sidelist:active .arrow_icon {
@@ -505,6 +497,30 @@ input[type="radio"].red_radio {
 .video_container video{
   border-radius: 15px !important;
 }
+
+/* .container_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 10px;
+  justify-content: center;
+}
+
+.grid_participant {
+  grid-column: 1 / -1; 
+  grid-row: 1 / -1; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* when there's only one participant, center it */
+.container_grid:not(:has(.grid_participant:nth-child(2))) .participant {
+  grid-column: 1 / 1; /* reset grid column to default */
+  grid-row: 1 / 1; /* reset grid row to default */
+  justify-self: center;
+  align-self: center;
+}
+
 
 @media (min-width: 768px) {
   .chat_pic {

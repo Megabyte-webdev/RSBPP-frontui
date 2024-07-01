@@ -15,7 +15,7 @@ const CourseViewer = ({ isOpen, setIsOpen, user, data, faculty }) => {
     )
     // console.log(user)
     return (
-        <div>
+        <div className='p-0'>
             {isOpen && (
                 <div
                     style={isOpen}
@@ -62,7 +62,7 @@ const CourseViewer = ({ isOpen, setIsOpen, user, data, faculty }) => {
                                         </div>
                                         <div className="mb-3">
                                             <p className="fw-semibold">Course type</p>
-                                            <p>{faculty.title}</p>
+                                            <p>{faculty?.title}</p>
                                         </div>
                                     </div>
                                     <div className="col-6">

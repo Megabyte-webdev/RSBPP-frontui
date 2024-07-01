@@ -14,6 +14,8 @@ const FacultyEditCourse = () => {
     const { state } = useLocation()
     const { getAllFaculty,
         setGetAllFaculty,
+        getAllInstructors,
+        setGetAllInstructors,
         getAllCourses,
         setGetAllCourses, } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
@@ -21,13 +23,14 @@ const FacultyEditCourse = () => {
     const [loading, setLoading] = useState(false)
     const [errorMsg, setErrorMsg] = useState(null)
     const [showMsg, setShowMsg] = useState("")
-
+    const instructor = userCredentials.user?.role === "instructor"
+    console.log(instructor)
     const prev = state.course
 
     const [details, setDetails] = useState({
         // course_id: prev.id,
         title: prev.title,
-        created_by_id: userCredentials.user?.id,
+        created_by_id: prev.created_by_id,
         // code: prev.code,
         description: prev.description,
         objective: prev.objective,
@@ -42,6 +45,14 @@ const FacultyEditCourse = () => {
     })
     useEffect(() => {
         setGetAllCourses((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+
+    useEffect(() => {
+        setGetAllInstructors((prev) => {
             return {
                 ...prev, isDataNeeded: true
             }
@@ -132,7 +143,7 @@ const FacultyEditCourse = () => {
                 resetStates()
                 setLoading(false)
                 toast.success("successful update");
-                navigate("/instructor_courses")
+                navigate( instructor ? "/instructor_courses" : "/faculty_courses")
             })
             .catch((error) => {
                 console.log(error.response.data.message)
@@ -177,7 +188,7 @@ const FacultyEditCourse = () => {
                 } else {
                     console.log(error)
                     setErrorMsg(error.message)
-                    setShowMsg(true) 
+                    setShowMsg(true)
                     setLoading(false);
                 }
             });
@@ -195,6 +206,40 @@ const FacultyEditCourse = () => {
                 <form onSubmit={handleSubmitUpdate}>
                     <div className="row">
 
+                        <div className="mb-3 col-md-6">
+                            <label htmlFor="faculty" className="form-label">Faculty</label>
+                            <select
+                                id="faculty"
+                                value={details.faculty_id}
+                                name="faculty_id"
+                                onChange={handleOnChange}
+                                className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
+                                <option value="">--select --</option>
+                                {
+                                    getAllFaculty.data?.map((each) => (
+                                        <option key={each.id} value={each.id}>{each.title}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                        {!instructor && (
+                            <div className="mb-3 col-md-6">
+                                <label htmlFor="assignTo" className="form-label">Assign To</label>
+                                <select
+                                    id="assignTo"
+                                    value={details.created_by_id}
+                                    name="created_by_id"
+                                    onChange={handleOnChange}
+                                    className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
+                                    <option value="">--select --</option>
+                                    {
+                                        getAllInstructors.data?.map((each) => (
+                                            <option key={each.user_id} value={each.user_id}>{each.title} {each.first_name} {each.last_name} </option>
+                                        ))
+                                    }
+                                </select>
+                            </div>
+                        )}
                         <div className="mb-3 col-md-6">
                             <label htmlFor="title" className="form-label">Course title</label>
                             <input
@@ -261,7 +306,7 @@ const FacultyEditCourse = () => {
                                 <option value="executive">Executive</option>
                             </select>
                         </div>
-                        <div className="mb-3 col-md-6">
+                        {/* <div className="mb-3 col-md-6">
                             <label htmlFor="faculty" className="form-label">Faculty</label>
                             <select
                                 id="faculty"
@@ -276,7 +321,7 @@ const FacultyEditCourse = () => {
                                     ))
                                 }
                             </select>
-                        </div>
+                        </div> */}
                         <div className="mb-3 col-md-6">
                             <label htmlFor="price" className="form-label">Price</label>
                             <input

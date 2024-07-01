@@ -101,7 +101,7 @@ const AddFacultyForm = ({ isOpen, setIsOpen }) => {
                     aria-modal="true"
                     role="dialog"
                 >
-                    <div className="modal-dialog modal-dialog-scrollable modal-lg">
+                    <div className="modal-dialog modal-dialog-scrollable modal-sm">
                         <div className="modal-content h-100">
                             <div className="modal-header bottom_brown">
                                 <h1 className="modal-title fs-5" id="staticBackdropLabel">Add Faculty</h1>

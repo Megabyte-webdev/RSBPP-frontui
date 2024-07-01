@@ -4,6 +4,7 @@ import SideBarOptions from "./sidebarComponents/SideBarOptions"
 import { useContext, useEffect } from "react"
 import { ThemeContext } from "../../context/ThemeContext"
 import { ResourceContext } from "../../context/ResourceContext"
+import NewModal from "../general/NewModal"
 
 const SideBar = ({ userCredentials }) => {
   const { getEnrolledCourses, getAllCourses, setGetAllCourses, setGetEnrolledCourses } = useContext(ResourceContext)
@@ -18,7 +19,7 @@ const SideBar = ({ userCredentials }) => {
       }
     })
   }, [])
- 
+
   useEffect(() => {
     setGetAllCourses((prev) => {
       return {
@@ -44,7 +45,7 @@ const SideBar = ({ userCredentials }) => {
             </div>
             <p className="text-center fw-semibold">{user?.first_name} {user?.last_name}</p>
             <p className="text-center fw-light">{user?.role}</p>
-
+            {/* <NewModal /> */}
             {user?.role === "student" && (
               <div className="d-flex justify-content-between py-2">
                 <div className="border-end col">

@@ -11,7 +11,8 @@ const {userCredentials} = useContext(UserContext)
     const handleDisplay = () => (
         setIsOpen((prev) => {
             return {
-                ...prev, display: "block"
+                ...prev,
+                 display: "block"
             }
         })
     )

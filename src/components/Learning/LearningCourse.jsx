@@ -10,15 +10,18 @@ import axios from 'axios';
 import { ResourceContext } from '../../context/ResourceContext';
 import toast from 'react-hot-toast';
 import { Spinner } from 'react-bootstrap';
+import ConfirmDelete from '../general/ConfirmDelete';
+import NewModal from '../general/NewModal';
 
 const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }) => {
 
   const navigate = useNavigate();
-
   const { getAllCarts, setGetAllCarts, setGetAllCourses } = useContext(ResourceContext);
 
   const [errorMesage, setErrorMessage] = useState('');
-  const [deleteError, setDeleteError] = useState('');
+  const [show, setShow] = useState(false);
+
+const [deleteError, setDeleteError] = useState('');
   const [isDeleting, setIsDeleting] = useState(false)
 
   const date = new Date(course.updated_at);
@@ -62,36 +65,7 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
         }
       });
   };
-  const instructorDetails = getAllInstructors?.find((instructor) => instructor.user_id == course.created_by_id)
-  // const deleteFunction = () => {
-  //   setGetAllCourses((prev) => {
-  //     return {
-  //       ...prev, isDataNeeded: false
-  //     }
-  //   })
-  //   axios.post(`${BASE_URL}course/deleteCourse/${itemId}`, {
-  //     headers: {
-  //       'Authorization': `Bearer ${userCredentials.token}`
-  //     }
-  //   })
-  //     .then(response => {
-  //       console.log(response)
-  //       setGetAllCourses((prev) => {
-  //         return {
-  //           ...prev, isDataNeeded: true
-  //         }
-  //       })
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       if (error.response) {
-  //         setErrorMessage(error.response.data.message);
-  //       } else {
-  //         setErrorMessage(error.message);
-  //       }
-  //     });
-  // };
-  // console.log(instructorDetails)
+  const instructorDetails = getAllInstructors?.find((instructor) => instructor.user_id == course.created_by_id);
 
   const deleteFunc = async () => {
     setGetAllCourses((prev) => {
@@ -111,13 +85,14 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
       const response = await fetch(`${BASE_URL}course/deleteCourse/${itemId}`, params);
       if (response.ok) {
         await response.json();
-        // console.log(response)
         setGetAllCourses((prev) => {
           return {
             ...prev, isDataNeeded: true
           }
         })
+        setShow(false)
         setIsDeleting(false)
+        toast.success("successful");
       }
     } catch (error) {
       console.log(error);
@@ -129,6 +104,7 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
       setIsDeleting(false)
     }
   }
+
   return (
     <div className='rounded hover_effect bg-white mb-3 h-100 d-flex flex-column justify-content-between'>
       <div onClick={() => navigate(`/learning/${course.title}`, { state: { course: course, instructorDetails: instructorDetails } })} className='nav-link pointer'>
@@ -168,9 +144,17 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
           <button
             onClick={() => navigate(adminAuth ? `/faculty_courses/${course.id}` : `/instructor_courses/${course.id}`, { state: { course: course } })}
             className='btn w-100 mb-2 blue_bg text-white'>Edit Course</button>
-          <button
+          {/* <button
             onClick={() => deleteFunc()}
-            className='btn w-100 btn-secondary'>Delete Course {isDeleting && <span><Spinner size='sm' /> </span>}  </button>
+            className='btn w-100 btn-secondary'>Delete Course {isDeleting && <span><Spinner size='sm' /> </span>}  </button> */}
+          <ConfirmDelete
+            course={course}
+            show={show}
+            setShow={setShow}
+            errorMesage={errorMesage}
+            isDeleting={isDeleting}
+            deleteFunc={deleteFunc}
+          />
         </div>)}
       </div>
     </div>
