@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import THead from '../components/general/THead'
 import MeetingRow from '../components/faculty/MeetingRow'
 import ParticipantRow from '../components/faculty/ParticipantRow'
@@ -9,7 +9,8 @@ import Loading from '../components/loader/Loading'
 const MeetingParticipant = () => {
 
     const { userCredentials } = useContext(UserContext)
-    const { getAllCourses, setGetAllCourses } = useContext(ResourceContext)
+    const { getAllCourses, setGetAllCourses, errorMesage } = useContext(ResourceContext)
+    const [count, setCount] = useState(0)
 
     const user = userCredentials?.user
 
@@ -20,7 +21,7 @@ const MeetingParticipant = () => {
             }
         })
     }, [])
-
+    console.log(count)
     const myCoursesOnly = getAllCourses.data?.filter((course) => course.created_by_id == user.id)
 
     return (
@@ -29,32 +30,38 @@ const MeetingParticipant = () => {
                 className="p-3 p-md-5 min-vh-100"
                 style={{ backgroundColor: "hsla(0, 0%, 85%, .1)" }}
             >
-                <p>Perticipant List</p>
-                <div className="p-2 bg-white shadow-sm rounded my-3">
-                    {/* <div className="overflow_y_md_50 overflow_y_80"> */}
-                    {myCoursesOnly && (
-                        <div className="mt-4 table-responsive-md">
-                            <table className="table roboto table-hover">
-                                <thead>
-                                    <tr>
-                                        <THead name="Student Name" />
-                                        <THead name="Course Subscribe" />
-                                        <THead name="Email" />
-                                        {/* <THead name="Phone" /> */}
-                                        <THead name="Action" />
-                                        <THead name="Participants" />
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {myCoursesOnly?.map((course) => (
-                                        <ParticipantRow key={course.id} course={course} />
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    )}
-                    {!myCoursesOnly && <Loading />}
-                </div>
+                <p>Participant List</p>
+                {errorMesage ? (<p className='text-danger'>{errorMesage}</p>) : (
+                    <div className="p-2 bg-white shadow-sm rounded my-3">
+                        {/* <div className="overflow_y_md_50 overflow_y_80"> */}
+                        {myCoursesOnly && (
+                            <div className="mt-4 table-responsive-md">
+                                <table className="table roboto table-hover">
+                                    <thead>
+                                        <tr>
+                                            <THead name="Student Name" />
+                                            <THead name="Course Subscribe" />
+                                            <THead name="Email" />
+                                            {/* <THead name="Phone" /> */}
+                                            <THead name="Action" />
+                                            <THead name="Participants" />
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {myCoursesOnly?.map((course) => (
+                                            <ParticipantRow
+                                                key={course.id}
+                                                setCount={setCount}
+                                                count={count}
+                                                course={course} />
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
+                        {!myCoursesOnly && <Loading />}
+                    </div>
+                )}
             </div>
         </div>
     )

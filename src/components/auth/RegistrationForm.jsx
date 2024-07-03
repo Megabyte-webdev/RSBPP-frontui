@@ -30,7 +30,7 @@ const RegistrationForm = ({ setDisplay }) => {
         organization: "",
         position: "",
         email: "",
-        role: "",
+        role: "student",
         password: "",
         previousl_trained: false
     })
@@ -154,21 +154,20 @@ const RegistrationForm = ({ setDisplay }) => {
                                 <span className="position-absolute start-0 top-0 p-2"><SiSubtitleedit /> </span>
                             </div>
                         </div> */}
-                        <div className="mb-4">
+                        {/* <div className="mb-4">
                             <div className='position-relative'>
                                 <select
                                     name="role"
                                     value={regDetails.role}
                                     onChange={handleOnChange}
                                     className="form- py-2 w-100 border-0 rounded px-5 input_bg" aria-label="Default select example">
-                                    {/* <option selected>Open this select menu</option> */}
                                     <option value="admin">admin</option>
                                     <option value="instructor">instructor</option>
                                     <option value="student">student</option>
                                 </select>
                                 <span className="position-absolute start-0 top-0 p-2"><SiSubtitleedit /> </span>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="mb-4">
                             <div className='position-relative'>
                                 <input type="email"

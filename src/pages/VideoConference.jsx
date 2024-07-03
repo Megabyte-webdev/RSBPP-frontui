@@ -18,39 +18,17 @@ const VideoConference = () => {
     const day = new Date(state.list.day).toDateString()
 
     setSideBg("brown_sidebar")
-    return ( 
-        <div className='p-3 p-md-5 poppins min-vh-100' style={{ backgroundColor: "hsla(219, 50%, 95%, 1)" }}>
-            <Row>
-                <Col md={7}>
-                    <div className="my-3">
-                        <h4>Live class</h4>
-                        <p className='fw-semibold'>{state.oneCourse?.title}</p>
-                        <p>{day} | {state.list.start_time}</p>
-                    </div>
-                </Col>
-                <Col md={5}>
-                    <div>
-                        <form className='open_sans mb-3 ' style={{ color: "hsla(242, 97%, 15%, .6)" }}>
-                            <div className="mb-4">
-                                <div className='position-relative'>
-                                    <input type="text" className="btn border bg-white text-start px-5 py-2 w-100" id="search" placeholder='Search' />
-                                    <span className="position-absolute start-0 top-0 p-2"><FiSearch /> </span>
+    return (
+        <div className='p-3 p-md-5 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, 1)" }}>
+            <div className="">
+                <div className="">
+                    <Row>
+                        <Col>
+                            <div>
+                                <div>
+                                    <VideoApp state={state} />
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <div>
-                        <div className=''>
-                            {/* <img src={videoConference} alt="" className="img-fluid" /> */}
-                        </div>
-                        <div>
-                            <VideoApp state={state} />
-                        </div>
-                        {/* <div className="bg-white p-3 rounded">
+                                {/* <div className="bg-white p-3 rounded">
                             <Row>
                                 <Col xs={6} md={3}>
                                     <Listeners />
@@ -67,9 +45,9 @@ const VideoConference = () => {
                             </Row>
                         </div>
                         <VideoButtons /> */}
-                    </div>
-                </Col>
-                {/* <Col md={5}>
+                            </div>
+                        </Col>
+                        {/* <Col md={5}>
                     <div className="bg-white rounded mb-5">
                         <div className="brown_bg p-2 px-3 d-flex align-items-center rounded">
                             <p className='text-white fs_sm me-2'>Participants</p>
@@ -118,7 +96,9 @@ const VideoConference = () => {
                         </div>
                     </div>
                 </Col> */}
-            </Row>
+                    </Row>
+                </div>
+            </div>
         </div>
     )
 }

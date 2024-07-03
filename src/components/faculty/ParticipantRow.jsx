@@ -11,7 +11,7 @@ import axios from 'axios';
 import { BASE_URL } from '../utils/base';
 
 
-const ParticipantRow = ({ course }) => {
+const ParticipantRow = ({ course, count, setCount }) => {
     const { userCredentials } = useContext(UserContext);
     const [check, setcheck] = useState(false)
 
@@ -61,7 +61,7 @@ const ParticipantRow = ({ course }) => {
         getEnrolledByCourseId(course.id, setData)
     }, [])
 
-    // console.log(course)
+    // console.log(count)
     const list = data?.map((student) => (
         <tr key={student.enrollId}
             // onClick={() => navigate("/meetings_history/details")}

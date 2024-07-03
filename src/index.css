@@ -477,6 +477,7 @@ input[type="radio"].red_radio {
 
 .full_width:nth-child(1){
   grid-column: span 3 !important; /* Spans all three columns */
+  min-height: 80% !important;
 }
 
 /* .full_width {
@@ -487,6 +488,7 @@ input[type="radio"].red_radio {
   background-color: #fff;
   padding: 10px;
   border-radius: 5px;
+  height: 200px;
 }
 
 .video_container{
@@ -522,6 +524,7 @@ input[type="radio"].red_radio {
 }
 
 
+
 @media (min-width: 768px) {
   .chat_pic {
     width: 60px !important;
@@ -537,6 +540,9 @@ input[type="radio"].red_radio {
     overflow: unset !important;
     padding-right: 0px !important;
   }
+  .vh_md_80{
+    height: 80Vh !important;
+  }
   .overflow_y_50 {
     max-height: 50vh;
     overflow-y: scroll;
@@ -544,5 +550,9 @@ input[type="radio"].red_radio {
   }
   .w_md_unset{
     width: unset !important;
+  }
+  .full_width:nth-child(1){
+    height: 100% !important;
+    min-height: 500px !important;
   }
 }

@@ -84,7 +84,7 @@ const date = new Date(course?.created_at).toDateString()
             <td>
                 {course.course_type}
             </td>
-            <td><span>{oneFaculty.title}</span></td>
+            <td><span>{course.title}</span></td>
             <td><span>{data?.length ? data.length : "0"} Participants</span></td>
             <td><span>{date}</span></td>
             {/* <td>

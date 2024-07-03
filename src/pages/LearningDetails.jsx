@@ -86,21 +86,9 @@ const LearningDetails = () => {
                 </div>
                 <div className="d-flex justify-content-center">
                     <div className="d-flex justify-content-center col-md-7 my-5 px-md-5">
-                        {/* <div className="d-flex align-items-center">
-                            <span className="me-2">
-                                <MdOutlineVideoChat size={35} />
-                            </span>
-                            <span>Live Classes</span>
-                        </div>
-                        <div className="d-flex align-items-center">
-                            <span className="me-2">
-                                <MdOutlineVideoChat size={35} />
-                            </span>
-                            <span>Live Classes</span>
-                        </div> */}
                         <div
-                        onClick={()=> navigate("/courses")}
-                         className="d-flex pointer align-items-center">
+                            onClick={() => navigate("/courses")}
+                            className="d-flex pointer align-items-center">
                             <span className="me-2">
                                 <MdOutlineVideoChat size={35} />
                             </span>
@@ -108,9 +96,11 @@ const LearningDetails = () => {
                         </div>
                     </div>
                 </div>
-                <div className="d-flex justify-content-center">
-                    <button onClick={() => addToCart()} className='btn hover_effect blue_bg text-white py-2 px-5 rounded-0'> {hasItem ? "proceed to cart" : " Enroll Now"} - ${state.course.price}</button>
-                </div>
+                {userCredentials.user.role === "student" && (
+                    <div className="d-flex justify-content-center">
+                        <button onClick={() => addToCart()} className='btn hover_effect blue_bg text-white py-2 px-5 rounded-0'> {hasItem ? "proceed to cart" : " Enroll Now"} - ${state.course.price}</button>
+                    </div>
+                )}
             </div>
             <div className="p-3 border-bottom">
                 <div className="container">

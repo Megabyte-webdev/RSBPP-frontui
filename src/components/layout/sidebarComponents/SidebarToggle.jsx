@@ -27,7 +27,7 @@ const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant, instructo
                     className="d-flex align-items-center hover_effect mb-2 px-3 py-2 fs_sm justify-content-between pointer"
                 >
                     <div className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
-                        <span className={instructor ? "me-2  rounded blue_bg" : "me-2  rounded sidebar_icon"}>
+                        <span className={`me-2  rounded ${instructor ? "blue_bg" : "sidebar_icon"}`}>
                             <img width={20} height={20} src={constant.logo} alt="" />
                         </span>
                         <Link to={constant.link} className='nav-link'>

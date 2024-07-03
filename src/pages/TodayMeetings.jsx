@@ -89,7 +89,7 @@ const TodayMeetings = () => {
                             </div>
                             <div>
                                 <p>No. of meetings</p>
-                                <p><b>336</b> <span className="fs_xsm">This Month</span></p>
+                                <p><b>0</b> <span className="fs_xsm">This Month</span></p>
                             </div>
                         </div>
                     </div>
@@ -104,7 +104,7 @@ const TodayMeetings = () => {
                             </div>
                             <div>
                                 <p>Rescheduled meetings</p>
-                                <p><b>15</b> <span className="fs_xsm">This Month</span></p>
+                                <p><b>0</b> <span className="fs_xsm">This Month</span></p>
                             </div>
                         </div>
                     </div>
@@ -119,7 +119,7 @@ const TodayMeetings = () => {
                             </div>
                             <div>
                                 <p>Cancelled meetings </p>
-                                <p><b>21</b> <span className="fs_xsm">This Month</span></p>
+                                <p><b>0</b> <span className="fs_xsm">This Month</span></p>
                             </div>
                         </div>
                     </div>

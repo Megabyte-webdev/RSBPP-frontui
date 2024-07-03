@@ -7,7 +7,13 @@ import { ResourceContext } from "../../context/ResourceContext"
 import NewModal from "../general/NewModal"
 
 const SideBar = ({ userCredentials }) => {
-  const { getEnrolledCourses, getAllCourses, setGetAllCourses, setGetEnrolledCourses } = useContext(ResourceContext)
+  const { getEnrolledCourses,
+     getAllInstructorsSchedules,
+      setGetAllInstructorsSchedules,
+     getAllCourses,
+      setGetAllCourses,
+       setGetEnrolledCourses
+       } = useContext(ResourceContext)
   const { sideBg } = useContext(ThemeContext)
 
   const user = userCredentials?.user;
@@ -28,9 +34,16 @@ const SideBar = ({ userCredentials }) => {
     })
   }, [])
 
+  useEffect(() => {
+    setGetAllInstructorsSchedules((prev) => {
+      return {
+        ...prev, isDataNeeded: true
+      }
+    })
+  }, [])
+
   const myCoursesOnly = getAllCourses.data?.filter((course) => course.created_by_id == user.id)
 
-  // console.log(role === "instructor" ? "white_sidebar" : "brown_sidebar")
   return (
     <Col style={{ minHeight: "100vh" }}
       className={user?.role === "instructor" ? "white_sidebar prime_blue border-end d-none d-md-block" : "brown_sidebar border-end d-none d-md-block"}
@@ -65,8 +78,8 @@ const SideBar = ({ userCredentials }) => {
                   <p className="text-center">Courses</p>
                 </div>
                 <div className=" col">
-                  <p className="text-center"><b>0</b></p>
-                  <p className="text-center">Subsriber(s)</p>
+                  <p className="text-center"><b>{getAllInstructorsSchedules.data?.length}</b></p>
+                  <p className="text-center">Schedules(s)</p>
                 </div>
               </div>
             )}

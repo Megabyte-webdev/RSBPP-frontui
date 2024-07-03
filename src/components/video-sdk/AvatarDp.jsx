@@ -9,9 +9,9 @@ const AvatarDp = ({ webcamOn, micOn, participantId, checkSpeaker }) => {
     const currentSpeaker = participantId === checkSpeaker;
 
     return (
-        <div className="">
-            <div className="d-flex justif-content-center">
-                <div className="rounded position-relative bg-dark w-100">
+        <div className="w-100 h-100">
+            <div className="d-flex h-100 justify-content-center align-items-center">
+                <div className="rounded position-relative col-md-3">
                     <div
                         style={{ border: currentSpeaker ? "4px solid #ab3335" : "" }}
                         className='p-2 rounded'>

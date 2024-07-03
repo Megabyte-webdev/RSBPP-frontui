@@ -8,7 +8,14 @@ const FacultyList = () => {
 
 
     const { userCredentials } = useContext(UserContext)
-    const { getAllCourses, setGetAllCourses, getAllInstructors, setGetAllInstructors, getAllFaculty, setGetAllFaculty } = useContext(ResourceContext)
+    const {
+        errorMesage,
+        getAllCourses,
+        setGetAllCourses,
+        getAllInstructors,
+        setGetAllInstructors,
+        getAllFaculty,
+        setGetAllFaculty } = useContext(ResourceContext)
 
     const user = userCredentials?.user
 
@@ -46,40 +53,42 @@ const FacultyList = () => {
                 style={{ backgroundColor: "hsla(0, 0%, 85%, .1)" }}
             >
                 <p>Faculties List</p>
-                <div className="p-2 bg-white shadow-sm rounded my-3">
-                    {/* <div className="overflow_y_md_50 overflow_y_80"> */}
-                    <div className="mt-4 table-responsive-md">
-                        <table className="table roboto table-hover">
-                            <thead>
-                                <tr>
-                                    <THead name="Faculty Name" />
-                                    <THead name="Type" />
-                                    <THead name="Course" />
-                                    <THead name="NO. of Enrolled Student" />
-                                    <THead name="Create at " />
-                                    {/* <THead name="Actions" /> */}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {myCoursesOnly?.map((course) => (
-                                    <FacultyRow key={course.id}
-                                        token={userCredentials.token}
-                                        course={course}
-                                        instructor={instructor}
-                                        faculty={getAllFaculty.data} />
-                                ))}
-                                {/* <FacultyRow /> */}
-                                {/* <FacultyRow />
+                {errorMesage ? (<p className='text-danger'>{errorMesage}</p>) : (
+                    <div className="p-2 bg-white shadow-sm rounded my-3">
+                        {/* <div className="overflow_y_md_50 overflow_y_80"> */}
+                        <div className="mt-4 table-responsive-md">
+                            <table className="table roboto table-hover">
+                                <thead>
+                                    <tr>
+                                        <THead name="Faculty Name" />
+                                        <THead name="Type" />
+                                        <THead name="Course" />
+                                        <THead name="NO. of Enrolled Student" />
+                                        <THead name="Create at " />
+                                        {/* <THead name="Actions" /> */}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {myCoursesOnly?.map((course) => (
+                                        <FacultyRow key={course.id}
+                                            token={userCredentials.token}
+                                            course={course}
+                                            instructor={instructor}
+                                            faculty={getAllFaculty.data} />
+                                    ))}
+                                    {/* <FacultyRow /> */}
+                                    {/* <FacultyRow />
                                 <FacultyRow />
                                 <FacultyRow />
                                 <FacultyRow />
                                 <FacultyRow />
                                 <FacultyRow /> */}
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
+                        {/* </div> */}
                     </div>
-                    {/* </div> */}
-                </div>
+                )}
             </div>
         </div>
     )

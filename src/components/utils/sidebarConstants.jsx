@@ -5,7 +5,7 @@ import iconFour from "../../assets/side-icons/new4.png"
 import iconFive from "../../assets/side-icons/new5.png"
 import iconSix from "../../assets/side-icons/new6.png"
 import iconSeven from "../../assets/side-icons/new7.png"
-import iconEight from "../../assets/side-icons/icon8.png"
+import iconEight from "../../assets/side-icons/user-update.svg"
 import iconNine from "../../assets/side-icons/icon9.png"
 
 export const sidebarConstants = [
@@ -63,12 +63,23 @@ export const sidebarConstants = [
     },
     {
         title: "Quizzes",
-        logo: iconSix,
+        logo: iconSeven,
         subOptions: [
             {
                 title: "Quiz",
                 // link: "/quiz",
                 link: "/soon",
+            }
+        ]
+    },
+    {
+        title: "Profile",
+        logo: iconEight,
+        subOptions: [
+            {
+                title: "Profile Update",
+                // link: "/quiz",
+                link: "/user_update",
             }
         ]
     },
@@ -108,10 +119,10 @@ export const adminConstants = [
                 title: "Registra",
                 link: "/registra",
             },
-            {
-                title: "Create schedule",
-                link: "/create_schedule",
-            },
+            // {
+            //     title: "Create schedule",
+            //     link: "/create_schedule",
+            // },
             {
                 title: "Add Instructor",
                 link: "/add_instructor",
@@ -172,20 +183,6 @@ export const facultyConstants = [
                 title: "Faculties",
                 link: "/faculty_list",
             },
-        ]
-    },
-    {
-        title: "Meetings",
-        logo: iconTwo,
-        subOptions: [
-            // {
-            //     title: "Schedule class",
-            //     link: "/schedule_classes",
-            // },
-            {
-                title: "Create schedule",
-                link: "/create_schedule",
-            }
         ]
     },
 ]

@@ -72,26 +72,26 @@ const MyLearning = () => {
         user.title.toLowerCase().includes(searchInput.toLowerCase())
     )
 
-    const offLineCourse = typeSearch?.filter((course) => course.course_type === "offline")
-    const onLineCourse = typeSearch?.filter((course) => course.course_type === "online")
+    // const offLineCourse = typeSearch?.filter((course) => course.course_type === "offline")
+    // const onLineCourse = typeSearch?.filter((course) => course.course_type === "online")
 
     return (
         <div className='p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
             <h3>Learning Paths</h3>
             <p className="">On this page, you will be able to find all your learning paths along with the other learning paths available on the platform</p>
-            <div className="my-3">
-                <p className="fw-bold mb-2">Onsite</p>
+            <div className="my-5">
+                {/* <p className="fw-bold mb-2">Onsite</p> */}
                 <div className="d-md-flex">
-                    <div className="row col-md-4">
-                        <div className="col">
+                    <div className="row col-md-6">
+                        <div className="">
                             <div className="dropdown">
                                 <button className="btn border-black border w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {!filterCourse && ('Faculty')} {filterText?.title}
+                                    {!filterCourse && ('All')} {filterText?.title}
                                 </button>
-                                <ul className="dropdown-menu px-2">
+                                <ul className="dropdown-menu w-100 px-2">
                                     <li
                                         onClick={() => setCoursesFunc("")}
-                                        className='pointer dark_hover'>Faculty</li>
+                                        className='pointer dark_hover'>All</li>
                                     {getAllFaculty.data?.map((title) => (
                                         <li key={title.id}
                                             onClick={() => setCoursesFunc(title.id, title)}
@@ -122,7 +122,7 @@ const MyLearning = () => {
                         <div className="my-5">
                             {getAllCourses.data && (
                                 <CourseCarousel>
-                                    {onLineCourse?.map((course) => {
+                                    {typeSearch?.map((course) => {
                                         return (
                                             <LearningCourse
                                                 getAllInstructors={getAllInstructors.data}
@@ -136,7 +136,7 @@ const MyLearning = () => {
                             )}
                         </div>
 
-                        <div className='my-5'>
+                        {/* <div className='my-5'>
                             <p className="fw-bold">Offline Course</p>
                             <div className="my-5">
                                 {getAllCourses.data && (
@@ -154,7 +154,7 @@ const MyLearning = () => {
                                     </CourseCarousel>
                                 )}
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 )}
             </div>

@@ -98,7 +98,7 @@ const FacultyDashboard = () => {
         </Link>
       </Col> */}
       <Row className="blue_border_color border b-5 p-2 rounded-3">
-        <Col md={3} className="my-3 my-md-0">
+        <Col md={4} className="my-3 my-md-0">
           <div onClick={() => navigate("/meetings_history")} className="border-end py-3 hover_effect pointer d-md-flex justify-content-center">
             <div className="d-flex align-items-center" >
               <div style={{ color: "#D1D0D0", marginRight: "1rem" }}>
@@ -108,12 +108,12 @@ const FacultyDashboard = () => {
               </div>
               <div>
                 <p>UPCOMING MEETINGS</p>
-                <p><b>36</b> <span className="fs_xsm">This Month</span></p>
+                <p><b>0</b> <span className="fs_xsm">This Month</span></p>
               </div>
             </div>
           </div>
         </Col>
-        <Col md={3} className="my-3 my-md-0">
+        <Col md={4} className="my-3 my-md-0">
           <div className="border-end py-3 hover_effect pointer d-md-flex justify-content-center">
             <div className="d-flex align-items-center" >
               <div style={{ color: "#D1D0D0", marginRight: "1rem" }}>
@@ -123,12 +123,12 @@ const FacultyDashboard = () => {
               </div>
               <div>
                 <p>ATTENDED MEETINGS</p>
-                <p><b>15</b> <span className="fs_xsm">This Month</span></p>
+                <p><b>0</b> <span className="fs_xsm">This Month</span></p>
               </div>
             </div>
           </div>
         </Col>
-        <Col md={3} className="my-3 my-md-0">
+        <Col md={4} className="my-3 my-md-0">
           <div className="border-end py-3 hover_effect pointer d-md-flex justify-content-center">
             <div className="d-flex align-items-center" >
               <div style={{ color: "#D1D0D0", marginRight: "1rem" }}>
@@ -138,22 +138,7 @@ const FacultyDashboard = () => {
               </div>
               <div>
                 <p>Cancelled meetings </p>
-                <p><b>21</b> <span className="fs_xsm">This Month</span></p>
-              </div>
-            </div>
-          </div>
-        </Col>
-        <Col md={3} className="my-3 my-md-0">
-          <div className="border-end py-3 hover_effect pointer d-md-flex justify-content-center">
-            <div className="d-flex align-items-center" >
-              <div style={{ color: "#D1D0D0", marginRight: "1rem" }}>
-                <span>
-                  <MdOutlineCancel size={30} />
-                </span>
-              </div>
-              <div>
-                <p>Cancelled meetings </p>
-                <p><b>21</b> <span className="fs_xsm">This Month</span></p>
+                <p><b>0</b> <span className="fs_xsm">This Month</span></p>
               </div>
             </div>
           </div>
