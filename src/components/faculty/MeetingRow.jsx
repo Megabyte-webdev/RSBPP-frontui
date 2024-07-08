@@ -14,7 +14,7 @@ const MeetingRow = ({ list, userData, oneCourse }) => {
     // console.log(start.getTime())
     // const startDate = 
     const handleCheck = () => (setcheck(value => !value))
-    console.log(oneCourse)
+    // console.log(oneCourse)
 
     return (
         <tr

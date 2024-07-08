@@ -5,10 +5,7 @@ export const UserContext = createContext()
 const UserContextProvider = ({ children }) => {
     const fromLocal = JSON.parse(localStorage.getItem("userDetails"));
 
-    const [widgetOpen, setWidgetOpen] = useState({
-        backgroundColor: "rgba(0, 0, 0, 0.15)",
-        display: "none"
-    })
+    const [widgetOpen, setWidgetOpen] = useState(false)
 
     const [userCredentials, setUserCredentials] = useState(fromLocal ? fromLocal : null)
     return (

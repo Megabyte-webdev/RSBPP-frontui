@@ -14,7 +14,7 @@ function Controls() {
         enableScreenShare,
         disableScreenShare,
         toggleScreenShare,
-        leave, toggleMic, toggleWebcam, webcamOn, micOn, } = useMeeting();
+        leave, toggleMic, unmuteMic, toggleWebcam, webcamOn, micOn, } = useMeeting();
 
     const handleEnableScreenShare = () => {
         // Enabling screen share
@@ -39,10 +39,9 @@ function Controls() {
 
     const leaveMeetingToHome = () => {
         // Toggling screen share
-        leave();
+        leave();  
         navigate("/")
     };
-    console.log(isMicOn)
     // const camOn = webcamOn ? <CiVideoOn color="#fff" size={20} /> : <CiVideoOff color="#fff" size={20} />
     // const speakerOn = micOn ? <IoMic color="#fff" size={20} /> : <IoMicOff color="#fff" size={20} />
     return (

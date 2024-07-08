@@ -154,6 +154,10 @@ export const facultyConstants = [
                 link: "/create_schedule",
             },
             {
+                title: "All Meetings",
+                link: "/meetings_history",
+            },
+            {
                 title: "My Courses",
                 link: "/instructor_courses",
             }
@@ -171,10 +175,6 @@ export const facultyConstants = [
             //     title: "Create schedule",
             //     link: "/create_schedule",
             // },
-            {
-                title: "Meetings",
-                link: "/meetings_history",
-            },
             {
                 title: "My Student List",
                 link: "/participant_list",

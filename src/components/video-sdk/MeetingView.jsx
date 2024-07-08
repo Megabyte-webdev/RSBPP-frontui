@@ -4,11 +4,18 @@ import ParticipantView from "./ParticipantView";
 import PresenterView from "./PresenterView";
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/AuthContext";
-import { MdArrowLeft } from "react-icons/md";
+import { MdArrowLeft, MdAttachFile, MdOutlineGroupAdd, MdSend } from "react-icons/md";
 import { BsRecordCircle, BsStopCircle } from "react-icons/bs";
 import Loading from "../loader/Loading";
 import { useNavigate } from "react-router-dom";
 import { FcEndCall } from "react-icons/fc";
+import MarkAttendance from "../attendance/MarkAttendance";
+import InstructorControls from "./InstructorControls";
+import ChatView from "./ChatView";
+import { FiChevronUp } from "react-icons/fi";
+import VideoChats from "../video_conference/VideoChats";
+import VideoParticipants from "../video_conference/VideoParticipants";
+import { Col } from "react-bootstrap";
 
 
 function MeetingView(props) {
@@ -113,6 +120,14 @@ function MeetingView(props) {
         join();
     };
 
+    function handleMuteAllParticipant() {
+        [...participants.values()].forEach((participant) => {
+            if (!participant.isLocal) {
+                participant.disableMic();
+            }
+        });
+    }
+
     const foundEntry = [...participants.entries()].find(([key, user]) => user.displayName.includes("instructor"));
 
     // console.log(foundEntry)
@@ -130,17 +145,21 @@ function MeetingView(props) {
             {joined && joined == "JOINED" ? (
                 <div className=" border p-2">
                     {userCredentials.user.role === "instructor" && (
-                        <div style={{ bottom: "1.5rem" }} className='mb-2 position-absolue  end-0 top-0 fs_sm'>
-                            <button
-                                className="border-0 inherit_bg prime_brown me-2" onClick={handleStartRecording}><BsRecordCircle size={30} /></button>
-                            <button
-                                className="border-0 inherit_bg prime_brown" onClick={handleStopRecording}><BsStopCircle size={30} /></button>
-                            <button
-                                className="border-0 inherit_bg prime_brown" onClick={handleEndMeeting}><FcEndCall size={30} /></button>
-                        </div>
+                        // <div style={{ bottom: "1.5rem" }} className='mb-2 position-absolue  end-0 top-0 fs_sm'>
+                        //     <button
+                        //         className="border-0 inherit_bg prime_brown me-2" onClick={handleStartRecording}><BsRecordCircle size={30} /></button>
+                        //     <button
+                        //         className="border-0 inherit_bg prime_brown text-black" onClick={handleStopRecording}><BsStopCircle className=" text-black" size={30} /></button>
+                        //     <button
+                        //         className="border-0 inherit_bg prime_brown" onClick={handleEndMeeting}><FcEndCall size={30} /></button>
+                        //     <button
+                        //         className=" btn btn-sm border_color_brown border" onClick={handleMuteAllParticipant}>Mute All</button>
+                        // </div>
+                        <InstructorControls />
                     )}
                     <div className="d-flex justify-content-center">
-                        <div className="col-md-9">
+                        <div className="col-md-19">
+                            {/* <MarkAttendance state={props.state.list} /> */}
                             <div className=" position-relative">
                                 <div className="grid_container">
                                     {presenterId && <PresenterView presenterId={presenterId} />}
@@ -163,6 +182,59 @@ function MeetingView(props) {
                                 )}
                             </div>
                             <Controls />
+                        </div>
+                        <div className="col-md-3">
+                            <ChatView />
+
+                            {/* <Col >
+                                <div className="bg-white rounded mb-5">
+                                    <div className="brown_bg p-2 px-3 d-flex align-items-center rounded">
+                                        <p className='text-white fs_sm me-2'>Participants</p>
+                                        <div className='position-relative me-2'>
+                                            <input type="text" className="btn border rounded-pill bg-white text-start px-5 w-100" id="search" placeholder='Search' />
+                                            <span className="position-absolute start-0 top-0 p-1 ps-2"><MdOutlineGroupAdd /> </span>
+                                        </div>
+                                        <span>
+                                            <FiChevronUp color='#fff' />
+                                        </span>
+                                    </div>
+                                    <div className="p-3">
+                                        <VideoParticipants />
+                                        <VideoParticipants />
+                                        <VideoParticipants />
+                                    </div>
+                                </div>
+                                <div className="bg-white rounded mb-5">
+                                    <div className="blue_bg p-2 px-3 d-flex align-items-center justify-content-between rounded">
+                                        <p className='text-white fs_sm me-2'>Chats</p>
+                                        <div className="bg-white py-1 ps-1 pe-3 rounded-pill d-flex align-items-center">
+                                            <button className='btn blue_bg text-white py-0 px-3 rounded-pill me-2'>Groups</button>
+                                            <p>Personal</p>
+                                        </div>
+                                        <span>
+                                            <FiChevronUp color='#fff' />
+                                        </span>
+                                    </div>
+                                    <div className="p-3 py-4">
+                                        <VideoChats />
+                                        <VideoChats />
+                                        <VideoChats />
+                                    </div>
+                                </div>
+                                <div className="typing_section">
+                                    <div className="bg-white p-2 px-3 d-flex align-items-center rounded">
+                                        <p className='text-white fs_sm me-2'>
+                                            <MdAttachFile className='text-dark' size={20} />
+                                        </p>
+                                        <div className='position-relative me-2'>
+                                            <input type="text" className="btn border rounded-pill bg-white text-start px-3 w-100" id="search" placeholder='Type Something....' />
+                                        </div>
+                                        <div className='border-dark border  border-2 video_btns'>
+                                            <MdSend color='#000' />
+                                        </div>
+                                    </div>
+                                </div>
+                            </Col> */}
                         </div>
                     </div>
                 </div>

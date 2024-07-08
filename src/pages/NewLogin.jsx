@@ -84,11 +84,7 @@ const NewLogin = () => {
                 })
                 navigate("/")
                 if (userData.user.role == "student") {
-                    setWidgetOpen((prev) => {
-                        return {
-                            ...prev, display: "block"
-                        }
-                    })
+                    setWidgetOpen(true)
                 } else{ null}
                 setGetEnrolledCourses((prev) => {
                     return {

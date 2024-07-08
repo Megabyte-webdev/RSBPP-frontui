@@ -6,6 +6,7 @@ export const createMeeting = async ({ token }) => {
         method: "POST",
         headers: {
             authorization: `${authToken}`,
+            
             "Content-Type": "application/json",
         },
         body: JSON.stringify({}),

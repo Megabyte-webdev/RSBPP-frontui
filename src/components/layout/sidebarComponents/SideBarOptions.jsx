@@ -11,7 +11,7 @@ import { UserContext } from "../../../context/AuthContext"
 import toast from "react-hot-toast"
 import { FaLongArrowAltRight } from "react-icons/fa";
 
-const SideBarOptions = () => {
+const SideBarOptions = ({ handleClose }) => {
   const [isOpenOption, setIsOpenOption] = useState(null); // Track which subOption is open
   const { userCredentials, setUserCredentials } = useContext(UserContext);
   const role = userCredentials.user.role.toLowerCase()
@@ -47,7 +47,10 @@ const SideBarOptions = () => {
           className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
         >
           <div
-            onClick={() => setIsOpenOption("Dashboard")}
+            onClick={() => {
+              setIsOpenOption("Dashboard")
+              handleClose();
+            }}
             className="ps-2 d-flex align-items-center hover_effect text-nowrap fw-semibold">
             <span className={instructor ? "me-2 blue_bg rounded" : "me-2 sidebar_icon rounded"}>
               <img width={20} height={20} src={icon} alt="" />
@@ -60,13 +63,16 @@ const SideBarOptions = () => {
       </div>
       {student && sidebarConstants.map((constant) => (
         <SidebarToggle
+          handleClose={handleClose}
           key={constant.title}
+          instructor={instructor}
           isOpenOption={isOpenOption}
           constant={constant}
           handleSubOptionClick={handleSubOptionClick} />
       ))}
       {instructor && facultyConstants.map((constant) => (
         <SidebarToggle
+          handleClose={handleClose}
           key={constant.title}
           instructor={instructor}
           isOpenOption={isOpenOption}
@@ -75,7 +81,9 @@ const SideBarOptions = () => {
       ))}
       {role === "admin" && adminConstants.map((constant) => (
         <SidebarToggle
+          handleClose={handleClose}
           key={constant.title}
+          instructor={instructor}
           isOpenOption={isOpenOption}
           constant={constant}
           handleSubOptionClick={handleSubOptionClick} />
@@ -138,7 +146,10 @@ const SideBarOptions = () => {
         )}
         <div className={""}>
           <div
-            onClick={() => Logout()}
+            onClick={() => {
+              handleClose();
+              Logout()
+            }}
             className="d-flex align-items-center hover_effect px-3 py-2 mb-2 fs_sm justify-content-between pointer"
           >
             <div

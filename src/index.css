@@ -370,9 +370,16 @@ input:focus-visible {
   width: 30px !important;
   height: 30px !important;
 }
+.carousel-container{
+  padding-bottom: 1rem !important;
+}
 
 .border_brown {
   border-color: #ab3335 !important;
+}
+
+.border_blue { 
+  border-color: #03014c !important;
 }
 
 .powderBlue{
@@ -392,6 +399,7 @@ input:focus-visible {
   /* background-color: #03014c; */
   display: flex;
   justify-content: end;
+  padding-bottom: 1rem;
 }
 
 #no_border {

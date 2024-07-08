@@ -227,7 +227,7 @@ function JoinScreen({ getMeetingAndToken }) {
 //         quality: "high",
 //         orientation: "landscape",
 //       };
-  
+
 //       // Configuration for post transcription
 //       let transcription = {
 //         enabled: true,
@@ -312,8 +312,17 @@ function VideoApp({ state }) {
             return user.first_name
         }
     }
+
+    const togggleAllowMod = () => {
+        if (getName().includes("instructor")){
+            return true
+        } else {
+            return false
+        }
+    }
     const [meetingId, setMeetingId] = useState(state.list.meeting_code);
-    // console.log(state)
+
+    console.log(togggleAllowMod())
 
     const getMeetingAndToken = async (id) => {
         const meetingId =
@@ -327,9 +336,10 @@ function VideoApp({ state }) {
     return authToken && meetingId ? (
         <MeetingProvider
             config={{
+                allow_mod: togggleAllowMod,
                 meetingId,
-                micEnabled: true,
-                webcamEnabled: true,
+                // micEnabled: true,
+                // webcamEnabled: true,
                 screenShareEnabled: true,
                 chatEnabled: true,
                 raiseHandEnabled: true,

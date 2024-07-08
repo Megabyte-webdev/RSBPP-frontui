@@ -11,6 +11,8 @@ import userPics from "../../assets/user-icon.png"
 
 const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
     const { userCredentials } = useContext(UserContext)
+    const user = userCredentials?.user
+
     const {
         getAllCourses,
         getAllFaculty,
@@ -22,9 +24,8 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
     const [errorMsg, setErrorMsg] = useState(null)
     const [showMsg, setShowMsg] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [profileImageUrl, setProfileImageUrl] = useState('');
+    const [profileImageUrl, setProfileImageUrl] = useState(user.image ? user.image  : null);
 
-    const user = userCredentials?.user
 
     const [details, setDetails] = useState({
         // user_id: user?.id,
@@ -36,17 +37,17 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
         role: user?.role,
         faculty_id: user?.faculty_id,
         registration_type: "",
-        dob: "",
-        country: "",
-        state: "",
-        gender: "",
-        address: "",
-        industry: "",
-        profession: "",
-        image: "",
-        contact_number: "",
-        experience: "",
-        specialization: "",
+        dob: user?.dob ? user.dob : "",
+        country: user?.country ? user.country : "",
+        state: user?.state ? user.state : "",
+        gender: user?.gender ? user.gender : "",
+        address: user?.address ? user.address : "",
+        industry: user?.industry ? user.industry : "",
+        profession: user?.profession ? user.profession : "",
+        image: null,
+        contact_number: user?.contact_number ? user.contact_number : "",
+        experience: user?.experience ? user.experience : "",
+        specialization: user?.specialization ? user.specialization : "",
     })
 
     useEffect(() => {
@@ -167,7 +168,7 @@ console.log(errorMsg)
                         <p className="fw-bold mb-4">Personal Information</p>
                         <div className="d-flex justify-content-end mb-2 pe-3">
                             {profileImageUrl ? (
-                                <div style={{ width: "70px", height: "70px" }} className="">
+                                <div style={{ width: "70px", height: "70px" }} className="rounded-circle bg-secondary">
                                     <img className="w-100 rounded-circle h-100" src={profileImageUrl} alt="" />
                                 </div>
                             ) : (
@@ -291,12 +292,12 @@ console.log(errorMsg)
                                 </label>
                                 <div className=" d-none">
                                     <input
-                                        required
+                                        // required
                                         type="file"
                                         onChange={getImageURL}
                                         accept=".jpg, .jpeg, .png"
                                         name='image'
-                                        placeholder='Proile Image'
+                                        placeholder='Profile Image'
                                         className="form-control border-0 input_bg" id="cv" />
                                 </div>
                             </div>

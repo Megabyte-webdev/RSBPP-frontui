@@ -11,6 +11,8 @@ const UpdateForm = ({ setProfileCV, profileCV }) => {
     const { userCredentials } = useContext(UserContext)
     const {
         getAllCourses,
+        getAllInstructors,
+        setGetAllInstructors,
         getAllFaculty,
         setGetAllFaculty,
         setGetAllCourses,
@@ -22,34 +24,45 @@ const UpdateForm = ({ setProfileCV, profileCV }) => {
     const [loading, setLoading] = useState(false)
     const user = userCredentials?.user
 
+    
+    useEffect(() => {
+        setGetAllInstructors((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+
+
+    const instructor  = getAllInstructors?.data?.find(one => one.user_id === user.id)
+
     const [details, setDetails] = useState({
         // user_id: user?.id,
         first_name: user?.first_name,
         last_name: user?.last_name,
-        gender: "",
         email: user?.email,
         faculty_id: user?.faculty_id,
         role: "instructor",
-        contact_address: "",
-        contact_number: "",
-        date_of_birth: "",
-        country: "",
-        state: "",
-        experience: "",
-        specialization: "",
-        highest_degree: "",
-        year_of_graduation: "",
-        course_taught: "",
-        research_interest: "",
-        publication: "",
+        gender: instructor?.gender ? instructor?.gender : "",
+        contact_address: instructor?.contact_address ? instructor?.contact_address : "",
+        contact_number: instructor?.contact_number ? instructor?.contact_number : "",
+        date_of_birth: instructor?.date_of_birth ? instructor?.date_of_birth : "",
+        country: instructor?.country ? instructor?.country : "",
+        state: instructor?.state ? instructor?.state : "",
+        experience: instructor?.experience ? instructor?.experience : "",
+        specialization: instructor?.specialization ? instructor?.specialization : "",
+        highest_degree: instructor?.highest_degree ? instructor?.highest_degree : "",
+        year_of_graduation: instructor?.year_of_graduation ? instructor?.year_of_graduation : "",
+        course_taught: instructor?.course_taught ? instructor?.course_taught : "",
+        research_interest: instructor?.research_interest ? instructor?.research_interest : "",
+        publication: instructor?.publication ? instructor?.publication : "",
         position: user?.position,
         cv: null,
-        bio: "",
-        institution: "",
-        password: "",
+        bio: instructor?.bio ? instructor?.bio : "",
+        institution: instructor?.institution ? instructor?.institution : "",
+        password: instructor?.password ? instructor?.password : "",
         organization: user?.organization
     })
-
     useEffect(() => {
         setGetAllCourses((prev) => {
             return {
@@ -100,6 +113,7 @@ const UpdateForm = ({ setProfileCV, profileCV }) => {
         //   alert('Please select a valid Doc or Pdf file.');
         // }
     };
+    console.log(instructor.publication);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -136,10 +150,10 @@ const UpdateForm = ({ setProfileCV, profileCV }) => {
                     // setErrorMsg(error.response.data.message)
                     if (error.response.data.message.email) {
                         setErrorMsg(error.response.data.message.email)
-                    // } else if (error.response.data.message.instructor_id) {
-                    //     setErrorMsg(error.response.data.message.instructor_id)
-                    // } else if (error.response.data.message.start_time) {
-                    //     setErrorMsg(error.response.data.message.start_time)
+                        // } else if (error.response.data.message.instructor_id) {
+                        //     setErrorMsg(error.response.data.message.instructor_id)
+                        // } else if (error.response.data.message.start_time) {
+                        //     setErrorMsg(error.response.data.message.start_time)
                     } else {
                         setErrorMsg(error.response.data.message.data.error)
                     }
@@ -289,7 +303,7 @@ const UpdateForm = ({ setProfileCV, profileCV }) => {
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="text " onChange={handleOnChange} value={details.password} name='password' placeholder='Password *' required className="form-control border-0 input_bg"/>
+                                    <input type="text " onChange={handleOnChange} value={details.password} name='password' placeholder='Password *' required className="form-control border-0 input_bg" />
                                 </div>
                             </div>
                         </div>
@@ -329,7 +343,7 @@ const UpdateForm = ({ setProfileCV, profileCV }) => {
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="text" onChange={handleOnChange} value={details.institution} name='institution' placeholder='University/Institution' className="form-control border-0 input_bg" required/>
+                                    <input type="text" onChange={handleOnChange} value={details.institution} name='institution' placeholder='University/Institution' className="form-control border-0 input_bg" required />
                                 </div>
                             </div>
                         </div>
@@ -357,17 +371,17 @@ const UpdateForm = ({ setProfileCV, profileCV }) => {
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="text" onChange={handleOnChange} value={details.publication} name='publication' placeholder='Publications' className="form-control border-0 input_bg" required/>
+                                    <input type="text" onChange={handleOnChange} value={details.publication} name='publication' placeholder='Publications' className="form-control border-0 input_bg" required />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="mb-3">
-                        <label htmlFor="cv" className='border rounded-3 w-100 bg-white btn text-secondary'>
-                                {profileCV ? profileCV.name : "C.V"}  <span className='text-success'>
-                                    {profileCV && <CiCircleCheck size={25} />}
-                                </span>
-                            </label>
+                                <label htmlFor="cv" className='border rounded-3 w-100 bg-white btn text-secondary'>
+                                    {profileCV ? profileCV.name : "C.V"}  <span className='text-success'>
+                                        {profileCV && <CiCircleCheck size={25} />}
+                                    </span>
+                                </label>
                                 <div className=" d-none">
                                     <input
                                         required type="file"

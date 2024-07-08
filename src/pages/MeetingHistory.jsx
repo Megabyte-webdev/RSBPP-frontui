@@ -42,14 +42,15 @@ const MeetingHistory = () => {
     // const mySchedules = getAllSchedules.data?.filter((course) => course.instructor_id == userInfo.id)
 
     const mySchedules = getAllInstructorsSchedules.data?.sort((a, b) => {
-        const smaller = new Date(a.day)
-        const biggerr = new Date(b.day)
-        return smaller - biggerr
+        // const smaller = new Date(a.day)
+        // const biggerr = new Date(b.day)
+        // return smaller - biggerr
+        return b.id - a.id
     })
 
     const userData = getAllInstructors.data?.find((instructor) => instructor.user_id == userInfo.id)
     // console.log(myCourses)
-    // console.log(getAllSchedules.data)
+    console.log(mySchedules)
     return (
         <div>
             <div

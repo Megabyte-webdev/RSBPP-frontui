@@ -11,6 +11,7 @@ import DashboardWidget from '../components/dashboard/DashboardWidget'
 import { ResourceContext } from '../context/ResourceContext'
 import LivesClassList from '../components/student-commponent/LivesClassList'
 import Loading from '../components/loader/Loading'
+import NewDashboardWidget from '../components/dashboard/NewDashboardWidget'
 
 const DashboardTwo = () => {
     const { setSideBg } = useContext(ThemeContext);
@@ -54,7 +55,8 @@ const DashboardTwo = () => {
             <Row>
                 <Col md={8}>
                     <h5 className='my-4'>Wellcome to your Dashboard, {userCredentials.user?.first_name}</h5>
-                    <DashboardWidget />
+                    <NewDashboardWidget />
+                    {/* <DashboardWidget /> */}
                     <Row>
                         <Col md={6} className=' my-4 dash_grid'>
                             <div className="shadow hover_effect h-100 p-0 rounded">

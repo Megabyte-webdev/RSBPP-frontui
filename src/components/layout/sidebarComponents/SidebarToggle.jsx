@@ -6,12 +6,13 @@ import { useState } from "react";
 import { FaLongArrowAltRight } from 'react-icons/fa';
 import HoverList from '../../general/HoverList';
 
-const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant, instructor }) => {
+const SidebarToggle = ({ handleSubOptionClick, isOpenOption, handleClose, constant, instructor }) => {
 
     const [clickedIndex, setClickedIndex] = useState(null);
 
     const handleClick = (index) => {
         setClickedIndex(index);
+        handleClose();
     };
 
 
@@ -48,21 +49,23 @@ const SidebarToggle = ({ handleSubOptionClick, isOpenOption, constant, instructo
             {subOption === null ? null : (
                 <div>
                     {isOpenOption === constant.title && (
-                        <ul style={{ listStyle: "none" }} className="border-start border-white ps-0 ms-4">
-                            {
-                                subOption?.map((sub, index) => (
-                                    <HoverList
-                                        clickedIndex={clickedIndex}
-                                        handleClick={handleClick}
-                                        key={index}
-                                        sub={sub} />
-                                ))
-                            }
-                        </ul>
-                    )}
-                </div>
+                        <ul style={{ listStyle: "none" }} className={`border-start ps-0 ms-4 ${instructor ? "border_blue" : "border-white"} `}>
+                    {
+                        subOption?.map((sub, index) => (
+                            <HoverList
+                                handleClose={handleClose}
+                                clickedIndex={clickedIndex}
+                                handleClick={handleClick}
+                                key={index}
+                                sub={sub} />
+                        ))
+                    }
+                </ul>
             )}
         </div>
+    )
+}
+        </div >
     )
 }
 

@@ -6,7 +6,7 @@ import { BsInfoLg } from "react-icons/bs";
 import { GiVideoConference } from "react-icons/gi";
 import { MdOutlineOfflinePin } from "react-icons/md";
 
-const Widget = ({ handleDisplay }) => {
+const Widget = ({ handleClose }) => {
 
     const navigate = useNavigate()
 
@@ -14,7 +14,7 @@ const Widget = ({ handleDisplay }) => {
     //     navigate("/")
     // }
     return (
-        <div className=''>
+        <div className='mb-3'>
             <div className='my-3 my-md-5 text-center'>
                 <h3>Kindly use the Widget</h3>
                 <p>To select the Type of course you want to subscribe to</p>
@@ -24,7 +24,7 @@ const Widget = ({ handleDisplay }) => {
                     <div
                         onClick={() => {
                             navigate("/learning")
-                            handleDisplay()
+                            handleClose()
                         }}
                         className='nav-link pointer h-100'>
                         <div className="p-3 rounded border-2 border_brown border h-100">
@@ -45,7 +45,7 @@ const Widget = ({ handleDisplay }) => {
                     <div
                         onClick={() => {
                             navigate("/learning")
-                            handleDisplay()
+                            handleClose()
                         }}
                         className='nav-link pointer h-100'>
                         <div className="p-3 rounded border-2 border_brown border h-100">
@@ -66,7 +66,7 @@ const Widget = ({ handleDisplay }) => {
                     <div
                         onClick={() => {
                             navigate("/learning")
-                            handleDisplay()
+                            handleClose()
                         }}
                         className='nav-link pointer h-100'>
                         <div className="p-3 rounded border-2 border_brown border h-100">
@@ -86,7 +86,7 @@ const Widget = ({ handleDisplay }) => {
             </Row>
             <div className="mt-5 col-6 mx-auto">
                 <Button
-                    onClick={() => handleDisplay()}
+                    onClick={() => handleClose()}
                     type="submit" className="brown_bg rounded-3 border-0 w-100">
                     {/* {isLoading && (
               <div className="spinner-border text-light" role="status">
