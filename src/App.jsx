@@ -47,6 +47,7 @@ import ComingSoon from './pages/ComingSoon'
 import FacultyEditCourse from './components/instructor/FacultyEditCourse'
 import MyClassSchedules from './pages/MyClassSchedules'
 import ProfileUpdate from './pages/ProfileUpdate'
+import VideoIndex from './components/video-sdk-demo/src/VideoIndex'
 const LazyMeeting = lazy(() => import('./pages/MeetingHistory'));
 
 const App = () => {
@@ -64,6 +65,7 @@ const App = () => {
               <Route index element={role === "admin" ? <AdminDashboard /> : role === "instructor" ? <FacultyDashboard /> : <DashboardTwo />} />
               <Route path='/dashboard' element={<DashboardTwo />} />
               <Route path='/video_live' element={<VideoConference />} />
+              <Route path='/video_class' element={<VideoIndex />} />
               <Route path='/courses' element={<MyCourses />} />
               <Route path='/today' element={<TodayMeetings />} />
               <Route path='/learning' element={<MyLearning />} />

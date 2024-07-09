@@ -308,7 +308,7 @@ function VideoApp({ state }) {
     const getName = () => {
         if (user.role === "instructor") {
             return `instructor ${user.first_name}`
-        } else {
+        } else {  
             return user.first_name
         }
     }
