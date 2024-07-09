@@ -1,9 +1,13 @@
 const API_BASE_URL = "https://api.videosdk.live";
 const VIDEOSDK_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiJkNTgxZjdjMy01OGRmLTQzZDYtODE0OS02NmViNTFjNmI5ZmEiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcyMDUzMjE2MCwiZXhwIjoxNzIxMTM2OTYwfQ.BQ-t0UEIljbragmppwmc_et6oPsz_7QpsVXM-_Bv5Ug";
-// const VIDEOSDK_TOKEN = process.env.REACT_APP_VIDEOSDK_TOKEN;
+// const VIDEOSDK_TOKEN = import.meta.env.VITE_API_KEY;
 const API_AUTH_URL = "";
-// console.log(VIDEOSDK_TOKEN)
 
+// const API_BASE_URL = "https://api.videosdk.live";
+// const VIDEOSDK_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiJkNTgxZjdjMy01OGRmLTQzZDYtODE0OS02NmViNTFjNmI5ZmEiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcyMDUzMjE2MCwiZXhwIjoxNzIxMTM2OTYwfQ.BQ-t0UEIljbragmppwmc_et6oPsz_7QpsVXM-_Bv5Ug";
+// // const VIDEOSDK_TOKEN = process.env.REACT_APP_VIDEOSDK_TOKEN;
+// const API_AUTH_URL = "";
+// console.log(VIDEOSDK_TOKEN);
 export const getToken = async () => {
   if (VIDEOSDK_TOKEN && API_AUTH_URL) {
     console.error(
@@ -29,11 +33,14 @@ export const createMeeting = async ({ token }) => {
     headers: { Authorization: token, "Content-Type": "application/json" },
   };
 
-  const { roomId } = await fetch(url, options)
-    .then((response) => response.json())
-    .catch((error) => console.error("error", error));
+  const response = await fetch(url, options);
+  const data = await response.json();
 
-  return roomId;
+  if (data.roomId) {
+    return { meetingId: data.roomId, err: null };
+  } else {
+    return { meetingId: null, err: data.error };
+  }
 };
 
 export const validateMeeting = async ({ roomId, token }) => {
@@ -44,9 +51,18 @@ export const validateMeeting = async ({ roomId, token }) => {
     headers: { Authorization: token, "Content-Type": "application/json" },
   };
 
-  const result = await fetch(url, options)
-    .then((response) => response.json()) //result will have meeting id
-    .catch((error) => console.error("error", error));
+  const response = await fetch(url, options);
 
-  return result ? result.roomId === roomId : false;
+  if (response.status === 400) {
+    const data = await response.text();
+    return { meetingId: null, err: data };
+  }
+
+  const data = await response.json();
+
+  if (data.roomId) {
+    return { meetingId: data.roomId, err: null };
+  } else {
+    return { meetingId: null, err: data.error };
+  }
 };
