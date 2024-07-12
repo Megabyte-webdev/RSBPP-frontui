@@ -27,7 +27,7 @@ export default function DropDownCam({
               onMouseEnter={() => { setIsHovered(true) }}
               onMouseLeave={() => { setIsHovered(false) }}
               disabled={!isCameraPermissionAllowed}
-              className={`focus:outline-none hover:ring-1 hover:ring-gray-250 hover:bg-black 
+              className={`focus:outline-none hover:ring-1 hover:ring-gray-250  bg-gray-600 hover:bg-black 
               ${open
                   ? "text-white ring-1 ring-gray-250 bg-black"
                   : "text-customGray-250 hover:text-white"
@@ -57,7 +57,7 @@ export default function DropDownCam({
               leaveTo="opacity-0 translate-y-1"
             >
               <Popover.Panel className="absolute bottom-full z-10 mt-3 w-72 px-4 sm:px-0 pb-2">
-                <div className="rounded-lg shadow-lg">
+                <div className="rounded-lg bg-dark shadow-lg">
                   <div className="bg-gray-350 rounded-lg">
                     <div>
                       <div className="flex flex-col">

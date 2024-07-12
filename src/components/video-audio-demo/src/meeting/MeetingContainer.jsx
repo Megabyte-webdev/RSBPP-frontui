@@ -241,7 +241,7 @@ export function MeetingContainer({
                     <PresenterView height={containerHeight - bottomBarHeight} />
                   ) : null}
                   {isPresenting && isMobile ? null : (
-                    <MemorizedParticipantView isPresenting={isPresenting}/>
+                    <MemorizedParticipantView isPresenting={isPresenting} />
                   )}
 
                 </div>
