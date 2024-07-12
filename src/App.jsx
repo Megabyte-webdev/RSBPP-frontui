@@ -1,6 +1,6 @@
 import Layout from './components/layout/Layout'
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
-import Login from './pages/Login'
+// import Login from './pages/Login'
 import ResetPassword from './pages/ResetPassword'
 import Registration from './pages/Registration'
 import DashboardTwo from './pages/DashboardTwo'
@@ -47,7 +47,9 @@ import ComingSoon from './pages/ComingSoon'
 import FacultyEditCourse from './components/instructor/FacultyEditCourse'
 import MyClassSchedules from './pages/MyClassSchedules'
 import ProfileUpdate from './pages/ProfileUpdate'
-const LazyMeeting = lazy(() => import('./pages/MeetingHistory'));
+import VideoIndex from './components/video-sdk-demo/src/VideoIndex'
+import VideoCallClass from './components/video-audio-demo/src/VideoCallClass'
+// const LazyMeeting = lazy(() => import('./pages/MeetingHistory'));
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
@@ -64,6 +66,8 @@ const App = () => {
               <Route index element={role === "admin" ? <AdminDashboard /> : role === "instructor" ? <FacultyDashboard /> : <DashboardTwo />} />
               <Route path='/dashboard' element={<DashboardTwo />} />
               <Route path='/video_live' element={<VideoConference />} />
+              <Route path='/video_class' element={<VideoIndex />} />
+              <Route path='/video_call' element={<VideoCallClass />} />
               <Route path='/courses' element={<MyCourses />} />
               <Route path='/today' element={<TodayMeetings />} />
               <Route path='/learning' element={<MyLearning />} />
