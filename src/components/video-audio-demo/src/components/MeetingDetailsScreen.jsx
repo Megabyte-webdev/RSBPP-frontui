@@ -50,7 +50,7 @@ export function MeetingDetailsScreen({
               setMeetingId(e.target.value);
             }}
             placeholder={"Enter meeting Id"}
-            className="px-4 py-3 bg-gray-650 rounded-xl text-white w-full text-center"
+            className="px-4 py-3 bg-dark rounded-xl text-white w-full text-center"
           />
           {meetingIdError && (
             <p className="text-xs text-red-600">{`Please enter valid meetingId`}</p>
@@ -64,7 +64,7 @@ export function MeetingDetailsScreen({
             value={participantName}
             onChange={(e) => setParticipantName(e.target.value)}
             placeholder="Enter your name"
-            className="px-4 py-3 mt-5 bg-gray-650 rounded-xl text-white w-full text-center"
+            className="px-4 py-3 mt-5 bg-dark  rounded-xl text-white w-full text-center"
           />
 
           {/* <p className="text-xs text-white mt-1 text-center">

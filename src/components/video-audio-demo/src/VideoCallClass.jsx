@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
+import CallApp from "./CallApp";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -25,7 +25,7 @@ const VideoCallClass = ()=>{
         pauseOnHover
         theme="light"
       />
-      <App />
+      <CallApp />
     </>
   );
 }

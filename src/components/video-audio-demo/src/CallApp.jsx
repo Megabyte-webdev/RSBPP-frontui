@@ -1,15 +1,17 @@
 import { MeetingProvider } from "@videosdk.live/react-sdk";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { MeetingAppProvider } from "./MeetingAppContextDef";
 import { MeetingContainer } from "./meeting/MeetingContainer";
 import { LeaveScreen } from "./components/screens/LeaveScreen";
 import { JoiningScreen } from "./components/screens/JoiningScreen"
+import { UserContext } from "../../../context/AuthContext";
 
-function App() {
+function CallApp() {
+  const {userCredentials} = useContext(UserContext)
   const [token, setToken] = useState("");
   const [meetingId, setMeetingId] = useState("");
-  const [participantName, setParticipantName] = useState("");
+  const [participantName, setParticipantName] = useState(userCredentials.user?.first_name);
   const [micOn, setMicOn] = useState(false);
   const [webcamOn, setWebcamOn] = useState(false);
   const [customAudioStream, setCustomAudioStream] = useState(null);
@@ -90,4 +92,4 @@ function App() {
   );
 }
 
-export default App;
+export default CallApp;

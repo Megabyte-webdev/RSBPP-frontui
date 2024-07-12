@@ -1,12 +1,7 @@
 const API_BASE_URL = "https://api.videosdk.live";
-const VIDEOSDK_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiJkNTgxZjdjMy01OGRmLTQzZDYtODE0OS02NmViNTFjNmI5ZmEiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcyMDUzMjE2MCwiZXhwIjoxNzIxMTM2OTYwfQ.BQ-t0UEIljbragmppwmc_et6oPsz_7QpsVXM-_Bv5Ug";
-// const VIDEOSDK_TOKEN = import.meta.env.VITE_API_KEY;
+const VIDEOSDK_TOKEN = import.meta.env.VITE_API_KEY;
 const API_AUTH_URL = "";
 
-// const API_BASE_URL = "https://api.videosdk.live";
-// const VIDEOSDK_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiJkNTgxZjdjMy01OGRmLTQzZDYtODE0OS02NmViNTFjNmI5ZmEiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcyMDUzMjE2MCwiZXhwIjoxNzIxMTM2OTYwfQ.BQ-t0UEIljbragmppwmc_et6oPsz_7QpsVXM-_Bv5Ug";
-// // const VIDEOSDK_TOKEN = process.env.REACT_APP_VIDEOSDK_TOKEN;
-// const API_AUTH_URL = "";
 // console.log(VIDEOSDK_TOKEN);
 export const getToken = async () => {
   if (VIDEOSDK_TOKEN && API_AUTH_URL) {

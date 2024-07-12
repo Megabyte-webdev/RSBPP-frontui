@@ -52,11 +52,11 @@ const TodayClasses = ({ schedule, instructorDetails }) => {
                 <div className="fs_xsm mt-4 px-1">
                     <p><b>{schedule.title}</b></p>
                     {/* <p>This course will equip participants with the process of crafting solutions, using creative</p> */}
-                    <div className="d-flex my-2 justify-content-between">
+                    {/* <div className="d-flex my-2 justify-content-between">
                         <p className="prime_brown fw-semibold">40 members going</p>
                         <p className="prime_brown">2 pending</p>
-                    </div>
-                    <div>
+                    </div> */}
+                    {/* <div>
                         <AvatarGroup max={4}>
                             <Avatar alt="Remy Sharp" src={prof} />
                             <Avatar alt="Remy Sharp" src={prof} />
@@ -65,7 +65,7 @@ const TodayClasses = ({ schedule, instructorDetails }) => {
                             <Avatar alt="Remy Sharp" src={student22} />
                             <Avatar alt="Remy Sharp" src={student22} />
                         </AvatarGroup>
-                    </div>
+                    </div> */}
                     <div>
                         <button
                             onClick={() => navigate("/video_live", { state: { list: schedule } })}
