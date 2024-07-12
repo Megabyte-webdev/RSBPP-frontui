@@ -2,7 +2,7 @@ const API_BASE_URL = "https://api.videosdk.live";
 const VIDEOSDK_TOKEN = import.meta.env.VITE_API_KEY;
 const API_AUTH_URL = "";
 
-// console.log(VIDEOSDK_TOKEN);
+console.log(VIDEOSDK_TOKEN);
 export const getToken = async () => {
   if (VIDEOSDK_TOKEN && API_AUTH_URL) {
     console.error(

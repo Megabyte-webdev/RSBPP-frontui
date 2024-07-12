@@ -138,7 +138,7 @@ const [deleteError, setDeleteError] = useState('');
           <button
             disabled={hasItem}
             onClick={() => addToCart()}
-            className='btn w-100 btn-danger'>Add to Cart <span><BiSolidCart /></span></button>
+            className='btn w-100 btn-danger d-flex align-items-center'>Add to Cart <span className="ms-3"><BiSolidCart /></span></button>
         </div>
         {adminAndInstructor && (<div className='px-1'>
           <button

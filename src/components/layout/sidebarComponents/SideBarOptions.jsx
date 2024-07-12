@@ -43,13 +43,14 @@ const SideBarOptions = ({ handleClose }) => {
     <div className="sidebar_height">
       <div className={makeActive}>
         <div
-          onClick={() => handleSubOptionClick(constant.title)}
           className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
         >
           <div
             onClick={() => {
               setIsOpenOption("Dashboard")
-              handleClose();
+              if (handleClose){
+                handleClose();
+              }
             }}
             className="ps-2 d-flex align-items-center hover_effect text-nowrap fw-semibold">
             <span className={instructor ? "me-2 blue_bg rounded" : "me-2 sidebar_icon rounded"}>
@@ -89,65 +90,13 @@ const SideBarOptions = ({ handleClose }) => {
           handleSubOptionClick={handleSubOptionClick} />
       ))}
       <div className="border-top my-3 py-3 border-white">
-        {/* <div className={""}>
-          <div
-            onClick={() => handleSubOptionClick(constant.title)}
-            className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
-          >
-            <div
-              onClick={() => setIsOpenOption("class")}
-              className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
-              <span className="me-2">
-                <img width={20} height={20} src={iconEight} alt="" />
-              </span>
-              <Link to={"/dashboard"} className="nav-link">
-                <span>Enter Class Room </span>
-              </Link>
-            </div>
-          </div>
-        </div> */}
-        {!instructor && (
-          <>
-            {/* <div className={""}>
-              <div
-                onClick={() => handleSubOptionClick(constant.title)}
-                className="d-flex align-items-center hover_effect px-3 py-2 mb-2 fs_sm justify-content-between pointer"
-              >
-                <div
-                  onClick={() => setIsOpenOption("recommendation")}
-                  className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
-                  <span className="me-2 sidebar_icon rounded">
-                    <img width={20} height={20} src={iconEleven} alt="" />
-                  </span>
-                  <Link to={"/dashboard"} className="nav-link">
-                    <span>Recommendations </span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className={""}>
-              <div
-                onClick={() => handleSubOptionClick(constant.title)}
-                className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
-              >
-                <div
-                  onClick={() => setIsOpenOption("test")}
-                  className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
-                  <span className="me-2 sidebar_icon rounded">
-                    <img width={20} height={20} src={iconTen} alt="" />
-                  </span>
-                  <Link to={"/dashboard"} className="nav-link">
-                    <span>Test Management </span>
-                  </Link>
-                </div>
-              </div>
-            </div> */}
-          </>
-        )}
-        <div className={""}>
+      
+         <div className={""}>
           <div
             onClick={() => {
-              handleClose();
+              if (handleClose) {
+                handleClose();
+              }
               Logout()
             }}
             className="d-flex align-items-center hover_effect px-3 py-2 mb-2 fs_sm justify-content-between pointer"

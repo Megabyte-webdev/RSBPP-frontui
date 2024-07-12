@@ -55,7 +55,7 @@ const CourseCarousel = ({children}) => {
             keyBoardControl={true}
             customTransition="all .5"
             transitionDuration={500}
-            containerClass="carousel-container"
+            containerClass={"carousel-container"}
             removeArrowOnDeviceType={["tablet", "mobile"]}
             // deviceType={this.props.deviceType}
             dotListClass={"dots_list"}

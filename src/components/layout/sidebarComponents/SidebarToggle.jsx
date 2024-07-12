@@ -1,9 +1,8 @@
 import React from 'react'
 import icon from "../../../assets/side-icons/activity (1) 1.png"
 import { IoChevronDownSharp, IoChevronUpSharp } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import { useState } from "react";
-import { FaLongArrowAltRight } from 'react-icons/fa';
 import HoverList from '../../general/HoverList';
 
 const SidebarToggle = ({ handleSubOptionClick, isOpenOption, handleClose, constant, instructor }) => {
@@ -12,14 +11,15 @@ const SidebarToggle = ({ handleSubOptionClick, isOpenOption, handleClose, consta
 
     const handleClick = (index) => {
         setClickedIndex(index);
-        handleClose();
+        if (handleClose){
+            handleClose();
+        }
     };
 
 
     const subOption = constant.subOptions;
     const makeActive = isOpenOption === constant.title ? "sidebar_active" : "";
 
-    const navigate = useNavigate();
     return (
         <div>
             <div className={makeActive}>
