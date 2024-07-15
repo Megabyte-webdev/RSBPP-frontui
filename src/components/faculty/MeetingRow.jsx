@@ -5,6 +5,7 @@ import { MdOutlineRadioButtonUnchecked } from "react-icons/md";
 import instructorPics from "../../assets/participant.png"
 import ImageGroup from './ImageGroup';
 import { useNavigate } from 'react-router-dom';
+import UpdateScheduleForm from '../create_schedule/UpdateScheduleForm';
 
 const MeetingRow = ({ list, userData, oneCourse }) => {
     const navigate = useNavigate()
@@ -37,8 +38,8 @@ const MeetingRow = ({ list, userData, oneCourse }) => {
             </td>
             <td>
                 <button
-                  onClick={()=> navigate("/video_live", {state : {oneCourse : oneCourse, list : list}} )}
-                 className="btn btn-danger rounded-pill fs_xsm"> Live class</button>
+                    onClick={() => navigate("/video_live", { state: { oneCourse: oneCourse, list: list } })}
+                    className="btn btn-danger text-nowrap rounded-pill fs_xsm"> Live class</button>
             </td>
             <td><span>{list.meeting_code}</span></td>
             <td><span>{start.toLocaleTimeString()} <br /> {start.toDateString()}</span></td>
@@ -46,14 +47,10 @@ const MeetingRow = ({ list, userData, oneCourse }) => {
             <td>
                 <button
                     onClick={() => navigate(`/meetings_history/${oneCourse ? oneCourse.title : "no_data"}`, { state: { oneCourse: oneCourse, list: list } })}
-                 className='btn btn-success'>View</button>
-                {/* <div
-                    onClick={() => navigate(`/meetings_history/${oneCourse ? oneCourse.title : "no_data"}`, { state: { oneCourse: oneCourse, list: list } })}
-                    className='d-flex pointer'>
-                    <ImageGroup />
-                    <span> <MdOutlineRadioButtonUnchecked />
-                    </span>
-                </div> */}
+                    className='btn btn-success'>View</button>
+            </td>
+            <td>
+                <UpdateScheduleForm list={list} />
             </td>
         </tr >
     )

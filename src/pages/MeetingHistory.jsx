@@ -71,6 +71,7 @@ const MeetingHistory = () => {
                                         <THead name="Started at" />
                                         <THead name="Ended at" />
                                         <THead name="Participants" />
+                                        <THead name="Action" />
                                     </tr>
                                 </thead>
                                 <tbody>

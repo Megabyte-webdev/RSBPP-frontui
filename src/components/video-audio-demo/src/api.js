@@ -1,8 +1,8 @@
 const API_BASE_URL = "https://api.videosdk.live";
-const VIDEOSDK_TOKEN = import.meta.env.VITE_API_KEY;
+const VIDEOSDK_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiJkNTgxZjdjMy01OGRmLTQzZDYtODE0OS02NmViNTFjNmI5ZmEiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcyMTAzNzQxMSwiZXhwIjoxNzIxNjQyMjExfQ.N4BmStxXQKowNnFHFQt-3VbT-TZtwKHcmG9_2_7P-vM";
 const API_AUTH_URL = "";
 
-console.log(VIDEOSDK_TOKEN);
+// console.log(VIDEOSDK_TOKEN);
 export const getToken = async () => {
   if (VIDEOSDK_TOKEN && API_AUTH_URL) {
     console.error(
@@ -54,7 +54,7 @@ export const validateMeeting = async ({ roomId, token }) => {
   }
 
   const data = await response.json();
-
+console.log(data)
   if (data.roomId) {
     return { meetingId: data.roomId, err: null };
   } else {

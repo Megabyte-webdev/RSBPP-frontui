@@ -423,6 +423,7 @@ export function ParticipantView({ participantId }) {
     mode,
     isActiveSpeaker,
   } = useParticipant(participantId);
+  console.log(displayName)
 
   const {selectedSpeaker} = useMeetingAppContext();
   const micRef = useRef(null);

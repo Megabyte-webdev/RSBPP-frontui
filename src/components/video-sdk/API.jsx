@@ -1,5 +1,5 @@
 //This is the Auth token, you will use it to generate a meeting and connect to it
-export const authToken = import.meta.env.VITE_API_KEY
+export const authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiJkNTgxZjdjMy01OGRmLTQzZDYtODE0OS02NmViNTFjNmI5ZmEiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcyMTAzNzQxMSwiZXhwIjoxNzIxNjQyMjExfQ.N4BmStxXQKowNnFHFQt-3VbT-TZtwKHcmG9_2_7P-vM";
 console.log(authToken)
 // API call to create a meeting
 export const createMeeting = async ({ token }) => {

@@ -30,7 +30,9 @@ function CallApp() {
       };
     }
   }, [isMobile]);
-
+const userRole = {
+  role : userCredentials.user.role
+}
   return (
     <>
       <MeetingAppProvider>
@@ -41,7 +43,8 @@ function CallApp() {
               meetingId,
               micEnabled: micOn,
               webcamEnabled: webcamOn,
-              name: participantName ? participantName : "TestUser",
+              name: userCredentials.user.first_name,
+              metaData : userRole,
               multiStream: true,
               customCameraVideoTrack: customVideoStream,
               customMicrophoneAudioTrack: customAudioStream
