@@ -38,7 +38,7 @@ const MeetingRow = ({ list, userData, oneCourse }) => {
             </td>
             <td>
                 <button
-                    onClick={() => navigate("/video_live", { state: { oneCourse: oneCourse, list: list } })}
+                    onClick={() => navigate("/video_call", { state: { oneCourse: oneCourse, list: list } })}
                     className="btn btn-danger text-nowrap rounded-pill fs_xsm"> Live class</button>
             </td>
             <td><span>{list.meeting_code}</span></td>

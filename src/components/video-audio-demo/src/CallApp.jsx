@@ -7,10 +7,11 @@ import { LeaveScreen } from "./components/screens/LeaveScreen";
 import { JoiningScreen } from "./components/screens/JoiningScreen"
 import { UserContext } from "../../../context/AuthContext";
 
-function CallApp() {
-  const {userCredentials} = useContext(UserContext)
+function CallApp({ meetingInfo }) {
+
+  const { userCredentials } = useContext(UserContext)
   const [token, setToken] = useState("");
-  const [meetingId, setMeetingId] = useState("");
+  const [meetingId, setMeetingId] = useState(meetingInfo.meeting_code);
   const [participantName, setParticipantName] = useState(userCredentials.user?.first_name);
   const [micOn, setMicOn] = useState(false);
   const [webcamOn, setWebcamOn] = useState(false);
@@ -30,9 +31,9 @@ function CallApp() {
       };
     }
   }, [isMobile]);
-const userRole = {
-  role : userCredentials.user.role
-}
+  const userRole = {
+    role: userCredentials.user.role
+  }
   return (
     <>
       <MeetingAppProvider>
@@ -44,10 +45,10 @@ const userRole = {
               micEnabled: micOn,
               webcamEnabled: webcamOn,
               name: userCredentials.user.first_name,
-              metaData : userRole,
+              metaData: userRole,
               multiStream: true,
               customCameraVideoTrack: customVideoStream,
-              customMicrophoneAudioTrack: customAudioStream
+              customMicrophoneAudioTrack: customAudioStream,
             }}
             token={token}
             reinitialiseMeetingOnConfigChange={true}
@@ -62,6 +63,7 @@ const userRole = {
                 setMicOn(false);
                 setMeetingStarted(false);
               }}
+            meetingCode={meetingInfo.meeting_code}
               setIsMeetingLeft={setIsMeetingLeft}
             />
           </MeetingProvider>
@@ -74,6 +76,7 @@ const userRole = {
             participantName={participantName}
             setParticipantName={setParticipantName}
             setMeetingId={setMeetingId}
+            meetingCode={meetingInfo.meeting_code}
             setToken={setToken}
             micOn={micOn}
             setMicOn={setMicOn}

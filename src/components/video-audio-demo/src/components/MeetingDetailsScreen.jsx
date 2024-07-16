@@ -4,13 +4,14 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 export function MeetingDetailsScreen({
+  meetingCode,
   onClickJoin,
   _handleOnCreateMeeting,
   participantName,
   setParticipantName,
   onClickStartMeeting,
 }) {
-  const [meetingId, setMeetingId] = useState("");
+  const [meetingId, setMeetingId] = useState(meetingCode);
   const [meetingIdError, setMeetingIdError] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [iscreateMeetingClicked, setIscreateMeetingClicked] = useState(false);
@@ -44,14 +45,14 @@ export function MeetingDetailsScreen({
         </div>
       ) : isJoinMeetingClicked ? (
         <>
-          <input
+          {/* <input
             defaultValue={meetingId}
             onChange={(e) => {
               setMeetingId(e.target.value);
             }}
             placeholder={"Enter meeting Id"}
             className="px-4 py-3 bg-dark rounded-xl text-white w-full text-center"
-          />
+          /> */}
           {meetingIdError && (
             <p className="text-xs text-red-600">{`Please enter valid meetingId`}</p>
           )}
@@ -60,19 +61,19 @@ export function MeetingDetailsScreen({
 
       {(iscreateMeetingClicked || isJoinMeetingClicked) && (
         <>
-          <input
+          {/* <input
             value={participantName}
             onChange={(e) => setParticipantName(e.target.value)}
             placeholder="Enter your name"
             className="px-4 py-3 mt-5 bg-dark  rounded-xl text-white w-full text-center"
-          />
+          /> */}
 
           {/* <p className="text-xs text-white mt-1 text-center">
             Your name will help everyone identify you in the meeting.
           </p> */}
           <button
             disabled={participantName.length < 3}
-            className={`w-full ${participantName.length < 3 ? "bg-gray-650" : "bg-purple-350"
+            className={`w-full ${participantName.length < 3 ? "bg-gray-650" : "bg-purple-500"
               }  text-white px-2 py-3 rounded-xl mt-5`}
             onClick={(e) => {
               if (iscreateMeetingClicked) {
@@ -92,7 +93,7 @@ export function MeetingDetailsScreen({
       {!iscreateMeetingClicked && !isJoinMeetingClicked && (
         <div className="w-full md:mt-0 mt-4 flex flex-col">
           <div className="flex items-center justify-center flex-col w-full ">
-            <button
+            {/* <button
               className="w-full blue_bg text-white px-2 py-3 rounded-xl"
               onClick={async (e) => {
                 const { meetingId, err } = await _handleOnCreateMeeting();
@@ -118,7 +119,7 @@ export function MeetingDetailsScreen({
               }}
             >
               Create a meeting
-            </button>
+            </button> */}
             <button
               className="w-full blue_bg text-white px-2 py-3 rounded-xl mt-5"
               onClick={(e) => {

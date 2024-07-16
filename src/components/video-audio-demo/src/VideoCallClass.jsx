@@ -4,9 +4,12 @@ import "./index.css";
 import CallApp from "./CallApp";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useLocation } from "react-router-dom";
 
-const VideoCallClass = ()=>{
-  return(
+const VideoCallClass = () => {
+  const { state } = useLocation();
+  // console.log(state.oneCourse?.list)
+  return (
     <>
       <ToastContainer
         toastClassName={() =>
@@ -25,7 +28,7 @@ const VideoCallClass = ()=>{
         pauseOnHover
         theme="light"
       />
-      <CallApp />
+      <CallApp meetingInfo={state?.list} />
     </>
   );
 }
