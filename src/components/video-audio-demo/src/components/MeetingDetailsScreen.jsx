@@ -1,6 +1,7 @@
 // import { CheckIcon, ClipboardIcon } from "@heroicons/react/outline";
 import { CheckIcon, ClipboardIcon } from "@heroicons/react/24/outline";
 import React, { useState } from "react";
+import { Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 
 export function MeetingDetailsScreen({
@@ -16,6 +17,7 @@ export function MeetingDetailsScreen({
   const [isCopied, setIsCopied] = useState(false);
   const [iscreateMeetingClicked, setIscreateMeetingClicked] = useState(false);
   const [isJoinMeetingClicked, setIsJoinMeetingClicked] = useState(false);
+  const [isSpinner, setIsSpinner] = useState(false);
 
   return (
     <div
@@ -78,14 +80,18 @@ export function MeetingDetailsScreen({
             onClick={(e) => {
               if (iscreateMeetingClicked) {
                 onClickStartMeeting();
+                setIsSpinner(true)
               } else {
                 if (meetingId.match("\\w{4}\\-\\w{4}\\-\\w{4}")) {
                   onClickJoin(meetingId);
-                } else setMeetingIdError(true);
+                  setIsSpinner(true)
+                } else {setMeetingIdError(true);
+                setIsSpinner(false)}
               }
             }}
           >
-            {iscreateMeetingClicked ? "Start a meeting" : "Join a meeting"}
+            {iscreateMeetingClicked ? "Start a meeting" : "Join a meeting "}
+            {isSpinner && <Spinner size="sm" />}
           </button>
         </>
       )}

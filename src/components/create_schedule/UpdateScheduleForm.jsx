@@ -161,7 +161,7 @@ const UpdateScheduleForm = ({ meetingCode, list }) => {
         })
     }
 
-    console.log(details)
+    // console.log(details)
 
     return (
         <>

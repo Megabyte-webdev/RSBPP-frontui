@@ -1,15 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { ThemeContext } from "../context/ThemeContext";
 import { UserContext } from "../context/AuthContext";
-import { MdAddBox, MdOutlineCalendarMonth, MdOutlineCancel } from "react-icons/md";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import DashboardWidget from "../components/dashboard/DashboardWidget";
-import { FaVideo } from "react-icons/fa6";
-import RoundChart from "../components/general/RoundChart";
-import BarChart from "../components/general/BarCharts";
+import { Link, useNavigate } from "react-router-dom";
 import { ResourceContext } from "../context/ResourceContext";
 import InstructorCourseAnalysis from "../components/instructor/InstructorCourseAnalysis";
+import FacultyScheduleStats from "../components/faculty/FacultySheduleStats";
 
 const today = new Date();
 const FacultyDashboard = () => {
@@ -18,6 +14,9 @@ const FacultyDashboard = () => {
   const {
     getAllCourses,
     setGetAllCourses,
+    getAllInstructors,
+    getAllInstructorsSchedules,
+    setGetAllInstructorsSchedules,
     getAllSchedules,
     setGetAllSchedules, } = useContext(ResourceContext);
   const navigate = useNavigate()
@@ -39,16 +38,23 @@ const FacultyDashboard = () => {
     })
   }, [])
 
+  
+    useEffect(() => {
+        setGetAllInstructorsSchedules((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+
   const instructorCourses = getAllCourses.data?.filter((schedule => schedule.created_by_id == userCredentials.user.id))
 
   const instructorSchedules = getAllSchedules.data?.filter((schedule => schedule.instructor_id === userCredentials.user.id))
 
-  console.log(instructorCourses)
-
   const todaySchedules = instructorSchedules?.filter(classItem => {
-    // Assuming 'classItem' has a 'date' property for the class
+    // Assuming 'classem' has a 'date' property for the class
     const classDate = new Date(classItem.day);
-    // Compare year, month, and day to check if dates are the same
+    // Compare year, month, Itand day to check if dates are the same
     return (classDate.getFullYear() == today.getFullYear() &&
       classDate.getMonth() == today.getMonth() &&
       classDate.getDate() == today.getDate());
@@ -87,63 +93,7 @@ const FacultyDashboard = () => {
       className="p-3 p-md-5"
       style={{ backgroundColor: "hsla(0, 0%, 85%, .1)" }}
     >
-      {/* <Col md={10} className="d-flex mb-4 justify-content-between">
-        <h6 className="my-4">Upcoming Courses  Meeting</h6>
-        <DashboardWidget />
-        <Link className="d-flex nav-link text-primary align-items-center">
-          <span>
-            <MdAddBox size={25} className="me-2" />
-          </span>
-          <p className="fs_sm">Invite Participant</p>
-        </Link>
-      </Col> */}
-      <Row className="blue_border_color border b-5 p-2 rounded-3">
-        <Col md={4} className="my-3 my-md-0">
-          <div onClick={() => navigate("/meetings_history")} className="border-end py-3 hover_effect pointer d-md-flex justify-content-center">
-            <div className="d-flex align-items-center" >
-              <div style={{ color: "#D1D0D0", marginRight: "1rem" }}>
-                <span>
-                  <FaVideo size={30} />
-                </span>
-              </div>
-              <div>
-                <p>UPCOMING MEETINGS</p>
-                <p><b>0</b> <span className="fs_xsm">This Month</span></p>
-              </div>
-            </div>
-          </div>
-        </Col>
-        <Col md={4} className="my-3 my-md-0">
-          <div className="border-end py-3 hover_effect pointer d-md-flex justify-content-center">
-            <div className="d-flex align-items-center" >
-              <div style={{ color: "#D1D0D0", marginRight: "1rem" }}>
-                <span>
-                  <MdOutlineCalendarMonth size={30} />
-                </span>
-              </div>
-              <div>
-                <p>ATTENDED MEETINGS</p>
-                <p><b>0</b> <span className="fs_xsm">This Month</span></p>
-              </div>
-            </div>
-          </div>
-        </Col>
-        <Col md={4} className="my-3 my-md-0">
-          <div className="border-end py-3 hover_effect pointer d-md-flex justify-content-center">
-            <div className="d-flex align-items-center" >
-              <div style={{ color: "#D1D0D0", marginRight: "1rem" }}>
-                <span>
-                  <MdOutlineCancel size={30} />
-                </span>
-              </div>
-              <div>
-                <p>Cancelled meetings </p>
-                <p><b>0</b> <span className="fs_xsm">This Month</span></p>
-              </div>
-            </div>
-          </div>
-        </Col>
-      </Row>
+      <FacultyScheduleStats allSchedules={instructorSchedules} />
       <Col md={11}>
         <Row className="my-5 pt-5">
           <Col className="my-3 my-md-0" md={5}>
@@ -239,36 +189,6 @@ const FacultyDashboard = () => {
                 )
               })}
               {todaySchedules?.length < 1 && <p className="text-center fs-5">No live class today</p>}
-              {/* <div className="light_sky hover_effect my-2 rounded p-1">
-                <div className="d-flex align-items-center justify-content-center">
-                  <div className="rounded p-1 px-2 text-white" style={{ backgroundColor: "#0052B4" }}>
-                    <span className="fw-bold">04</span>
-                  </div>
-                  <div className="px-2 fw-semibold">
-                    <p className="fs_sm">Meeting with the J..</p>
-                    <p className="fs_xsm"> <Link to={"https://zoom.us/"}>Meeting link//www.zoom.com Upcoming</Link> </p>
-                  </div>
-                  <div className="">
-                    <p className="fs_xsm">10:25 am</p>
-                    <p className="fs_xsm text-danger">Due soon</p>
-                  </div>
-                </div>
-              </div>
-              <div className="light_sky hover_effect my-2 rounded p-1">
-                <div className="d-flex align-items-center justify-content-center">
-                  <div className="rounded p-1 px-2 text-white" style={{ backgroundColor: "#0052B4" }}>
-                    <span className="fw-bold">31</span>
-                  </div>
-                  <div className="px-2 fw-semibold">
-                    <p className="fs_sm">Meeting with the VC</p>
-                    <p className="fs_xsm"> <Link to={"https://zoom.us/"}>Meeting link//www.zoom.com Upcoming</Link> </p>
-                  </div>
-                  <div className="">
-                    <p className="fs_xsm">10:25 am</p>
-                    <p className="fs_xsm text-danger">Due soon</p>
-                  </div>
-                </div>
-              </div> */}
             </div>
           </Col>
         </Row>

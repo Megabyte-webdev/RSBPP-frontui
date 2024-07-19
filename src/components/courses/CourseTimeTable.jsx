@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 const CourseTimeTable = ({ themeProp, course, themeColor, schedule }) => {
     const navigate = useNavigate()
+    // console.log(course)
     return (
         <div
             style={themeProp ? themeProp : null}
@@ -19,7 +20,7 @@ const CourseTimeTable = ({ themeProp, course, themeColor, schedule }) => {
                 </div>
                 <div>
                     <button 
-                  onClick={()=> navigate("/video_call", {state : { list : schedule}} )}
+                  onClick={()=> navigate("/video_call", {state : {oneCourse: course, list : schedule}} )}
                   className='bg-white btn hover_effect rounded-pill btn-sm px-4 py-0 prime_brown border_brown'>Join</button>
                 </div>
             </div>

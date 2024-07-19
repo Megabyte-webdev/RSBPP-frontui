@@ -13,6 +13,13 @@ const MeetingHistory = () => {
         getAllInstructorsSchedules,
         setGetAllInstructorsSchedules, } = useContext(ResourceContext)
 
+        // const handleRefresh = () => {
+        //     window.location.reload();
+        // };
+    // useEffect(() => {
+    //    handleRefresh
+    // }, [])
+
     const { userCredentials } = useContext(UserContext)
     const userInfo = userCredentials?.user
     useEffect(() => {
@@ -30,13 +37,13 @@ const MeetingHistory = () => {
             }
         })
     }, [])
-    useEffect(() => {
-        setGetAllInstructorsSchedules((prev) => {
-            return {
-                ...prev, isDataNeeded: true
-            }
-        })
-    }, [])
+    // useEffect(() => {
+    //     setGetAllInstructorsSchedules((prev) => {
+    //         return {
+    //             ...prev, isDataNeeded: true
+    //         }
+    //     })
+    // }, [])
 
     const myCourses = getAllCourses.data?.filter((course) => course.created_by_id == userInfo.id)
     // const mySchedules = getAllSchedules.data?.filter((course) => course.instructor_id == userInfo.id)
@@ -50,7 +57,7 @@ const MeetingHistory = () => {
 
     const userData = getAllInstructors.data?.find((instructor) => instructor.user_id == userInfo.id)
     // console.log(myCourses)
-    console.log(mySchedules)
+    // console.log(mySchedules)
     return (
         <div>
             <div
@@ -89,7 +96,7 @@ const MeetingHistory = () => {
                     </div>
                 )}
                 {!getAllInstructorsSchedules.data && (
-                    <Loading/>
+                    <Loading />
                 )}
 
             </div>

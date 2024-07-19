@@ -1,5 +1,5 @@
 import { Constants, useMeeting, usePubSub, useMediaDevice } from "@videosdk.live/react-sdk";
-import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import React, { Fragment, useContext, useEffect, useMemo, useRef, useState } from "react";
 // import {
 //   ClipboardIcon,
 //   CheckIcon,
@@ -30,7 +30,9 @@ import { useMeetingAppContext } from "../../MeetingAppContextDef";
 import useMediaStream from "../../hooks/useMediaStream";
 import { CheckIcon, ChevronDownIcon, ClipboardIcon } from "@heroicons/react/24/outline";
 import { BiDotsHorizontal } from "react-icons/bi";
-
+import { useNavigate } from "react-router-dom";
+import EndCallDialog from "../../components/modals/EndCallDialog";
+import { UserContext } from "../../../../../context/AuthContext";
 
 function PipBTN({ isMobile, isTab }) {
   const { pipMode, setPipMode } = useMeetingAppContext();
@@ -161,7 +163,7 @@ const MicBTN = () => {
   } = useMeetingAppContext()
 
   const {
-     getMicrophones, getPlaybackDevices
+    getMicrophones, getPlaybackDevices
   } = useMediaDevice();
 
   const mMeeting = useMeeting();
@@ -332,7 +334,7 @@ const WebCamBTN = () => {
     setSelectedWebcam,
     isCameraPermissionAllowed,
   } = useMeetingAppContext()
-  const {getCameras} = useMediaDevice();
+  const { getCameras } = useMediaDevice();
   const mMeeting = useMeeting();
   const [webcams, setWebcams] = useState([]);
   const { getVideoTrack } = useMediaStream();
@@ -472,7 +474,7 @@ export function BottomBar({
   bottomBarHeight,
   setIsMeetingLeft
 }) {
- 
+const {userCredentials } = useContext(UserContext);
   const { sideBarMode, setSideBarMode } = useMeetingAppContext();
   const RaiseHandBTN = ({ isMobile, isTab }) => {
     const { publish } = usePubSub("RAISE_HAND");
@@ -558,7 +560,7 @@ export function BottomBar({
     );
   };
 
- 
+
 
   const ScreenShareBTN = ({ isMobile, isTab }) => {
     const { localScreenShareOn, toggleScreenShare, presenterId } = useMeeting();
@@ -615,20 +617,28 @@ export function BottomBar({
   };
 
   const LeaveBTN = () => {
+    const navigate = useNavigate()
+
+    const handleRefresh = () => {
+      window.location.reload();
+    };
     const { leave } = useMeeting();
 
     return (
       <OutlinedButton
         Icon={EndIcon}
-        bgColor="bg-red-150"
+        bgColor="bg-yellow-500"
         onClick={() => {
           leave();
+          navigate("/")
+          handleRefresh()
           setIsMeetingLeft(true);
         }}
         tooltip="Leave Meeting"
       />
     );
   };
+
 
   const ChatBTN = ({ isMobile, isTab }) => {
     return isMobile || isTab ? (
@@ -759,11 +769,14 @@ export function BottomBar({
       className="flex items-center justify-center"
       style={{ height: bottomBarHeight }}
     >
+      {userCredentials.user?.role === "instructor" &&(
+      <EndCallDialog />
+      )}
       <LeaveBTN />
       <MicBTN />
       <WebCamBTN />
       <RecordingBTN />
-      <OutlinedButton Icon={BiDotsHorizontal } onClick={handleClickFAB} />
+      <OutlinedButton Icon={BiDotsHorizontal} onClick={handleClickFAB} />
       <Transition appear show={Boolean(open)} as={Fragment}>
         <Dialog
           as="div"
@@ -852,6 +865,9 @@ export function BottomBar({
         <ScreenShareBTN isMobile={isMobile} isTab={isTab} />
         <PipBTN isMobile={isMobile} isTab={isTab} />
         <LeaveBTN />
+        {userCredentials.user?.role === "instructor" &&(
+      <EndCallDialog />
+      )}
       </div>
       <div className="flex items-center justify-center">
         <ChatBTN isMobile={isMobile} isTab={isTab} />

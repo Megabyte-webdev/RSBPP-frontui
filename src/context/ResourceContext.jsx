@@ -15,6 +15,8 @@ function ResourceContextProvider({ children }) {
     })
     const [errorMesage, setErrorMessage] = useState('');
 
+    const [meetingTitle, setMeetingTitle] = useState('');
+
     const [getAllUsers, setGetAllUsers] = useState({
         data: null,
         isDataNeeded: false,
@@ -144,6 +146,8 @@ function ResourceContextProvider({ children }) {
             value={{
                 errorMesage,
                 getAllUsers,
+                meetingTitle,
+                setMeetingTitle,
                 setGetAllUsers,
                 getAllFaculty,
                 setGetAllFaculty,

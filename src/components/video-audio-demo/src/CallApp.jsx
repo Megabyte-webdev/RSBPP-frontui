@@ -6,12 +6,14 @@ import { MeetingContainer } from "./meeting/MeetingContainer";
 import { LeaveScreen } from "./components/screens/LeaveScreen";
 import { JoiningScreen } from "./components/screens/JoiningScreen"
 import { UserContext } from "../../../context/AuthContext";
+import { ResourceContext } from "../../../context/ResourceContext";
 
 function CallApp({ meetingInfo }) {
 
+  const { setMeetingTitle } = useContext(ResourceContext)
   const { userCredentials } = useContext(UserContext)
   const [token, setToken] = useState("");
-  const [meetingId, setMeetingId] = useState(meetingInfo.meeting_code);
+  const [meetingId, setMeetingId] = useState(meetingInfo.list?.meeting_code);
   const [participantName, setParticipantName] = useState(userCredentials.user?.first_name);
   const [micOn, setMicOn] = useState(false);
   const [webcamOn, setWebcamOn] = useState(false);
@@ -23,6 +25,10 @@ function CallApp({ meetingInfo }) {
   const isMobile = window.matchMedia(
     "only screen and (max-width: 768px)"
   ).matches;
+
+  useEffect(() => {
+    setMeetingTitle(meetingInfo.oneCourse?.title)
+  }, [])
 
   useEffect(() => {
     if (isMobile) {
@@ -63,20 +69,20 @@ function CallApp({ meetingInfo }) {
                 setMicOn(false);
                 setMeetingStarted(false);
               }}
-            meetingCode={meetingInfo.meeting_code}
+              meetingCode={meetingInfo.list?.meeting_code}
               setIsMeetingLeft={setIsMeetingLeft}
             />
           </MeetingProvider>
 
         ) : isMeetingLeft ? (
-          <LeaveScreen setIsMeetingLeft={setIsMeetingLeft} />
+          <LeaveScreen setIsMeetingLeft={setIsMeetingLeft} setMeetingStarted={setMeetingStarted} />
         ) : (
 
           <JoiningScreen
             participantName={participantName}
             setParticipantName={setParticipantName}
             setMeetingId={setMeetingId}
-            meetingCode={meetingInfo.meeting_code}
+            meetingCode={meetingInfo.list?.meeting_code}
             setToken={setToken}
             micOn={micOn}
             setMicOn={setMicOn}

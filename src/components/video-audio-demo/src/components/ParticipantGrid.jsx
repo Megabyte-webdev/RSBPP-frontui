@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useMeetingAppContext } from "../MeetingAppContextDef";
 import { ParticipantView } from "./ParticipantView";
+import { ResourceContext } from "../../../../context/ResourceContext";
 
 const MemoizedParticipant = React.memo(
   ParticipantView,
@@ -8,12 +9,15 @@ const MemoizedParticipant = React.memo(
     return prevProps.participantId === nextProps.participantId;
   }
 );
-
 function ParticipantGrid({ participantIds, isPresenting }) {
+
+const { meetingTitle } = useContext(ResourceContext)
+
   const { sideBarMode } = useMeetingAppContext();
   const isMobile = window.matchMedia(
     "only screen and (max-width: 768px)"
   ).matches;
+// console.log(meetingTitle)
 
   const perRow =
     isMobile || isPresenting
@@ -48,6 +52,9 @@ function ParticipantGrid({ participantIds, isPresenting }) {
           : "md:px-0"
       }`}
     >
+        <div className="text-light pt-2 position-absolute top-0 start-50 translate-middle-x">
+          <p className=" bg-blue-900 px-4 rounded-pill py-1">{meetingTitle}</p>
+        </div>
       <div className="flex flex-col w-full h-full">
         {Array.from(
           { length: Math.ceil(participantIds.length / perRow) },

@@ -2,18 +2,15 @@ import React, { useContext, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { ThemeContext } from "../context/ThemeContext";
 import { UserContext } from "../context/AuthContext";
-import { MdAddBox, MdOutlineCalendarMonth, MdOutlineCancel } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import {  MdOutlineCalendarMonth, MdOutlineCancel } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 import { FaVideo } from "react-icons/fa6";
-import prof from "../assets/prof-img.png"
-import student1 from "../assets/chats-img.png"
-import student22 from "../assets/chats-sidebar.png"
-import { Avatar, AvatarGroup } from "@mui/material";
 import ReactCalendar from "../components/general/ReactCalendar";
 import { FaBars } from "react-icons/fa6";
 import { FaUserCircle } from "react-icons/fa";
 import { ResourceContext } from "../context/ResourceContext";
 import TodayClasses from "../components/courses/TodayClasses";
+import moment from 'moment';
 
 const today = new Date();
 
@@ -56,6 +53,18 @@ const TodayMeetings = () => {
         })
     }, [])
 
+    const currentMonth = moment ().month();
+    const currentYear = moment().year();
+
+    const filteredByMonth = getAllSchedules.data?.filter((meeting) => {
+        const startDate = moment(meeting.day);
+
+        return (
+            startDate.month() === currentMonth &&
+            startDate.year() === currentYear
+        )
+    });
+
     const todaySchedules = getAllSchedules.data?.filter(classItem => {
         // Assuming 'classItem' has a 'date' property for the class
         const classDate = new Date(classItem.day);
@@ -67,7 +76,7 @@ const TodayMeetings = () => {
 
     const myClasses = todaySchedules?.filter((schedule) => getEnrolledCourses.data?.some((enrollCourse) => enrollCourse.courseId == schedule.course_id))
 
-    console.log(myClasses);
+    console.log(filteredByMonth);
 
     return (
         <div
@@ -89,7 +98,7 @@ const TodayMeetings = () => {
                             </div>
                             <div>
                                 <p>No. of meetings</p>
-                                <p><b>0</b> <span className="fs_xsm">This Month</span></p>
+                                <p><b>{filteredByMonth?.length}</b> <span className="fs_xsm">This Month</span></p>
                             </div>
                         </div>
                     </div>

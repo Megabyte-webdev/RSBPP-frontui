@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 
 const VideoCallClass = () => {
   const { state } = useLocation();
-  // console.log(state.oneCourse?.list)
+  console.log(state)
   return (
     <>
       <ToastContainer
@@ -28,7 +28,7 @@ const VideoCallClass = () => {
         pauseOnHover
         theme="light"
       />
-      <CallApp meetingInfo={state?.list} />
+      <CallApp meetingInfo={state} />
     </>
   );
 }
