@@ -8,6 +8,7 @@ import { BiSolidCart, BiSolidMessage } from "react-icons/bi";
 import { TfiViewGrid } from 'react-icons/tfi';
 import { ThemeContext } from '../../context/ThemeContext';
 import { ResourceContext } from '../../context/ResourceContext';
+import { UserContext } from '../../context/AuthContext';
 
 
 const NavBar = () => {
@@ -15,6 +16,7 @@ const NavBar = () => {
     const {
         getAllCarts,
         setGetAllCarts, } = useContext(ResourceContext);
+    const { userCredentials } = useContext(UserContext);
 
     useEffect(() => {
         setGetAllCarts((prev) => {
@@ -23,6 +25,8 @@ const NavBar = () => {
             }
         })
     }, [])
+
+    const role = userCredentials.user?.role
 
     console.count("render")
     return (
@@ -51,15 +55,17 @@ const NavBar = () => {
                 <div className="d-flex align-items-center">
                     <Link to={""} className='nav-link me-3'><BiSolidMessage className='yellow_text' size={20} /></Link>
                     <Link to={""} className='nav-link me-3'><IoIosNotificationsOutline size={20} /></Link>
-                    <div>
-                        <Link to={"/carts"}
-                            className='nav-link '>
-                            <div
-                                className='d-flex justify-content-center align-items-center me-3 text-white rounded-circle brown_bg fs_xsm'
-                                style={{ width: "20px", height: "20px" }}><span>{getAllCarts.data?.length}</span> </div>
-                            <span><BiSolidCart size={25} /></span>
-                        </Link>
-                    </div>
+                    {role === "student" && (
+                        <div>
+                            <Link to={"/carts"}
+                                className='nav-link '>
+                                <div
+                                    className='d-flex justify-content-center align-items-center me-3 text-white rounded-circle brown_bg fs_xsm'
+                                    style={{ width: "20px", height: "20px" }}><span>{getAllCarts.data?.length}</span> </div>
+                                <span><BiSolidCart size={25} /></span>
+                            </Link>
+                        </div>
+                    )}
                 </div>
             </div>
         </div >
