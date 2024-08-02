@@ -7,6 +7,7 @@ import CourseCarousel from '../components/general/CourseCarousel';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/AuthContext';
 import { cartsTotalFunction } from '../components/utils/getApi';
+import StripeElement from '../components/stripe/StripeElement';
 
 const Carts = () => {
     const navigate = useNavigate();
@@ -126,6 +127,7 @@ const Carts = () => {
                         ) : (
                             <p className='fs-4 fw-bold text-center py-5'>Cart is empty</p>
                         )}
+                        <StripeElement />
                         <div className="row">
                             <h3 className='my-4'>SIMILAR COURSE</h3>
                             {getAllCourses.data && (
