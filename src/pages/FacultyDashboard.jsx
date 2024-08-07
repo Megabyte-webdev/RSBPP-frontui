@@ -38,14 +38,14 @@ const FacultyDashboard = () => {
     })
   }, [])
 
-  
-    useEffect(() => {
-        setGetAllInstructorsSchedules((prev) => {
-            return {
-                ...prev, isDataNeeded: true
-            }
-        })
-    }, [])
+
+  useEffect(() => {
+    setGetAllInstructorsSchedules((prev) => {
+      return {
+        ...prev, isDataNeeded: true
+      }
+    })
+  }, [])
 
   const instructorCourses = getAllCourses.data?.filter((schedule => schedule.created_by_id == userCredentials.user.id))
 
@@ -104,46 +104,48 @@ const FacultyDashboard = () => {
                   <p className="fw-bold">see all</p>
                 </Link>
               </div>
-              <div className="d-flex light_sky rounded mb-2 ps-1 hover_effect align-items-center justify-content-center">
-                <div className="light_sky rounded p-1 text-primary">
-                  <span className="fw-bold">AA</span>
+              {/* <div className="">
+                <div className="d-flex light_sky rounded mb-2 ps-1 hover_effect align-items-center justify-content-center">
+                  <div className="light_sky rounded p-1 text-primary">
+                    <span className="fw-bold">AA</span>
+                  </div>
+                  <div className="px-2">
+                    <p className="fs_sm">Adepoju Ademola</p>
+                    <p className="fs_xsm">Hello, Mr John i am yet to get your class b res...</p>
+                  </div>
+                  <p className="fs_xsm">10:25 am</p>
                 </div>
-                <div className="px-2">
-                  <p className="fs_sm">Adepoju Ademola</p>
-                  <p className="fs_xsm">Hello, Mr John i am yet to get your class b res...</p>
+                <div className="d-flex light_sky rounded mb-2 ps-1 hover_effect align-items-center justify-content-center">
+                  <div className="light_sky rounded p-1 text-primary">
+                    <span className="fw-bold">AA</span>
+                  </div>
+                  <div className="px-2">
+                    <p className="fs_sm">Adepoju Ademola</p>
+                    <p className="fs_xsm">Hello, Mr John i am yet to get your class b res...</p>
+                  </div>
+                  <p className="fs_xsm">10:25 am</p>
                 </div>
-                <p className="fs_xsm">10:25 am</p>
-              </div>
-              <div className="d-flex light_sky rounded mb-2 ps-1 hover_effect align-items-center justify-content-center">
-                <div className="light_sky rounded p-1 text-primary">
-                  <span className="fw-bold">AA</span>
+                <div className="d-flex light_sky rounded mb-2 ps-1 hover_effect align-items-center justify-content-center">
+                  <div className="light_sky rounded p-1 text-primary">
+                    <span className="fw-bold">TA</span>
+                  </div>
+                  <div className="px-2">
+                    <p className="fs_sm">Adepoju Ademola</p>
+                    <p className="fs_xsm">Hello, Mr John i am yet to get your class b res...</p>
+                  </div>
+                  <p className="fs_xsm">10:25 am</p>
                 </div>
-                <div className="px-2">
-                  <p className="fs_sm">Adepoju Ademola</p>
-                  <p className="fs_xsm">Hello, Mr John i am yet to get your class b res...</p>
+                <div className="d-flex light_sky rounded mb-2 ps-1 hover_effect align-items-center justify-content-center">
+                  <div className="light_sky rounded p-1 text-primary">
+                    <span className="fw-bold">AA</span>
+                  </div>
+                  <div className="px-2">
+                    <p className="fs_sm">Adepoju Ademola</p>
+                    <p className="fs_xsm">Hello, Mr John i am yet to get your class b res...</p>
+                  </div>
+                  <p className="fs_xsm">10:25 am</p>
                 </div>
-                <p className="fs_xsm">10:25 am</p>
-              </div>
-              <div className="d-flex light_sky rounded mb-2 ps-1 hover_effect align-items-center justify-content-center">
-                <div className="light_sky rounded p-1 text-primary">
-                  <span className="fw-bold">TA</span>
-                </div>
-                <div className="px-2">
-                  <p className="fs_sm">Adepoju Ademola</p>
-                  <p className="fs_xsm">Hello, Mr John i am yet to get your class b res...</p>
-                </div>
-                <p className="fs_xsm">10:25 am</p>
-              </div>
-              <div className="d-flex light_sky rounded mb-2 ps-1 hover_effect align-items-center justify-content-center">
-                <div className="light_sky rounded p-1 text-primary">
-                  <span className="fw-bold">AA</span>
-                </div>
-                <div className="px-2">
-                  <p className="fs_sm">Adepoju Ademola</p>
-                  <p className="fs_xsm">Hello, Mr John i am yet to get your class b res...</p>
-                </div>
-                <p className="fs_xsm">10:25 am</p>
-              </div>
+              </div> */}
             </div>
           </Col>
           <Col className="my-3 my-md-0" md={3}>
