@@ -166,13 +166,13 @@ const LearningDetails = () => {
                         </Col>
                         {purchase ? (
                             <Col md={5}>
-                                <div className="rounded my-2 p-3 bg-white">
+                                {/* <div className="rounded my-2 p-3 bg-white">
                                     <p className="fw-semibold mb-2">Target Participants:</p>
                                     <p>Forward thinking entrepreneurs, and professionals in heavily regulated industries</p>
                                     <div className="d-flex fw-semibold mt-3">
                                         <p><span className='prime_bg'><CgTimelapse /> {state.course.participate}</span> <span> Slot available</span></p>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="rounded my-2 p-3 bg-white">
                                     <p className="fw-semibold mb-2">Class Type</p>
                                     <p>{state.course.program}</p>
