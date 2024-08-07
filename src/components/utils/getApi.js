@@ -61,7 +61,7 @@ export const getItemByPost = (
       })
       .then((response) => {
         const apiData = response.data[dataArray];
-          console.log(apiData);
+        console.log(apiData);
         apiData.map((item) => {
           newFleetMakesData.push({
             id: item.id,

@@ -1,6 +1,6 @@
 import Layout from './components/layout/Layout'
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
-// import Login from './pages/Login'
+import Login from './pages/Login'
 import ResetPassword from './pages/ResetPassword'
 import Registration from './pages/Registration'
 import DashboardTwo from './pages/DashboardTwo'
@@ -49,6 +49,7 @@ import MyClassSchedules from './pages/MyClassSchedules'
 import ProfileUpdate from './pages/ProfileUpdate'
 import VideoIndex from './components/video-sdk-demo/src/VideoIndex'
 import VideoCallClass from './components/video-audio-demo/src/VideoCallClass'
+import LoginOtpForm from './components/auth/LoginOtpForm'
 // const LazyMeeting = lazy(() => import('./pages/MeetingHistory'));
 
 const App = () => {
@@ -123,6 +124,7 @@ const App = () => {
             <Route path="/login" element={<NewLogin />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/registration" element={<Registration />} />
+            <Route path="/verify_email" element={<Login />} />
             {/* Catch-all route for 404 */}
             <Route path="*" element={<Navigate to="/not-found" replace />} />
 

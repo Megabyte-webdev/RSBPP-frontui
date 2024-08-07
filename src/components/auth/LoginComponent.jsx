@@ -12,6 +12,7 @@ import toast from 'react-hot-toast';
 import { UserContext } from '../../context/AuthContext';
 import { useNavigate } from "react-router-dom";
 import { ResourceContext } from '../../context/ResourceContext';
+import InstructorOtp from './InstructorOtp';
 
 const LoginComponent = () => {
 
@@ -19,7 +20,7 @@ const LoginComponent = () => {
     const { setUserCredentials, setWidgetOpen } = useContext(UserContext)
     const { setGetAllCarts, getEnrolledCourses, setGetEnrolledCourses } = useContext(ResourceContext)
     const [inputType, setInputType] = useState("password")
-    const [otpPage, setOtpPage] = useState(false)
+    const [otpPage, setOtpPage] = useState(true)
     const [showMsg, setShowMsg] = useState(false)
     const [loading, setLoading] = useState(false)
     const [logDetails, setLogDetails] = useState({
@@ -175,7 +176,7 @@ const LoginComponent = () => {
                         </div>
                     )
                         :
-                        <LoginOtpForm />
+                        <InstructorOtp />
                     }
                 </div>
             </Col>

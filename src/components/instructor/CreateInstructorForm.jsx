@@ -5,8 +5,10 @@ import { UserContext } from '../../context/AuthContext'
 import { ResourceContext } from '../../context/ResourceContext'
 import { BASE_URL } from '../utils/base'
 import { Spinner } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 
 const CreateInstructorForm = () => {
+    const navigate =useNavigate();
     const { userCredentials } = useContext(UserContext)
     const {
         getAllCourses,
@@ -97,6 +99,7 @@ const CreateInstructorForm = () => {
         })
             .then((response) => {
                 // console.log(response)
+                localStorage.setItem("instructorEmail", details.email);
                 setGetAllCourses((prev) => {
                     return {
                         ...prev, isDataNeeded: true
@@ -104,6 +107,7 @@ const CreateInstructorForm = () => {
                 })
                 resetStates()
                 setLoading(false)
+                navigate("verify_email")
                 toast.success("successful");
             })
             .catch((error) => {

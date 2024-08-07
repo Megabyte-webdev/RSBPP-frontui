@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/base";
 import toast from "react-hot-toast";
 
-const LoginOtpForm = () => {
-  const userData = JSON.parse(localStorage.getItem("userDetails"))
+const InstructorOtp = () => {
+  const userData = localStorage.getItem("instructorEmail")
 
   const [otp, setOtp] = useState(userData.otp);
   const [showMsg, setShowMsg] = useState(false)
@@ -18,7 +18,7 @@ const LoginOtpForm = () => {
   const handleOtpSubmit = (e) => {
     const otpDetails = {
       otp: otp,
-      email: userData.user.email
+      email: userData
     }
     e.preventDefault();
     setErrorMsg("")
@@ -72,4 +72,4 @@ const LoginOtpForm = () => {
   );
 };
 
-export default LoginOtpForm;
+export default InstructorOtp;

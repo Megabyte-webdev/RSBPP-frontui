@@ -1,23 +1,52 @@
-import {Elements} from '@stripe/react-stripe-js';
-import {loadStripe} from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import StripeCheckout from './StripeCheckout';
 
-// Make sure to call `loadStripe` outside of a component’s render to avoid
-// recreating the `Stripe` object on every render.
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK_KEY);
+const stripePromise = loadStripe('pk_test_51PYY5yRodgHysfaEHt7CKS3VNz8Tea51ig2ddwinDuMqCMCJfA6ZdsEhgtXNGX3teAbUas0BGrqApaTHvlhPjxfC00CbrCwGco');
 
-export default function App() {
+
+
+const StripeElement = ({ user, token }) => {
+  // console.log(user)
+
   const options = {
-    // passing the client secret obtained from the server
-    // clientSecret: ""
     mode: 'payment',
-  amount: 1099,
-  currency: 'usd',
+    amount: 1099,
+    currency: 'usd',
+    // Fully customizable with appearance API.
+    appearance : {
+      theme: 'night',
+      variables: {
+        fontFamily: 'Sohne, system-ui, sans-serif',
+        fontWeightNormal: '500',
+        borderRadius: '8px',
+        colorBackground: '#0A2540',
+        colorPrimary: '#EFC078',
+        accessibleColorOnColorPrimary: '#1A1B25',
+        colorText: 'white',
+        colorTextSecondary: 'white',
+        colorTextPlaceholder: '#ABB2BF',
+        tabIconColor: 'white',
+        logoColor: 'dark'
+      },
+      rules: {
+        '.Input': {
+          backgroundColor: '#212D63',
+          border: '1px solid var(--colorPrimary)'
+        }
+      }
+    }
   };
+
 
   return (
     <Elements stripe={stripePromise} options={options}>
-      <StripeCheckout />
+      <StripeCheckout
+        user={user}
+        token={token}
+      />
     </Elements>
-  );
+  )
 };
+
+export default StripeElement;

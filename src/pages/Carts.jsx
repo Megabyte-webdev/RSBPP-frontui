@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/AuthContext';
 import { cartsTotalFunction } from '../components/utils/getApi';
 import StripeElement from '../components/stripe/StripeElement';
+import Payment from "../components/stripe/clone/Payment";
 
 const Carts = () => {
     const navigate = useNavigate();
@@ -27,10 +28,10 @@ const Carts = () => {
 
     const on = true
     const token = userCredentials.token;
-    const userId = userCredentials?.user.id;
+    const user = userCredentials?.user;
 
     useEffect(() => {
-        cartsTotalFunction(token, userId, setError, setCurrentTotal)
+        cartsTotalFunction(token, user?.id, setError, setCurrentTotal)
     }, [getAllCarts])
 
     useEffect(() => {
@@ -127,7 +128,11 @@ const Carts = () => {
                         ) : (
                             <p className='fs-4 fw-bold text-center py-5'>Cart is empty</p>
                         )}
-                        <StripeElement />
+                        {/* <StripeElement
+                            token={token}
+                            user={user}
+                        /> */}
+                        <Payment />
                         <div className="row">
                             <h3 className='my-4'>SIMILAR COURSE</h3>
                             {getAllCourses.data && (

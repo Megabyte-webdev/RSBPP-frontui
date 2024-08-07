@@ -1,32 +1,55 @@
-import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
+import {
+  PaymentElement,
+  useStripe,
+  useElements,
+} from '@stripe/react-stripe-js';
+import { useState } from 'react';
+import { BASE_URL } from '../utils/base';
 
-const StripeCheckout = () => {
+const clientSecret = "sk_test_51PYY5yRodgHysfaEHCjCj2eBnWvQD5cH4xMyFNsaETLDtzE7R8poHQj9mENK6pat6HCucmSl4M7Z0O44alpcodyg00mpJdDKv4"
+
+const StripeCheckout = ({ token, user }) => {
   const stripe = useStripe();
   const elements = useElements();
+  // const [clientSecret, setClientSecret] = useState(testClient);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleSubmit = async (event) => {
-    // We don't want to let default form submission happen here,
-    // which would refresh the page.
     event.preventDefault();
 
-    if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
+    if (elements == null) {
       return;
     }
 
-    const result = await stripe.confirmPayment({
+    // Trigger form validation and wallet collection
+    const {error: submitError} = await elements.submit();
+    if (submitError) {
+      // Show error to your customer
+      setErrorMessage(submitError.message);
+      return;
+    }
+
+    // Create the PaymentIntent and obtain clientSecret from your server endpoint
+    // const res = await fetch('/create-intent', {
+    //   method: 'POST',
+    // });
+
+    // const {client_secret: clientSecret} = await res.json();
+
+    const {error} = await stripe.confirmPayment({
       //`Elements` instance that was used to create the Payment Element
       elements,
+      clientSecret,
       confirmParams: {
-        return_url: "https://example.com/order/123/complete",
+        return_url: "http://localhost:5173/success",
       },
-    });
-
-
-    if (result.error) {
-      // Show error to your customer (for example, payment details incomplete)
-      console.log(result.error.message);
+    }
+  );
+    if (error) {
+      // This point will only be reached if there is an immediate error when
+      // confirming the payment. Show error to your customer (for example, payment
+      // details incomplete)
+      setErrorMessage(error.message);
     } else {
       // Your customer will be redirected to your `return_url`. For some payment
       // methods like iDEAL, your customer will be redirected to an intermediate
@@ -37,9 +60,13 @@ const StripeCheckout = () => {
   return (
     <form onSubmit={handleSubmit}>
       <PaymentElement />
-      <button className='btn btn-outlinne-info' disabled={!stripe}>Submit</button>
+      <button className="btn btn-outline-info mt-4" type="submit" disabled={!stripe || !elements}>
+        Pay
+      </button>
+      {/* Show error message to your customers */}
+      {errorMessage && <div>{errorMessage}</div>}
     </form>
-  )
+  );
 };
 
-export default StripeCheckout;
+export default StripeCheckout

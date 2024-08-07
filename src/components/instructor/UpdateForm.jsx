@@ -37,7 +37,7 @@ const UpdateForm = ({ setProfileCV, profileCV }) => {
     const instructor  = getAllInstructors?.data?.find(one => one.user_id === user.id)
 
     const [details, setDetails] = useState({
-        // user_id: user?.id,
+        user_id: user?.id,
         first_name: user?.first_name,
         last_name: user?.last_name,
         email: user?.email,
@@ -113,7 +113,7 @@ const UpdateForm = ({ setProfileCV, profileCV }) => {
         //   alert('Please select a valid Doc or Pdf file.');
         // }
     };
-    console.log(instructor.publication);
+    // console.log(instructor.publication);
 
     const handleSubmit = (e) => {
         e.preventDefault();
