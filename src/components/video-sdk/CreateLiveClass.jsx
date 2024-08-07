@@ -198,9 +198,11 @@ function MeetingView(props) {
                    </div>
             ) : joined && joined == "JOINING" ? (
                 <p>Joining the meeting...</p>
-            ) : (
-                <button disabled={true} className="btn brown_bg text-white fs_sm text-nowrap" onClick={joinMeeting}> <MdArrowLeft />  Join</button>
-            )}
+            )
+             : (
+                <button disabled={true} className="btn d-none brown_bg text-white fs_sm text-nowrap" onClick={joinMeeting}> <MdArrowLeft />  Join</button>
+            )
+            }
         </div>
     );
 }
