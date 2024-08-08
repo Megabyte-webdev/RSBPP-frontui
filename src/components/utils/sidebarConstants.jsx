@@ -1,28 +1,14 @@
-import iconOne from "../../assets/side-icons/new1.png"
+// import iconOne from "../../assets/side-icons/new1.png"
 import iconTwo from "../../assets/side-icons/new2.png"
 import iconThree from "../../assets/side-icons/new3.png"
-import iconFour from "../../assets/side-icons/new4.png"
-import iconFive from "../../assets/side-icons/new5.png"
-import iconSix from "../../assets/side-icons/new6.png"
+// import iconFour from "../../assets/side-icons/new4.png"
+// import iconFive from "../../assets/side-icons/new5.png"
+// import iconSix from "../../assets/side-icons/new6.png"
 import iconSeven from "../../assets/side-icons/new7.png"
 import iconEight from "../../assets/side-icons/user-update.svg"
-import iconNine from "../../assets/side-icons/icon9.png"
+// import iconNine from "../../assets/side-icons/icon9.png"
 
 export const sidebarConstants = [
-    // {
-    //     title: "Dashboard",
-    //     logo: iconOne,
-    //     subOptions: [
-    //         {
-    //             title: "One",
-    //             link: "/",
-    //         },
-    //         {
-    //             title: "Two",
-    //             link: "",
-    //         }
-    //     ]
-    // },
     {
         title: "Courses",
         logo: iconTwo,
@@ -101,10 +87,6 @@ export const adminConstants = [
                 title: "All Schedules",
                 link: "/time_table",
             },
-            // {
-            //     title: "Registra",
-            //     link: "/registra",
-            // },
         ]
     },
     {
@@ -133,12 +115,17 @@ export const adminConstants = [
             },
         ]
     },
-    // {
-    //     title: "Logout",
-    //     logo: iconNine,
-    //     link : "/login",
-    //     subOptions: null
-    // },
+    {
+        title: "Profile",
+        logo: iconEight,
+        subOptions: [
+            {
+                title: "Profile Update",
+                // link: "/quiz",
+                link: "/user_update",
+            }
+        ]
+    },
 ]
 export const facultyConstants = [
     {

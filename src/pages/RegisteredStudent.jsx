@@ -11,6 +11,7 @@ import AllUsers from '../components/stats/AllUsers';
 import AllFaculties from '../components/stats/AllFaculties';
 import AllCourses from '../components/stats/AllCourses';
 import { UserContext } from '../context/AuthContext';
+import AllStudents from '../components/stats/AllStudents';
 
 const RegisteredStudent = () => {
     const { getAllFaculty,
@@ -55,6 +56,9 @@ const RegisteredStudent = () => {
         })
     }, [])
 
+    const studentsOnly = getAllUsers.data?.filter((student) => student.role === "student");
+
+
     return (
         <div
             className="p-3 p-md-5"
@@ -95,8 +99,8 @@ const RegisteredStudent = () => {
                                     </span>
                                 </div>
                                 <div className="ms-2">
-                                    <p className="fs_sm ash_text">Member</p>
-                                    <h4>5,423</h4>
+                                    <p className="fs_sm ash_text">Students</p>
+                                    <h4>{studentsOnly?.length}</h4>
                                     <p className='fs_xsm prime_brown'>
                                         <span> <FaArrowUpLong /> </span>
                                         <span>16%</span>
@@ -153,7 +157,7 @@ const RegisteredStudent = () => {
                 </Row>
             </div>
             {show === "users" && (<AllUsers userCredentials={userCredentials} getAllUsers={getAllUsers.data} />)}
-            {show === "members" && (<AllUsers getAllUsers={getAllUsers.data} />)}
+            {show === "members" && (<AllStudents getAllUsers={studentsOnly} />)}
             {show === "faculty" && (<AllFaculties userCredentials={userCredentials} getAllFaculty={getAllFaculty.data} />)}
             {show === "courses" && (<AllCourses getAllCourses={getAllCourses.data} />)}
 
