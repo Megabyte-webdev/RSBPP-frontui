@@ -1,3 +1,3 @@
 export const BASE_URL = "https://dash.rsbpp.nl/api/"
 export const IMAGE_URL = "https://dash.rsbpp.nl/"
-export const APP_URL = "http://localhost:5173/"
+export const APP_URL = "https://dash.rsbpp.nl/"
