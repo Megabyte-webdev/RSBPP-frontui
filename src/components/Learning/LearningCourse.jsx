@@ -5,7 +5,7 @@ import { MdAssignmentAdd } from "react-icons/md";
 import { TbCurrentLocation } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
 import { BiSolidCart } from 'react-icons/bi';
-import { BASE_URL } from '../utils/base';
+import { BASE_URL, IMAGE_URL } from '../utils/base';
 import axios from 'axios';
 import { ResourceContext } from '../../context/ResourceContext';
 import toast from 'react-hot-toast';
@@ -110,7 +110,7 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
       <div className='hover_effect h-100 d-flex flex-column justify-content-between'>
         <div onClick={() => navigate(`/learning/${course.title}`, { state: { course: course, instructorDetails: instructorDetails } })} className='nav-link pointer'>
           <div>
-            <img src={featurePics} alt="" className="img-fluid w-100" />
+            <img src={course.image ? `${IMAGE_URL}/${course.image}` : featurePics} alt="" className="img-fluid w-100" />
           </div>
           <div className="p-2 fs_xsm">
             <p className="fw-semibold mb-1">{course.title}</p>

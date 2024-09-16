@@ -34,7 +34,10 @@ const FacultyAddCourse = () => {
         price: "",
         participate: "",
         curriculum: "",
+        image: "",
     })
+    const [courseImageUrl, setCourseImageUrl] = useState("");
+
     useEffect(() => {
         setGetAllCourses((prev) => {
             return {
@@ -66,14 +69,15 @@ const FacultyAddCourse = () => {
             price: "",
             participate: "",
             curriculum: "",
+            image: "",
         });
     };
     const handleOnChange = (e) => {
-        const { value, name, type, checked } = e.target
+        const { value, name, files, type, checked } = e.target
         setDetails((prev) => {
             return {
                 ...prev,
-                [name]: type === "checkbox" ? checked : value
+                [name]: type === "checkbox" ? checked : type === "file" ? files[0] : value,
             };
         });
         setErrorMsg("");
@@ -104,6 +108,21 @@ const FacultyAddCourse = () => {
         setErrorMsg("");
     };
 
+    const getImageURL = (e) => {
+        const { name } = e.target;
+        const file = e.target.files[0]; //filelist is an object carrying all details of file, .files[0] collects the value from key 0 (not array), and stores it in file
+
+        if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+            // You can also perform additional actions with the valid file
+            const generatedUrl = URL.createObjectURL(file);
+            setCourseImageUrl(generatedUrl);
+            setDetails({ ...details, [name]: file });
+        } else {
+            // Handle invalid file type
+            alert('Please select a valid JPEG or PNG file.');
+        } 
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrorMsg("")
@@ -116,6 +135,7 @@ const FacultyAddCourse = () => {
         axios.post(`${BASE_URL}course/addCourse`, details, {
             headers: {
                 Authorization: `Bearer ${userCredentials.token}`,
+                'Content-Type': 'multipart/form-data',
             },
         })
             .then((response) => {
@@ -214,6 +234,16 @@ const FacultyAddCourse = () => {
                                 name="title"
                                 onChange={handleOnChange}
                                 className="form-control" id="title" aria-describedby="emailHelp" />
+                        </div>
+                        <div className="mb-3 col-md-6">
+                            <label htmlFor="title" className="form-label">Course Image</label>
+                            <input
+                                // required
+                                type="file"
+                                accept="image/*"
+                                name="image"
+                                onChange={getImageURL}
+                                className="form-control" id="image" aria-describedby="emailHelp" />
                         </div>
                         <div className="mb-3 col-md-6">
                             <label htmlFor="desc" className="form-label">Description</label>

@@ -9,10 +9,16 @@ import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 import { useContext, useEffect, useState } from 'react'
 import { cartsTotalFunction } from '../components/utils/getApi'
 import { UserContext } from '../context/AuthContext'
-import PaystackPlatform from '../components/payment/PaystackPlatform'
-import { Spinner } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom';
+// import StripePayment from '../components/stripe/modify/StripePayment';
+// import StripeApp from '../components/stripe/main/StripeApp';
+// import PaystackPlatform from '../components/payment/PaystackPlatform'
+import StripeElement from '../components/stripe/StripeElement';
+// import Payment from "../components/stripe/clone/Payment";
+// import { Spinner } from 'react-bootstrap'
 
 const CheckoutPage = () => {
+    const navigate = useNavigate();
     const [accept, setAccept] = useState(false)
     const { state } = useLocation()
 
@@ -139,7 +145,17 @@ const CheckoutPage = () => {
                                         </div>
                                     </div>
                                     {/* <button className='btn brown_bg mt-4 text-white w-100'>Pay for my  Booking</button> */}
-                                    <PaystackPlatform userCredentials={userCredentials} allDetails={state} accept={accept} />
+                                    {/* <PaystackPlatform userCredentials={userCredentials} allDetails={state} accept={accept} /> */}
+                                    {accept ? (
+                                    // <button onClick={() => navigate('/stripe/payment', {state: {token: userCredentials.token, amount:state.currentTotal} })} className='btn brown_bg mt-4 text-white w-100'>Proceed to payment</button>
+                                    <StripeElement token={userCredentials.token} amount={state.currentTotal}/>
+                                    ) : (
+                                        <button
+                                            disabled={true}
+                                            className='btn brown_bg mt-4 text-white w-100'
+                                        > Agree to proceed</button>
+                                    )}
+                                    {/* <Payment /> */}
                                 </div>
                             </div>
                         </div>

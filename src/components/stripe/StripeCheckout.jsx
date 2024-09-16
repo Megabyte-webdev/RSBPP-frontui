@@ -1,21 +1,50 @@
+"use client";
+
 import {
   PaymentElement,
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
-import { useState } from 'react';
-import { BASE_URL } from '../utils/base';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { BASE_URL, APP_URL } from '../utils/base';
 
-const clientSecret = "sk_test_51PYY5yRodgHysfaEHCjCj2eBnWvQD5cH4xMyFNsaETLDtzE7R8poHQj9mENK6pat6HCucmSl4M7Z0O44alpcodyg00mpJdDKv4"
 
-const StripeCheckout = ({ token, user }) => {
+const StripeCheckout = ({ token, amount, }) => {
   const stripe = useStripe();
   const elements = useElements();
-  // const [clientSecret, setClientSecret] = useState(testClient);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [clientSecret, setClientSecret] = useState("");
+
+  useEffect(() => {
+    axios.post(`${BASE_URL}payment/stripe-payment-intent`, {amount: amount}, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+      setClientSecret(response.data.clientSecret)
+    })
+    .catch((error) => {
+        console.log(error);
+        if (error.response) {
+            setErrorMessage(error.response.data.message);
+        } else {
+            setErrorMessage(error.message);
+        }
+    });
+  }, [amount]);
+
+  const handlePaymentSuccess = async () => {
+    
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true)
+    setErrorMessage("")
 
     if (elements == null) {
       return;
@@ -26,6 +55,7 @@ const StripeCheckout = ({ token, user }) => {
     if (submitError) {
       // Show error to your customer
       setErrorMessage(submitError.message);
+      setLoading(false)
       return;
     }
 
@@ -35,36 +65,39 @@ const StripeCheckout = ({ token, user }) => {
     // });
 
     // const {client_secret: clientSecret} = await res.json();
-
-    const {error} = await stripe.confirmPayment({
+    const result = await stripe.confirmPayment({
       //`Elements` instance that was used to create the Payment Element
       elements,
       clientSecret,
       confirmParams: {
-        return_url: "http://localhost:5173/success",
+        return_url: `${APP_URL}success`,
       },
     }
   );
-    if (error) {
+    if (result.error) {
       // This point will only be reached if there is an immediate error when
       // confirming the payment. Show error to your customer (for example, payment
       // details incomplete)
-      setErrorMessage(error.message);
+      setErrorMessage(result.error.message);
+      setLoading(false)
     } else {
       // Your customer will be redirected to your `return_url`. For some payment
       // methods like iDEAL, your customer will be redirected to an intermediate
       // site first to authorize the payment, then redirected to the `return_url`.
+       if (result.paymentIntent.status === 'succeeded') {
+        handlePaymentSuccess();
+      }
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <PaymentElement />
-      <button className="btn btn-outline-info mt-4" type="submit" disabled={!stripe || !elements}>
-        Pay
+      <button className="btn btn-outline-info mt-4" type="submit" disabled={loading}>
+        {loading ? "Processing....." : "Pay"}
       </button>
       {/* Show error message to your customers */}
-      {errorMessage && <div>{errorMessage}</div>}
+      {errorMessage && <div className='text-danger'>{errorMessage}</div>}
     </form>
   );
 };

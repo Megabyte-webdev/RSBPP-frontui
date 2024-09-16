@@ -132,7 +132,7 @@ const Carts = () => {
                             token={token}
                             user={user}
                         /> */}
-                        <Payment />
+                        {/* <Payment /> */}
                         <div className="row">
                             <h3 className='my-4'>SIMILAR COURSE</h3>
                             {getAllCourses.data && (

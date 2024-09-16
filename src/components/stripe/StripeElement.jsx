@@ -1,17 +1,16 @@
+import { useState, useEffect } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import StripeCheckout from './StripeCheckout';
 
 const stripePromise = loadStripe('pk_test_51PYY5yRodgHysfaEHt7CKS3VNz8Tea51ig2ddwinDuMqCMCJfA6ZdsEhgtXNGX3teAbUas0BGrqApaTHvlhPjxfC00CbrCwGco');
 
-
-
-const StripeElement = ({ user, token }) => {
-  // console.log(user)
+const StripeElement = ({ token, amount }) => {
+  
 
   const options = {
     mode: 'payment',
-    amount: 1099,
+    amount: amount,
     currency: 'usd',
     // Fully customizable with appearance API.
     appearance : {
@@ -42,8 +41,8 @@ const StripeElement = ({ user, token }) => {
   return (
     <Elements stripe={stripePromise} options={options}>
       <StripeCheckout
-        user={user}
         token={token}
+        amount={amount}
       />
     </Elements>
   )
