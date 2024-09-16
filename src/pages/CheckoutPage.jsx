@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import StripeElement from '../components/stripe/StripeElement';
 // import Payment from "../components/stripe/clone/Payment";
 // import { Spinner } from 'react-bootstrap'
+import StripeImage from "../assets/stripe.png"
 
 const CheckoutPage = () => {
     const navigate = useNavigate();
@@ -50,16 +51,21 @@ const CheckoutPage = () => {
                     <div className="col-md-6">
                         <div className="p-md-5 px-3">
                             <h4>CHECKOUT</h4>
-                            <h5>Billing address</h5>
+                            {/* <h5>Billing address</h5>
                             <div className="col-md-7 mb-3">
                                 <label htmlFor="inputState" className="form-label fw-bold">Country</label>
                                 <select id="inputState" className="form-select">
                                     <option selected>Choose...</option>
                                     <option>...</option>
                                 </select>
-                            </div>
+                            </div> */}
                             <p>Rotterdam business school is required by law to collect applicable transaction taxes for purchases made in certain tax jurisdictions.</p>
-                            <div className='my-4'>
+                            <h4 className='d-flex mt-2'>
+                                <span className='mr-2'>Pay with Stripe</span>
+                                <img src={StripeImage} alt="" style={{width:"100px", height:"50px"}}/>
+
+                            </h4>
+                            {/* <div className='my-4'>
                                 <h5>Payment Method</h5>
                                 <div className="col border p-1">
                                     <div className="form-check col d-flex align-items-center">
@@ -91,7 +97,7 @@ const CheckoutPage = () => {
                                     </div>
                                 </div>
 
-                            </div>
+                            </div> */}
                             <div className='my-4'>
                                 <h5>Order Deals</h5>
                                 {state.cartCourses?.map((cart) => (
