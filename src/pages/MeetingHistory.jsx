@@ -55,6 +55,9 @@ const MeetingHistory = () => {
         return b.id - a.id
     })
 
+    console.log(userInfo.id)
+    console.log(mySchedules)
+
     const userData = getAllInstructors.data?.find((instructor) => instructor.user_id == userInfo.id)
     // console.log(myCourses)
     // console.log(mySchedules)
