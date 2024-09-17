@@ -29,7 +29,7 @@ const CreateForm = ({ meetingCode, setMeetingCode }) => {
         day: "",
         start_time: "",
         end_time: "",
-        instructor_id: "",
+        instructor_id: userCredentials.user.id,
         course_id: "",
         meeting_code: "",
     })
@@ -146,13 +146,13 @@ const CreateForm = ({ meetingCode, setMeetingCode }) => {
             day: "",
             start_time: "",
             end_time: "",
-            instructor_id: "",
+            instructor_id: userCredentials.user.id,
             course_id: "",
             meeting_code: "",
         })
     }
 
-    console.log(details )
+    // console.log(userCredentials )
 
     return (
         <div className='p-3 py-5'>
@@ -174,7 +174,7 @@ const CreateForm = ({ meetingCode, setMeetingCode }) => {
                         </select>
                         <label htmlFor="course_id"> select Course</label>
                     </div>
-                    <div className="form-floating mb-3">
+                    {/* <div className="form-floating mb-3">
                         <select
                             value={details.instructor_id}
                             name="instructor_id"
@@ -182,11 +182,14 @@ const CreateForm = ({ meetingCode, setMeetingCode }) => {
                             className="form-select" id="instructor" aria-label="Floating label select example">
                             <option value="">...</option>
                             {getAllInstructors.data?.map((user) => (
-                                <option key={user.id} value={user.user_id}>{user.first_name} ({user.email})</option>
+                                <option key={user.id} value={user.user_id}>
+                                    {user.first_name} ({user.email})
+                                    -- {userCredentials.user.id } -- {user.user_id}
+                                </option>
                             ))}
                         </select>
                         <label htmlFor="instructor"> select Instructor</label>
-                    </div>
+                    </div> */}
                     <div className="form-floating mb-3">
                         <input type="date"
                             value={details.day}
