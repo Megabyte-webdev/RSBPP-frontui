@@ -61,7 +61,7 @@ const SuccessfulCheckoutPage = () => {
                         <div className="col-md-6 my-3">
                             <div className="light_brown d-flex align-items-center justify-content-between p-4">
                                 <div>
-                                    <h1>₦{totalPrice}.00</h1>
+                                    <h1>${totalPrice}.00</h1>
                                     <p>Payment Successful</p>
                                 </div>
                                 <div className='col-2 me-4'>
