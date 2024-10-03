@@ -5,7 +5,7 @@ const Programmes = () => {
   return (
     <div className="flex flex-col gap-y-4 sm:flex-row md:items-stretch mx-2">
         {/* Left side */}
-        <div className="relative w-full min-h-[500px] sm:min-h-full md:w-1/4 text-white py-2">
+        <div className="relative w-full min-h-[500px] sm:min-h-screen md:w-1/4 text-white py-2">
         <img className='object-cover absolute top-0 right-0 bottom-0 left-0 m-auto w-full h-full z-0' src={img} alt="" />
         <div className='z-1 bg-[#8B0002] opacity-[0.61] absolute top-0 right-0 bottom-0 left-0 m-auto' ></div> 
             <div className='z-2 w-full h-full p-4 absolute top-0 right-0 bottom-0 left-0 m-auto'>
