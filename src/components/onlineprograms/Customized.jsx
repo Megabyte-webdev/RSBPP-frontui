@@ -1,7 +1,7 @@
 import customizedImg from '../../assets/online-programmes/customised-online-img.jpg'
 const Customized = () => {
   return (
-    <div className='flex flex-col md:flex-row px-4 justify-between'>
+    <div className='flex flex-col md:flex-row px-4 justify-between my-10'>
         {/* Left side */}
         <div className='flex-1 w-full md:w-1/2'>
             <div className='flex flex-wrap my-2 gap-3 justify-between'>
