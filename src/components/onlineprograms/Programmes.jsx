@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Programmes = () => {
   return (
-    <div className="flex flex-col sm:flex-row md:items-stretch">
+    <div className="flex flex-col sm:flex-row md:items-stretch px-4">
         {/* Left side */}
         <div className="relative w-full min-h-[400px] sm:min-h-full md:w-1/4 text-white py-2 px-4">
         <img className='object-cover absolute top-0 right-0 bottom-0 left-0 m-auto w-full h-full z-0' src={img} alt="" />
@@ -25,19 +25,19 @@ const Programmes = () => {
             <section className='py-5'>
             <h2 className='font-semibold text-3xl my-3'>Online Management & Communication Programmes</h2>
             <ul className='flex flex-wrap gap-y-3 justify-between px-0 font-bold'>
-              <Link className='flex-initial basis-[48%] text-sm md:text-xl underline text-inherit'>understanding Digital Customer Effectiveness Landscape</Link>
-              <Link className='flex-initial basis-[48%] text-sm md:text-xl underline text-inherit'>Big Data and Business Decisions</Link>
-              <Link className='flex-initial basis-[48%] text-sm md:text-xl underline text-inherit'>Dealing with Difficult Personalities and Difficult Situations</Link>
-              <Link className='flex-initial basis-[48%] text-sm md:text-xl underline text-inherit'>Building Personal Credibility: Understanding Different Communication Styles</Link>
+              <Link className='flex-initial w-full md:basis-[48%] text-sm md:text-xl underline text-inherit'>understanding Digital Customer Effectiveness Landscape</Link>
+              <Link className='flex-initial w-full md:basis-[48%] text-sm md:text-xl underline text-inherit'>Big Data and Business Decisions</Link>
+              <Link className='flex-initial w-full md:basis-[48%] text-sm md:text-xl underline text-inherit'>Dealing with Difficult Personalities and Difficult Situations</Link>
+              <Link className='flex-initial w-full md:basis-[48%] text-sm md:text-xl underline text-inherit'>Building Personal Credibility: Understanding Different Communication Styles</Link>
             </ul>
             </section>
             <section className='py-5'>
             <h2 className='font-semibold text-3xl my-3'>Online Finance Programmes</h2>
             <ul className='flex flex-wrap gap-y-3 justify-between px-0 font-bold'>
-              <Link className='flex-initial basis-[48%] text-sm md:text-xl underline text-inherit'>understanding Digital Customer Effectiveness Landscape</Link>
-              <Link className='flex-initial basis-[48%] text-sm md:text-xl underline text-inherit'>Big Data and Business Decisions</Link>
-              <Link className='flex-initial basis-[48%] text-sm md:text-xl underline text-inherit'>Dealing with Difficult Personalities and Difficult Situations</Link>
-              <Link className='flex-initial basis-[48%] text-sm md:text-xl underline text-inherit'>Building Personal Credibility: Understanding Different Communication Styles</Link>
+              <Link className='flex-initial w-full md:basis-[48%] text-sm md:text-xl underline text-inherit'>understanding Digital Customer Effectiveness Landscape</Link>
+              <Link className='flex-initial w-full md:basis-[48%] text-sm md:text-xl underline text-inherit'>Big Data and Business Decisions</Link>
+              <Link className='flex-initial w-full md:basis-[48%] text-sm md:text-xl underline text-inherit'>Dealing with Difficult Personalities and Difficult Situations</Link>
+              <Link className='flex-initial w-full md:basis-[48%] text-sm md:text-xl underline text-inherit'>Building Personal Credibility: Understanding Different Communication Styles</Link>
             </ul>
             </section>
         </div>
