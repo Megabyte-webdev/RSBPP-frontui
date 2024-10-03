@@ -12,7 +12,7 @@ const Customized = () => {
             <p className='text-sm font-medium my-4'>Is your topic or subject of interest not captured on the web? Never mind! We can design and tailor solutions that can be delivered wherever and whenever for individuals  wishing to learn or improve on their skills or organizations willing to upskill their employees. We will work closely with you to tailor contents/curriculum design.</p>
         </div>
         {/* Right side */}
-        <div className='w-full md:h-[600px] md:w-[400px]'>
+        <div className='w-full md:h-[600px] md:w-[300px]'>
             <img src={customizedImg} alt="" />
         </div>
     </div>
