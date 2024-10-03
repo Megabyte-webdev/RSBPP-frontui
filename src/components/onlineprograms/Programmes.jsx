@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Programmes = () => {
   return (
-    <div className="h-max flex flex-col gap-y-4 sm:flex-row md:items-stretch mx-2">
+    <div className="h-max flex flex-col gap-y-4 sm:flex-row md:items-stretch px-2 bg-gray-400">
         {/* Left side */}
         <div className="relative w-full min-h-[500px] sm:min-h-full md:w-1/4 text-white py-2">
         <img className='object-cover absolute top-0 right-0 bottom-0 left-0 m-auto w-full h-full z-0' src={img} alt="" />
@@ -21,7 +21,7 @@ const Programmes = () => {
             </div>
         </div>
         {/* Right side */}
-        <div className="px-4 md:px-10 flex-1 w-full min-h-[600px] md:w-3/4 text-[#8B0002]">
+        <div className="bg-gray-400 px-4 md:px-10 flex-1 w-full min-h-[600px] md:w-3/4 text-[#8B0002]">
             <section className='py-2'>
             <h2 className='font-semibold text-3xl my-3'>Online Management & Communication Programmes</h2>
             <ul className='flex flex-wrap gap-y-3 justify-between px-0 font-bold'>
