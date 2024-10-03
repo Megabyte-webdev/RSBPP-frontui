@@ -21,7 +21,7 @@ const Programmes = () => {
             </div>
         </div>
         {/* Right side */}
-        <div className="bg-gray-400 px-4 md:px-10 flex-1 w-full min-h-[600px] md:w-3/4 text-[#8B0002]">
+        <div className="bg-gray-400 px-4 mt-5 md:px-10 flex-1 w-full min-h-[600px] md:w-3/4 text-[#8B0002]">
             <section className='py-2'>
             <h2 className='font-semibold text-3xl my-3'>Online Management & Communication Programmes</h2>
             <ul className='flex flex-wrap gap-y-3 justify-between px-0 font-bold'>
