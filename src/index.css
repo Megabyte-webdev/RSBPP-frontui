@@ -4,11 +4,9 @@ body {
   width: 100%;
 }
 
--webkit-scrollbar{
-    height:0;
-    width:0;
+::-webkit-scrollbar{
+    @apply hidden
 }
-
 .roboto-thin {
   font-family: "Roboto", sans-serif;
   font-weight: 100;
