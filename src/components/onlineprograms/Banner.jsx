@@ -10,7 +10,7 @@ const Banner =()=>{
       <img className='object-cover absolute top-0 right-0 bottom-0 left-0 m-auto w-full h-full z-0' src={img} alt="" />
        <div className='z-1 bg-[#8B0002] opacity-[0.61] absolute top-0 right-0 bottom-0 left-0 m-auto' ></div> 
             {/* --------Left Side------ */}
-            <div className="flex-1 p-5 sm:p-5 z-2 absolute top-0 right-0 bottom-0 left-0 m-auto h-max text-white">
+            <div className="flex-1 p-4 sm:p-5 z-2 absolute top-0 right-0 bottom-0 left-0 m-auto h-max text-white">
                 <div className="text-2xl md:text-3xl lg:text-5xl font-semibold text-white mb-4">
                     <p>Nothing Beats the right skills for personal and organisational growth</p>
                 </div>
