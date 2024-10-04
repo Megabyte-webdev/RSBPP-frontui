@@ -1,5 +1,6 @@
 
 import { useNavigate } from 'react-router-dom'
+import img from '../../assets/online-programmes/online-programmes-img.jpg'
 const Banner =()=>{
 
     const navigate = useNavigate()
