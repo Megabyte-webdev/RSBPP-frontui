@@ -11,8 +11,8 @@ const Partners = () => {
         <div className='md:flex-1 w-full overflow-scroll flex gap-3 pt-3'>
             <img className='w-24' src={partner1} alt="" />
             <img className='w-24 object-contain' src={partner2} alt="" />
-            <img className='w-24' src={partner3} alt="" />
-            <img className='w-24' src={partner4} alt="" />
+            <img className='w-24 object-contain' src={partner3} alt="" />
+            <img className='w-24 object-contain' src={partner4} alt="" />
         </div>
     </div>
   )
