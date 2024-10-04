@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom'
 
 const Programmes = () => {
   return (
-    <div className="h-max flex flex-col gap-y-4 sm:flex-row md:items-stretch px-2 bg-gray-100 my-5">
+    <div className="h-max flex flex-col gap-y-4 md:flex-row md:items-stretch px-2 bg-gray-100 my-5">
         {/* Left side */}
-        <div className="relative md:top-[-30px] w-full min-h-[500px] sm:min-h-full md:w-1/4 text-white py-2">
+        <div className="relative w-full min-h-[500px] md:min-h-full md:w-[250px] text-white py-2">
         <img className='object-cover absolute top-0 right-0 bottom-0 left-0 m-auto w-full h-full z-0' src={img} alt="" />
         <div className='z-1 bg-[#8B0002] opacity-[0.61] absolute top-0 right-0 bottom-0 left-0 m-auto' ></div> 
-            <div className='z-2 w-full h-full p-4 absolute top-0 right-0 bottom-0 left-0 m-auto'>
+         <div className='relative z-2 w-full h-full p-4'>
             <h2 className="py-3 text-2xl border-b-4 border-b-white font-semibold">Our Programmes</h2>
             <div className="py-3 border-b border-b-gray-400">
               <h4>Executive Education</h4>
@@ -21,7 +21,7 @@ const Programmes = () => {
             </div>
         </div>
         {/* Right side */}
-        <div className="bg-gray-100 px-4 mt-2 md:px-10 flex-1 w-full min-h-[600px] md:w-3/4 text-[#8B0002]">
+        <div className="bg-gray-100 px-4 mt-2 md:px-10 flex-1 w-full min-h-full md:w-3/4 text-[#8B0002]">
             <section className='py-2'>
             <h2 className='font-semibold text-3xl my-3'>Online Management & Communication Programmes</h2>
             <ul className='flex flex-wrap gap-y-3 justify-between px-0 font-bold'>
