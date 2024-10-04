@@ -13,7 +13,7 @@ const Footer = () => {
       <div className="mx-auto py-4 my-6 flex flex-col md:flex-row md:flex-wrap md:justify-between">
         <section className="basis-[40%] h-max md:w-1/2 w-full m-2 transition-all ease-in-out duration-300">
           <div className="flex flex-col gap-y-3 text-xl text-white">
-            <img src={logo} className="w-32 md:w-60" />
+            <img src={logo} className="w-40 md:w-60" />
             <p className="text-[18px]">Westplein 12-14</p>
             <p className="text-[18px]">3016 BM Rotterdam</p>
             <p className="text-[18px]">The Netherlands</p>
