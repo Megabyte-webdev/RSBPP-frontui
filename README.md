@@ -14,7 +14,7 @@
 
 ### Installation
     git clone 
-    npm instal
+    npm install
 
 ## Setup
     npm run dev
