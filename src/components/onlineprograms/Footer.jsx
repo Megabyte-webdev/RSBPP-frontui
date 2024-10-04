@@ -11,7 +11,7 @@ const Footer = () => {
     <>
       <div className="p-4 bg-gray-900 text-white min-h-96 mx-auto w-full">
       <div className="mx-auto py-4 my-6 flex flex-col md:flex-row md:flex-wrap md:justify-between">
-        <section className="basis-[40%] h-max md:w-1/2 w-full m-4 transition-all ease-in-out duration-300">
+        <section className="basis-[40%] h-max md:w-1/2 w-full m-2 transition-all ease-in-out duration-300">
           <div className="flex flex-col gap-y-3 text-xl text-white">
             <img src={logo} className="w-32 md:w-60" />
             <p className="text-[18px]">Westplein 12-14</p>
