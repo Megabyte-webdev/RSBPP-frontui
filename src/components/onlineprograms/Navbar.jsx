@@ -30,7 +30,7 @@ const Navbar = () => {
         </NavLink>
         <NavLink className="group relative hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/doctors">
           <p className="">ABOUT US +</p>
-          <ul className="z-[100] absolute top-full mt-2 md:min-w-60 hidden group-hover:block bg-gray-100 text-black p-2 w-full">
+          <ul className="z-[100] absolute top-full mt-3 md:min-w-60 hidden group-hover:block bg-gray-100 text-black p-2 w-full">
             <li className="p-2">Who We Are</li>
             <li className="p-2">Mission/Vision</li>
             <li className="p-2">Our Leadership</li>
@@ -41,7 +41,7 @@ const Navbar = () => {
         </NavLink>
         <NavLink to='/online-programmes' className="group relative hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
          <p> PROGRAMMES +</p>
-         <ul className="z-[100] absolute top-full mt-2 md:min-w-60 hidden group-hover:block bg-gray-100 text-black p-2 w-full">
+         <ul className="z-[100] absolute top-full mt-3 md:min-w-60 hidden group-hover:block bg-gray-100 text-black p-2 w-full">
             <li className="p-2">Executive Education</li>
             <li className="p-2">Online Programmes</li>
             <li className="p-2">DigiKnowH</li>
@@ -49,7 +49,7 @@ const Navbar = () => {
         </NavLink>
         <NavLink className="group relative hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
           <p>FACULTIES +</p>
-         <ul className="z-[100] absolute top-full mt-2 md:min-w-60 hidden group-hover:block bg-gray-100 text-black p-2 w-full">
+         <ul className="z-[100] absolute top-full mt-3 md:min-w-60 hidden group-hover:block bg-gray-100 text-black p-2 w-full">
             <li className="p-2">Faculty of Business, Communication and Finance</li>
             <li className="p-2">Faculty of Good Governance, and Public Policy</li>
           </ul>
@@ -62,7 +62,7 @@ const Navbar = () => {
         </NavLink>
         <NavLink className="group relative hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
           <p>DOWNLOADS +</p>
-         <ul className="z-[100] absolute top-full mt-2 md:min-w-60 hidden group-hover:block bg-gray-100 text-black p-2 w-full">
+         <ul className="z-[100] absolute top-full mt-3 md:min-w-60 hidden group-hover:block bg-gray-100 text-black p-2 w-full">
             <li className="p-2">2024 Course Brochure</li>
           </ul>
         </NavLink>
