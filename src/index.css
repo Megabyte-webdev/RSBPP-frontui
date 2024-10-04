@@ -4,7 +4,7 @@ body {
   width: 100%;
 }
 
-.partners::-webkit-scrollbar{
+-webkit-scrollbar{
     height:0;
     width:0;
 }
