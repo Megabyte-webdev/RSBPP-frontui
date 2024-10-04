@@ -65,8 +65,8 @@ const Footer = () => {
         </section>
         <section className="text-white basis-[40%] font-semibold flex flex-col gap-y-3 justify-end h-max md:w-1/2 w-full m-4 transition-all ease-in-out duration-300">
           <p className="text-[22px]">Now Available</p>
-          <img className="w-40 rounded-md" src={playStore} alt="" />
-          <img className="w-40 rounded-md" src={appStore} alt="" />
+          <img className="w-40 rounded-md mx-2" src={playStore} alt="" />
+          <img className="w-40 rounded-md mx-2" src={appStore} alt="" />
         </section>
       </div>
       
