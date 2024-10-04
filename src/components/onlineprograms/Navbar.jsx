@@ -24,35 +24,111 @@ const Navbar = () => {
         {/* main nav */}
         <div className="px-3 flex justify-between items-center text-sm py-4">
       <img className="w-32 md:w-60 cursor-pointer" src={logo} alt="logo" />
-      <ul className="px-5 flex-1 text-[15px] text-black font-normal hidden md:flex md:flex-wrap items-center justify-center gap-x-5 gap-y-2">
-        <NavLink className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/">
-          HOME
+      <ul className="px-5 flex-1 text-[15px] text-black font-medium hidden md:flex md:flex-wrap items-center justify-center gap-x-5 gap-y-2">
+      <NavLink className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/">
+          <p>HOME</p>
         </NavLink>
-        <NavLink className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/doctors">
-          ABOUT US +
+        <NavLink className="group relative hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/doctors">
+          <p className="">ABOUT US +</p>
+          <ul className="z-[100] absolute top-full mt-2 md:min-w-60 hidden group-hover:block bg-gray-100 text-black p-2 w-full">
+            <li className="p-2">Who We Are</li>
+            <li className="p-2">Mission/Vision</li>
+            <li className="p-2">Our Leadership</li>
+            <li className="p-2">Advisory Board</li>
+            <li className="p-2">Management Board</li>
+            <li className="p-2">Contact Us</li>
+          </ul>
         </NavLink>
-        <NavLink to='/online-programmes' className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
-          PROGRAMMES +
+        <NavLink to='/online-programmes' className="group relative hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
+         <p> PROGRAMMES +</p>
+         <ul className="z-[100] absolute top-full mt-2 md:min-w-60 hidden group-hover:block bg-gray-100 text-black p-2 w-full">
+            <li className="p-2">Executive Education</li>
+            <li className="p-2">Online Programmes</li>
+            <li className="p-2">DigiKnowH</li>
+          </ul>
         </NavLink>
-        <NavLink className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
-          FACULTIES +
+        <NavLink className="group relative hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
+          <p>FACULTIES +</p>
+         <ul className="z-[100] absolute top-full mt-2 md:min-w-60 hidden group-hover:block bg-gray-100 text-black p-2 w-full">
+            <li className="p-2">Faculty of Business, Communication and Finance</li>
+            <li className="p-2">Faculty of Good Governance, and Public Policy</li>
+          </ul>
         </NavLink>
-        <NavLink className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
-          NEWS&EVENTS
+        <NavLink className="group hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
+          <p>NEWS&EVENTS</p>
         </NavLink>
-        <NavLink className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
-          SUPPORT AND GUIDANCE
+        <NavLink className="group hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
+          <p>SUPPORT AND GUIDANCE</p>
         </NavLink>
-        <NavLink className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
-          DOWNLOADS +
+        <NavLink className="group relative hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
+          <p>DOWNLOADS +</p>
+         <ul className="z-[100] absolute top-full mt-2 md:min-w-60 hidden group-hover:block bg-gray-100 text-black p-2 w-full">
+            <li className="p-2">2024 Course Brochure</li>
+          </ul>
         </NavLink>
       </ul>
       <div className="md:hidden bg-[#8B0002] py-2 px-3 text-white rounded-md cursor-pointer" onClick={()=>openMenu(!menu)}>
+      {
+        menu !== true ? <IoIosMenu size="24" />:<IoIosClose size="24" />
+      }
+      </div>
+    </div>
+    {/* Side nav */}
+      <div className={`${menu ===true ? 'opacity-1 left-0' : 'opacity-0 left-[-999px]'} md:hidden fixed z-[100] top-0 bottom-0 w-screen h-full bg-[rgba(0,0,0,.8)] transition-all duration-500`}>
+      <div className= 'bg-white w-full h-full pt-12'>
+    <div className="flex justify-between p-3 px-4">
+    <img className="w-32 md:w-60 cursor-pointer" src={logo} alt="logo" />
+    <div className="md:hidden bg-[#8B0002] py-2 px-3 text-white rounded-md cursor-pointer" onClick={()=>openMenu(!menu)}>
       {
         menu !== true?<IoIosMenu size="24" />:<IoIosClose size="24" />
       }
       </div>
     </div>
+      <ul className="py-5 text-[15px] text-black font-medium flex flex-col gap-y-2">
+        <NavLink className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/">
+          <p>HOME</p>
+        </NavLink>
+        <NavLink className="group hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/doctors">
+          <p className="">ABOUT US +</p>
+          <ul className="hidden group-hover:block bg-gray-100 text-black p-2 w-full">
+            <li className="p-2">Who We Are</li>
+            <li className="p-2">Mission/Vision</li>
+            <li className="p-2">Our Leadership</li>
+            <li className="p-2">Advisory Board</li>
+            <li className="p-2">Management Board</li>
+            <li className="p-2">Contact Us</li>
+          </ul>
+        </NavLink>
+        <NavLink to='/online-programmes' className="group hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
+         <p> PROGRAMMES +</p>
+         <ul className="hidden group-hover:block bg-gray-100 text-black p-2 w-full">
+            <li className="p-2">Executive Education</li>
+            <li className="p-2">Online Programmes</li>
+            <li className="p-2">DigiKnowH</li>
+          </ul>
+        </NavLink>
+        <NavLink className="group hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
+          <p>FACULTIES +</p>
+         <ul className="hidden group-hover:block bg-gray-100 text-black p-2 w-full">
+            <li className="p-2">Faculty of Business, Communication and Finance</li>
+            <li className="p-2">Faculty of Good Governance, and Public Policy</li>
+          </ul>
+        </NavLink>
+        <NavLink className="group hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
+          <p>NEWS&EVENTS</p>
+        </NavLink>
+        <NavLink className="group hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
+          <p>SUPPORT AND GUIDANCE</p>
+        </NavLink>
+        <NavLink className="group hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
+          <p>DOWNLOADS +</p>
+         <ul className="hidden group-hover:block bg-gray-100 text-black p-2 w-full">
+            <li className="p-2">2024 Course Brochure</li>
+          </ul>
+        </NavLink>
+      </ul>
+    </div>
+      </div>
     </div>
   );
 };
