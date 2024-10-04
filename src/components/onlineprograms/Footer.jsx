@@ -1,6 +1,9 @@
 // import { NavLink } from "react-router-dom";
 import { TiSocialFacebook, TiSocialInstagram, TiSocialLinkedin, TiSocialTwitter } from "react-icons/ti";
 import logo from "../../assets/logo.svg";
+import appStore from "../../assets/online-programmes/appstore.png";
+import playStore from "../../assets/online-programmes/playstore.png";
+
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -62,8 +65,8 @@ const Footer = () => {
         </section>
         <section className="text-white basis-[40%] font-semibold flex flex-col gap-y-3 justify-end h-max md:w-1/2 w-full m-4 transition-all ease-in-out duration-300">
           <p className="text-[22px]">Now Available</p>
-          <img className="text-inherit text-[15px] mx-2" src="" alt="" />
-          <img className="text-inherit text-[15px] mx-2" src="" alt="" />
+          <img className="w-24 rounded-md" src={playStore} alt="" />
+          <img className="w-24 rounded-md" src={appStore} alt="" />
         </section>
       </div>
       
