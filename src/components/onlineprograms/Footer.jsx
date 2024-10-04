@@ -1,6 +1,6 @@
 // import { NavLink } from "react-router-dom";
 import { TiSocialFacebook, TiSocialInstagram, TiSocialLinkedin, TiSocialTwitter } from "react-icons/ti";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo-white.png";
 import appStore from "../../assets/online-programmes/appstore.png";
 import playStore from "../../assets/online-programmes/playstore.png";
 
@@ -27,7 +27,7 @@ const Footer = () => {
           </div>
           
         </section>
-        <section className="text-white basis-[40%] font-medium flex flex-col gap-y-3 h-max md:w-1/2 w-full m-4 transition-all ease-in-out duration-300">
+        <section className="text-white basis-[40%] font-medium flex flex-col gap-y-3 h-max md:w-1/2 w-full m-2 transition-all ease-in-out duration-300">
           <p className="text-[18px]">Main Navigation</p>
           <Link className="no-underline text-inherit text-[15px] mx-2" href="tel:+23481062344890">
             Home
@@ -51,7 +51,7 @@ const Footer = () => {
             DigiKnowH
           </Link>
         </section>
-        <section className="text-white basis-[40%] font-semibold flex flex-col gap-y-3 justify-end h-max md:w-1/2 w-full m-4 transition-all ease-in-out duration-300">
+        <section className="text-white basis-[40%] font-semibold flex flex-col gap-y-3 justify-end h-max md:w-1/2 w-full m-2 transition-all ease-in-out duration-300">
           <p className="text-[22px]">Information Center</p>
           <Link className="no-underline text-inherit text-[15px] mx-2">
             How to Register
@@ -63,7 +63,7 @@ const Footer = () => {
             Blog
           </Link>
         </section>
-        <section className="text-white basis-[40%] font-semibold flex flex-col gap-y-3 justify-end h-max md:w-1/2 w-full m-4 transition-all ease-in-out duration-300">
+        <section className="text-white basis-[40%] font-semibold flex flex-col gap-y-3 justify-end h-max md:w-1/2 w-full m-2 transition-all ease-in-out duration-300">
           <p className="text-[22px]">Now Available</p>
           <img className="w-40 rounded-md mx-2" src={playStore} alt="" />
           <img className="w-40 rounded-md mx-2" src={appStore} alt="" />
