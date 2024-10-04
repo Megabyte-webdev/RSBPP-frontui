@@ -51,7 +51,9 @@ import ProfileUpdate from './pages/ProfileUpdate'
 import VideoIndex from './components/video-sdk-demo/src/VideoIndex'
 import VideoCallClass from './components/video-audio-demo/src/VideoCallClass'
 import LoginOtpForm from './components/auth/LoginOtpForm'
-// const LazyMeeting = lazy(() => import('./pages/MeetingHistory'));
+import OnlineProgramsLayout from './components/onlineprograms/OnlineProgramsLayout'
+import OnlinePrograms from './components/onlineprograms/OnlinePrograms'
+// const LazyMeeting = lazy(() => ./components/onlineprograms/OnlineProgramsLayout
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
@@ -64,6 +66,9 @@ const App = () => {
         <Router>
           {/* <Suspense fallback={<div>Loading...</div>}> */}
           <Routes>
+          <Route path='/online-programmes' element={<OnlineProgramsLayout />} >
+          <Route index element={<OnlinePrograms />} />
+          </Route>
             <Route path="/" element={<Layout />}>
               <Route index element={role === "admin" ? <AdminDashboard /> : role === "instructor" ? <FacultyDashboard /> : <DashboardTwo />} />
               <Route path='/dashboard' element={<DashboardTwo />} />
@@ -93,6 +98,7 @@ const App = () => {
                     <Route path='/faculty_list' element={<FacultyList />} />
                     <Route path='/profile_form' element={<UpdateProfile />} />
                     <Route path='/faculty_add_course' element={<FacultyAddCourse />} />
+               
                     <Route path='/instructor_courses' element={<InstructorCourses />} />
                     <Route path='/instructor_courses/:id' element={<FacultyEditCourse />} />
                   </>
