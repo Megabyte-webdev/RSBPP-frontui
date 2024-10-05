@@ -17,7 +17,7 @@ return(
 <div className='my-4 p-4 bg-gray-100 text-gray-500'>
 <p className='text-xl md:text-2xl font-medium text-black'> Exploration and Learning:
 </p>
-<p className='text-sm'>Participants will explore topics like coding, data analytics, digital marketing, cyber security, and more.<br />
+<p className='text-sm py-3'>Participants will explore topics like coding, data analytics, digital marketing, cyber security, and more.<br />
 
 They’ll gain practical skills and theoretical knowledge to navigate the digital landscape effectively, and prepares them for the future in-demand skills relevant as technology evolves.
 <br />
