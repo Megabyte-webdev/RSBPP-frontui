@@ -14,9 +14,9 @@ programme ?       <div className='relative z-10 min-h-[400px] text-white flex fl
 <p>Start Duration : 10 Hours </p>
 
         </div>
-:<div className='bg-black relative z-10 min-h-full text-white flex flex-col justify-center p-[5%]'> 
+:<div className='relative z-10 w-full min-h-full text-white flex flex-col justify-end p-[5%]'> 
         <h1 className='font-medium text-3xl md:text-5xl my-3'>Online Programmes</h1>
-        <Link to='https://rsbpp.nl/' className='no-underline text-inherit py-1 px-2 w-max border border-gray-300 font-bold'>Home <span className='px-2'>&gt;</span> </Link>
+        <Link to='https://rsbpp.nl/' className='no-underline text-inherit px-2 w-max border border-gray-300 font-bold'>Home <span className='px-2'>&gt;</span> </Link>
         </div>
 }
     </div>
