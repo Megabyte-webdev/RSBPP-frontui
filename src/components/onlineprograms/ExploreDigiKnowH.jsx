@@ -1,4 +1,6 @@
-import DigiImg from '../../assets/digiknow.jpg'
+import DigiImg from '../../assets/online-programmes/digiknow.jpg'
+import { Link } from 'react-router-dom'
+import {FaCheck} from 'react-icons/fa'
 
 const ExploreDigiKnowH =()=>{
 
@@ -30,6 +32,11 @@ Overall, the DigiKnowH programme promises an engaging and enriching experience f
 <div>
 <img src={DigiImg} alt=""/>
 <h3 className='my-3 text-2xl md:text-3xl font-medium'>Digital Skills Programme ( DigiknowH)</h3>
+<ul className='flex flex-wrap gap-y-3 justify-between px-0 font-medium'>
+              <Link className='flex-initial basis-full md:basis-[48%] text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2' /></p> Effective Social Media Strategy</Link>
+              <Link className='flex-initial basis-full md:basis-[48%] text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2' /></p> Content Creation & Brand Building
+AI - CRM</Link>
+              <Link className='flex-initial basis-full md:basis-[48%] text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2' /></p> Digital Transformation StrategyItem</Link>
 
 </div>
 
