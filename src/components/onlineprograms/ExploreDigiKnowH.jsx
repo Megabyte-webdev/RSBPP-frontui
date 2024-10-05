@@ -37,7 +37,7 @@ Overall, the DigiKnowH programme promises an engaging and enriching experience f
               <Link className='flex-initial basis-full md:basis-[48%] text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2' /></p> Content Creation & Brand Building
 AI - CRM</Link>
               <Link className='flex-initial basis-full md:basis-[48%] text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2' /></p> Digital Transformation StrategyItem</Link>
-
+</ul>
 </div>
 
 </div>
