@@ -9,7 +9,7 @@ const Hero = ({programme =true}) => {
 programme ?       <div className='relative z-10 h-full text-white flex flex-col justify-center px-[5%] gap-y-2'> 
 <p className='bg-[#8B0002] w-max px-2 h-max'>Online Programmes</p>
 
-        <h1 className='font-medium text-4xl md:text-5xl my-2'>Programmes, understanding the principle of marketing</h1>
+        <h1 className='font-medium text-3xl md:text-5xl my-2'>Programmes, understanding the principle of marketing</h1>
         <p>Start Date: 21st October 2024</p>
 <p>Start Duration : 10 Hours </p>
 
