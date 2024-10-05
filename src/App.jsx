@@ -54,7 +54,7 @@ import LoginOtpForm from './components/auth/LoginOtpForm'
 import OnlineProgramsLayout from './components/onlineprograms/OnlineProgramsLayout'
 import OnlinePrograms from './components/onlineprograms/OnlinePrograms'
 import Programme from './components/onlineprograms/Programme'
-import Programme from './components/onlineprograms/DigiknowH'
+import DigiknowH from './components/onlineprograms/DigiknowH'
 // const LazyMeeting = lazy(() => ./components/onlineprograms/OnlineProgramsLayout
 
 const App = () => {
