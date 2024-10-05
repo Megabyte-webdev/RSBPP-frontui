@@ -53,7 +53,7 @@ import VideoCallClass from './components/video-audio-demo/src/VideoCallClass'
 import LoginOtpForm from './components/auth/LoginOtpForm'
 import OnlineProgramsLayout from './components/onlineprograms/OnlineProgramsLayout'
 import OnlinePrograms from './components/onlineprograms/OnlinePrograms'
-import Program from './components/onlineprograms/Program'
+import Programme from './components/onlineprograms/Programme'
 // const LazyMeeting = lazy(() => ./components/onlineprograms/OnlineProgramsLayout
 
 const App = () => {
@@ -69,7 +69,7 @@ const App = () => {
           <Routes>
           <Route path='/online-programmes' element={<OnlineProgramsLayout />} >
           <Route index element={<OnlinePrograms />} />
-<Route path='/:id' element={<Program />} />
+<Route path='/:id' element={<Programme />} />
           </Route>
             <Route path="/" element={<Layout />}>
               <Route index element={role === "admin" ? <AdminDashboard /> : role === "instructor" ? <FacultyDashboard /> : <DashboardTwo />} />
