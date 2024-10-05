@@ -7,7 +7,7 @@ const ExploreDigiKnowH =()=>{
 return(
 <div className='flex flex-col md:flex-row md: justify-between items-center gap-4 p-[3%] my-5'>
 {/* Left side*/}
-<div className='flex-1 w-3/4'>
+<div className='flex-1 w-full md:w-3/4'>
 <div>
 <p className='text-xl md:text-2xl font-medium'>“ Specially designed for those who are willing to undertake a journey into the digital space.”</p>
 <p className='text-sm md:text-xl text-gray-700 my-2' >This programme is tailored for people who are curious and open to learning about digital technologies, tools, and practices.</p>
