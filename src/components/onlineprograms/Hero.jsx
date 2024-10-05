@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom'
 import img from '../../assets/online-programmes/online-programmes-img.jpg'
-const Hero = ({programme =false, title }) => {
+const Hero = ({programme =false, title="Online Programmes" }) => {
     return (
     <div className='relative min-h-[200px] md:min-h-[350px] flex justify-center align-center'>
       <img className='object-cover absolute top-0 right-0 bottom-0 left-0 m-auto w-full h-full z-0' src={img} alt="" />
@@ -15,7 +15,7 @@ programme ?       <div className='relative z-10 min-h-[400px] text-white flex fl
 
         </div>
 :<div className='relative z-10 w-full min-h-full text-white flex flex-col justify-end p-[5%]'> 
-        <h1 className='font-medium text-3xl md:text-5xl my-3'>Online Programmes</h1>
+        <h1 className='font-medium text-3xl md:text-5xl my-3'>{title}</h1>
         <Link to='https://rsbpp.nl/' className='no-underline text-inherit px-2 w-max border border-gray-300 font-bold'>Home <span className='px-2'>&gt;</span> </Link>
         </div>
 }
