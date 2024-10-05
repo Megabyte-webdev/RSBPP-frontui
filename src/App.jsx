@@ -54,6 +54,7 @@ import LoginOtpForm from './components/auth/LoginOtpForm'
 import OnlineProgramsLayout from './components/onlineprograms/OnlineProgramsLayout'
 import OnlinePrograms from './components/onlineprograms/OnlinePrograms'
 import Programme from './components/onlineprograms/Programme'
+import Programme from './components/onlineprograms/DigiknowH'
 // const LazyMeeting = lazy(() => ./components/onlineprograms/OnlineProgramsLayout
 
 const App = () => {
@@ -70,6 +71,8 @@ const App = () => {
           <Route path='/online-programmes' element={<OnlineProgramsLayout />} >
           <Route index element={<OnlinePrograms />} />
 <Route path='/online-programmes/:program' element={<Programme />} />
+<Route path='/digiknowh' element={<DigiKnowH />} />
+
           </Route>
             <Route path="/" element={<Layout />}>
               <Route index element={role === "admin" ? <AdminDashboard /> : role === "instructor" ? <FacultyDashboard /> : <DashboardTwo />} />
