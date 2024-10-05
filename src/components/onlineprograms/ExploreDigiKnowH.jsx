@@ -5,7 +5,7 @@ import {FaCheck} from 'react-icons/fa'
 const ExploreDigiKnowH =()=>{
 
 return(
-<div className='flex flex-col md:flex-row md: justify-between items-center gap-4 p-[5%]'>
+<div className='flex flex-col md:flex-row md: justify-between items-center gap-4 p-[5%] my-5'>
 {/* Left side*/}
 <div className=''>
 <div>
@@ -29,7 +29,7 @@ Overall, the DigiKnowH programme promises an engaging and enriching experience f
 </div>
 </div>
 {/* Right side*/}
-<div className='w-2/6' >
+<div className='w-full md:w-[350px]' >
 <img src={DigiImg} alt=""/>
 <h3 className='my-3 text-2xl md:text-3xl font-medium'>Digital Skills Programme ( DigiknowH)</h3>
 <ul className='flex flex-wrap gap-y-3 justify-between px-0 font-medium'>
