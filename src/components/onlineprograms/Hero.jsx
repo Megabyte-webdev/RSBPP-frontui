@@ -15,7 +15,7 @@ programme ?       <div className='relative z-10 min-h-[400px] text-white flex fl
 
         </div>
 :<div className='relative z-10 h-full text-white flex flex-col justify-center px-[5%]'> 
-        <h1 className='text-4xl md:text-5xl py-4'>Online Programmes</h1>
+        <h1 className='font-medium text-3xl md:text-5xl my-2'>Online Programmes</h1>
         <Link to='https://rsbpp.nl/' className='no-underline text-inherit py-1 px-2 w-max border border-gray-300 font-bold'>Home <span className='px-2'>&gt;</span> </Link>
         </div>
 }
