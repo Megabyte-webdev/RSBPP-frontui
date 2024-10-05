@@ -53,7 +53,7 @@ import VideoCallClass from './components/video-audio-demo/src/VideoCallClass'
 import LoginOtpForm from './components/auth/LoginOtpForm'
 import OnlineProgramsLayout from './components/onlineprograms/OnlineProgramsLayout'
 import OnlinePrograms from './components/onlineprograms/OnlinePrograms'
-import Programs from './components/onlineprograms/Programs'
+import Program from './components/onlineprograms/Program'
 // const LazyMeeting = lazy(() => ./components/onlineprograms/OnlineProgramsLayout
 
 const App = () => {
