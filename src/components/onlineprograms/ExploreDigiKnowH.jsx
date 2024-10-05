@@ -7,7 +7,7 @@ const ExploreDigiKnowH =()=>{
 return(
 <div className='flex flex-col md:flex-row md: justify-between items-center gap-4 p-[5%] my-5'>
 {/* Left side*/}
-<div className=''>
+<div className='flex-1'>
 <div>
 <p className='text-xl md:text-2xl font-medium'>“ Specially designed for those who are willing to undertake a journey into the digital space.”</p>
 <p className='text-sm md:text-xl text-gray-700 my-2' >This programme is tailored for people who are curious and open to learning about digital technologies, tools, and practices.</p>
@@ -29,7 +29,7 @@ Overall, the DigiKnowH programme promises an engaging and enriching experience f
 </div>
 </div>
 {/* Right side*/}
-<div className='w-full sm:w-[350px]' >
+<div className='w-full md:w-[350px]' >
 <img className='h-[400px] object-cover' src={DigiImg} alt=""/>
 <h3 className='my-3 text-2xl font-medium'>Digital Skills Programme ( DigiknowH)</h3>
 <ul className='flex flex-wrap gap-y-3 justify-between px-0 font-medium'>
