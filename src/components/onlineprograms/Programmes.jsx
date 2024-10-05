@@ -26,7 +26,7 @@ const Programmes = () => {
             <h2 className='font-semibold text-3xl my-3'>Online Management & Communication Programmes</h2>
             <ul className='flex flex-wrap gap-y-3 justify-between px-0 font-medium'>
               <Link className='flex-initial basis-full md:basis-[48%] text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2' /></p> understanding Digital Customer Effectiveness Landscape</Link>
-              <Link className='flex-initial basis-full md:basis-[48%] text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2' /></p> Big Data and Business Decisions</Link>
+              <Link to="/online-programmes/Big Data and Business Decisions" className='flex-initial basis-full md:basis-[48%] text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2' /></p> Big Data and Business Decisions</Link>
               <Link className='flex-initial basis-full md:basis-[48%] text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2' /></p> Dealing with Difficult Personalities and Difficult Situations</Link>
               <Link className='flex-initial basis-full md:basis-[48%] text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2' /></p> Building Personal Credibility: Understanding Different Communication Styles</Link>
               <Link className='flex-initial basis-full md:basis-[48%] text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2' /></p> understanding Digital Customer Effectiveness Landscape</Link>
