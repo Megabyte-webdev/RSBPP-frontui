@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom'
 import img from '../../assets/online-programmes/online-programmes-img.jpg'
-const Hero = ({programme =true}) => {
+const Hero = ({programme =false}) => {
     return (
     <div className='relative min-h-[200px] md:min-h-[350px]'>
       <img className='object-cover absolute top-0 right-0 bottom-0 left-0 m-auto w-full h-full z-0' src={img} alt="" />
