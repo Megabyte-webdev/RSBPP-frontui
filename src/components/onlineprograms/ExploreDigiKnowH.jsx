@@ -14,10 +14,10 @@ return(
 <p className='text-sm md:text-xl text-gray-700 my-2'>It welcomes beginners, enthusiasts, and anyone eager to enhance their digital literacy.</p>
 <p className='text-sm md:text-xl text-gray-700 my-2'>This journey involves discovering various aspects of the digital world, such as online platforms, software, and digital communication.</p>
 </div>
-<div className='p-4 bg-gray-200 text-gray-600'>
+<div className='my-4 p-4 bg-gray-100 text-gray-500'>
 <p className='text-xl md:text-2xl font-medium text-black'> Exploration and Learning:
 </p>
-<p>Participants will explore topics like coding, data analytics, digital marketing, cyber security, and more.<br />
+<p className='text-sm'>Participants will explore topics like coding, data analytics, digital marketing, cyber security, and more.<br />
 
 They’ll gain practical skills and theoretical knowledge to navigate the digital landscape effectively, and prepares them for the future in-demand skills relevant as technology evolves.
 <br />
@@ -29,7 +29,7 @@ Overall, the DigiKnowH programme promises an engaging and enriching experience f
 </div>
 </div>
 {/* Right side*/}
-<div>
+<div className='w-2/6 >
 <img src={DigiImg} alt=""/>
 <h3 className='my-3 text-2xl md:text-3xl font-medium'>Digital Skills Programme ( DigiknowH)</h3>
 <ul className='flex flex-wrap gap-y-3 justify-between px-0 font-medium'>
