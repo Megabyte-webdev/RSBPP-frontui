@@ -7,9 +7,9 @@ const Hero = ({programme =true}) => {
        <div className='z-1 bg-[#8B0002] opacity-[0.61] absolute top-0 right-0 bottom-0 left-0 m-auto' ></div> 
      {
 programme ?       <div className='relative z-10 h-full text-white flex flex-col justify-center px-[5%] gap-y-2'> 
-<p className='text-[#8B0002] px-2 h-max'>Online Programmes</p>
+<p className='bg-[#8B0002] px-2 h-max'>Online Programmes</p>
 
-        <h1 className='text-4xl md:text-5xl my-4'>Programmes</h1>
+        <h1 className='text-4xl md:text-5xl my-2'>Programmes</h1>
         <p>Start Date: 21st October 2024</p>
 <p>Start Duration : 10 Hours </p>
 
