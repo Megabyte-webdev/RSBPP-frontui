@@ -71,9 +71,11 @@ const App = () => {
           <Route path='/online-programmes' element={<OnlineProgramsLayout />} >
           <Route index element={<OnlinePrograms />} />
 <Route path='/online-programmes/:program' element={<Programme />} />
-<Route path='/digiknowh' element={<DigiKnowH />} />
-
           </Route>
+<Route path='/digiknowh' element={<OnlineProgramsLayout />} >
+<Route index element={<DigiKnowH />} />
+ </Route>
+
             <Route path="/" element={<Layout />}>
               <Route index element={role === "admin" ? <AdminDashboard /> : role === "instructor" ? <FacultyDashboard /> : <DashboardTwo />} />
               <Route path='/dashboard' element={<DashboardTwo />} />
