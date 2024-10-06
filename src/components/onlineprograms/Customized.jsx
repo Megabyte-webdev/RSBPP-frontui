@@ -5,7 +5,7 @@ const Customized = () => {
         {/* Left side */}
         <div className='flex-1 w-full md:w-1/2 md:pr-4'>
             <div className='flex flex-wrap md:flex-nowrap my-2 gap-3 justify-between'>
-                <p className='flex items-center justify-center text-sm h-max md:text-8xl font-semibold md:p-3 px-2 w-max border border-black md:min-h-max text-black bg-white border border-gray-900'>C</p>
+                <p className='flex items-center justify-center text-sm h-max md:text-8xl font-semibold md:p-3 px-2 w-max border border-black md:min-h-max text-black bg-white border border-gray-600'>C</p>
                 <h3 className='flex-1 text-2xl md:text-5xl font-medium mx-3 md:p-3'>Customised Online Programmes
                 </h3>
             </div>
