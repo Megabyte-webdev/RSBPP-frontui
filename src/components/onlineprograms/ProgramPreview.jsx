@@ -6,15 +6,14 @@ return(
 <div className='flex flex-col md:flex-row md: justify-between gap-4 p-[5%] md:p-[3%] my-5'>
 {/* Left side*/}
 <div className='flex-1 w-full md:w-3/4'>
-<div>
-<p className='text-xs md:text-sm text-gray-700 my-2' >This programme is tailored for people who are curious and open to learning about digital technologies, tools, and practices.</p>
-<p className='text-xs md:text-sm text-gray-700 my-2'>This course explores the dynamic landscape of digital marketing and its pivotal role in modern business strategies.</p>
-<p className='text-xs md:text-sm text-gray-700 my-2'>In today’s digital world, it is imperative for businesses to connect with a global audience, target specific demographics, measure campaign performance with precision, and deliver personalized marketing messages.</p>
-</div>
 
-<p className='text-sm md:text-xl font-medium text-black'> Target Participants
+<p className='text-xs md:text-sm text-gray-700 my-4' >This programme is tailored for people who are curious and open to learning about digital technologies, tools, and practices.</p>
+<p className='text-xs md:text-sm text-gray-700 my-2'>This course explores the dynamic landscape of digital marketing and its pivotal role in modern business strategies.</p>
+<p className='text-xs md:text-sm text-gray-700 my-4'>In today’s digital world, it is imperative for businesses to connect with a global audience, target specific demographics, measure campaign performance with precision, and deliver personalized marketing messages.</p>
+
+<p className='text-sm md:text-xl font-medium text-blackpy-3'> Target Participants
 </p>
-<p className='text-sm md:text-xl py-3 text-red-600 font-medium'>For those in Digital Marketing
+<p className='text-sm md:text-xl text-red-600 font-medium'>For those in Digital Marketing
 </p>
 </div>
 {/* Right side*/}
