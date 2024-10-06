@@ -13,7 +13,7 @@ const Customized = () => {
         </div>
         {/* Right side */}
         <div className='w-full md:min-h-[500px] lg:ml-3 md:w-[40%]'>
-            <img className='shadow-md w-full h-full object-cover' src={customizedImg} alt="" />
+            <img className='shadow-2xl w-full h-full object-cover' src={customizedImg} alt="" />
         </div>
     </div>
   )
