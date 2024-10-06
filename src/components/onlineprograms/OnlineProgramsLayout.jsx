@@ -9,9 +9,10 @@ const OnlineProgramsLayout = () => {
     <>
         <Navbar />
         <Outlet />
-        <Footer />
        <Banner />
       <Partners />
+        <Footer />
+       
     </>
   )
 }
