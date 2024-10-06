@@ -18,10 +18,10 @@ return(
 </p>
 </div>
 {/* Right side*/}
-<div className='w-full md:w-[350px] flex flex-col items-center' >
-<p className='w-full md:w-[90%] text-xl md:text-2xl font-medium text-black border border-gray-700 px-5 py-3'> Add To Cart
+<div className='w-full md:w-1/3 flex flex-col items-center' >
+<p className='w-full md:w-[90%] text-xl font-medium text-black border border-gray-700 px-5 py-3'> Add To Cart
 </p>
-<p className='w-full md:w-[90%] text-xl md:text-2xl font-medium text-black border border-gray-700 px-5 py-3'>$300
+<p className='w-full md:w-[90%] text-xl font-medium text-black border border-gray-700 px-5 py-3'>$300
 </p>
 </div>
 
