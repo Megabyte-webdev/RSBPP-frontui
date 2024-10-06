@@ -1,4 +1,3 @@
-import DigiImg from '../../assets/online-programmes/digiknow.jpg'
 
 
 const ProgramPreview =()=>{
