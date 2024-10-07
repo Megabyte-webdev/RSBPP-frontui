@@ -14,7 +14,7 @@ return(
 </p>
 <p className='text-sm text-red-600 font-medium'>For those in Digital Marketing
 </p>
-<p className='text-xl font-medium text-black py-3'> Course Objectives
+<p className='text-xl font-medium text-black py-3 mt-2'> Course Objectives
 </p>
 <p className='text-sm font-medium text-black'> At the end of the course, participants should be able to:
 </p>
