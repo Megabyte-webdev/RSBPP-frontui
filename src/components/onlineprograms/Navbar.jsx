@@ -24,7 +24,7 @@ const Navbar = () => {
         {/* main nav */}
         <div className="px-[5%] flex justify-between items-center text-sm py-4">
       <img className="w-32 md:w-60 cursor-pointer" src={logo} alt="logo" />
-      <ul className="flex-1 text-[15px] text-black font-medium hidden md:flex md:flex-wrap items-center md:justify-end gap-x-5 gap-y-2">
+      <ul className="flex-1 text-[15px] text-black font-medium hidden md:flex md:flex-wrap items-center md:justify-center gap-x-5 gap-y-2">
       <NavLink className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/">
           <p>HOME</p>
         </NavLink>
