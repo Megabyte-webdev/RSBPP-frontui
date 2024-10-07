@@ -70,70 +70,59 @@ const programList = [
     id: 2,
     heading: "Online Finance Programmes",
     items:[{
-        title: "Understanding Digital Customer Effectiveness Landscape",
+        title: "Understanding Basic Rules of Accounting Principles",
       },
       {
-        title: "Big Data and Business Decisions",
+        title: "Basic Elements of Accounting Fraud",
       },
       {
-        title: "Dealing with Difficult Personalities and Difficult Situations",
+        title: "Resource Allocation & Budget Management",
       },
       {
         title:
-          "Building Personal Credibility: Understanding Different Communication Styles",
+          "Developing Budget Templates",
       },
       {
-        title: "Motivating People for Change",
+        title: "Interpreting Financial Statements",
       },
       {
-        title: "Running Effective Meetings",
+        title: "Evaluating Financial Performance",
       },
       {
-        title: "Building Confidence",
+        title: "Strengthening Tax Administration of Non-Residents",
       },
       {
-        title: "Team Building and Partnerships Across Departments",
+        title: "Team Building",
       },
       {
-        title: "Communication Skills for Mediators",
+        title: "Business Processes and Accounting",
       },
       {
-        title: "Crisis Management",
+        title: "Managing the Internal Audit Operation",
       },
       {
-        title: "Presentation Skills",
+        title: "Financial Aspects of Project Management",
       },
       {
-        title: "Crisis Communication: Managing Complex Issues/Critical Situations",
+        title: "Cost Drivers and Cost Allocation Methods",
       },
       {
-        title: "Agile Working For Digital Transformation",
+        title: "Effective Working Capital Management",
       },
       {
-        title: "Press Releases, Briefs and Press Conferences",
+        title: "Preventing and Cracking Down on International Tax Evasion & Avoidance",
+      }
+    ]
+  },{
+id: 3,
+    heading: "Online Good Governance Programmes",
+    items:[{
+        title: "Basics of Fiscal Analysis",
       },
       {
-        title: "B2B Marketing- The Future",
-      },
-      {
-        title: "Basic Principles of Good Procurement",
-      },
-      {
-        title: "Impact Of Digitisation On The Competitive Landscape",
-      },
-      {
-        title: "Managing Across Cultures",
-      },
-      {
-        title: "Lean Start Up",
-      },
-      {
-        title: "Logistics Management",
-      },
-      {
-        title: "Understanding Gender Perspectives In Business",
+        title: "Principles of E-Governance",
       }]
-  }
+}
 ];
 programList.map(program=> {
     program.items.map(item=>{
