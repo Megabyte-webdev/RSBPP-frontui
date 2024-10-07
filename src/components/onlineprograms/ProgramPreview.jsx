@@ -16,12 +16,12 @@ return(
 </p>
 <p className='text-xl font-medium text-black py-3'> Course Objectives
 </p>
-<p className='text-[18px] font-medium text-black py-3'> At the end of the course, participants should be able to:
+<p className='text-[16px] font-medium text-black py-3'> At the end of the course, participants should be able to:
 </p>
-<ul className='gap-y-2 px-2'>
-<li className='text-sm text-gray-700 font-medium'>Define fundamental digital marketing concepts such as customerpersona, segmentation, funnels, and value propositions</li>
-<li className='text-sm text-gray-700 font-medium'>Define fundamental digital marketing concepts such as customerpersona, segmentation, funnels, and value propositions</li>
-<li className='text-sm text-gray-700 font-medium'>Define fundamental digital marketing concepts such as customerpersona, segmentation, funnels, and value propositions</li>
+<ul className='gap-y-2 pl-4'>
+<li className='text-sm text-gray-700 font-medium list-disc'>Define fundamental digital marketing concepts such as customerpersona, segmentation, funnels, and value propositions</li>
+<li className='text-sm text-gray-700 font-medium list-disc'>Define fundamental digital marketing concepts such as customerpersona, segmentation, funnels, and value propositions</li>
+<li className='list-disc text-sm text-gray-700 font-medium'>Define fundamental digital marketing concepts such as customerpersona, segmentation, funnels, and value propositions</li>
 </ul>
 
 
