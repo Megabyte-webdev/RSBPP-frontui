@@ -137,7 +137,11 @@ const programList = [
 ];
 programList.map(program=> {
     program.items.map(item=>{
-        item.href=item.title.split(" ").join("-").toLowerCase()
+item.href = item.title
+  .replace(/[^a-zA-Z0-9\s:]/g, "")
+  .replace(/:/g, "")
+  .replace(/\s+/g, "-")
+  .toLowerCase();
         return item
     })
     return program
