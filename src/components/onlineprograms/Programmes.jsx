@@ -27,7 +27,7 @@ const Programmes = () => {
             <h2 className='font-semibold text-3xl my-3'>Online Management & Communication Programmes</h2>
             <ul className='flex flex-wrap gap-y-3 justify-between px-0 font-medium'>
             programList.map((program, index)=>{
-              <Link key={index} className='flex-initial basis-full md:basis-[48%] text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2' /></p> {program}</Link>
+              <Link key={index} className='flex-initial basis-full md:basis-[48%] text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2' /></p> {program.title}</Link>
 })
             </ul>
             </section>
