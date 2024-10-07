@@ -14,7 +14,7 @@ return(
 <p className='text-sm md:text-xl text-gray-700 my-2'>It welcomes beginners, enthusiasts, and anyone eager to enhance their digital literacy.</p>
 <p className='text-sm md:text-xl text-gray-700 my-2'>This journey involves discovering various aspects of the digital world, such as online platforms, software, and digital communication.</p>
 </div>
-<div className='my-4 p-4 bg-gray-100 text-gray-500 border-2 border-gray-200 border-dashed'>
+<div className='my-4 p-4 bg-gray-100 text-gray-500 border-2 border-gray-300 border-dashed'>
 <p className='text-xl md:text-2xl font-medium text-black'> Exploration and Learning:
 </p>
 <p className='text-sm py-3'>Participants will explore topics like coding, data analytics, digital marketing, cyber security, and more.<br />
@@ -35,6 +35,8 @@ Overall, the DigiKnowH programme promises an engaging and enriching experience f
 <ul className='flex flex-wrap gap-y-3 justify-between px-0 font-medium'>
               <Link className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p> Effective Social Media Strategy</Link>
               <Link className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p> Content Creation & Brand Building
+AI - CRM</Link>
+   <Link className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p>
 AI - CRM</Link>
               <Link className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p> Digital Transformation StrategyItem</Link>
 </ul>
