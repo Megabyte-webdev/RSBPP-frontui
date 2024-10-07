@@ -18,7 +18,7 @@ return(
 </p>
 <p className='text-sm font-medium text-black py-3'> At the end of the course, participants should be able to:
 </p>
-<ul className='gap-y-4 ml-4'>
+<ul className='gap-y-4 ml-3'>
 <li className='text-sm text-gray-700 font-medium list-disc'>Define fundamental digital marketing concepts such as customerpersona, segmentation, funnels, and value propositions</li>
 <li className='text-sm text-gray-700 font-medium list-disc'>Define fundamental digital marketing concepts such as customerpersona, segmentation, funnels, and value propositions</li>
 <li className='list-disc text-sm text-gray-700 font-medium'>Define fundamental digital marketing concepts such as customerpersona, segmentation, funnels, and value propositions</li>
