@@ -1,6 +1,6 @@
 const programList =[
 {
-title: "Understanding Digital Customer Effectiveness Landscape",
+title: "Understanding Digital Customer Effectiveness Landscape"
 },{
 title: "Big Data and Business Decisions"
 },{
