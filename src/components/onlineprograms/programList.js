@@ -2,48 +2,48 @@ const programList =[
 {
 title: "Understanding Digital Customer Effectiveness Landscape",
 },{
-title: "Big Data and Business Decisions",
+title: "Big Data and Business Decisions"
 },{
-title: "Dealing with Difficult Personalities and Difficult Situations",
+title: "Dealing with Difficult Personalities and Difficult Situations"
 },{
-title: "Building Personal Credibility: Understanding Different Communication Styles",
+title: "Building Personal Credibility: Understanding Different Communication Styles"
 },
 {
-title: "Motivating People for Change",
+title: "Motivating People for Change"
 },{
-title: Running Effective Meetings",
+title: Running Effective Meetings"
 },{
-title: "Building Confidence",
+title: "Building Confidence"
 },
 {
-title: "Team Building and Partnerships Across Departments",
+title: "Team Building and Partnerships Across Departments"
 },{
-title: Communication Skills for Mediators",
+title: Communication Skills for Mediators"
 },{
-title: "Crisis Management",
+title: "Crisis Management"
 },{
-title: "Presentation Skills",
+title: "Presentation Skills"
 },{
-title: Crisis Communication: Managing Complex Issues/Critical Situations",
+title: Crisis Communication: Managing Complex Issues/Critical Situations"
 },{
-title: "Agile Working For Digital Transformation",
+title: "Agile Working For Digital Transformation"
 },{
-title: Press Releases, Briefs and Press Conferences",
+title: Press Releases, Briefs and Press Conferences"
 },{
-title: "B2B Marketing- The Future",
+title: "B2B Marketing- The Future"
 },{
-title: "Basic Principles of Good Procurement",
+title: "Basic Principles of Good Procurement"
 },{
-title: Impact Of Digitisation On The Competitive Landscape",
+title: Impact Of Digitisation On The Competitive Landscape"
 },{
-title: "Managing Across Cultures",
+title: "Managing Across Cultures"
 
 },{
-title: "Lean Start Up",
+title: "Lean Start Up"
 },{
-title: "Logistics Management",
+title: "Logistics Management"
 },{
-title: "Understanding Gender Perspectives In Business",
+title: "Understanding Gender Perspectives In Business"
 }
 
 ]
