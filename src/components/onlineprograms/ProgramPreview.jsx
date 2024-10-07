@@ -19,21 +19,21 @@ return(
 <p className='text-sm font-medium text-black'> At the end of the course, participants should be able to:
 </p>
 <ul className='gap-y-2 ml-2 my-2'>
-<li className='text-xs md:text-sm text-gray-500 font-medium list-disc my-2'>Define fundamental digital marketing concepts such as customerpersona, segmentation, funnels, and value propositions</li>
-<li className='text-xs md:text-sm text-gray-500 font-medium list-disc my-2'>Define fundamental digital marketing concepts such as customerpersona, segmentation, funnels, and value propositions</li>
-<li className='list-disc text-xs md:text-sm text-gray-500 font-medium my-2'>Define fundamental digital marketing concepts such as customerpersona, segmentation, funnels, and value propositions</li>
+<li className='text-sm text-gray-500 font-medium list-disc my-2'>Define fundamental digital marketing concepts such as customerpersona, segmentation, funnels, and value propositions</li>
+<li className='text-sm text-gray-500 font-medium list-disc my-2'>Define fundamental digital marketing concepts such as customerpersona, segmentation, funnels, and value propositions</li>
+<li className='list-disc text-sm text-gray-500 font-medium my-2'>Define fundamental digital marketing concepts such as customerpersona, segmentation, funnels, and value propositions</li>
 </ul>
 
 <p className='text-xl font-medium text-black py-3'> Outline
 </p>
 
 <ul className='gap-y-2 ml-2 my-2'>
-<li className='text-xs md:text-sm text-gray-500 font-medium list-disc my-2'>Introduction to Digital Marketing</li>
-<li className='text-xs md:text-sm text-gray-500 font-medium list-disc my-2'>Fundamentals of Digital Marketing</li>
-<li className='list-disc text-xs md:text-sm text-gray-500 font-medium my-2'>SOSTAC Marketing Planning Framework</li>
-<li className='list-disc text-xs md:text-sm text-gray-500 font-medium my-2'>Customer Experience Insights</li>
-<li className='list-disc text-xs md:text-sm text-gray-500 font-medium my-2'>Customer Segmentation</li>
-<li className='list-disc text-xs md:text-sm text-gray-500 font-medium my-2'>Customer Experience and Content Marketing</li>
+<li className='text-sm text-gray-500 font-medium list-disc my-2'>Introduction to Digital Marketing</li>
+<li className='text-sm text-gray-500 font-medium list-disc my-2'>Fundamentals of Digital Marketing</li>
+<li className='list-disc text-sm text-gray-500 font-medium my-2'>SOSTAC Marketing Planning Framework</li>
+<li className='list-disc text-sm text-gray-500 font-medium my-2'>Customer Experience Insights</li>
+<li className='list-disc text-sm text-gray-500 font-medium my-2'>Customer Segmentation</li>
+<li className='list-disc text-sm text-gray-500 font-medium my-2'>Customer Experience and Content Marketing</li>
 </ul>
 </div>
 {/* Right side*/}
