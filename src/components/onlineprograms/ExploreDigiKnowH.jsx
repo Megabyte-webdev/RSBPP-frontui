@@ -14,7 +14,7 @@ return(
 <p className='text-sm md:text-xl text-gray-700 my-2'>It welcomes beginners, enthusiasts, and anyone eager to enhance their digital literacy.</p>
 <p className='text-sm md:text-xl text-gray-700 my-2'>This journey involves discovering various aspects of the digital world, such as online platforms, software, and digital communication.</p>
 </div>
-<div className='my-4 p-4 bg-gray-100 text-gray-500 border-2 border-gray-400 border-dashed'>
+<div className='my-4 p-4 bg-gray-100 text-gray-500 border-2 border-gray-200 border-dashed'>
 <p className='text-xl md:text-2xl font-medium text-black'> Exploration and Learning:
 </p>
 <p className='text-sm py-3'>Participants will explore topics like coding, data analytics, digital marketing, cyber security, and more.<br />
