@@ -38,9 +38,9 @@ return(
 </div>
 {/* Right side*/}
 <div className='w-full md:w-1/3 flex flex-col items-center' >
-<p className='w-full md:w-[90%] text-sm font-medium text-black border border-gray-700 px-3 py-5'> Add To Cart
+<p className='w-full md:w-[90%] text-sm font-medium text-black border border-gray-700 px-3 py-4'> Add To Cart
 </p>
-<p className='w-full md:w-[90%] text-sm font-medium text-black border border-gray-700 px-3 py-5'>$300
+<p className='w-full md:w-[90%] text-sm font-medium text-black border border-gray-700 px-3 py-4'>$300
 </p>
 </div>
 
