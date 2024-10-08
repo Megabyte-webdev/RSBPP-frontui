@@ -9,8 +9,8 @@ const Navbar = () => {
   return (
     <div>
       {/* top cta */}
-        <div className='text-xs md:text-sm text-white gap-2 py-[10px] px-[5%] bg-[#8B0002] px flex flex-col sm:flex-row justify-center items-center sm:justify-between'>
-            <div className='flex gap-2'>
+        <div className='text-xs md:text-[16px] text-white gap-2 py-3 px-[4%] bg-[#8B0002] px flex flex-col sm:flex-row justify-center items-center sm:justify-between'>
+            <div className='flex gap-x-3'>
             <a className='no-underline text-white font-bold' href="tel:+31(0)10 307 2137">+31(0)10 307 2137</a>
             <a className='no-underline text-white font-bold' href="mailto:info@rsbpp.nl">info@rsbpp.nl</a>
             </div>
@@ -22,9 +22,9 @@ const Navbar = () => {
             </div>
         </div>
         {/* main nav */}
-        <div className="px-[5%] flex justify-between items-center text-sm py-4">
+        <div className="px-[4%] flex justify-between items-center text-sm py-4">
       <img className="w-32 md:w-60 cursor-pointer" src={logo} alt="logo" />
-      <ul className="flex-1 text-[15px] text-black font-medium hidden md:flex md:flex-wrap items-center md:justify-center gap-x-5 gap-y-2">
+      <ul className="text-[15px] text-black font-medium hidden md:flex md:flex-wrap items-center md:justify-center gap-x-5 gap-y-2">
       <NavLink className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/">
           <p>HOME</p>
         </NavLink>

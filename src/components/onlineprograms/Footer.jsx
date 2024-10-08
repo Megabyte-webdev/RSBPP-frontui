@@ -9,9 +9,9 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <>
-      <div className="p-[5%] mt-[5%] bg-gray-900 text-white min-h-96 mx-auto w-full">
+      <div className="md:px-[2%] px-[4%] mt-[5%] bg-gray-900 text-white min-h-96 mx-auto w-full">
       <div className="mx-auto py-4 my-6 flex flex-col md:flex-row md:flex-wrap md:justify-between">
-        <section className="basis-[40%] h-max md:w-1/2 w-full m-2 transition-all ease-in-out duration-300">
+        <section className="sm:basis-[48%] lg:basis-[23%] h-max md:w-1/2 w-full m-2 transition-all ease-in-out duration-300">
           <div className="flex flex-col gap-y-3 text-xl text-white">
             <img src={logo} className="w-60" />
             <p className="text-[18px]">Westplein 12-14</p>
@@ -27,7 +27,7 @@ const Footer = () => {
           </div>
           
         </section>
-        <section className="text-white basis-[40%] font-medium flex flex-col gap-y-3 h-max md:w-1/2 w-full m-2 transition-all ease-in-out duration-300">
+        <section className="text-white sm:basis-[48%] lg:basis-[23%] font-medium flex flex-col gap-y-3 h-max md:w-1/2 w-full m-2 transition-all ease-in-out duration-300">
           <p className="text-[18px]">Main Navigation</p>
           <Link className="no-underline text-inherit text-[15px] mx-2" href="tel:+23481062344890">
             Home
@@ -51,8 +51,8 @@ const Footer = () => {
             DigiKnowH
           </Link>
         </section>
-        <section className="text-white basis-[40%] font-semibold flex flex-col gap-y-3 justify-end h-max md:w-1/2 w-full m-2 transition-all ease-in-out duration-300">
-          <p className="text-[22px]">Information Center</p>
+        <section className="text-white sm:basis-[48%] lg:basis-[23%] font-semibold flex flex-col gap-y-3 justify-end h-max md:w-1/2 w-full m-2 transition-all ease-in-out duration-300">
+          <p className="text-[18px]">Information Center</p>
           <Link className="no-underline text-inherit text-[15px] mx-2">
             How to Register
           </Link>
@@ -63,8 +63,8 @@ const Footer = () => {
             Blog
           </Link>
         </section>
-        <section className="text-white basis-[40%] font-semibold flex flex-col gap-y-3 justify-end h-max md:w-1/2 w-full m-2 transition-all ease-in-out duration-300">
-          <p className="text-[22px]">Now Available</p>
+        <section className="text-white sm:basis-[48%] lg:basis-[23%] font-semibold flex flex-col gap-y-3 justify-end h-max md:w-1/2 w-full m-2 transition-all ease-in-out duration-300">
+          <p className="text-[18px]">Now Available</p>
           <img className="w-40 rounded-md mx-2" src={playStore} alt="" />
           <img className="w-40 rounded-md mx-2" src={appStore} alt="" />
         </section>

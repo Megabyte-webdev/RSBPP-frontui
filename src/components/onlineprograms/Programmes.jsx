@@ -2,13 +2,31 @@ import img from '../../assets/online-programmes/online-programmes-img.jpg'
 import { Link } from 'react-router-dom'
 import { FaCheck } from 'react-icons/fa'
 import programList from './programList'
+import { useEffect, useState } from 'react'
+import { BASE_URL, TOKEN } from '../utils/base'
+import axios from 'axios'
+
 const Programmes = () => {
+ const [data, setData]=useState(null);
+  useEffect(() => {
+     axios.get(`${BASE_URL}/course/getAllCourses`,{
+       headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        }
+      }).then((response) => {
+        setData(response.data)
+        console.log(data)
+      }).catch((err)=>{
+        console.log(err)
+      })
+},[])
+console.log(data)
   return (
-    <div className="h-max flex flex-col gap-y-4 md:flex-row md:items-stretch px-[5%] bg-gray-100 my-5">
+    <div className="h-max flex flex-col gap-y-4 md:flex-row md:items-stretch md:px-[2%] px-[4%] bg-gray-100 my-5">
       {/* Left side */}
-      <div className="relative w-full min-h-[500px] md:min-h-full md:w-[350px] text-white py-2">
+      <div className="relative w-full min-h-[500px] md:min-h-full md:w-[300px] text-white py-2">
         <img className='object-cover absolute top-0 right-0 bottom-0 left-0 m-auto w-full h-full z-0' src={img} alt="" />
-        <div className='z-1 bg-[#8B0002] opacity-[0.8] absolute top-0 right-0 bottom-0 left-0 m-auto' ></div>
+        <div className='z-1 bg-[#8B0002] opacity-[0.9] absolute top-0 right-0 bottom-0 left-0 m-auto' ></div>
         <div className='relative z-2 w-full h-full p-4'>
           <h2 className="py-3 text-2xl border-b-4 border-b-white font-semibold">Our Programmes</h2>
           <div className="py-3 border-b border-b-gray-400">

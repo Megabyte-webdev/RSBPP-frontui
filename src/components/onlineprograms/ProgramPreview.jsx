@@ -3,7 +3,7 @@
 const ProgramPreview =()=>{
 
 return(
-<div className='flex flex-col md:flex-row md: justify-between gap-4 p-[5%] md:p-[3%] my-5'>
+<div className='flex flex-col md:flex-row md: justify-between gap-4 p-[4%] my-5'>
 {/* Left side*/}
 <div className='flex-1 w-full md:w-3/4'>
 
