@@ -10,13 +10,13 @@ const Hero = ({programme =false, title="Online Programmes" }) => {
 programme ?       <div className='relative z-10 min-h-[400px] w-full text-white flex flex-col justify-center p-[4%] gap-y-2'> 
 <p className='bg-[#8B0002] w-max px-2 h-max'>Online Programmes</p>
 
-        <h1 className='font-extrabold text-3xl md:text-5xl my-2 pt-4'>{title}</h1>
+        <h1 className='font-extrabold text-3xl md:text-5xl my-2 pt-4'>{title && title}</h1>
         <p>Start Date: 21st October 2024</p>
 <p>Start Duration : 10 Hours </p>
 
         </div>
 :<div className='relative z-10 w-full min-h-full text-white flex flex-col justify-end p-[4%] mb-4'> 
-        <h1 className='font-extrabold text-3xl md:text-5xl my-3'>{title}</h1>
+        <h1 className='text-3xl md:text-5xl my-3'>{title && title}</h1>
         <Link to='https://rsbpp.nl/' className='no-underline text-inherit px-2 w-max border border-[#FFFFFF73] font-bold'>Home <span className='px-2'>&gt;</span> </Link>
         </div>
 }

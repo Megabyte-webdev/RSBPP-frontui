@@ -11,3 +11,7 @@
     font-family: 'Ripple-Regular';
     src: url('./Ripple-Regular.ttf');
   }
+  @font-face{
+    font-family: 'Ripple-BoldItalic';
+    src: url('./Ripple-BoldItalic');
+  }

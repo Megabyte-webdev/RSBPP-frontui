@@ -10,11 +10,11 @@ const Customized = () => {
                 <h3 className='flex-1 text-2xl md:text-5xl mx-3 p-3'>Customised Online Programmes
                 </h3>
             </div>
-            <p className='text-sm md:text-xl font-medium my-7'>Is your topic or subject of interest not captured on the web? Never mind! We can design and tailor solutions that can be delivered wherever and whenever for individuals  wishing to learn or improve on their skills or organizations willing to upskill their employees. We will work closely with you to tailor contents/curriculum design.</p>
+            <p className='text-[18px] font-medium my-7'>Is your topic or subject of interest not captured on the web? Never mind! We can design and tailor solutions that can be delivered wherever and whenever for individuals  wishing to learn or improve on their skills or organizations willing to upskill their employees. We will work closely with you to tailor contents/curriculum design.</p>
         </div>
         {/* Right side */}
-        <div className='w-full md:min-h-[500px] lg:ml-3 md:w-[40%]'>
-            <img className='shadow-2xl w-full h-full object-cover' src={customizedImg} alt="" />
+        <div className='w-full h-[300px] md:min-h-[500px] lg:ml-3 md:w-[40%]'>
+            <img className='shadow-xl shadow-slate-500 w-full h-full object-cover' src={customizedImg} alt="" />
         </div>
     </div>
   )
