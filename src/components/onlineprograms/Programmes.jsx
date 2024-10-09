@@ -66,7 +66,7 @@ const Programmes = () => {
       <div className="bg-gray-100 px-4 mt-2 md:px-10 flex-1 w-full min-h-full md:w-3/4 text-[#8B0002]">
         {programList.map((program) => (
           <section className="py-2" key={program.id}>
-            <h2 className= text-3xl my-3">{program.heading}</h2>
+            <h2 className= "text-3xl my-3">{program.heading}</h2>
             <ul className="flex flex-wrap gap-y-3 justify-between px-0 font-medium">
               {filteredData.length !== 0 &&
                 filteredData.map((item) => (
