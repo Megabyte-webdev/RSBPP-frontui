@@ -1,0 +1,23 @@
+.course-outline > p{
+    
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+    color: black;
+    padding: 12px 0;
+}
+
+.course-outline >ul{
+    row-gap:0.5rem;
+    margin:0.5rem 0;
+    margin-left: 0.5rem;
+}
+
+.course-outline >ul li{
+    font-size: 0.875rem /* 14px */;
+    font-weight: 500;
+    line-height: 1.25rem /* 20px */;
+    color: #888;
+    list-style-type: disc;
+    margin: 0.5rem 0 /* 8px */;
+}

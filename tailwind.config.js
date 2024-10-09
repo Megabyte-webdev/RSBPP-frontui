@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      "Ripple-Bold":['Ripple-Bold'],
+      "Ripple-BoldItalic":['Ripple-BoldItalic'] ,
+      "Ripple-Regular":['Ripple-Regular'] 
+      
+    },
   },
   plugins: [],
 }

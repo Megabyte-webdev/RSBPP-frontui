@@ -1,12 +1,12 @@
-
 import { useNavigate } from 'react-router-dom'
+import '../../fonts/fonts.css'
 import img from '../../assets/online-programmes/online-programmes-img.jpg'
 const Banner =()=>{
 
     const navigate = useNavigate()
 
     return (
-        <div className="relative flex bg-primary rounded-lg my-[5%] md:px-[2%] px-[4%] min-h-[400px]">
+        <div className="font-[Ripple-Bold] font-extrabold relative flex bg-primary rounded-lg my-[5%] md:px-[2%] px-[4%] min-h-[400px]">
       <img className='object-cover absolute top-0 right-0 bottom-0 left-0 m-auto w-full h-full z-0' src={img} alt="" />
        <div className='z-1 bg-[#8B0002] opacity-[0.61] absolute top-0 right-0 bottom-0 left-0 m-auto' ></div> 
             {/* --------Left Side------ */}
