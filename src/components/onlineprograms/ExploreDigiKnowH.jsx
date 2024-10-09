@@ -5,7 +5,7 @@ import {FaCheck} from 'react-icons/fa'
 const ExploreDigiKnowH =()=>{
 
 return(
-<div className='flex flex-col md:flex-row md: justify-between items-center gap-4 md:px-[2%] px-[4%] my-5'>
+<div className='flex flex-col md:flex-row md: justify-between items-center gap-4 md:px-[2%] px-[4%] my-5 font-[Ripple-Bold]'>
 {/* Left side*/}
 <div className='flex-1 w-full md:w-3/4'>
 <div>
