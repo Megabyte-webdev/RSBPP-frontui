@@ -68,7 +68,7 @@ const Carts = () => {
                 </div>
                 <div className="text-center ">
                     <h2 className="my-5">
-                        Registered Couurses
+                        Registered Courses
                     </h2>
                 </div>
             </div>

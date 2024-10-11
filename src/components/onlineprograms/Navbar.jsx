@@ -104,7 +104,7 @@ const Navbar = () => {
         
       </ul>
       
-        <p onClick={()=>{navigate('/carts')}} className="ml-auto mr-2 relative"><FaShoppingCart size="24" /> <span className="absolute top-[-10px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{guestCart}</span></p>
+        <p onClick={()=>{navigate('/carts')}} className="ml-auto mr-2 relative"><FaShoppingCart size="24" /> <span className="absolute top-[-13px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{guestCart}</span></p>
         
       <div className="md:hidden bg-[#8B0002] py-2 px-3 text-white rounded-md cursor-pointer" onClick={()=>setMenu(!menu)}>
       {
@@ -118,12 +118,13 @@ const Navbar = () => {
       <div className= 'sideNav bg-white w-96 h-full pt-12'>
     <div className="flex md:justify-between p-3 px-4">
     <img className="w-32 md:w-60 cursor-pointer" src={logo} alt="logo" />
+    <p onClick={()=>{navigate('/carts')}} className="ml-auto mr-2 relative"><FaShoppingCart size="24" /> <span className="absolute top-[-10px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{guestCart}</span></p>
+      
     <div className="md:hidden bg-[#8B0002] py-2 px-3 text-white rounded-md cursor-pointer" onClick={()=>setMenu(!menu)}>
       {
         menu !== true?<IoIosMenu size="24" />:<IoIosClose size="24" />
       }
       </div>
-      <p onClick={()=>{navigate('/carts')}} className="ml-auto mr-2 relative"><FaShoppingCart size="24" /> <span className="absolute top-[-10px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{guestCart}</span></p>
         
     </div>
       <ul className="py-5 text-[15px] text-black flex flex-col gap-y-2">

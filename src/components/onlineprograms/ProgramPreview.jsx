@@ -6,7 +6,7 @@ const ProgramPreview =({details})=>{
     const fromLocal = (localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts"))[0] : null);
 
 return(
-<div className='flex flex-col md:flex-row md: justify-between gap-4 p-[4%] my-5'>
+<div className='font-[Ripple-Bold] font-bold flex flex-col md:flex-row md: justify-between gap-4 p-[4%] my-5'>
 {/* Left side*/}
 <div className='flex-1 w-full md:w-3/4'>
 

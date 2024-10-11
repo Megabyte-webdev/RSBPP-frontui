@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState } from 'react'
 import featurePics from "../../assets/feature-courses.png"
 import { FaRegClock } from "react-icons/fa";
 import { MdAssignmentAdd } from "react-icons/md";
@@ -28,9 +28,6 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
   const userRole = userCredentials?.user.role
   const itemId = course.id
 
-  
-    const fromLocal = (localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts"))[0] : null);
-    
   const details = {
     user_id: userCredentials?.user.id,
     course_id: course?.id
@@ -68,9 +65,6 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
         }
       });
   };
-  // useEffect(()=>{
-  //   if(fromLocal.user === "guest" && userCredentials) {addToCart()};
-  // },[])
   const instructorDetails = getAllInstructors?.find((instructor) => instructor.user_id == course.created_by_id);
 
   const deleteFunc = async () => {
