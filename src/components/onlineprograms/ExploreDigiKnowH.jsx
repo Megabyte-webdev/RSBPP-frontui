@@ -29,7 +29,7 @@ Overall, the DigiKnowH programme promises an engaging and enriching experience f
 </div>
 </div>
 {/* Right side*/}
-<div className='w-full md:w-[350px]' >
+<div className='w-full md:w-1/2' >
 <img className='w-full h-[300px] md:h-[600px] object-cover' src={DigiImg} alt=""/>
 <h3 className='my-3 text-2xl font-medium'>Digital Skills Programme ( DigiknowH)</h3>
 <ul className='flex flex-wrap gap-y-3 justify-between px-0 font-medium'>

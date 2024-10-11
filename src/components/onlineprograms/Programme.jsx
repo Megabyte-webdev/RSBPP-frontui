@@ -18,7 +18,8 @@ const Programme = () => {
         },
       })
       .then((response) => {
-        setProgramInfo(response.data);
+        const {course}=response.data
+        setProgramInfo(course);
         console.log(programInfo);
       })
       .catch((err) => {
@@ -26,14 +27,13 @@ const Programme = () => {
       });
   }, [courseId]);
 
-  window.scrollTo(0, 0);
+  scrollTo(0, 0);
   return (
-    programInfo && (
+    programInfo &&
       <>
-        <Hero programme={true} title={programInfo.course.title} />
-        <ProgramPreview details={programInfo.course} />
+        <Hero programme={true} title={programInfo.title && programInfo.title} />
+        <ProgramPreview details={programInfo && programInfo} />
       </>
     )
-  );
 };
 export default Programme;

@@ -1,12 +1,20 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {IoIosMenu, IoIosClose} from 'react-icons/io'
 import {TiSocialFacebook, TiSocialInstagram, TiSocialLinkedin, TiSocialTwitter} from 'react-icons/ti'
 
 const Navbar = () => {
+  const fromLocal = JSON.parse(localStorage.getItem("carts"));
+
+  const [guestCart, setGuestCart] =useState(0)
   const [menu, setMenu]=useState(false);
   const [dropdown, setDropdown]=useState({});
+  
+  useEffect(()=>{
+    setGuestCart(fromLocal ? fromLocal.length : 0)
+    console.log(fromLocal)
+  },[])
 
   const handleDropdown = (event, name)=>{
     event.preventDefault();
@@ -34,7 +42,7 @@ const Navbar = () => {
             </div>
         </div>
         {/* main nav */}
-        <div className="uppercase px-[4%] flex justify-between items-center text-sm py-4">
+        <div className="uppercase px-[4%] flex md:justify-between items-center text-sm py-4">
       <img className="w-32 md:w-60 cursor-pointer" src={logo} alt="logo" />
       <ul className="text-[14px] text-black hidden md:flex md:flex-wrap items-center md:justify-center gap-x-5 gap-y-2">
       <NavLink className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/">
@@ -90,12 +98,17 @@ const Navbar = () => {
           </ul>
          }
         </NavLink>
+        
       </ul>
+      
+        <p className="ml-auto mr-2">cart {guestCart}</p>
+        
       <div className="md:hidden bg-[#8B0002] py-2 px-3 text-white rounded-md cursor-pointer" onClick={()=>setMenu(!menu)}>
       {
         menu !== true ? <IoIosMenu size="24" />:<IoIosClose size="24" />
       }
       </div>
+      
     </div>
     {/* Side nav */}
       <div onClick={(event)=>{if(!event.target.closest('sideNav') && event.target === document.querySelector('.sideNav-container')) {setMenu(false)}}} className={`sideNav-container ${menu ===true ? 'opacity-1 left-0' : 'opacity-0 left-[-999px]'} md:hidden fixed z-[100] p-2 text-[13px] font-semibold top-0 bottom-0 w-screen h-full bg-[rgba(0,0,0,.8)] transition-all duration-500`}>
@@ -162,7 +175,11 @@ const Navbar = () => {
           </ul>
          }
         </NavLink>
+        
       </ul>
+      
+        <p>cart {guestCart}</p>
+        
     </div>
       </div>
     </div>
