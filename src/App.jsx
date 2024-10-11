@@ -180,6 +180,7 @@ const App = () => {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/verify_email" element={<Login />} />
+            
             <Route path="/" element={<OnlineProgramsLayout />} >
               <Route path='/online-programmes' element={<OnlinePrograms />} />
               <Route path='/online-programmes/:program' element={<Programme />} />

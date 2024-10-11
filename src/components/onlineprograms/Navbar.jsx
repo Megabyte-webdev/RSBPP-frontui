@@ -1,18 +1,21 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import { useState, useEffect } from "react";
 import {IoIosMenu, IoIosClose} from 'react-icons/io'
 import {TiSocialFacebook, TiSocialInstagram, TiSocialLinkedin, TiSocialTwitter} from 'react-icons/ti'
+import { FaShoppingCart } from "react-icons/fa";
 
 const Navbar = () => {
-  const fromLocal = JSON.parse(localStorage.getItem("carts"));
-
+  const navigate= useNavigate();
+  
   const [guestCart, setGuestCart] =useState(0)
   const [menu, setMenu]=useState(false);
   const [dropdown, setDropdown]=useState({});
   
   useEffect(()=>{
-    setGuestCart(fromLocal ? fromLocal.length : 0)
+    const fromLocal = (localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts"))[0] : null);
+    
+    setGuestCart(fromLocal ? fromLocal.data.length : 0)
     console.log(fromLocal)
   },[])
 
@@ -101,7 +104,7 @@ const Navbar = () => {
         
       </ul>
       
-        <p className="ml-auto mr-2">cart {guestCart}</p>
+        <p onClick={()=>{navigate('/carts')}} className="ml-auto mr-2 relative"><FaShoppingCart size="24" /> <span className="absolute top-[-10px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{guestCart}</span></p>
         
       <div className="md:hidden bg-[#8B0002] py-2 px-3 text-white rounded-md cursor-pointer" onClick={()=>setMenu(!menu)}>
       {
@@ -113,13 +116,15 @@ const Navbar = () => {
     {/* Side nav */}
       <div onClick={(event)=>{if(!event.target.closest('sideNav') && event.target === document.querySelector('.sideNav-container')) {setMenu(false)}}} className={`sideNav-container ${menu ===true ? 'opacity-1 left-0' : 'opacity-0 left-[-999px]'} md:hidden fixed z-[100] p-2 text-[13px] font-semibold top-0 bottom-0 w-screen h-full bg-[rgba(0,0,0,.8)] transition-all duration-500`}>
       <div className= 'sideNav bg-white w-96 h-full pt-12'>
-    <div className="flex justify-between p-3 px-4">
+    <div className="flex md:justify-between p-3 px-4">
     <img className="w-32 md:w-60 cursor-pointer" src={logo} alt="logo" />
     <div className="md:hidden bg-[#8B0002] py-2 px-3 text-white rounded-md cursor-pointer" onClick={()=>setMenu(!menu)}>
       {
         menu !== true?<IoIosMenu size="24" />:<IoIosClose size="24" />
       }
       </div>
+      <p onClick={()=>{navigate('/carts')}} className="ml-auto mr-2 relative"><FaShoppingCart size="24" /> <span className="absolute top-[-10px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{guestCart}</span></p>
+        
     </div>
       <ul className="py-5 text-[15px] text-black flex flex-col gap-y-2">
         <NavLink className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/">
@@ -178,7 +183,6 @@ const Navbar = () => {
         
       </ul>
       
-        <p>cart {guestCart}</p>
         
     </div>
       </div>
