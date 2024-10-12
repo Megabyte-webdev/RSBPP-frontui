@@ -5,7 +5,7 @@ import {IoIosMenu, IoIosClose} from 'react-icons/io'
 import {TiSocialFacebook, TiSocialInstagram, TiSocialLinkedin, TiSocialTwitter} from 'react-icons/ti'
 import { FaShoppingCart } from "react-icons/fa";
 
-const Navbar = () => {
+const Nav = () => {
   const navigate= useNavigate();
   
   const [guestCart, setGuestCart] =useState(0)
@@ -191,4 +191,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Nav;

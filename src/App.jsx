@@ -185,8 +185,7 @@ const App = () => {
               <Route path='/online-programmes' element={<OnlinePrograms />} />
               <Route path='/online-programmes/:program' element={<Programme />} />
               <Route path='/digiknowh' element={<DigiKnowH/>} />
-                
-              </Route>
+            </Route>
             {/* Catch-all route for 404 */}
             <Route path="*" element={<Navigate to="/not-found" replace />} />
             {/* 404 page component */}

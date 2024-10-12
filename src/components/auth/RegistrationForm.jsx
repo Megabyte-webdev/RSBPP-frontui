@@ -18,6 +18,7 @@ import { MdOutlineCheckBoxOutlineBlank } from 'react-icons/md';
 
 const RegistrationForm = ({ setDisplay }) => {
     const fromLocal = (localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts"))[0] : null);
+    fromLocal && localStorage.setItem("comingFrom", "guest");
     const { userCredentials } = useContext(UserContext)
     const [inputType, setInputType] = useState("password")
     const [loading, setLoading] = useState(false)
