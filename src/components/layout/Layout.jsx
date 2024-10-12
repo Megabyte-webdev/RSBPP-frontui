@@ -3,25 +3,70 @@ import NavBar from "./NavBar"
 import SideBar from "./SideBar"
 import { Outlet, useNavigate } from "react-router-dom"
 import MobileSidebar from "./MobileSidebar"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect } from "react"
 import { UserContext } from "../../context/AuthContext"
-import Nav from "../onlineprograms/Nav"
-
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { BASE_URL } from '../utils/base';
+import { ResourceContext } from '../../context/ResourceContext';
 const Layout = () => {
     const navigate = useNavigate()
     const {userCredentials} = useContext(UserContext);
     const fromLocal = (localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts"))[0] : null);
-    const [comingFrom, setComingFrom]= useState(localStorage.getItem("comingFrom") ? localStorage.getItem("comingFrom") : false)
+    const {
+        setGetAllCarts } = useContext(ResourceContext);
     console.log(userCredentials)
     useEffect(() => {
         if (userCredentials === null) {
             navigate('/login')
             console.log(' logged out')
         }else{
-            if(fromLocal && userCredentials){
-                navigate('/carts')
+            
+        if(fromLocal && fromLocal.user === "guest" && userCredentials ) {
+            navigate('/carts')
+            fromLocal.data.forEach((course)=>{
+              
+            const addToCart = (details) => {
+                  
+              setGetAllCarts((prev) => {
+                return {
+                  ...prev, isDataNeeded: false
+                }
+              })
+              axios.post(`${BASE_URL}cart/addCart`, details, {
+                headers: {
+                  'Authorization': `Bearer ${userCredentials.token}`,
+                },
+              })
+                .then(response => {
+                  console.log(response)
+                  toast.success(response.data.message)
+                  setGetAllCarts((prev) => {
+                    return {
+                      ...prev, isDataNeeded: true
+                    }
+                  })
+                  localStorage.removeItem('carts')
+                })
+                .catch((error) => {
+                  console.log(error);
+                  if (error.response) {
+                    //setErrorMessage(error.response.data.message);
+                  } else {
+                    //setErrorMessage(error.message);
+                  }
+                });
+            };
+            let details = {
+              user_id: userCredentials?.user.id,
+              course_id: course.id
             }
-        }
+            addToCart(details);
+          })
+          }
+        
+        
+    }
     }, [userCredentials])
     return (
         <div>
@@ -30,8 +75,7 @@ const Layout = () => {
                 <SideBar userCredentials={userCredentials} />
                 <Col md={10}>
                 <MobileSidebar userCredentials={userCredentials} />
-                    {
-                        (comingFrom && userCredentials) ? <Nav /> : <NavBar />}
+                    <NavBar />
                     <main className="">
                         <Outlet />
                     </main>

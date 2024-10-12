@@ -9,11 +9,24 @@ import { UserContext } from '../context/AuthContext';
 import { cartsTotalFunction } from '../components/utils/getApi';
 import StripeElement from '../components/stripe/StripeElement';
 import Payment from "../components/stripe/clone/Payment";
+import Nav from '../components/onlineprograms/Nav';
+import axios from 'axios';
+import { BASE_URL, TOKEN } from '../components/utils/base';
+import toast from 'react-hot-toast';
+
 
 const Carts = () => {
     const navigate = useNavigate();
     const { userCredentials } = useContext(UserContext);
-
+    
+    const fromLocal = (localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts"))[0] : null);
+    const [comingFrom, setComingFrom] = useState(localStorage.getItem("comingFrom") ? localStorage.getItem("comingFrom"): null)
+    console.log(JSON.parse(localStorage.getItem("comingFrom")))
+    if(comingFrom !== null) {
+        localStorage.removeItem("comingFrom");
+    }
+    console.log(comingFrom)    
+    
     const {
         errorMesage,
         getAllCourses,
@@ -27,8 +40,50 @@ const Carts = () => {
     const [currentTotal, setCurrentTotal] = useState('');
 
     const on = true
-    const token = userCredentials.token;
+    const token = userCredentials.token || TOKEN;
     const user = userCredentials?.user;
+
+    useEffect(() => {
+        if(fromLocal && fromLocal.user === "guest" && userCredentials ) {
+  fromLocal.data.forEach((course)=>{
+  const addToCart = (details) => {
+    
+    axios.post(`${BASE_URL}cart/addCart`, details, {
+      headers: {
+        'Authorization': `Bearer ${userCredentials.token}`,
+      },
+    })
+      .then(response => {
+        console.log(response)
+        toast.success(response.data.message)
+        setGetAllCarts((prev) => {
+          return {
+            ...prev, isDataNeeded: true
+          }
+        })
+        localStorage.removeItem('carts')
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  let details = {
+    user_id: userCredentials?.user.id,
+    course_id: course.id
+  }
+  addToCart(details);
+})
+}
+
+setGetAllCarts((prev) => {
+    return {
+        ...prev, isDataNeeded: true
+    }
+})
+
+
+}, [])
 
     useEffect(() => {
         cartsTotalFunction(token, user?.id, setError, setCurrentTotal)
@@ -48,8 +103,12 @@ const Carts = () => {
                 ...prev, isDataNeeded: true
             }
         })
-    }, [])
-    const cartList = getAllCarts.data?.map((cart) => {
+    }, [!fromLocal])
+    const cartList = fromLocal ?fromLocal.data.map((cart) => {
+        return (
+            <CartsItem key={cart.cartsId} cart={cart} on={on} />
+        )
+    }): getAllCarts.data?.map((cart) => {
         return (
             <CartsItem key={cart.cartsId} cart={cart} on={on} />
         )
@@ -62,9 +121,9 @@ const Carts = () => {
     })
     return (
         <div style={{ backgroundColor: "hsla(0, 0%, 95%, 1)" }}>
-            <NavBar />
+           {comingFrom === null ? <NavBar />: <Nav />}
             <div className="brown_bg p-3 p-md-5 text-white">
-                <div className="d-flex justify-content-center align-items-center">
+                <div className="d-flex justify-center align-items-center">
                 </div>
                 <div className="text-center ">
                     <h2 className="my-5">
@@ -95,24 +154,24 @@ const Carts = () => {
                                             <h4>Order Summary</h4>
                                             <div>
                                                 {getAllCarts.data?.map((cart) => (
-                                                    <div key={cart.cartsId} className="d-flex mb-3 justify-content-between">
-                                                        <p>{cart.title}</p>
-                                                        <p>{cart.price}</p>
+                                                    <div key={cart.cartsId} className="d-flex mb-3 justify-between">
+                                                        <p>{cart.title}:</p>
+                                                        <p>${cart.price}</p>
                                                     </div>
                                                 ))}
                                             </div>
                                             <div className="border-top py-3 ash_text">
-                                                {/* <div className="d-flex mb-3 justify-content-between">
+                                                {/* <div className="d-flex mb-3 justify-between">
                                             <p>Total Price (item)</p>
                                             <p>{currentTotal}</p>
                                         </div>
-                                        <div className="d-flex mb-3 justify-content-between">
+                                        <div className="d-flex mb-3 justify-between">
                                             <p>Shipping Tax & Fee</p>
                                             <p>$24</p>
                                         </div> */}
-                                                <div className="d-flex mb-3 text-black fw-bold justify-content-between">
+                                                <div className="d-flex mb-3 text-black fw-bold justify-between">
                                                     <p>Total Price</p>
-                                                    <p>{currentTotal}</p>
+                                                    <p>${currentTotal}</p>
 
                                                 </div>
                                                 <div className='mt-4'>

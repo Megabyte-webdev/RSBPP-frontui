@@ -1,9 +1,10 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {IoIosMenu, IoIosClose} from 'react-icons/io'
 import {TiSocialFacebook, TiSocialInstagram, TiSocialLinkedin, TiSocialTwitter} from 'react-icons/ti'
 import { FaShoppingCart } from "react-icons/fa";
+import { ResourceContext } from "../../context/ResourceContext";
 
 const Nav = () => {
   const navigate= useNavigate();
@@ -11,6 +12,10 @@ const Nav = () => {
   const [guestCart, setGuestCart] =useState(0)
   const [menu, setMenu]=useState(false);
   const [dropdown, setDropdown]=useState({});
+  const {
+        
+        getAllCarts
+    } = useContext(ResourceContext)
   
   useEffect(()=>{
     const fromLocal = (localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts"))[0] : null);
@@ -104,7 +109,7 @@ const Nav = () => {
         
       </ul>
       
-        <p onClick={()=>{navigate('/carts')}} className="ml-auto mr-2 relative"><FaShoppingCart size="24" /> <span className="absolute top-[-13px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{guestCart}</span></p>
+        <p onClick={()=>{navigate('/carts')}} className="ml-auto mr-2 relative"><FaShoppingCart size="24" /> <span className="absolute top-[-13px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{getAllCarts?.data ? getAllCarts?.data.length : guestCart}</span></p>
         
       <div className="md:hidden bg-[#8B0002] py-2 px-3 text-white rounded-md cursor-pointer" onClick={()=>setMenu(!menu)}>
       {
