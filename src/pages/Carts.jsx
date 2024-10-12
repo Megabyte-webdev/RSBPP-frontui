@@ -83,7 +83,7 @@ const Carts = () => {
                                 <div className="col-md-8">
                                     <div className="">
                                         <div className="border-bottom pb-3">
-                                            <h5>Shopping Chart</h5>
+                                            <h5>Shopping Cart</h5>
                                             <p>Showing {getAllCarts.data?.length} products you added</p>
                                         </div>
                                         {cartList}

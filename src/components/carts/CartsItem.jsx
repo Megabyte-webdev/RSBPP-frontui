@@ -1,10 +1,11 @@
 import { useContext, useState } from 'react'
 import img from "../../assets/feature-courses.png"
 import { BASE_URL } from '../utils/base'
-import axios from 'axios'
+// import axios from 'axios'
 import { UserContext } from '../../context/AuthContext'
 import { ResourceContext } from '../../context/ResourceContext'
-import toast from 'react-hot-toast'
+import { Spinner } from 'react-bootstrap'
+// import toast from 'react-hot-toast'
 // import { CgMathMinus, CgTimelapse } from "react-icons/cg";
 // import { IoMdAdd } from 'react-icons/io';
 
@@ -12,6 +13,7 @@ const CartsItem = ({ on, cart }) => {
     const { userCredentials } = useContext(UserContext)
     const { setGetAllCarts } = useContext(ResourceContext)
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState(false)
 
     // const deleteFunc = (() => {
@@ -65,6 +67,7 @@ const CartsItem = ({ on, cart }) => {
             },
         }
         try {
+            setLoading(true)
             const response = await fetch(`${BASE_URL}cart/removeCart/${cart.cartsId}`, params);
             if (response.ok) {
                 await response.json();
@@ -74,9 +77,11 @@ const CartsItem = ({ on, cart }) => {
                         ...prev, isDataNeeded: true
                     }
                 })
+                setLoading(false)
 
             }
         } catch (error) {
+            setLoading(false)
             console.log(error);
             if (error.response) {
                 setErrorMessage(error.response.data.message);
@@ -109,7 +114,7 @@ const CartsItem = ({ on, cart }) => {
                             <div>
                                 <button disabled={isSubmitting}
                                     onClick={() => deleteFunc()}
-                                    className='btn bg-danger text-light rounded-4'>Remove</button>
+                                    className='btn bg-danger text-light rounded-4'><span>Remove</span>{loading && (<span className='ms-2'><Spinner size='sm' /></span>)}</button>
                             </div>
                         )}
                         {/* {on &&(

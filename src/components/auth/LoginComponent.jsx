@@ -16,7 +16,9 @@ import InstructorOtp from './InstructorOtp';
 
 const LoginComponent = () => {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const fromLocal = (localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts"))[0] : null);
+    
     const { setUserCredentials, setWidgetOpen } = useContext(UserContext)
     const { setGetAllCarts, getEnrolledCourses, setGetEnrolledCourses } = useContext(ResourceContext)
     const [inputType, setInputType] = useState("password")
@@ -82,10 +84,10 @@ const LoginComponent = () => {
                         ...prev, isDataNeeded: true
                     }
                 })
-                navigate("/")
+                navigate('/')
                 setWidgetOpen((prev) => {
                     return {
-                        ...prev, display: "block"
+                        ...prev, display: "none"
                     }
                 })
                 setLoading(false)

@@ -32,7 +32,7 @@ const Navbar = () => {
   return (
     <div>
       {/* top cta */}
-        <div className='font-[Ripple-BoldItalic] text-xs md:text-[16px] text-white gap-2 py-3 px-[4%] bg-[#8B0002] px flex flex-col sm:flex-row justify-center items-center sm:justify-between'>
+        <div className='font-[Ripple-Bold] text-xs md:text-[16px] text-white gap-2 py-3 px-[4%] bg-[#8B0002] px flex flex-col sm:flex-row justify-center items-center sm:justify-between'>
             <div className='flex gap-x-3'>
             <a className='no-underline text-white font-bold' href="tel:+31(0)10 307 2137">+31(0)10 307 2137</a>
             <a className='no-underline text-white font-bold' href="mailto:info@rsbpp.nl">info@rsbpp.nl</a>

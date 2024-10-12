@@ -29,10 +29,15 @@ const Programme = () => {
 
   scrollTo(0, 0);
   return (
-    programInfo &&
+    programInfo ?
       <>
         <Hero programme={true} title={programInfo.title && programInfo.title} />
         <ProgramPreview details={programInfo && programInfo} />
+      </>
+      :
+      <>
+        <Hero programme={true} title="Loading..." />
+        <ProgramPreview details="Loading..." />
       </>
     )
 };
