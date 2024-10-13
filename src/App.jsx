@@ -65,7 +65,7 @@ import DigiKnowH from "./components/onlineprograms/DigiKnowH";
 const App = () => {
   const { userCredentials } = useContext(UserContext);
   const role = userCredentials?.user.role.toLowerCase();
-  // console.log(userCredentials)
+  
   return (
     // <UserContextProvider>
     <ResourceContextProvider>

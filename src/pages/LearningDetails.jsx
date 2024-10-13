@@ -71,7 +71,7 @@ const LearningDetails = () => {
     return (
         <div className='poppins'>
             <NavBar />
-            <div className="brown_bg p-3 p-md-5 text-white">
+            <div className="brown_bg p-3 text-white">
                 <div className="d-flex justify-content-center align-items-center">
                     <div>
                         <span> <BiSolidBadgeCheck size={25} /> </span>

@@ -18,7 +18,7 @@ return(
 </div>
 {/* Right side*/}
 <div className='w-full md:w-1/3 flex flex-col items-end' >
-<p className='w-full md:w-[90%] text-sm text-black border border-gray-700 px-3 py-4 underline cursor-pointer' onClick={()=> { navigate('/registration'); if(fromLocal === null || (fromLocal && !fromLocal.data.find((item)=>item.title === details.title))){
+<p className='w-full md:w-[90%] text-sm text-black border border-gray-700 px-3 py-4 underline cursor-pointer' onClick={()=> { scrollTo(0,0); navigate('/carts'); if(fromLocal === null || (fromLocal && !fromLocal.data.find((item)=>item.title === details.title))){
     localStorage.setItem("carts", JSON.stringify(fromLocal ?[{user: "guest", data:[...fromLocal.data, details]}]:[{user: "guest", data:[details]}])) }} }> Add To Cart
 </p>
 <p className='w-full md:w-[90%] text-sm text-black border border-gray-700 px-3 py-4'>${details.price && details.price}

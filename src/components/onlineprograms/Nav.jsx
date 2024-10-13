@@ -50,8 +50,8 @@ const Nav = () => {
             </div>
         </div>
         {/* main nav */}
-        <div className="uppercase px-[4%] flex md:justify-between items-center text-sm py-4">
-      <img className="w-32 md:w-60 cursor-pointer" src={logo} alt="logo" />
+        <div className="uppercase px-[4%] flex items-center text-sm py-4">
+      <img className="ml-auto w-32 md:w-60 cursor-pointer" src={logo} alt="logo" />
       <ul className="text-[14px] text-black hidden md:flex md:flex-wrap items-center md:justify-center gap-x-5 gap-y-2">
       <NavLink className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/">
           <p>HOME</p>
@@ -109,7 +109,7 @@ const Nav = () => {
         
       </ul>
       
-        <p onClick={()=>{navigate('/carts')}} className="ml-auto mr-2 relative"><FaShoppingCart size="24" /> <span className="absolute top-[-13px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{getAllCarts?.data ? getAllCarts?.data.length : guestCart}</span></p>
+        <p onClick={()=>{navigate('/carts')}} className="ml-2 relative cursor-pointer"><FaShoppingCart size="24" /> <span className="absolute top-[-13px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{getAllCarts?.data ? getAllCarts?.data.length : guestCart}</span></p>
         
       <div className="md:hidden bg-[#8B0002] py-2 px-3 text-white rounded-md cursor-pointer" onClick={()=>setMenu(!menu)}>
       {
@@ -123,7 +123,7 @@ const Nav = () => {
       <div className= 'sideNav bg-white w-96 h-full pt-12'>
     <div className="flex md:justify-between p-3 px-4">
     <img className="w-32 md:w-60 cursor-pointer" src={logo} alt="logo" />
-    <p onClick={()=>{navigate('/carts')}} className="ml-auto mr-2 relative"><FaShoppingCart size="24" /> <span className="absolute top-[-10px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{guestCart}</span></p>
+    <p onClick={()=>{navigate('/carts')}} className="ml-auto mr-2 relative cursor-pointer"><FaShoppingCart size="24" /> <span className="absolute top-[-10px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{guestCart}</span></p>
       
     <div className="md:hidden bg-[#8B0002] py-2 px-3 text-white rounded-md cursor-pointer" onClick={()=>setMenu(!menu)}>
       {

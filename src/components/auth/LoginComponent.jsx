@@ -144,7 +144,7 @@ const LoginComponent = () => {
                                                     value={logDetails.password}
                                                     onChange={handleOnChange}
                                                     className="btn border w-100 px-4 pe-5 py-2" id="password" placeholder='***********' />
-                                                <span onClick={handleToggle} className='position-absolute end-0 top-0 px-2 py-2'>{inputType === "password" ? <FaEye /> : <FaEyeSlash />} </span>
+                                                <span onClick={handleToggle} className='position-absolute end-0 top-0 px-2 py-2'>{(inputType === "password") ? <FaEyeSlash />: <FaEye />} </span>
                                                 <span className="position-absolute start-0 top-0 p-2"><TfiLock /> </span>
                                             </div>
                                         </div>

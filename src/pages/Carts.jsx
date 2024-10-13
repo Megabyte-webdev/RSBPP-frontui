@@ -18,15 +18,15 @@ import toast from 'react-hot-toast';
 const Carts = () => {
     const navigate = useNavigate();
     const { userCredentials } = useContext(UserContext);
-    
-    const fromLocal = (localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts"))[0] : null);
-    const [comingFrom, setComingFrom] = useState(localStorage.getItem("comingFrom") ? localStorage.getItem("comingFrom"): null)
-    console.log(JSON.parse(localStorage.getItem("comingFrom")))
-    if(comingFrom !== null) {
+
+    const [fromLocal, setFromLocal] = useState((localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts"))[0] : null));
+    const [comingFrom, setComingFrom] = useState(localStorage.getItem("comingFrom") ? localStorage.getItem("comingFrom") : null)
+
+    if (comingFrom !== null) {
         localStorage.removeItem("comingFrom");
     }
-    console.log(comingFrom)    
-    
+    // console.log(comingFrom)    
+
     const {
         errorMesage,
         getAllCourses,
@@ -40,88 +40,96 @@ const Carts = () => {
     const [currentTotal, setCurrentTotal] = useState('');
 
     const on = true
-    const token = userCredentials.token || TOKEN;
+    const token = userCredentials?.token || TOKEN;
     const user = userCredentials?.user;
-
     useEffect(() => {
-        if(fromLocal && fromLocal.user === "guest" && userCredentials ) {
-  fromLocal.data.forEach((course)=>{
-  const addToCart = (details) => {
-    
-    axios.post(`${BASE_URL}cart/addCart`, details, {
-      headers: {
-        'Authorization': `Bearer ${userCredentials.token}`,
-      },
-    })
-      .then(response => {
-        console.log(response)
-        toast.success(response.data.message)
-        setGetAllCarts((prev) => {
-          return {
-            ...prev, isDataNeeded: true
-          }
-        })
-        localStorage.removeItem('carts')
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  let details = {
-    user_id: userCredentials?.user.id,
-    course_id: course.id
-  }
-  addToCart(details);
-})
-}
-
-setGetAllCarts((prev) => {
-    return {
-        ...prev, isDataNeeded: true
-    }
-})
-
-
-}, [])
-
+        setFromLocal(localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts"))[0] : null)
+    }, [window.localStorage])
     useEffect(() => {
-        cartsTotalFunction(token, user?.id, setError, setCurrentTotal)
-    }, [getAllCarts])
+        if (fromLocal && fromLocal.user === "guest" && userCredentials !== null) {
+            fromLocal.data.forEach((course) => {
+                const addToCart = (details) => {
 
-    useEffect(() => {
-        setGetAllCourses((prev) => {
-            return {
-                ...prev, isDataNeeded: true
-            }
-        })
+                    axios.post(`${BASE_URL}cart/addCart`, details, {
+                        headers: {
+                            'Authorization': `Bearer ${userCredentials.token}`,
+                        },
+                    })
+                        .then(response => {
+                            console.log(response)
+                            toast.success(response.data.message)
+                            setGetAllCarts((prev) => {
+                                return {
+                                    ...prev, isDataNeeded: true
+                                }
+                            })
+                            localStorage.removeItem('carts')
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                };
+
+                let details = {
+                    user_id: userCredentials?.user.id,
+                    course_id: course.id
+                }
+                addToCart(details);
+            })
+        }
+        if (userCredentials !== null) {
+            setGetAllCarts((prev) => {
+                return {
+                    ...prev, isDataNeeded: true
+                }
+            })
+        }
+
     }, [])
 
     useEffect(() => {
-        setGetAllCarts((prev) => {
-            return {
-                ...prev, isDataNeeded: true
-            }
-        })
-    }, [!fromLocal])
-    const cartList = fromLocal ?fromLocal.data.map((cart) => {
+        if (userCredentials) {
+            cartsTotalFunction(token, user?.id, setError, setCurrentTotal)
+        }
+    }, [getAllCarts])
+
+    useEffect(() => {
+        if (userCredentials) {
+            setGetAllCourses((prev) => {
+                return {
+                    ...prev, isDataNeeded: true
+                }
+            })
+        }
+    }, [])
+
+    useEffect(() => {
+        if (userCredentials) {
+            setGetAllCarts((prev) => {
+                return {
+                    ...prev, isDataNeeded: true
+                }
+            })
+        }
+    }, [])
+    const cartList = userCredentials === null ? fromLocal?.data.map((cart) => {
         return (
             <CartsItem key={cart.cartsId} cart={cart} on={on} />
         )
-    }): getAllCarts.data?.map((cart) => {
+    }) : getAllCarts?.data?.map((cart) => {
         return (
             <CartsItem key={cart.cartsId} cart={cart} on={on} />
         )
-    })
+    });
 
     const listUsers = getAllCourses.data?.map((course) => {
         return (
-            <LearningCourse key={course.id} cartList={getAllCarts.data} course={course} />
+            <LearningCourse key={course.id} cartList={userCredentials === null ? fromLocal : getAllCarts.data} course={course} />
         )
     })
     return (
         <div style={{ backgroundColor: "hsla(0, 0%, 95%, 1)" }}>
-           {comingFrom === null ? <NavBar />: <Nav />}
+            {((comingFrom && comingFrom === null) || userCredentials !== null) ? (<NavBar />) : (<Nav />)}
             <div className="brown_bg p-3 p-md-5 text-white">
                 <div className="d-flex justify-center align-items-center">
                 </div>
@@ -131,19 +139,17 @@ setGetAllCarts((prev) => {
                     </h2>
                 </div>
             </div>
-            {!getAllCarts.data && (
-                <div style={{ height: "80vh", padding: "3rem" }}> {errorMesage}</div>
-            )}
-            {getAllCarts.data && (
+
+            {
                 <div className="mt-5 border-top pb-5">
                     <div className="container">
-                        {getAllCarts.data?.length > 0 ? (
+                        {(fromLocal?.data.length > 0 || getAllCarts?.data?.length > 0) ? (
                             <div className="row py-4 mb-5">
                                 <div className="col-md-8">
-                                    <div className="">
+                                    <div>
                                         <div className="border-bottom pb-3">
                                             <h5>Shopping Cart</h5>
-                                            <p>Showing {getAllCarts.data?.length} products you added</p>
+                                            <p>Showing {getAllCarts.data?.length || fromLocal.data?.length} products you added</p>
                                         </div>
                                         {cartList}
                                     </div>
@@ -153,12 +159,21 @@ setGetAllCarts((prev) => {
                                         <div className="border border-black p-4">
                                             <h4>Order Summary</h4>
                                             <div>
-                                                {getAllCarts.data?.map((cart) => (
-                                                    <div key={cart.cartsId} className="d-flex mb-3 justify-between">
-                                                        <p>{cart.title}:</p>
-                                                        <p>${cart.price}</p>
-                                                    </div>
-                                                ))}
+                                                {userCredentials
+                                                    ?
+                                                    getAllCarts.data?.map((cart) => (
+                                                        <div key={cart.cartsId} className="d-flex mb-3 justify-between">
+                                                            <p>{cart.title}:</p>
+                                                            <p>${cart.price}</p>
+                                                        </div>
+                                                    ))
+                                                    : fromLocal.data?.map((cart) => (
+                                                        <div key={cart.cartsId} className="d-flex mb-3 justify-between">
+                                                            <p>{cart.title}:</p>
+                                                            <p>${cart.price}</p>
+                                                        </div>
+                                                    ))}
+
                                             </div>
                                             <div className="border-top py-3 ash_text">
                                                 {/* <div className="d-flex mb-3 justify-between">
@@ -171,13 +186,15 @@ setGetAllCarts((prev) => {
                                         </div> */}
                                                 <div className="d-flex mb-3 text-black fw-bold justify-between">
                                                     <p>Total Price</p>
-                                                    <p>${currentTotal}</p>
+                                                    <p>${userCredentials ? currentTotal : (fromLocal.data?.reduce((acc, cart) => acc + parseInt(cart.price), 0))}</p>
 
                                                 </div>
                                                 <div className='mt-4'>
-                                                    <button
-                                                        onClick={() => navigate("/checkout", { state: { cartCourses: getAllCarts?.data, currentTotal: currentTotal } })}
-                                                        className='col-12 btn bg-black rounded-pill py-2 text-white'>Checkout</button>
+                                                    {
+                                                        userCredentials
+                                                            ? <button onClick={() => navigate('/checkout' , { state: { cartCourses: getAllCarts?.data, currentTotal: currentTotal } })} className='col-12 btn bg-black rounded-full py-2 text-white'>Checkout</button>
+                                                            : <button onClick={() => (navigate('/registration'))} className='col-12 btn bg-black rounded-full py-2 text-white'>Checkout</button>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -202,7 +219,7 @@ setGetAllCarts((prev) => {
                         </div>
                     </div>
                 </div>
-            )}
+            }
         </div>
     )
 }

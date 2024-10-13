@@ -16,6 +16,8 @@ const CartsItem = ({ on, cart }) => {
     const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState(false)
 
+    const fromLocal = (localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts"))[0] : null);
+   
     // const deleteFunc = (() => {
     //     setIsSubmitting(true)
     //     //update fleet resource to false
@@ -53,12 +55,13 @@ const CartsItem = ({ on, cart }) => {
     //         })
     // })
     const deleteFunc = async () => {
-        setGetAllCarts((prev) => {
+        setLoading(true)
+        if(userCredentials)  {
+            setGetAllCarts((prev) => {
             return {
                 ...prev, isDataNeeded: false
             }
         })
-
         const params = {
             method: 'POST',
             headers: {
@@ -67,7 +70,6 @@ const CartsItem = ({ on, cart }) => {
             },
         }
         try {
-            setLoading(true)
             const response = await fetch(`${BASE_URL}cart/removeCart/${cart.cartsId}`, params);
             if (response.ok) {
                 await response.json();
@@ -89,6 +91,24 @@ const CartsItem = ({ on, cart }) => {
             } else {
                 setErrorMessage(error.message);
                 console.log(error.message);
+            }
+        }
+        }else{
+            try{
+                console.log("delete from storage")
+        fromLocal.data?.splice(fromLocal.data.find((cart)=> cart.id === cart.cartsId),1) && (fromLocal.data.length > 0 ? localStorage.setItem("carts", JSON.stringify([{user:"guest", data: [cart]}])) : localStorage.removeItem("carts") ) 
+        
+            }catch(error){
+            console.log(error);
+            if (error.response) {
+                setErrorMessage(error.response.data.message);
+                console.log(error.response);
+            } else {
+                setErrorMessage(error.message);
+                console.log(error.message);
+            }
+            }finally{
+                setLoading(false)
             }
         }
     }
