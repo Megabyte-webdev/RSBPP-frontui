@@ -20,7 +20,45 @@ const Layout = () => {
         if (userCredentials === null) {
             navigate('/login')
             console.log(' logged out')
+        }else{
+        if (fromLocal?.user === "guest" && userCredentials !== null) {
+            fromLocal?.data.forEach((course) => {
+                const addToCart = (details) => {
+                    axios.post(`${BASE_URL}cart/addCart`, details, {
+                        headers: {
+                            'Authorization': `Bearer ${userCredentials.token}`,
+                        },
+                    })
+                    .then(response => {
+                        console.log(response);
+                        toast.success(response.data.message);
+                        setGetAllCarts((prev) => {
+                            return {
+                                ...prev, isDataNeeded: true
+                            }
+                        });
+                        localStorage.removeItem('carts');
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+                };
+
+                let details = {
+                    user_id: userCredentials?.user.id,
+                    course_id: course.id
+                }
+                addToCart(details);
+            });
         }
+        if (userCredentials !== null) {
+            setGetAllCarts((prev) => {
+                return {
+                    ...prev, isDataNeeded: true
+                }
+            });
+        }
+}
     }, [userCredentials])
     return (
         <div>
