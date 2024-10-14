@@ -58,7 +58,6 @@ navigate('/carts')
                     ...prev, isDataNeeded: true
                 }
             });
-navigate('/')
 }
 }
     }, [userCredentials])
