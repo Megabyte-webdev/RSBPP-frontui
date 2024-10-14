@@ -12,7 +12,7 @@ const AddJournal = () => {
                     {/* dropdown label */}
                     <p className='text-xl my-2'>Choose RSBPP Faculty</p>
                     {/* dropcontainer  */}
-                    <section className='flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-[3px] md:p-3'>
+                    <section className='flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3'>
                         {/* drop selection view */}
                         <div className='flex flex-col gap-y-2'>
                             <p className='text-xs md:text-[16px] capitalize'>Faculty of business communication and finance</p>
@@ -27,14 +27,14 @@ const AddJournal = () => {
 
             <div className='font-medium my-2'>
                     {/* dropcontainer  */}
-                    <section className='flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-[3px] md:p-3'>
+                    <section className='flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3'>
                         {/* drop selection view */}
                         <div className='flex flex-col gap-y-2'>
                             <p className='text-xs md:text-[16px] capitalize'>Faculty of business communication and finance</p>
                             <p className='text-xs md:text-sm text-gray-600 capitalize'>Select Faculty</p>
                         </div>
-                        <small className='font-bold text-xs text-red-500 ml-auto'>Prof Samuel Attong</small>
-                        <p className='pl-2 md:pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
+                        <small className='font-bold text-[10px] text-red-500 ml-auto'>Prof Samuel Attong</small>
+                        <p className='pl md:pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
                         {/* drop selection view end*/}
                     </section>
                     {/* dropcontainer end */}
@@ -42,7 +42,7 @@ const AddJournal = () => {
 
                 <div className='font-medium my-2'>
                     {/* dropcontainer  */}
-                    <section className='flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-[3px] md:p-3'>
+                    <section className='flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3'>
                         {/* drop selection view */}
                         <div className='flex-1 flex flex-col gap-y-2'>
                             <p className='text-sm md:text-[16px] capitalize'>Remark</p>
