@@ -22,6 +22,7 @@ const Layout = () => {
             console.log(' logged out')
         }else{
         if (fromLocal?.user === "guest" && userCredentials !== null) {
+navigate('/carts')
             fromLocal?.data.forEach((course) => {
                 const addToCart = (details) => {
                     axios.post(`${BASE_URL}cart/addCart`, details, {
@@ -38,7 +39,7 @@ const Layout = () => {
                             }
                         });
                         localStorage.removeItem('carts');
-navigate('/carts')
+
                     })
                     .catch((error) => {
                         console.log(error);
