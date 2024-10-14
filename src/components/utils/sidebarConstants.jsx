@@ -46,6 +46,20 @@ export const sidebarConstants = [
         ]
     },
     {
+        title: "Assignment",
+        logo: iconTwo,
+        subOptions: [
+            {
+                title: "Upload Assignment",
+                link: "/upload-assignment",
+            },
+            {
+                title: "View Assignment",
+                link: "/view-assignment",
+            }
+        ]
+    },
+    {
         title: "Forums",
         logo: iconThree,
         subOptions: [
