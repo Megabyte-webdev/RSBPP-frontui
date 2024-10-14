@@ -58,7 +58,9 @@ navigate('/carts')
                     ...prev, isDataNeeded: true
                 }
             });
+if (fromLocal=== null) {
 navigate('/')
+}
 }
     }, [userCredentials])
     return (
