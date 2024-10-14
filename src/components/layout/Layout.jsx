@@ -51,14 +51,12 @@ navigate('/carts')
                 }
                 addToCart(details);
             });
-        }
-        
+        }else{
             setGetAllCarts((prev) => {
                 return {
                     ...prev, isDataNeeded: true
                 }
             });
-if (fromLocal=== null) {
 navigate('/')
 }
 }
