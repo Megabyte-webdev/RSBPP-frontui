@@ -52,13 +52,12 @@ navigate('/carts')
                 addToCart(details);
             });
         }
-        if (userCredentials !== null) {
+        
             setGetAllCarts((prev) => {
                 return {
                     ...prev, isDataNeeded: true
                 }
             });
-        }
 navigate('/')
 }
     }, [userCredentials])
