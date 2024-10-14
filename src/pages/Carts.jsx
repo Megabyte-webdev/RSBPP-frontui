@@ -182,13 +182,13 @@ const Carts = () => {
 
     const listUsers = getAllCourses.data?.map((course) => {
         return (
-            <LearningCourse key={course.id} cartList={userCredentials === null ? fromLocal?.data : getAllCarts.data} course={course} />
+            <LearningCourse key={course.id} userCredentials={userCredentials} cartList={ getAllCarts?.data} course={course} />
         )
     });
 
     return (
         <div style={{ backgroundColor: "hsla(0, 0%, 95%, 1)" }}>
-            {(userCredentials !== null||(comingFrom?.user !== "guest" && userCredentials !== null)) ? <NavBar /> : <Nav />}
+            {userCredentials !== null ? <NavBar /> : <Nav />}
             <div className="brown_bg p-3 p-md-5 text-white">
                 <div className="d-flex justify-center align-items-center">
                 </div>
@@ -208,7 +208,7 @@ const Carts = () => {
                                     <div>
                                         <div className="border-bottom pb-3">
                                             <h5>Shopping Cart</h5>
-                                            <p>Showing {getAllCarts.data?.length || fromLocal.data?.length || 0} products you added</p>
+                                            <p>Showing {userCredentials !== null ? getAllCarts.data?.length : fromLocal.data?.length} products you added</p>
                                         </div>
                                         {cartList}
                                         {error}
@@ -238,7 +238,7 @@ const Carts = () => {
                                             <div className="border-top py-3 ash_text">
                                                 <div className="d-flex mb-3 text-black fw-bold justify-between">
                                                     <p>Total Price</p>
-                                                    <p>${userCredentials ? currentTotal : (fromLocal.data?.reduce((acc, cart) => parseInt(acc) + parseInt(cart.price), 0))}</p>
+                                                    <p>${userCredentials !== null ? currentTotal : (fromLocal.data?.reduce((acc, cart) => parseInt(acc) + parseInt(cart.price), 0))}</p>
 
                                                 </div>
                                                 <div className='mt-4'>

@@ -32,6 +32,20 @@ export const sidebarConstants = [
         ]
     },
     {
+        title: "Jounals",
+        logo: iconTwo,
+        subOptions: [
+            {
+                title: "Add Journal",
+                link: "/add-journal",
+            },
+            {
+                title: "View Journals",
+                link: "/view-journals",
+            }
+        ]
+    },
+    {
         title: "Forums",
         logo: iconThree,
         subOptions: [

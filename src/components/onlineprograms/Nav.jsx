@@ -51,7 +51,7 @@ const Nav = () => {
       <div className="uppercase px-[4%] flex items-center justify-between text-sm py-4">
         <img className="w-32 md:w-60 cursor-pointer" src={logo} alt="logo" />
         <ul className="text-[14px] text-black hidden md:flex md:flex-wrap items-center md:justify-center gap-x-5 gap-y-2">
-          <NavLink to='https://rsbpp.nl/' className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/">
+          <NavLink to='https://rsbpp.nl/' className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
             <p>HOME</p>
           </NavLink>
           <NavLink onClick={(e) => handleDropdown(e, 'aboutUs')} className="relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/doctors">
@@ -139,12 +139,12 @@ const Nav = () => {
               {
                 dropdown.aboutUs &&
                 <ul className="p-2 text-[13px] font-semibold mt-3 bg-gray-100 text-black w-full">
-                  <li className="py-2 px-4">Who We Are</li>
-                  <li className="py-2 px-4">Mission/Vision</li>
-                  <li className="py-2 px-4">Our Leadership</li>
-                  <li className="py-2 px-4">Advisory Board</li>
-                  <li className="py-2 px-4">Management Board</li>
-                  <li className="py-2 px-4">Contact Us</li>
+                  <li className='py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Who We Are</NavLink></li>
+                  <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">Mission/Vision</NavLink></li>
+                  <li className='py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Our Leadership</NavLink></li>
+                  <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">Advisory Board</NavLink></li>
+                  <li className='py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Management Board</NavLink></li>
+                  <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">Contact Us</NavLink></li>
                 </ul>
               }
             </NavLink>
@@ -153,9 +153,9 @@ const Nav = () => {
               {
                 dropdown.programmes &&
                 <ul className="p-2 text-[13px] font-semibold mt-3 bg-gray-100 text-black w-full">
-                  <li className="py-2 px-4">Executive Education</li>
-                  <li className="py-2 px-4">Online Programmes</li>
-                  <li className="py-2 px-4">DigiKnowH</li>
+                  <li className='py-2 px-4'><NavLink className="no-underline text-inherit">Executive Education</NavLink></li>
+                  <li className='py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Online Programmes</NavLink></li>
+                  <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">DigiKnowH</NavLink></li>
                 </ul>
               }
             </NavLink>
@@ -164,8 +164,8 @@ const Nav = () => {
               {
                 dropdown.faculties &&
                 <ul className="p-2 text-[13px] font-semibold mt-3 bg-gray-100 text-black w-full">
-                  <li className="py-2 px-4">Faculty of Business, Communication and Finance</li>
-                  <li className="py-2 px-4">Faculty of Good Governance, and Public Policy</li>
+                  <li className='py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Faculty of Business, Communication and Finance</NavLink></li>
+                  <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">Faculty of Good Governance, and Public Policy</NavLink></li>
                 </ul>
               }
             </NavLink>
@@ -180,7 +180,7 @@ const Nav = () => {
               {
                 dropdown.download &&
                 <ul className="p-2 text-[13px] font-semibold mt-3 bg-gray-100 text-black w-full">
-                  <li className="p-2">2024 Course Brochure</li>
+                  <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">2024 Course Brochure</NavLink></li>
                 </ul>
               }
             </NavLink>

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react'
 import img from "../../assets/feature-courses.png"
 import { Spinner } from 'react-bootstrap'
@@ -8,8 +9,6 @@ import { Spinner } from 'react-bootstrap'
 const CartsItem = ({ on, cart, deleteFunc }) => {
     
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const [errorMessage, setErrorMessage] = useState(false)
     
     return (
         <div className="border-bottom py-3">

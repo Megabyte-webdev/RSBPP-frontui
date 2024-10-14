@@ -20,53 +20,7 @@ const Layout = () => {
         if (userCredentials === null) {
             navigate('/login')
             console.log(' logged out')
-        }else{
-            
-        if(fromLocal && fromLocal.user === "guest" && userCredentials ) {
-            navigate('/carts')
-            fromLocal.data.forEach((course)=>{
-              
-            const addToCart = (details) => {
-                  
-              setGetAllCarts((prev) => {
-                return {
-                  ...prev, isDataNeeded: false
-                }
-              })
-              axios.post(`${BASE_URL}cart/addCart`, details, {
-                headers: {
-                  'Authorization': `Bearer ${userCredentials.token}`,
-                },
-              })
-                .then(response => {
-                  console.log(response)
-                  toast.success(response.data.message)
-                  setGetAllCarts((prev) => {
-                    return {
-                      ...prev, isDataNeeded: true
-                    }
-                  })
-                  localStorage.removeItem('carts')
-                })
-                .catch((error) => {
-                  console.log(error);
-                  if (error.response) {
-                    //setErrorMessage(error.response.data.message);
-                  } else {
-                    //setErrorMessage(error.message);
-                  }
-                });
-            };
-            let details = {
-              user_id: userCredentials?.user.id,
-              course_id: course.id
-            }
-            addToCart(details);
-          })
-          }
-        
-        
-    }
+        }
     }, [userCredentials])
     return (
         <div>
