@@ -62,6 +62,28 @@ const SideBarOptions = ({ handleClose }) => {
           </div>
         </div>
       </div>
+
+      <div className={makeActive}>
+        <div
+          className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
+        >
+          <div
+            onClick={() => {
+              setIsOpenOption("Dashboard")
+              if (handleClose){
+                handleClose();
+              }
+            }}
+            className="ps-2 d-flex align-items-center hover_effect text-nowrap fw-semibold">
+            <span className={instructor ? "me-2 blue_bg rounded" : "me-2 sidebar_icon rounded"}>
+              <img width={20} height={20} src={icon} alt="" />
+            </span>
+            <Link to={"/"} className="nav-link">
+              <span>Journals </span>
+            </Link>
+          </div>
+        </div>
+      </div>
       {student && sidebarConstants.map((constant) => (
         <SidebarToggle
           handleClose={handleClose}

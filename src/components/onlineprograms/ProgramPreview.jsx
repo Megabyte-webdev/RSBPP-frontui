@@ -10,18 +10,18 @@ return(
 {/* Left side*/}
 <div className='flex-1 w-full md:w-3/4'>
 
-<p className='text-sm text-[#888] mb-3 font-medium'>{details.description}</p>
+<p className='text-sm text-[#888] mb-3 font-medium'>{details?.description}</p>
 
-<div className='course-objective' dangerouslySetInnerHTML={{__html: details.objective}}></div>
+<div className='course-objective' dangerouslySetInnerHTML={{__html: details?.objective}}></div>
 
-<div className='course-outline' dangerouslySetInnerHTML={{__html: details.outlines}}></div>
+<div className='course-outline' dangerouslySetInnerHTML={{__html: details?.outlines}}></div>
 </div>
 {/* Right side*/}
 <div className='w-full md:w-1/3 flex flex-col items-end' >
 <p className='w-full md:w-[90%] text-sm text-black border border-gray-700 px-3 py-4 underline cursor-pointer' onClick={()=> { scrollTo(0,0); navigate('/carts'); if(fromLocal === null || (fromLocal && !fromLocal.data.find((item)=>item.title === details.title))){
-    localStorage.setItem("carts", JSON.stringify(fromLocal ?[{user: "guest", data:[...fromLocal.data, details]}]:[{user: "guest", data:[details]}])) }} }> Add To Cart
+    localStorage.setItem("carts", JSON.stringify(fromLocal ?[{user: "guest", data:[...fromLocal.data, details]}]:[{user: "guest", data:[details]}])) } localStorage.setItem("comingFrom", JSON.stringify({user: "guest"})) } }> Add To Cart
 </p>
-<p className='w-full md:w-[90%] text-sm text-black border border-gray-700 px-3 py-4'>${details.price && details.price}
+<p className='w-full md:w-[90%] text-sm text-black border border-gray-700 px-3 py-4'>${details?.price && details?.price}
 </p>
 </div>
 

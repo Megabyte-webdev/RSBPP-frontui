@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { LuLayoutGrid } from "react-icons/lu";
-import { FiSearch, FiShoppingCart } from "react-icons/fi";
+// import { LuLayoutGrid } from "react-icons/lu";
+import { FiSearch } from "react-icons/fi";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import companyLogo from "../../assets/new-logo.png"
 import { BiSolidCart, BiSolidMessage } from "react-icons/bi";
 import { TfiViewGrid } from 'react-icons/tfi';
-import { ThemeContext } from '../../context/ThemeContext';
+// import { ThemeContext } from '../../context/ThemeContext';
 import { ResourceContext } from '../../context/ResourceContext';
 import { UserContext } from '../../context/AuthContext';
 
@@ -28,7 +28,7 @@ const NavBar = () => {
 
 }, [])
 
-    const role = userCredentials.user?.role
+    const role = userCredentials?.user?.role
 
     console.count("render")
     return (

@@ -5,7 +5,7 @@ import { getItemByPost, getItemFunc, getTimeTable } from "../components/utils/ge
 export const ResourceContext = createContext();
 
 function ResourceContextProvider({ children }) {
-
+    const [fromLocal, setFromLocal] = useState();
     const { userCredentials } = useContext(UserContext);
     const token = userCredentials?.token ? userCredentials.token : null;
     const userId = userCredentials?.user?.id;
@@ -163,6 +163,8 @@ function ResourceContextProvider({ children }) {
                 setGetAllInstructors,
                 getAllInstructorsSchedules,
                 setGetAllInstructorsSchedules,
+                fromLocal,
+                setFromLocal
             }}
         >
             {children}

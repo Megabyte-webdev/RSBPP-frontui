@@ -1,10 +1,10 @@
 import { Col } from "react-bootstrap"
-import userPics from "../../assets/user-icon.png"
+// import userPics from "../../assets/user-icon.png"
 import SideBarOptions from "./sidebarComponents/SideBarOptions"
 import { useContext, useEffect } from "react"
 import { ThemeContext } from "../../context/ThemeContext"
 import { ResourceContext } from "../../context/ResourceContext"
-import NewModal from "../general/NewModal"
+// import NewModal from "../general/NewModal"
 import { BASE_URL, IMAGE_URL } from "../utils/base"
 
 const SideBar = ({ userCredentials }) => {
@@ -69,7 +69,7 @@ const SideBar = ({ userCredentials }) => {
             <p className="text-center fw-light">{user?.role}</p>
             {/* <NewModal /> */}
             {user?.role === "student" && (
-              <div className="d-flex justify-content-between py-2">
+              <div className="flex flex-row flex-wrap justify-between py-2">
                 <div className="border-end col">
                   <p className="text-center"><b>{getEnrolledCourses?.data?.length}</b></p>
                   <p className="text-center">Courses</p>
