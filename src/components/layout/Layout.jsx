@@ -38,6 +38,7 @@ const Layout = () => {
                             }
                         });
                         localStorage.removeItem('carts');
+navigate('/carts')
                     })
                     .catch((error) => {
                         console.log(error);
@@ -58,6 +59,7 @@ const Layout = () => {
                 }
             });
         }
+navigate('/')
 }
     }, [userCredentials])
     return (
