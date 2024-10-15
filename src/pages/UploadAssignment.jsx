@@ -29,7 +29,7 @@ const UploadAssignment = () => {
         })
         setFilteredCourses(getAllCourses.data.filter((course) => course.faculty_label === faculty))
         console.log(filteredCourses)
-    }, [userCredentials, faculty])
+    }, [faculty])
 
     return (
         <div className='flex flex-col p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
@@ -49,6 +49,7 @@ const UploadAssignment = () => {
                         value={faculty}
                         onChange={(e) => setFaculty(e.target.value)}
                     >
+<option disabled className='rounded-md value={faculty}>{faculty</option>
                         {
                             getAllFaculty?.data && getAllFaculty?.data.map((item, index) => (
                                 <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
@@ -70,6 +71,7 @@ const UploadAssignment = () => {
                         value={course}
                         onChange={(e) => setCourse(e.target.value)}
                     >
+ <option disabled className='rounded-md value={course}>{course}</option>
                         {
                             filteredCourses && filteredCourses.map((item, index) => (
                                 <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
