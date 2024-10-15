@@ -35,6 +35,7 @@ const UploadAssignment = () => {
         <div className='flex flex-col p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
 
             <p className='sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium'>Upload Assignment</p>
+<div>
             {/* Dropdown */}
             <div className='font-medium my-3'>
                 <p className='text-xs md:text-sm my-2'>Choose RSBPP Faculty</p>
@@ -96,6 +97,7 @@ const UploadAssignment = () => {
                 <p>Choose a file or drag & drop it here</p>
                 <button className="border-[1px] border-gray-600 my-2 mx-auto w-48 px-8 py-2 text-gray-700 bg-transparent rounded-2xl font-medium relative cursor-pointer"><input type='file' className='cursor-pointer absolute top-0 bottom-0 right-0 left-0 w-full h-full opacity-0 m-auto' />Browse File</button>
             </div>
+</div>
             <button className="my-2 mx-auto w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium"> Submit</button>
         </div>
     )
