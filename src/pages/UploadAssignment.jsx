@@ -43,7 +43,7 @@ const UploadAssignment = () => {
                         value={faculty}
                         onChange={(e) => setFaculty(e.target.value)}
                     >
-<option disabled className='rounded-md'>Select a Faculty</option>
+<option disabled className='rounded-md'>{filteredData?filteredData?.description.split(" " ).slice(0,3).join(" "): 'Select a Faculty'}</option>
                         {
                             getAllFaculty?.data && getAllFaculty?.data.map((item, index) => (
                                 <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
