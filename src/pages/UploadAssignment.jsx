@@ -44,7 +44,7 @@ const UploadAssignment = () => {
                         value={faculty}
                         onChange={(e) => setFaculty(e.target.value)}
                     >
-<option disabled className='rounded-md value={faculty}>{faculty</option>
+<option disabled className='rounded-md' value={faculty}>{faculty}</option>
                         {
                             getAllFaculty?.data && getAllFaculty?.data.map((item, index) => (
                                 <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
@@ -66,7 +66,7 @@ const UploadAssignment = () => {
                         value={course}
                         onChange={(e) => setCourse(e.target.value)}
                     >
- <option disabled className='rounded-md value={course}>{course}</option>
+ <option disabled className='rounded-md' value={course}>{course}</option>
                         {
                             filteredCourses && filteredCourses.map((item, index) => (
                                 <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
