@@ -20,16 +20,15 @@ return (
 <section className='flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3'>
 <div className='flex flex-col gap-y-2'>
 <p className='text-xs md:text-[16px] capitalize'>{faculty}</p>
-<p className='text-xs md:text-sm text-gray-600 capitalize'>{course}</p>
+<p className='text-xs md:text-sm text-gray-600 capitalize'>Select Faculty</p>
 </div>
 <select
 className='absolute w-full opacity-0 cursor-pointer'
 value={course}
-onChange={(e) => setCourse(e.target.value)}
+onChange={(e) => setFaculty(e.target.value)}
 >
-<option value="Select course">Select course</option>
-<option value="Course 1">Course 1</option>
-<option value="Course 2">Course 2</option>
+<option value="Course 1">Faculty of Technology</option>
+<option value="Course 2">Faculty of Science</option>
 </select>
 <p className='border-l border-gray-500 pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
 </section>
@@ -37,8 +36,8 @@ onChange={(e) => setCourse(e.target.value)}
   <div className='font-medium my-2'>
       <section className='flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3'>
         <div className='flex flex-col gap-y-2'>
-          <p className='text-xs md:text-[16px] capitalize'>{faculty}</p>
-          <p className='text-xs md:text-sm text-gray-600 capitalize'>{course}</p>
+          <p className='text-xs md:text-[16px] capitalize'>{course}</p>
+          <p className='text-xs md:text-sm text-gray-600 capitalize'>Select Course</p>
         </div>
         <small className='font-bold text-[10px] text-red-500'>{prof}</small>
         <select
@@ -46,7 +45,6 @@ onChange={(e) => setCourse(e.target.value)}
           value={course}
           onChange={(e) => setCourse(e.target.value)}
         >
-          <option value="Select course">Select course</option>
           <option value="Course 1">Course 1</option>
           <option value="Course 2">Course 2</option>
         </select>
