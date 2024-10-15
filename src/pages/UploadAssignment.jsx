@@ -5,17 +5,17 @@ const UploadAssignment = () => {
 
     return (
         <div className='flex flex-col p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
-            <p className='sticky top-18 bg-white ml-auto my-2 flex items-center gap-2 font-medium'>Upload Assignment</p>
+            <p className='sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium'>Upload Assignment</p>
             <div>
                 {/* Dropdown */}
                 <div className='font-medium my-2'>
                     {/* dropdown label */}
-                    <p className='text-xl my-2'>Choose RSBPP Faculty</p>
+                    <p className='text-sm md:text-xl my-2'>Choose RSBPP Faculty</p>
                     {/* dropcontainer  */}
                     <section className='flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-3'>
                         {/* drop selection view */}
                         <div className='flex flex-col gap-y-2'>
-                            <p className='text-sm md:text-[16px] capitalize'>Faculty of business communication and finance</p>
+                            <p className='text-xs md:text-[16px] capitalize'>Faculty of business communication and finance</p>
                             <p className='text-xs md:text-sm text-gray-600 capitalize'>Select course</p>
                         </div>
                         <p className='border-l border-gray-500 pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
@@ -30,7 +30,7 @@ const UploadAssignment = () => {
                     <section className='flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-3'>
                         {/* drop selection view */}
                         <div className='flex flex-col gap-y-2'>
-                            <p className='text-sm md:text-[16px] capitalize'>Faculty of business communication and finance</p>
+                            <p className='text-xs md:text-[16px] capitalize'>Faculty of business communication and finance</p>
                             <p className='text-xs md:text-sm text-gray-600 capitalize'>Select Faculty</p>
                         </div>
                         <small className='font-bold text-xs text-red-500 ml-auto'>Prof Samuel Attong</small>
@@ -46,7 +46,7 @@ const UploadAssignment = () => {
                         {/* drop selection view */}
                         <div className='flex-1 flex flex-col gap-y-2'>
                             <p className='text-sm md:text-[16px] capitalize'>Submission</p>
-                            <textarea cols='30' className="p-2 h-28  w-full placeholder:text-gray-500 placeholder:text-sm" placeholder='Add Description'></textarea>
+                            <textarea cols='30' className="p-2 h-28  w-full bg-transparent placeholder:text-gray-500 placeholder:text-sm" placeholder='Add Description'></textarea>
                         </div>
                         {/* drop selection view end*/}
                     </section>
