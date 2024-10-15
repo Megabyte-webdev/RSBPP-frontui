@@ -1,7 +1,4 @@
-Here's the recreated design using dropdown select:
 
-```
-jsx
 import { BsJournalCheck } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState } from "react";
@@ -87,4 +84,3 @@ const AddJournal = () => {
 };
 
 export default AddJournal;
-```
