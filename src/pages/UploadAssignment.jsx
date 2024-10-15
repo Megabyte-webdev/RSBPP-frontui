@@ -4,7 +4,7 @@ import { useState, useContext, useEffect } from "react";
 import { ResourceContext } from '../context/ResourceContext';
 import { UserContext } from "../context/AuthContext"
 const UploadAssignment = () => {
-    const [filteredCourses, setFilteredCourses] = useState([]);
+    const [filteredData, setFilteredData] = useState([]);
 
     const [faculty, setFaculty] = useState("Select a Faculty");
     const [course, setCourse] = useState("Select a Course");
@@ -22,7 +22,7 @@ const UploadAssignment = () => {
     }, [userCredentials])
 
     useEffect(() => {
-        setFilteredCourses(getAllFaculty?.data?.find(item=>item.title === faculty).courses)
+        setFilteredData(getAllFaculty?.data?.find(item=>item.title === faculty))
         console.log(filteredCourses)
     }, [faculty])
 
@@ -37,7 +37,7 @@ const UploadAssignment = () => {
                 <section className='relative flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3'>
                     <div className='flex flex-col gap-y-2'>
                         <p className='text-xs md:text-[16px] capitalize'>{faculty}</p>
-                        <p className='text-xs md:text-sm text-gray-600 capitalize'>faculty ?{faculty?.description.split(" ").slice(0,3).join(' ')}:Select Faculty</p>
+                        <p className='text-xs md:text-sm text-gray-600 capitalize'>faculty ?{filteredData?.description.split(" ").slice(0,3).join(' ')}:Select Faculty</p>
                     </div>
                     <select
                         className='p-2 md:p-3 absolute w-full min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500'
@@ -68,7 +68,7 @@ const UploadAssignment = () => {
                     >
  <option disabled className='rounded-md'>Select a Course From {faculty}</option>
                         {
-                            filteredCourses && filteredCourses.map((item, index) => (
+                            filteredData && filteredData?.courses.map((item, index) => (
                                 <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
                             ))
                         }
