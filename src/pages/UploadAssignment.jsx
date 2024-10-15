@@ -23,7 +23,6 @@ const UploadAssignment = () => {
 
     useEffect(() => {
         setFilteredData(getAllFaculty?.data?.find(item=>item.title === faculty))
-        console.log(filteredCourses)
     }, [faculty])
 
     return (
@@ -66,7 +65,7 @@ const UploadAssignment = () => {
                         value={course}
                         onChange={(e) => setCourse(e.target.value)}
                     >
- <option disabled className='rounded-md'>Select a Course From {faculty}</option>
+ <option disabled className='rounded-md'>Select a Course From {faculty && faculty}</option>
                         {
                             filteredData && filteredData?.courses.map((item, index) => (
                                 <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
