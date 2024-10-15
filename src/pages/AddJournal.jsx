@@ -34,8 +34,7 @@ onChange={(e) => setCourse(e.target.value)}
 <p className='border-l border-gray-500 pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
 </section>
 </div>
-
-```    <div className='font-medium my-2'>
+  <div className='font-medium my-2'>
       <section className='flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3'>
         <div className='flex flex-col gap-y-2'>
           <p className='text-xs md:text-[16px] capitalize'>{faculty}</p>
@@ -73,7 +72,7 @@ onChange={(e) => setCourse(e.target.value)}
     <button className="my-2 mx-auto w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium">Submit</button>
   </div>
 </div>
-```
+
 );
 };
 
