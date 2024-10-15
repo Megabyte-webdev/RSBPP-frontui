@@ -22,7 +22,7 @@ const UploadAssignment = () => {
     }, [userCredentials])
 
     useEffect(() => {
-        setFilteredData(getAllFaculty?.data?.find(item=>item.title === faculty))
+        setFilteredData(getAllFaculty?.data?.find(item=>item.title === faculty).courses)
     }, [faculty])
 
     return (
@@ -43,7 +43,7 @@ const UploadAssignment = () => {
                         value={faculty}
                         onChange={(e) => setFaculty(e.target.value)}
                     >
-<option disabled className='rounded-md'>{filteredData?filteredData?.description.split(" " ).slice(0,3).join(" "): 'Select a Faculty'}</option>
+<option disabled className='rounded-md'>Select a Faculty</option>
                         {
                             getAllFaculty?.data && getAllFaculty?.data.map((item, index) => (
                                 <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
@@ -67,7 +67,7 @@ const UploadAssignment = () => {
                     >
  <option disabled className='rounded-md'>Select a Course From {faculty && faculty}</option>
                         {
-                            filteredData && filteredData?.courses.map((item, index) => (
+                            filteredData && filteredData.map((item, index) => (
                                 <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
                             ))
                         }
