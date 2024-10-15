@@ -67,8 +67,8 @@ onChange={(e) => setFaculty(e.target.value)}
       </section>
     </div>
 
-    <button className="my-2 mx-auto w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium">Submit</button>
   </div>
+<button className="my-2 mx-auto w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium">Submit</button>
 </div>
 
 );
