@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const AddJournal = () => {
 const [faculty, setFaculty] = useState("Faculty of business communication and finance");
-const [course, setCourse] = useState("Select course");
+const [course, setCourse] = useState("Select a Programme");
 const [prof, setProf] = useState("Prof Samuel Attong");
 const [remark, setRemark] = useState("");
 
@@ -27,8 +27,8 @@ className='absolute w-full opacity-0 cursor-pointer'
 value={faculty}
 onChange={(e) => setFaculty(e.target.value)}
 >
-<option value="Course 1">Faculty of Technology</option>
-<option value="Course 2">Faculty of Science</option>
+<option value="Faculty of Technology">Faculty of Technology</option>
+<option value="Faculty of Science">Faculty of Science</option>
 </select>
 <p className='border-l border-gray-500 pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
 </section>
