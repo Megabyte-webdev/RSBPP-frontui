@@ -22,12 +22,7 @@ const UploadAssignment = () => {
     }, [userCredentials])
 
     useEffect(() => {
-        setGetAllCourses((prev) => {
-            return {
-                ...prev, isDataNeeded: true
-            }
-        })
-        setFilteredCourses(getAllCourses.data.filter((course) => course.faculty_label === faculty))
+        setFilteredCourses(getAllFaculty?.data?.courses)
         console.log(filteredCourses)
     }, [faculty])
 
