@@ -5,12 +5,12 @@ const AddJournal = () => {
 
     return (
         <div className='flex flex-col p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
-            <p className='sticky top-18 bg-white ml-auto my-2 flex items-center gap-2 font-medium'><BsJournalCheck size="24" />Add Journal</p>
+            <p className='sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium'><BsJournalCheck size="24" />Add Journal</p>
             <div>
                 {/* Dropdown */}
                 <div className='font-medium my-2'>
                     {/* dropdown label */}
-                    <p className='text-xl my-2'>Choose RSBPP Faculty</p>
+                    <p className='text-sm md:text-xl my-2'>Choose RSBPP Faculty</p>
                     {/* dropcontainer  */}
                     <section className='flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3'>
                         {/* drop selection view */}
