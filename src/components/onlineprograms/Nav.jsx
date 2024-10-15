@@ -118,8 +118,8 @@ const Nav = () => {
       </div>
       {/* Side nav */}
       <div onClick={(event) => { if (!event.target.closest('sideNav') && event.target === document.querySelector('.sideNav-container')) { setMenu(false) } }} className={`sideNav-container ${menu === true ? 'opacity-1 left-0' : 'opacity-0 left-[-999px]'} md:hidden fixed z-[100] p-2 text-[13px] font-semibold top-0 bottom-0 w-screen h-full bg-[rgba(0,0,0,.8)] transition-all duration-500`}>
-        <div className='sideNav bg-white w-96 h-full pt-12'>
-          <div className="flex justify-between items-center p-3 px-4">
+        <div className='sideNav bg-white w-full md:w-96 h-full pt-12'>
+          <div className="flex justify-between items-center p-3">
             <img className="w-32 md:w-60 cursor-pointer" src={logo} alt="logo" />
             <p onClick={() => { navigate('/carts'); localStorage.setItem("comingFrom", JSON.stringify({ user: "guest" })) }} className="ml-auto mr-2 relative cursor-pointer"><FaShoppingCart size="24" /> <span className="absolute top-[-10px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{guestCart}</span></p>
 
