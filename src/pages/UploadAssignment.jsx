@@ -1,7 +1,15 @@
 import { FaFileUpload } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
-
+import ResourceContext from '../context/ResourceContext'
 const UploadAssignment = () => {
+
+    const {
+        setGetAllFaculty
+    } = useContext(ResourceContext);
+
+useEffect(()=>{
+
+},[])
 
     return (
         <div className='flex flex-col p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
