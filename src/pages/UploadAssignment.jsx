@@ -19,11 +19,7 @@ const UploadAssignment = () => {
 
     return (
         <div className='flex flex-col p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
-{
-getAllFaculty && getAllFaculty?.data.allFaculty?.map((item)=>(
-<div>{item.title}</div>
-))
-}
+
             <p className='sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium'>Upload Assignment</p>
             <div>
                 {/* Dropdown */}
