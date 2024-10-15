@@ -24,7 +24,7 @@ return (
 </div>
 <select
 className='absolute w-full opacity-0 cursor-pointer'
-value={course}
+value={faculty}
 onChange={(e) => setFaculty(e.target.value)}
 >
 <option value="Course 1">Faculty of Technology</option>
