@@ -20,7 +20,7 @@ const UploadAssignment = () => {
     return (
         <div className='flex flex-col p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
 {
-getAllFaculty.map(item=>(
+getAllFaculty && getAllFaculty.data.map(item=>(
 <div>{item}</div>
 ))
 }
