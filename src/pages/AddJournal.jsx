@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import { ResourceContext } from '../context/ResourceContext';
 import { UserContext } from "../context/AuthContext"
 const AddJournal = () => {
-  const [filteredCourses, setFilteredCourses] = useState([]);
+      const [filteredData, setFilteredData] = useState(null);
 
   const [faculty, setFaculty] = useState("Faculty of business communication and finance");
   const [course, setCourse] = useState("Select a Programme");
@@ -26,13 +26,7 @@ const AddJournal = () => {
   }, [userCredentials])
 
   useEffect(() => {
-    setGetAllCourses((prev) => {
-      return {
-        ...prev, isDataNeeded: true
-      }
-    })
-    setFilteredCourses(getAllCourses.data.filter((course) => course.faculty_label === faculty))
-    console.log(filteredCourses)
+    setFilteredData(getAllFaculty?.data?.find((item) => item.title === faculty))
   }, [userCredentials, faculty])
 
   return (
@@ -46,7 +40,7 @@ const AddJournal = () => {
           <section className='relative flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3'>
             <div className='flex flex-col gap-y-2'>
               <p className='text-xs md:text-[16px] capitalize'>{faculty}</p>
-              <p className='text-xs md:text-sm text-gray-600 capitalize'>Select Faculty</p>
+              <p className='text-xs md:text-sm text-gray-600 capitalize'>{filteredData? filteredData?.description?.split(' ').slice(0,5).join(' ')+'...' : 'Select Faculty'}</p>
             </div>
             <select
               className='p-2 md:p-3 absolute w-full min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500'
@@ -74,8 +68,9 @@ const AddJournal = () => {
               value={course}
               onChange={(e) => setCourse(e.target.value)}
             >
+<option className='rounded-md' >Select a Course From {filteredData && filteredData.title}</option>
               {
-                filteredCourses && filteredCourses.map((item, index) => (
+                filteredData && filteredData?.courses?.map((item, index) => (
                   <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
                 ))
               }
