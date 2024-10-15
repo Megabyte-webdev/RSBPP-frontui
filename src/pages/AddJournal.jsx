@@ -47,6 +47,7 @@ const AddJournal = () => {
               value={faculty}
               onChange={(e) => setFaculty(e.target.value)}
             >
+<option disabled className='rounded-md' >Select a Faculty</option>
               {
                 getAllFaculty?.data && getAllFaculty?.data.map((item, index) => (
                   <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
@@ -62,20 +63,20 @@ const AddJournal = () => {
               <p className='text-xs md:text-[16px] capitalize'>{course}</p>
               <p className='text-xs md:text-sm text-gray-600 capitalize'>Select Course</p>
             </div>
-            <small className='font-bold ml-auto text-[10px] md:text-xs text-red-500'>{prof}</small>
+            <small className='font-bold ml-auto px-[2px] text-[10px] md:text-xs text-red-500'>{prof}</small>
             <select
               className='p-2 md:p-3 absolute w-full min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500'
               value={course}
               onChange={(e) => setCourse(e.target.value)}
             >
-<option className='rounded-md' >Select a Course From {filteredData && filteredData.title}</option>
+<option disabled className='rounded-md' >Select a Course From {filteredData && filteredData.title}</option>
               {
                 filteredData && filteredData?.courses?.map((item, index) => (
                   <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
                 ))
               }
             </select>
-            <p className='pl-2 md:pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
+            <p className='pl-[2px] md:pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
           </section>
         </div>
 
