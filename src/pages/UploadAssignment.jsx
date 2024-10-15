@@ -36,7 +36,7 @@ const UploadAssignment = () => {
                 <section className='relative flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3'>
                     <div className='flex flex-col gap-y-2'>
                         <p className='text-xs md:text-[16px] capitalize'>{faculty}</p>
-                        <p className='text-xs md:text-sm text-gray-600 capitalize'> {filteredData ? filteredData?.description.split(" " ).slice(0,3).join(" "): 'Select Faculty'}</p>
+                        <p className='text-xs md:text-sm text-gray-600 capitalize'> {filteredData ? filteredData?.description.split(" " ).slice(0,6).join(" ")+'...': 'Select Faculty'}</p>
                     </div>
                     <select
                         className='p-2 md:p-3 absolute w-full min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500'
@@ -56,7 +56,7 @@ const UploadAssignment = () => {
             <div className='font-medium my-3'>
                 <section className='relative flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3'>
                     <div className='flex flex-col gap-y-2'>
-                        <p className='text-xs md:text-[16px] capitalize'>{course}</p>
+                        <p className='text-xs md:text-[16px] capitalize'>{faculty? `Select a Course From ${faculty && faculty}` : course}</p>
                         <p className='text-xs md:text-sm text-gray-600 capitalize'>Select Course</p>
                     </div>
                     <small className='font-bold ml-auto text-[10px] md:text-xs text-red-500'>{prof}</small>
@@ -72,7 +72,7 @@ const UploadAssignment = () => {
                             ))
                         }
                     </select>
-                    <p className='pl-2 md:pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
+                    <p className='pl-[2px] md:pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
                 </section>
             </div>
 
