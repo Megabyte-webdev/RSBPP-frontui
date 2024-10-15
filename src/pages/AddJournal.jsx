@@ -27,6 +27,7 @@ className='absolute w-full opacity-0 cursor-pointer'
 value={faculty}
 onChange={(e) => setFaculty(e.target.value)}
 >
+<option disabled selected value="Faculty of business communication and finance">Faculty of business communication and finance</option>
 <option value="Faculty of Technology">Faculty of Technology</option>
 <option value="Faculty of Science">Faculty of Science</option>
 </select>
@@ -45,10 +46,11 @@ onChange={(e) => setFaculty(e.target.value)}
           value={course}
           onChange={(e) => setCourse(e.target.value)}
         >
+<option disabled selected value="Select a Programme">Select a Programme</option>
           <option value="Course 1">Course 1</option>
           <option value="Course 2">Course 2</option>
         </select>
-        <p className='pl md:pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
+        <p className='pl-2 md:pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
       </section>
     </div>
 
@@ -58,7 +60,7 @@ onChange={(e) => setFaculty(e.target.value)}
           <p className='text-sm md:text-[16px] capitalize'>Remark</p>
           <textarea 
             cols='30' 
-            className="p-2 h-28 w-full placeholder:text-gray-500 placeholder:text-sm" 
+            className="p-2 h-28 w-full bg-transparent placeholder:text-gray-500 placeholder:text-sm" 
             value={remark}
             onChange={(e) => setRemark(e.target.value)}
             placeholder='Add Description'
