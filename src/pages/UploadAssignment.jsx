@@ -33,7 +33,7 @@ const UploadAssignment = () => {
                             <p className='text-xs md:text-[16px] capitalize'>Faculty of business communication and finance</p>
                             <p className='text-xs md:text-sm text-gray-600 capitalize'>Select Faculty</p>
                         </div>
-                        <small className='font-bold text-xs text-red-500 ml-auto'>Prof Samuel Attong</small>
+                        <small className='font-bold text-[10px] md:text-xs text-red-500 ml-auto'>Prof Samuel Attong</small>
                         <p className='pl-2 md:pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
                         {/* drop selection view end*/}
                     </section>
