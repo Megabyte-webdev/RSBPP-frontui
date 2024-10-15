@@ -4,15 +4,26 @@ import ResourceContext from '../context/ResourceContext'
 const UploadAssignment = () => {
 
     const {
-        setGetAllFaculty
+        setGetAllFaculty,
+        getAllFaculty
     } = useContext(ResourceContext);
 
-useEffect(()=>{
-
-},[])
+    useEffect(() => {
+            setGetAllCourses((prev) => {
+                return {
+                    ...prev, isDataNeeded: true
+                }
+            });
+          
+    }, []);
 
     return (
         <div className='flex flex-col p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
+{
+getAllFaculty.map(item=>(
+<div>{item}</div>
+))
+}
             <p className='sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium'>Upload Assignment</p>
             <div>
                 {/* Dropdown */}
