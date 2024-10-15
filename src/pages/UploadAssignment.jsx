@@ -4,7 +4,7 @@ import { useState, useContext, useEffect } from "react";
 import { ResourceContext } from '../context/ResourceContext';
 import { UserContext } from "../context/AuthContext"
 const UploadAssignment = () => {
-    const [filteredData, setFilteredData] = useState({});
+    const [filteredData, setFilteredData] = useState(null);
 
     const [faculty, setFaculty] = useState("Select a Faculty");
     const [course, setCourse] = useState("Select a Course");
