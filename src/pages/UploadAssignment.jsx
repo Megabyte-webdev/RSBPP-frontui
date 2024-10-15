@@ -59,7 +59,7 @@ const UploadAssignment = () => {
                         <p className='text-xs md:text-[16px] capitalize'>{course && course}</p>
                         <p className='text-xs md:text-sm text-gray-600 capitalize'>Select Course</p>
                     </div>
-                    <small className='bg-black w-max font-bold px-[20x] ml-auto text-[10px] md:text-xs text-red-500'>{prof}</small>
+                    <small className='w-max font-bold px-[2px] ml-auto text-[10px] md:text-xs text-red-500'>{prof}</small>
                     <select
                         className='p-2 md:p-3 absolute w-full min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500'
                         value={course}
