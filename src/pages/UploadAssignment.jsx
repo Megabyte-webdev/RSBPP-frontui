@@ -1,11 +1,35 @@
 import { FaFileUpload } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import { ResourceContext } from '../context/ResourceContext';
+import { UserContext } from "../context/AuthContext"
 const UploadAssignment = () => {
+    const [filteredCourses, setFilteredCourses] = useState([]);
 
-    const [faculty, setFaculty] = useState("Faculty of business communication and finance");
-    const [course, setCourse] = useState("Select a Programme");
+    const [faculty, setFaculty] = useState("Select a Faculty");
+    const [course, setCourse] = useState("Select a Course");
     const [prof, setProf] = useState("Prof Samuel Attong");
+    const {
+        setGetAllFaculty, getAllFaculty, setGetAllCourses, getAllCourses } = useContext(ResourceContext);
+    const { userCredentials } = useContext(UserContext);
+
+    useEffect(() => {
+        setGetAllFaculty((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [userCredentials])
+
+    useEffect(() => {
+        setGetAllCourses((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+        setFilteredCourses(getAllCourses.data.filter((course) => course.faculty_label === faculty))
+        console.log(filteredCourses)
+    }, [userCredentials, faculty])
 
     return (
         <div className='flex flex-col p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
@@ -24,15 +48,17 @@ const UploadAssignment = () => {
                         value={faculty}
                         onChange={(e) => setFaculty(e.target.value)}
                     >
-                        <option className='rounded-md' disabled selected value="Faculty of business communication and finance">Faculty of business communication and finance</option>
-                        <option className='rounded-md' value="Faculty of Technology">Faculty of Technology</option>
-                        <option className='rounded-md' value="Faculty of Science">Faculty of Science</option>
+                        {
+                            getAllFaculty?.data && getAllFaculty?.data.map((item, index) => (
+                                <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
+                            ))
+                        }
                     </select>
                     <p className='border-l border-gray-500 pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
                 </section>
             </div>
-            <div className='relative font-medium my-3'>
-                <section className='flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3'>
+            <div className='font-medium my-3'>
+                <section className='relative flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3'>
                     <div className='flex flex-col gap-y-2'>
                         <p className='text-xs md:text-[16px] capitalize'>{course}</p>
                         <p className='text-xs md:text-sm text-gray-600 capitalize'>Select Course</p>
@@ -43,9 +69,11 @@ const UploadAssignment = () => {
                         value={course}
                         onChange={(e) => setCourse(e.target.value)}
                     >
-                        <option disabled selected value="Select a Programme">Select a Programme</option>
-                        <option value="Course 1">Course 1</option>
-                        <option value="Course 2">Course 2</option>
+                        {
+                            filteredCourses && filteredCourses.map((item, index) => (
+                                <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
+                            ))
+                        }
                     </select>
                     <p className='pl-2 md:pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
                 </section>

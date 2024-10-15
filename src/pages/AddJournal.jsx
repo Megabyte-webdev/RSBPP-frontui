@@ -1,18 +1,46 @@
 import { BsJournalCheck } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
-import { useState } from "react";
-
+import { useState, useEffect, useContext } from "react";
+import { ResourceContext } from '../context/ResourceContext';
+import { UserContext } from "../context/AuthContext"
 const AddJournal = () => {
+  const [filteredCourses, setFilteredCourses] = useState([]);
+
   const [faculty, setFaculty] = useState("Faculty of business communication and finance");
   const [course, setCourse] = useState("Select a Programme");
   const [prof, setProf] = useState("Prof Samuel Attong");
   const [remark, setRemark] = useState("");
+  const {
+    setGetAllFaculty, getAllFaculty, setGetAllCourses, getAllCourses } = useContext(ResourceContext);
+  const { userCredentials } = useContext(UserContext);
+
+  useEffect(() => {
+    setGetAllFaculty((prev) => {
+      return {
+        ...prev, isDataNeeded: true
+      }
+    })
+
+    console.log(getAllFaculty?.data)
+
+  }, [userCredentials])
+
+  useEffect(() => {
+    setGetAllCourses((prev) => {
+      return {
+        ...prev, isDataNeeded: true
+      }
+    })
+    setFilteredCourses(getAllCourses.data.filter((course) => course.faculty_label === faculty))
+    console.log(filteredCourses)
+  }, [userCredentials, faculty])
 
   return (
     <div className='flex flex-col p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
       <p className='sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium'><BsJournalCheck size="24" />Add Journal</p>
       <div>
         {/* Dropdown */}
+
         <div className='font-medium my-3'>
           <p className='text-sm md:text-xl my-2'>Choose RSBPP Faculty</p>
           <section className='relative flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3'>
@@ -25,9 +53,11 @@ const AddJournal = () => {
               value={faculty}
               onChange={(e) => setFaculty(e.target.value)}
             >
-              <option className='rounded-md' disabled selected value="Faculty of business communication and finance">Faculty of business communication and finance</option>
-              <option className='rounded-md' value="Faculty of Technology">Faculty of Technology</option>
-              <option className='rounded-md' value="Faculty of Science">Faculty of Science</option>
+              {
+                getAllFaculty?.data && getAllFaculty?.data.map((item, index) => (
+                  <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
+                ))
+              }
             </select>
             <p className='border-l border-gray-500 pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
           </section>
@@ -44,9 +74,11 @@ const AddJournal = () => {
               value={course}
               onChange={(e) => setCourse(e.target.value)}
             >
-              <option disabled selected value="Select a Programme">Select a Programme</option>
-              <option value="Course 1">Course 1</option>
-              <option value="Course 2">Course 2</option>
+              {
+                filteredCourses && filteredCourses.map((item, index) => (
+                  <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
+                ))
+              }
             </select>
             <p className='pl-2 md:pl-4 text-red-500'><IoIosArrowDown size='20' /></p>
           </section>
