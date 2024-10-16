@@ -137,7 +137,7 @@ name="courses"
         </div>
 
       </div>
-      <button onClick={()=>addJournal(getAllFaculty?.data?.courses?.find((item) => item.title === course), renark)} className="my-3 mx-auto w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium">Submit</button>
+      <button onClick={()=>{addJournal(getAllFaculty?.data?.courses?.find((item) => item.title === course), remark)}} className="my-3 mx-auto w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium">Submit</button>
     </div>
 
   );
