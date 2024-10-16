@@ -100,7 +100,7 @@ const RegistrationForm = ({ setDisplay }) => {
         <div className='col-8 prime_blue'>
             <div className="open_sans reg_form my-4">
 <div className='flex items-center justify-center my-2'>
-        <img className="w-32 md:w-60 my-3 cursor-pointer" src={logo} alt="logo" />
+        <img className="w-40 md:w-60 my-3 cursor-pointer" src={logo} alt="logo" />
 </div>
                 <h3>Create Account</h3>
                 <p className='pe-md-5 fw-light fs_sm mb-4'>Please complete the fields below.If you already have an existing accounts, please follow Get Access to <span onClick={()=>navigate('/login')} className='cursor-pointer font-bold text-blue-600'>{fromLocal ? 'Login To Check Out' :'Login'}</span></p>
