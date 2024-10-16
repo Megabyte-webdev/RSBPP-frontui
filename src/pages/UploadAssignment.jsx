@@ -172,7 +172,7 @@ const UploadAssignment = () => {
 
         {/* File Upload Section */}
         <div
-          className="font-medium my-2 flex flex-col items-center gap-2 border-[1px] border-red-500 rounded-md p-3"
+          className="font-medium my-2 flex flex-col items-center gap-2 border-[1px] h-28 border-red-500 rounded-md p-3"
           style={{ backgroundImage: `url(${preview})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
         >
           {!preview && <FaFileUpload size="24" />}
@@ -182,6 +182,7 @@ const UploadAssignment = () => {
             onChange={handleFileChange}
             className="hidden"
           />
+<p>Choose a file or drag & drop it here</p>
           <button
             onClick={() => fileInput.current.click()}
             className="border-[1px] border-gray-600 px-8 py-2 text-gray-700 bg-transparent rounded-2xl font-medium"
