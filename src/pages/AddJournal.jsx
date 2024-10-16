@@ -5,7 +5,7 @@ import { ResourceContext } from '../context/ResourceContext';
 import { UserContext } from "../context/AuthContext"
 const AddJournal = () => {
       const [filteredData, setFilteredData] = useState(null);
-const [message, setMessage] = use State("");
+const [message, setMessage] = useState("");
   const [faculty, setFaculty] = useState("Select a Faculty");
   const [course, setCourse] = useState("Select a Programme");
   const [prof, setProf] = useState("Prof Samuel Attong");
