@@ -122,7 +122,7 @@ const RegistrationForm = ({ setDisplay }) => {
                                     value={regDetails.last_name}
                                     onChange={handleOnChange}
                                     className="btn input_bg px-5 py-2 w-100" placeholder='Last Name' />
-                                <span className="position-absolute start-0 top-0 p-2"><FiUser /> </span>
+                                <span className="position-absolute start-0 top-0 p-2"><FiUser /> <span className='text-red-600 absolute top-0 right-0'>*</span></span>
                             </div>
                         </div>
                         <div className="mb-4">
