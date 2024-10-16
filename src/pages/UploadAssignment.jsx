@@ -15,7 +15,7 @@ const UploadAssignment = () => {
   const [description, setDescription] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const fileInput = useRef(null); // Use ref to capture file input
+  const fileInput = useRef(null); // Use ref for file input
 
   const { setGetAllFaculty, getAllFaculty } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
@@ -72,6 +72,9 @@ const UploadAssignment = () => {
     setFilteredData(selectedFaculty);
   }, [faculty, getAllFaculty]);
 
+  const handleCourseSelection = () =>
+    filteredData?.courses?.find((item) => item.title === course);
+
   return (
     <div
       className="flex flex-col p-3 p-md-5 min-vh-100 poppins"
@@ -88,6 +91,14 @@ const UploadAssignment = () => {
         <div className="font-medium my-3">
           <p className="text-xs md:text-sm my-2">Choose RSBPP Faculty</p>
           <section className="relative flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
+            <div className="flex flex-col gap-y-2">
+              <p className="text-xs md:text-[16px] capitalize">{faculty}</p>
+              <p className="text-xs md:text-sm text-gray-600 capitalize overflow-hidden">
+                {filteredData
+                  ? `${filteredData.description.split(" ").slice(0, 8).join(" ")}...`
+                  : "Select Faculty"}
+              </p>
+            </div>
             <select
               className="p-2 md:p-3 absolute w-full min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
               value={faculty}
@@ -111,6 +122,15 @@ const UploadAssignment = () => {
         {/* Course Dropdown */}
         <div className="font-medium my-3">
           <section className="relative flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
+            <div className="flex flex-col gap-y-2">
+              <p className="text-xs md:text-[16px] capitalize">{course}</p>
+              <p className="text-xs md:text-sm text-gray-600 capitalize">
+                Select Course
+              </p>
+            </div>
+            <small className="font-bold ml-auto px-[2px] text-[10px] md:text-xs text-red-500">
+              {prof}
+            </small>
             <select
               className="p-2 md:p-3 absolute w-full min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
               value={course}
@@ -132,7 +152,7 @@ const UploadAssignment = () => {
         </div>
 
         {/* Description Section */}
-        <div className="font-medium my-3">
+        <div className="font-medium my-2">
           <section className="flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-3">
             <div className="flex-1 flex flex-col gap-y-2">
               <p className="text-sm md:text-[16px] capitalize">Submission</p>
