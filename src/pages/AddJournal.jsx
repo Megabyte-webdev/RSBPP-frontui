@@ -14,18 +14,20 @@ const [loading, setLoading] = useState(false);
   const {
     setGetAllFaculty, getAllFaculty, setGetAllCourses, getAllCourses } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
-const addJournal = (course, remark) => {
+const addJournal = (course) => {
 setLoading(true)
-let details = {
-course_id: course.id ,
-faculty_id: filteredData.faculty_id,
-created_by_id: filteredData.faculty_id,
-text_submission: remark,
-file_submission: null,
-status: "pending"
-                }
 
-                    axios.post(`${BASE_URL}ourse/addJournal`, details, {
+const formdata = new FormData();
+formdata.append("course_id", course.id);
+formdata.append("faculty_id", filteredData.id);
+formdata.append("created_by_id", filteredData.id);
+formdata.append("text_submission", remark);
+//formdata.append("file_submission", fileInput.files[0], "[PROXY]");
+formdata.append("status", "");
+
+
+
+                    axios.post(`${BASE_URL}ourse/addJournal`, formdata, {
                         headers: {
                             'Authorization': `Bearer ${userCredentials.token}`,
                         },
@@ -137,7 +139,7 @@ name="courses"
         </div>
 
       </div>
-      <button onClick={()=>{addJournal(getAllFaculty?.data?.courses?.find((item) => item.title === course), remark)}} className="my-3 mx-auto w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium">Submit</button>
+      <button onClick={()=>{addJournal(getAllFaculty?.data?.courses?.find((item) => item.title === course))}} className="my-3 mx-auto w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium">Submit</button>
     </div>
 
   );
