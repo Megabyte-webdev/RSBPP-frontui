@@ -202,9 +202,13 @@ const UploadAssignment = () => {
           onDrop={handleDrop}
         >
           <FaFileUpload size="24" />
-          <p>
-            {selectedFile ? selectedFile.name : "Choose a file or drag & drop it here"}
-          </p>
+          {preview ? (
+            <img src={preview} alt="Preview" className="h-24 w-24 object-cover mb-2" />
+          ) : (
+            <p>
+              {selectedFile ? selectedFile.name : "Choose a file or drag & drop it here"}
+            </p>
+          )}
           <input
             type="file"
             ref={fileInput}
