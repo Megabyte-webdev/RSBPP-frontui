@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { IoCheckboxSharp } from 'react-icons/io5';
 import { MdOutlineCheckBoxOutlineBlank } from 'react-icons/md';
-import logo from '../../assets/online-programmes/logo.svg'
+import logo from '../../assets/logo.svg'
 
 
 const RegistrationForm = ({ setDisplay }) => {
