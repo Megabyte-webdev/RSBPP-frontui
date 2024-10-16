@@ -205,7 +205,7 @@ required
                                     <MdOutlineCheckBoxOutlineBlank size={25} />
                                 )}
                             </button>
-                            <div className="">
+                            <div className="text-xs md:text-sm">
                                 Have you previously attended any of our programmes?
                             </div>
                         </div>
