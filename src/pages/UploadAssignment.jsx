@@ -15,7 +15,9 @@ const UploadAssignment = () => {
   const [description, setDescription] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null); // Track selected file
+  const [preview, setPreview] = useState(null); // Track image preview
+  const [isDragging, setIsDragging] = useState(false); // Track drag state
   const fileInput = useRef(null);
 
   const { setGetAllFaculty, getAllFaculty } = useContext(ResourceContext);
@@ -66,7 +68,29 @@ const UploadAssignment = () => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    if (file) setSelectedFile(file);
+    if (file) {
+      setSelectedFile(file);
+      setPreview(URL.createObjectURL(file)); // Generate image preview URL
+    }
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    setIsDragging(false);
+    const file = event.dataTransfer.files[0];
+    if (file) {
+      setSelectedFile(file);
+      setPreview(URL.createObjectURL(file)); // Generate image preview URL
+    }
   };
 
   useEffect(() => {
@@ -168,8 +192,15 @@ const UploadAssignment = () => {
           />
         </div>
 
-        {/* File Upload Section */}
-        <div className="font-medium my-2 flex flex-col items-center gap-2 border-[1px] border-red-500 rounded-md px-3 py-4">
+        {/* File Upload Section with Drag-and-Drop */}
+        <div
+          className={`font-medium my-2 flex flex-col items-center gap-2 border-[1px] border-red-500 rounded-md px-3 py-4 ${
+            isDragging ? "bg-gray-200" : ""
+          }`}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
           <FaFileUpload size="24" />
           <p>
             {selectedFile ? selectedFile.name : "Choose a file or drag & drop it here"}
