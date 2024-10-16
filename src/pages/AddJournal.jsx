@@ -4,8 +4,10 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios"; // Import Axios
 import { ResourceContext } from "../context/ResourceContext";
 import { UserContext } from "../context/AuthContext";
+import { BASE_URL } from "../components/utils/base";
+import toast from "react-hot-toast";
+import { Spinner } from "react-bootstrap";
 
-const BASE_URL = "https://dash.rsbpp.nl/api/";
 
 const AddJournal = () => {
   const [filteredData, setFilteredData] = useState(null);
@@ -41,11 +43,13 @@ const AddJournal = () => {
       })
       .then((response) => {
         setMessage(response.data.message || "Journal submitted successfully");
+        toast.success(response.data.message || "Journal submitted successfully")
         setLoading(false);
       })
       .catch((error) => {
         console.error(error);
         setMessage("An error occurred");
+        toast.error(error?.message || error?.data?.message || "An error occurred")
         setLoading(false);
       });
   };
@@ -73,16 +77,14 @@ const AddJournal = () => {
         <BsJournalCheck size="24" />Add Journal
       </p>
       <div>
-        <p>{message && message}</p>
-        {loading && <p>Loading...</p>}
 
         {/* Faculty Dropdown */}
         <div className="font-medium my-3">
-          <p className="text-sm md:text-xl my-2">Choose RSBPP Faculty</p>
+          <p className="text-sm md:text-sm text-xs my-2">Choose RSBPP Faculty</p>
           <section className="relative flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
             <div className="flex flex-col gap-y-2">
               <p className="text-xs md:text-[16px] capitalize">{faculty}</p>
-              <p className="text-xs md:text-sm text-gray-600 capitalize overflow-hidden">
+              <p className="text-xs md:text-sm text-gray-500 capitalize overflow-hidden">
                 {filteredData
                   ? `${filteredData.description.split(" ").slice(0, 8).join(" ")}...`
                   : "Select Faculty"}
@@ -113,7 +115,7 @@ const AddJournal = () => {
           <section className="flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
             <div className="flex flex-col gap-y-2">
               <p className="text-xs md:text-[16px] capitalize">{course}</p>
-              <p className="text-xs md:text-sm text-gray-600 capitalize">
+              <p className="text-xs md:text-sm text-gray-500 capitalize">
                 Select Course
               </p>
             </div>
@@ -159,10 +161,11 @@ const AddJournal = () => {
                <div className="flex justify-center">
           <button
             onClick={() => addJournal(handleCourseSelection())}
-            className="w-48 my-2 px-8 py-2 text-white bg-[navy] rounded-md font-medium"
+            className="w-48 my-2 px-8 py-2 text-white bg-[navy] rounded-md font-medium cursor-pointer"
             disabled={loading}
           >
-            {loading ? "Submitting..." : "Submit"}
+            <span>{loading ? "Submitting..." : "Submit"}</span>
+            {loading && (<span className='ms-2'><Spinner size='sm' /></span>)}
           </button>
         </div>
       </div>

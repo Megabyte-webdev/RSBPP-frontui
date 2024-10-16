@@ -4,8 +4,10 @@ import { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
 import { ResourceContext } from "../context/ResourceContext";
 import { UserContext } from "../context/AuthContext";
+import { BASE_URL } from "../components/utils/base";
+import { Spinner } from "react-bootstrap";
+import toast from "react-hot-toast";
 
-const BASE_URL = "https://dash.rsbpp.nl/api/";
 
 const UploadAssignment = () => {
   const [filteredData, setFilteredData] = useState(null);
@@ -56,13 +58,15 @@ const UploadAssignment = () => {
     axios
       .post(`${BASE_URL}course/submitAssignment`, formData, { headers: myHeaders })
       .then((response) => {
-        setMessage(response.data.message || "Assignment uploaded successfully");
+        setMessage(response?.data.message || "Assignment uploaded successfully");
+        toast.success(response?.data.message || "Assignment submitted successfully")
         setLoading(false);
       })
       .catch((error) => {
         // Detailed error handling
         console.error("Upload error:", error.response ? error.response.data : error.message);
         setMessage(error.response?.data?.message || "An error occurred during upload.");
+        toast.error(error?.data?.message || "An error occurred during upload.")
         setLoading(false);
       });
   };
@@ -112,8 +116,6 @@ const UploadAssignment = () => {
         Upload Assignment
       </p>
       <div>
-        <p>{message && message}</p>
-        {loading && <p>Loading...</p>}
 
         {/* Faculty Dropdown */}
         <div className="font-medium my-3">
@@ -219,10 +221,11 @@ const UploadAssignment = () => {
         <div className="flex justify-center">
           <button
             onClick={uploadAssignment}
-            className="w-48 my-2 px-8 py-2 text-white bg-[navy] rounded-md font-medium"
+            className="w-48 my-2 px-8 py-2 text-white bg-[navy] rounded-md font-medium cursor-pointer"
             disabled={loading}
           >
-            {loading ? "Submitting..." : "Submit"}
+            <span>{loading ? "Submitting..." : "Submit"}</span>
+            {loading && (<span className='ms-2'><Spinner size='sm' /></span>)}
           </button>
         </div>
       </div>
