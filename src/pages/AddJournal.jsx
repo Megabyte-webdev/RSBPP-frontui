@@ -50,7 +50,7 @@ const AddJournal = () => {
 <option disabled selected className='rounded-md' >Select a Faculty</option>
               {
                 getAllFaculty?.data && getAllFaculty?.data.map((item, index) => (
-                  <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
+                  <option className='rounded-md' key={index} value={item?.title}>{item?.title}</option>
                 ))
               }
             </select>
@@ -69,10 +69,10 @@ const AddJournal = () => {
               value={course}
               onChange={(e) => setCourse(e.target.value)}
             >
-<option disabled selected className='rounded-md' >Select a Course From {filteredData && filteredData.title}</option>
+<option disabled selected className='rounded-md' >Select a Course From {filteredData?.title}</option>
               {
                 filteredData && filteredData?.courses?.map((item, index) => (
-                  <option className='rounded-md' key={index} value={item.title}>{item.title}</option>
+                  <option className='rounded-md' key={index} value={item?.title}>{item?.title}</option>
                 ))
               }
             </select>
