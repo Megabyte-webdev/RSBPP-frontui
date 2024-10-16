@@ -159,11 +159,11 @@ const UploadAssignment = () => {
         </div>
 
         {/* Description Section */}
-        <div className="font-medium my-2">
+        <div className="border-[1px] border-red-500 rounded-md p-2 md:p-3 font-medium my-2">
           <p className="text-sm md:text-[16px] mb-1">Submission</p>
           <textarea
             cols="30"
-            className="border-[1px] border-red-500 rounded-md p-2 h-28 w-full bg-transparent placeholder:text-gray-500 placeholder:text-sm"
+            className="p-2 h-28 w-full bg-transparent placeholder:text-gray-500 placeholder:text-sm"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Add Description"
@@ -195,7 +195,7 @@ const UploadAssignment = () => {
         <div className="flex justify-center">
           <button
             onClick={uploadAssignment}
-            className="w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium"
+            className="w-48 my-2 px-8 py-2 text-white bg-[navy] rounded-md font-medium"
             disabled={loading}
           >
             {loading ? "Submitting..." : "Submit"}
