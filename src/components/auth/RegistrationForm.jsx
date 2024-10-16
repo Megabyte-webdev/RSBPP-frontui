@@ -103,7 +103,7 @@ const RegistrationForm = ({ setDisplay }) => {
         <img className="w-40 md:w-60 my-3 cursor-pointer" src={logo} alt="logo" />
 </div>
                 <h3>Create Account</h3>
-                <p className='pe-md-5 fw-light fs_sm mb-4'>Please complete the fields below.If you already have an existing accounts, please follow Get Access to <span onClick={()=>navigate('/login')} className='cursor-pointer font-bold text-blue-600'>{fromLocal ? 'Login To Check Out' :'Login'}</span></p>
+                <p className='pe-md-5 fw-light fs_sm mb-4'>Please complete the fields below.If you already have an existing accounts, please follow Get Access to <span onClick={()=>navigate('/login')} className='cursor-pointer font-bold text-blue-800'>{fromLocal ? 'Login To Check Out' :'Login'}</span></p>
                 <form
                     onSubmit={handleRegistration}
                 >
