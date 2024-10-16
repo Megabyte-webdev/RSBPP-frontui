@@ -107,7 +107,7 @@ const AddJournal = () => {
                 </option>
               ))}
             </select>
-            <IoIosArrowDown size="20" className="border-l pl-4 text-red-500" />
+               <IoIosArrowDown size="20" className="border-l-[1px] border-gray-500 pl-[2px] md:pl-4 text-red-500" />
           </section>
         </div>
 
