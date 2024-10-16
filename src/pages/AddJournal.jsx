@@ -1,6 +1,7 @@
 import { BsJournalCheck } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useContext } from "react";
+import axios from "axios"; // Import Axios
 import { ResourceContext } from "../context/ResourceContext";
 import { UserContext } from "../context/AuthContext";
 
@@ -14,7 +15,6 @@ const AddJournal = () => {
   const [course, setCourse] = useState("Select a Programme");
   const [prof, setProf] = useState("Prof Samuel Attong");
   const [remark, setRemark] = useState("");
-  const fileInput = useRef(null); // Reference for file input
 
   const { setGetAllFaculty, getAllFaculty } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
@@ -24,30 +24,23 @@ const AddJournal = () => {
       setMessage("Please select a valid faculty and course.");
       return;
     }
-    if (!fileInput.current.files.length) {
-      setMessage("Please upload a file.");
-      return;
-    }
 
     setLoading(true);
-    const formdata = new FormData();
-    formdata.append("course_id", selectedCourse.id);
-    formdata.append("faculty_id", filteredData.id);
-    formdata.append("created_by_id", filteredData.id);
-    formdata.append("text_submission", remark);
-    formdata.append("file_submission", fileInput.current.files[0]);
-    formdata.append("status", "");
+    const formData = new FormData();
+    formData.append("course_id", selectedCourse.id);
+    formData.append("faculty_id", filteredData.id);
+    formData.append("created_by_id", filteredData.id);
+    formData.append("text_submission", remark);
+    formData.append("status", "");
 
-    fetch(`${BASE_URL}course/addJournal`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${userCredentials.token}`,
-      },
-      body: formdata,
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        setMessage(result.message || "Journal submitted successfully");
+    axios
+      .post(`${BASE_URL}course/addJournal`, formData, {
+        headers: {
+          Authorization: `Bearer ${userCredentials.token}`,
+        },
+      })
+      .then((response) => {
+        setMessage(response.data.message || "Journal submitted successfully");
         setLoading(false);
       })
       .catch((error) => {
@@ -162,8 +155,6 @@ const AddJournal = () => {
             </div>
           </section>
         </div>
-
-        <input type="file" ref={fileInput} className="my-3" />
 
         <button
           onClick={() => addJournal(handleCourseSelection())}
