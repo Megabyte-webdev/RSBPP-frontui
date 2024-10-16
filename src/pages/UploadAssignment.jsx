@@ -16,6 +16,7 @@ const UploadAssignment = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null); // Track selected file
+  const [preview, setPreview] = useState(null); // Track image preview
   const fileInput = useRef(null);
 
   const { setGetAllFaculty, getAllFaculty } = useContext(ResourceContext);
@@ -47,8 +48,8 @@ const UploadAssignment = () => {
     axios
       .post(`${BASE_URL}course/submitAssignment`, formData, {
         headers: {
-          Authorization: `Bearer ${userCredentials.token}`,
-          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${userCredentials.token}`
+         
         },
       })
       .then((response) => {
@@ -64,7 +65,10 @@ const UploadAssignment = () => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    if (file) setSelectedFile(file);
+    if (file) {
+      setSelectedFile(file);
+      setPreview(URL.createObjectURL(file)); // Generate image preview URL
+    }
   };
 
   useEffect(() => {
@@ -156,21 +160,22 @@ const UploadAssignment = () => {
 
         {/* Description Section */}
         <div className="font-medium my-2">
-          <section className="border-[1px] border-red-500 rounded-md p-3">
-            <textarea
-              cols="30"
-              className="p-2 h-28 w-full bg-transparent placeholder:text-gray-500 placeholder:text-sm"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Add Description"
-            />
-          </section>
+          <p className="text-sm md:text-[16px] mb-1">Submission</p>
+          <textarea
+            cols="30"
+            className="border-[1px] border-red-500 rounded-md p-2 h-28 w-full bg-transparent placeholder:text-gray-500 placeholder:text-sm"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Add Description"
+          />
         </div>
 
         {/* File Upload Section */}
-        <div className="font-medium my-2 flex flex-col items-center gap-2 border-[1px] border-red-500 rounded-md p-3">
-          <FaFileUpload size="24" />
-          <p>{selectedFile ? selectedFile.name : "Choose a file or drag & drop it here"}</p>
+        <div
+          className="font-medium my-2 flex flex-col items-center gap-2 border-[1px] border-red-500 rounded-md p-3"
+          style={{ backgroundImage: `url(${preview})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        >
+          {!preview && <FaFileUpload size="24" />}
           <input
             type="file"
             ref={fileInput}
