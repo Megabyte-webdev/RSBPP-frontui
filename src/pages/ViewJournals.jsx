@@ -29,11 +29,11 @@ const ViewJournals = () => {
         <table className="w-full bg-white shadow-lg rounded-lg">
           <thead className="bg-gray-200">
             <tr>
-              <th className="p-4 text-left">Course Name</th>
-              <th className="p-4 text-left">Faculty</th>
-              <th className="p-4 text-left">Date Added</th>
-              <th className="p-4 text-left">File Submission</th>
-              <th className="p-4 text-left">Status</th>
+              <th className="p-2 text-left">Course Name</th>
+              <th className="p-2 text-left">Faculty</th>
+              <th className="p-2 text-left">Date Added</th>
+              <th className="p-2 text-left">File Submission</th>
+              <th className="p-2 text-left">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -44,7 +44,7 @@ const ViewJournals = () => {
                   index % 2 === 0 ? 'bg-gray-50' : 'bg-white'
                 }`}
               >
-                <td className="p-4 flex items-center gap-4">
+                <td className="p-2 flex items-center gap-2">
                   <img
                     src="https://via.placeholder.com/40"
                     alt="Avatar"
@@ -55,14 +55,14 @@ const ViewJournals = () => {
                     <p className="text-sm text-gray-500">{row.email}</p>
                   </div>
                 </td>
-                <td className="p-4">
+                <td className="p-2">
                   <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
                     {row.faculty}
                   </span>
                 </td>
-                <td className="p-4">{row.dateAdded}</td>
-                <td className="p-4">{row.submission}</td>
-                <td className="p-4 text-green-600 font-semibold">
+                <td className="p-2">{row.dateAdded}</td>
+                <td className="p-2">{row.submission}</td>
+                <td className="p-2 text-green-600 font-semibold">
                   {row.status}
                 </td>
               </tr>
