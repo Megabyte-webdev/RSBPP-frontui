@@ -16,7 +16,6 @@ const UploadAssignment = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null); // Track selected file
-  const [preview, setPreview] = useState(null); // Track image preview
   const [isDragging, setIsDragging] = useState(false); // Track drag state
   const fileInput = useRef(null);
 
@@ -39,29 +38,29 @@ const UploadAssignment = () => {
     }
 
     setLoading(true);
-
     const formData = new FormData();
-    formData.append("assignment_id", "2");
+    formData.append("assignment_id", "2"); // Adjust as necessary
     formData.append("course_id", selectedCourse.id);
     formData.append("faculty_id", filteredData.id);
     formData.append("created_by_id", userCredentials.id);
     formData.append("text_submission", description);
-    formData.append("file_submission", selectedFile);
+    formData.append("file_submission", selectedFile); // Ensure the file input is correctly referenced
     formData.append("status", "submit");
 
+    const myHeaders = {
+      Authorization: `Bearer ${userCredentials.token}`, // Use the token from context
+    };
+
     axios
-      .post(`${BASE_URL}course/submitAssignment`, formData, {
-        headers: {
-          Authorization: `Bearer ${userCredentials.token}`,
-        },
-      })
+      .post(`${BASE_URL}course/submitAssignment`, formData, { headers: myHeaders })
       .then((response) => {
         setMessage(response.data.message || "Assignment uploaded successfully");
         setLoading(false);
       })
       .catch((error) => {
-        console.error(error);
-        setMessage("An error occurred during upload.");
+        // Detailed error handling
+        console.error("Upload error:", error.response ? error.response.data : error.message);
+        setMessage(error.response?.data?.message || "An error occurred during upload.");
         setLoading(false);
       });
   };
@@ -70,7 +69,6 @@ const UploadAssignment = () => {
     const file = event.target.files[0];
     if (file) {
       setSelectedFile(file);
-      setPreview(URL.createObjectURL(file)); // Generate preview URL
     }
   };
 
@@ -89,7 +87,6 @@ const UploadAssignment = () => {
     const file = event.dataTransfer.files[0];
     if (file) {
       setSelectedFile(file);
-      setPreview(URL.createObjectURL(file)); // Generate preview URL
     }
   };
 
@@ -153,9 +150,7 @@ const UploadAssignment = () => {
           <section className="relative flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
             <div className="flex flex-col gap-y-2">
               <p className="text-xs md:text-[16px] capitalize">{course}</p>
-              <p className="text-xs md:text-sm text-gray-600 capitalize">
-                Select Course
-              </p>
+              <p className="text-xs md:text-sm text-gray-600 capitalize">Select Course</p>
             </div>
             <small className="font-bold ml-auto px-[2px] text-[10px] md:text-xs text-red-500">
               {prof}
@@ -218,25 +213,6 @@ const UploadAssignment = () => {
             Browse File
           </button>
         </div>
-
-        {/* Preview Section */}
-        {selectedFile && (
-          <div className="mt-2">
-            {selectedFile.type.startsWith("image/") ? (
-              <img
-                src={preview}
-                alt="Preview"
-                className="h-24 w-24 object-cover border border-red-500 rounded"
-              />
-            ) : (
-              <p className="text-sm text-gray-700">
-                {selectedFile.type === "application/pdf"
-                  ? "PDF File Uploaded: " + selectedFile.name
-                  : "File Uploaded: " + selectedFile.name}
-              </p>
-            )}
-          </div>
-        )}
 
         <div className="flex justify-center">
           <button
