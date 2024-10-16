@@ -44,12 +44,14 @@ const UploadAssignment = () => {
     formData.append("faculty_id", filteredData.id);
     formData.append("created_by_id", userCredentials.id);
     formData.append("text_submission", description);
-    formData.append("file_submission", selectedFile, "[PROXY]" ); // Ensure the file input is correctly referenced
+    formData.append("file_submission", selectedFile); // No "[PROXY]" needed here
     formData.append("status", "submit");
 
     const myHeaders = {
       Authorization: `Bearer ${userCredentials.token}`, // Use the token from context
     };
+
+    console.log("Authorization Header:", myHeaders.Authorization); // Log the token
 
     axios
       .post(`${BASE_URL}course/submitAssignment`, formData, { headers: myHeaders })
