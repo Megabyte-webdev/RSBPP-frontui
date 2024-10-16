@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { IoCheckboxSharp } from 'react-icons/io5';
 import { MdOutlineCheckBoxOutlineBlank } from 'react-icons/md';
+import logo from '../../assets/online-programmes/logo.svg'
 
 
 const RegistrationForm = ({ setDisplay }) => {
@@ -98,6 +99,7 @@ const RegistrationForm = ({ setDisplay }) => {
     return (
         <div className='col-8 prime_blue'>
             <div className="open_sans reg_form my-4">
+<img src={logo} className="w-28 my-2" />
                 <h3>Create Account</h3>
                 <p className='pe-md-5 fw-light fs_sm mb-4'>Please complete the fields below.If you already have an existing accounts, please follow Get Access to <span onClick={()=>navigate('/login')} className='cursor-pointer font-bold text-blue-600'>{fromLocal ? 'Login To Check Out' :'Login'}</span></p>
                 <form
@@ -110,9 +112,10 @@ const RegistrationForm = ({ setDisplay }) => {
                                     type="text"
                                     name="first_name"
                                     value={regDetails.first_name}
+required
                                     onChange={handleOnChange}
                                     className="btn input_bg px-5 py-2 w-100" id="firstName" placeholder='First Name' />
-                                <span className="position-absolute start-0 top-0 p-2"><FiUser /> </span>
+                                <span className="position-absolute start-0 top-0 p-2"><FiUser /> <span className='text-red-600 absolute top-0 right-0'>*</span></span>
                             </div>
                         </div>
                         <div className="mb-4">
@@ -120,6 +123,7 @@ const RegistrationForm = ({ setDisplay }) => {
                                 <input type="text"
                                     name="last_name"
                                     value={regDetails.last_name}
+required
                                     onChange={handleOnChange}
                                     className="btn input_bg px-5 py-2 w-100" placeholder='Last Name' />
                                 <span className="position-absolute start-0 top-0 p-2"><FiUser /> <span className='text-red-600 absolute top-0 right-0'>*</span></span>
@@ -174,9 +178,10 @@ const RegistrationForm = ({ setDisplay }) => {
                                 <input type="email"
                                     name="email"
                                     value={regDetails.email}
+required
                                     onChange={handleOnChange}
                                     className="btn input_bg px-5 py-2 w-100" placeholder='Email' />
-                                <span className="position-absolute start-0 top-0 p-2"><AiOutlineMail /> </span>
+                                <span className="position-absolute start-0 top-0 p-2"><AiOutlineMail /> <span className='text-red-600 absolute top-0 right-0'>*</span></span>
                             </div>
                         </div>
                         <div className="mb-4">
@@ -201,7 +206,7 @@ const RegistrationForm = ({ setDisplay }) => {
                                 )}
                             </button>
                             <div className="">
-                                Have you been trained by us or Members School before
+                                Have you previously attended any of our programmes?
                             </div>
                         </div>
                         {showMsg && (<p className="text-center mb-3 text-danger">{errorMsg}</p>)}
