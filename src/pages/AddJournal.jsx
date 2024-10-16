@@ -13,6 +13,34 @@ const AddJournal = () => {
   const {
     setGetAllFaculty, getAllFaculty, setGetAllCourses, getAllCourses } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
+const addJournal = (course, remark) => {
+let details = {
+course_id: course.id ,
+faculty_id: filteredData.faculty_id,
+created_by_id: filteredData.faculty_id,
+text_submission: remark,
+file_submission: null,
+status: "pending"
+                }
+
+                    axios.post(`${BASE_URL}ourse/addJournal`, details, {
+                        headers: {
+                            'Authorization': `Bearer ${userCredentials.token}`,
+                        },
+                    })
+                    .then(response => {
+                        console.log(response);
+                        toast.success(response.data.message);
+                        
+                      
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+                };
+
+                
+                
 
   useEffect(() => {
     setGetAllFaculty((prev) => {
@@ -91,7 +119,7 @@ name="courses"
                 cols='30'
                 className="p-2 h-28 w-full bg-transparent placeholder:text-gray-500 placeholder:text-sm"
                 value={remark}
-                onChange={(e) => setRemark(e.target.value)}
+                onInput={(e) => setRemark(e.target.value)}
                 placeholder='Add Description'
               />
             </div>
@@ -99,7 +127,7 @@ name="courses"
         </div>
 
       </div>
-      <button className="my-3 mx-auto w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium">Submit</button>
+      <button onClick={()=>addJournal(getAllFaculty?.data?.courses?.find((item) => item.title === course), renark)} className="my-3 mx-auto w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium">Submit</button>
     </div>
 
   );
