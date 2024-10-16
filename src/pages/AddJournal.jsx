@@ -72,7 +72,7 @@ const AddJournal = () => {
 <option disabled selected className='rounded-md' >Select a Course</option>
 
               {
-                filteredData && filteredData?.courses?.map((item, index) => (
+                filteredData && filteredData?.courses.map((item, index) => (
                   <option className='rounded-md' key={index} value={item?.title}>{item?.title}</option>
                 ))
               }
