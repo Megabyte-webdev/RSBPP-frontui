@@ -70,8 +70,8 @@ const AddJournal = () => {
               onChange={(e) => setCourse(e.target.value)}
             >
 {filteredData 
-?<option disabled selected className='rounded-md' >Select a Course From {filteredData?.title}</option>
-:<option disabled selected className='rounded-md' >Select a Course</option>
+?<option disabled selected value=""  className='rounded-md' >Select a Course From {filteredData?.title}</option>
+:<option disabled selected value="" className='rounded-md' >Select a Course</option>
 }
               {
                 filteredData && filteredData?.courses?.map((item, index) => (
