@@ -45,6 +45,7 @@ const AddJournal = () => {
             <select
               className='p-2 md:p-3 absolute w-full min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500'
               value={faculty}
+name="faculty"
               onChange={(e) => setFaculty(e.target.value)}
             >
 <option disabled selected className='rounded-md' >Select a Faculty</option>
@@ -66,6 +67,7 @@ const AddJournal = () => {
             <small className='font-bold ml-auto px-[2px] text-[10px] md:text-xs text-red-500'>{prof}</small>
             <select
               className='p-2 md:p-3 absolute w-full min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500'
+name="courses"
               value={course}
               onChange={(e) => setCourse(e.target.value)}
             >
