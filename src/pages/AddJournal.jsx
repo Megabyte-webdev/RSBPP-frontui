@@ -5,7 +5,7 @@ import { ResourceContext } from '../context/ResourceContext';
 import { UserContext } from "../context/AuthContext"
 const AddJournal = () => {
       const [filteredData, setFilteredData] = useState(null);
-
+const [message, setMessage] = use State("");
   const [faculty, setFaculty] = useState("Select a Faculty");
   const [course, setCourse] = useState("Select a Programme");
   const [prof, setProf] = useState("Prof Samuel Attong");
@@ -30,11 +30,13 @@ status: "pending"
                     })
                     .then(response => {
                         console.log(response);
+setMessage(response?.data?.message || 'Journal submitted successfully')
                         toast.success(response.data.message);
                         
                       
                     })
                     .catch((error) => {
+setMessage(error)
                         console.log(error);
                     });
                 };
@@ -61,6 +63,7 @@ status: "pending"
     <div className='flex flex-col p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
       <p className='sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium'><BsJournalCheck size="24" />Add Journal</p>
       <div>
+{message && message}
         {/* Dropdown */}
 
         <div className='font-medium my-3'>
