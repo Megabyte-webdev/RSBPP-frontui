@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/new-logo.png";
 import { useState, useEffect, useContext } from "react";
 import { IoIosMenu, IoIosClose } from 'react-icons/io'
 import { TiSocialFacebook, TiSocialInstagram, TiSocialLinkedin, TiSocialTwitter } from 'react-icons/ti'
