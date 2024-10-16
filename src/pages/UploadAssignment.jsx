@@ -15,8 +15,7 @@ const UploadAssignment = () => {
   const [description, setDescription] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null); // Track selected file
-  const [preview, setPreview] = useState(null); // Track image preview
+  const [selectedFile, setSelectedFile] = useState(null);
   const fileInput = useRef(null);
 
   const { setGetAllFaculty, getAllFaculty } = useContext(ResourceContext);
@@ -38,18 +37,20 @@ const UploadAssignment = () => {
     }
 
     setLoading(true);
+
     const formData = new FormData();
+    formData.append("assignment_id", "2");
     formData.append("course_id", selectedCourse.id);
     formData.append("faculty_id", filteredData.id);
     formData.append("created_by_id", userCredentials.id);
-    formData.append("description", description);
-    formData.append("file", selectedFile);
+    formData.append("text_submission", description);
+    formData.append("file_submission", selectedFile);
+    formData.append("status", "submit");
 
     axios
       .post(`${BASE_URL}course/submitAssignment`, formData, {
         headers: {
-          Authorization: `Bearer ${userCredentials.token}`
-         
+          Authorization: `Bearer ${userCredentials.token}`,
         },
       })
       .then((response) => {
@@ -65,10 +66,7 @@ const UploadAssignment = () => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-      setPreview(URL.createObjectURL(file)); // Generate image preview URL
-    }
+    if (file) setSelectedFile(file);
   };
 
   useEffect(() => {
@@ -171,19 +169,17 @@ const UploadAssignment = () => {
         </div>
 
         {/* File Upload Section */}
-        <div
-          className="font-medium my-2 flex flex-col items-center gap-2 border-[1px] h-max border-red-500 rounded-md px-3 py-4"
-          style={{ backgroundImage: `url(${preview})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-        >
-          {!preview && <FaFileUpload size="24" />}
+        <div className="font-medium my-2 flex flex-col items-center gap-2 border-[1px] border-red-500 rounded-md px-3 py-4">
+          <FaFileUpload size="24" />
+          <p>
+            {selectedFile ? selectedFile.name : "Choose a file or drag & drop it here"}
+          </p>
           <input
             type="file"
             ref={fileInput}
             onChange={handleFileChange}
             className="hidden"
           />
-
-<p>Choose a file or drag & drop it here</p>
           <button
             onClick={() => fileInput.current.click()}
             className="border-[1px] border-gray-600 px-8 py-2 text-gray-700 bg-transparent rounded-2xl font-medium"
