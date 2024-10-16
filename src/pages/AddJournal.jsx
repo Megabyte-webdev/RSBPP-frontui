@@ -156,13 +156,15 @@ const AddJournal = () => {
           </section>
         </div>
 
-        <button
-          onClick={() => addJournal(handleCourseSelection())}
-          className="my-3 mx-auto w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium"
-          disabled={loading}
-        >
-          {loading ? "Submitting..." : "Submit"}
-        </button>
+               <div className="flex justify-center">
+          <button
+            onClick={() => addJournal(handleCourseSelection())}
+            className="w-48 my-2 px-8 py-2 text-white bg-[navy] rounded-md font-medium"
+            disabled={loading}
+          >
+            {loading ? "Submitting..." : "Submit"}
+          </button>
+        </div>
       </div>
     </div>
   );
