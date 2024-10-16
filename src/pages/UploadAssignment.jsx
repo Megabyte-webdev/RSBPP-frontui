@@ -44,7 +44,7 @@ const UploadAssignment = () => {
     formData.append("faculty_id", filteredData.id);
     formData.append("created_by_id", userCredentials.id);
     formData.append("text_submission", description);
-    formData.append("file_submission", selectedFile); // Ensure the file input is correctly referenced
+    formData.append("file_submission", selectedFile, "[PROXY]" ); // Ensure the file input is correctly referenced
     formData.append("status", "submit");
 
     const myHeaders = {
