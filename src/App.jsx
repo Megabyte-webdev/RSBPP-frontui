@@ -60,6 +60,7 @@ import OnlineProgramsLayout from "./components/onlineprograms/OnlineProgramsLayo
 import OnlinePrograms from "./components/onlineprograms/OnlinePrograms";
 import Programme from "./components/onlineprograms/Programme";
 import DigiKnowH from "./components/onlineprograms/DigiKnowH";
+import ViewJournals from "./pages/ViewJournals";
 import AddJournal from "./pages/AddJournal";
 import UploadAssignment from "./pages/UploadAssignment";
 // const LazyMeeting = lazy(() => ./components/onlineprograms/OnlineProgramsLayout
@@ -106,6 +107,7 @@ const App = () => {
               <Route path="/soon" element={<ComingSoon />} />
               <Route path="/user_update" element={<ProfileUpdate />} />
               <Route path="/add-journal" element={<AddJournal />} />
+<Route path="/view-journals" element={ViewJournals />} />
               <Route path="/upload-assignment" element={<UploadAssignment />} />
               {role === "instructor" && (
                 <>
