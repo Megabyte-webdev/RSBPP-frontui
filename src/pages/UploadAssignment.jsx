@@ -70,7 +70,7 @@ const UploadAssignment = () => {
     const file = event.target.files[0];
     if (file) {
       setSelectedFile(file);
-      setPreview(URL.createObjectURL(file)); // Generate image preview URL
+      setPreview(URL.createObjectURL(file)); // Generate preview URL
     }
   };
 
@@ -89,7 +89,7 @@ const UploadAssignment = () => {
     const file = event.dataTransfer.files[0];
     if (file) {
       setSelectedFile(file);
-      setPreview(URL.createObjectURL(file)); // Generate image preview URL
+      setPreview(URL.createObjectURL(file)); // Generate preview URL
     }
   };
 
@@ -202,13 +202,9 @@ const UploadAssignment = () => {
           onDrop={handleDrop}
         >
           <FaFileUpload size="24" />
-          {preview ? (
-            <img src={preview} alt="Preview" className="h-24 w-24 object-cover mb-2" />
-          ) : (
-            <p>
-              {selectedFile ? selectedFile.name : "Choose a file or drag & drop it here"}
-            </p>
-          )}
+          <p>
+            {selectedFile ? selectedFile.name : "Choose a file or drag & drop it here"}
+          </p>
           <input
             type="file"
             ref={fileInput}
@@ -222,6 +218,25 @@ const UploadAssignment = () => {
             Browse File
           </button>
         </div>
+
+        {/* Preview Section */}
+        {selectedFile && (
+          <div className="mt-2">
+            {selectedFile.type.startsWith("image/") ? (
+              <img
+                src={preview}
+                alt="Preview"
+                className="h-24 w-24 object-cover border border-red-500 rounded"
+              />
+            ) : (
+              <p className="text-sm text-gray-700">
+                {selectedFile.type === "application/pdf"
+                  ? "PDF File Uploaded: " + selectedFile.name
+                  : "File Uploaded: " + selectedFile.name}
+              </p>
+            )}
+          </div>
+        )}
 
         <div className="flex justify-center">
           <button
