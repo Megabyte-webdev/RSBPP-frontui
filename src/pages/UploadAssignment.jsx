@@ -1,6 +1,7 @@
 import { FaFileUpload } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState, useEffect, useContext, useRef } from "react";
+import axios from "axios"; // Import Axios
 import { ResourceContext } from "../context/ResourceContext";
 import { UserContext } from "../context/AuthContext";
 
@@ -12,12 +13,53 @@ const UploadAssignment = () => {
   const [course, setCourse] = useState("Select a Course");
   const [prof, setProf] = useState("Prof Samuel Attong");
   const [description, setDescription] = useState("");
-  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const fileInput = useRef(null); // Use ref for file input
+  const [loading, setLoading] = useState(false);
+  const fileInput = useRef(null); // Use ref to capture file input
 
   const { setGetAllFaculty, getAllFaculty } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
+
+  const uploadAssignment = () => {
+    const selectedCourse = filteredData?.courses?.find(
+      (item) => item.title === course
+    );
+
+    if (!filteredData || !selectedCourse) {
+      setMessage("Please select a valid faculty and course.");
+      return;
+    }
+
+    if (!fileInput.current.files.length) {
+      setMessage("Please upload a file.");
+      return;
+    }
+
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("course_id", selectedCourse.id);
+    formData.append("faculty_id", filteredData.id);
+    formData.append("created_by_id", userCredentials.id);
+    formData.append("description", description);
+    formData.append("file", fileInput.current.files[0]);
+
+    axios
+      .post(`${BASE_URL}course/uploadAssignment`, formData, {
+        headers: {
+          Authorization: `Bearer ${userCredentials.token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        setMessage(response.data.message || "Assignment uploaded successfully");
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setMessage("An error occurred during upload.");
+        setLoading(false);
+      });
+  };
 
   useEffect(() => {
     setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
@@ -29,47 +71,6 @@ const UploadAssignment = () => {
     );
     setFilteredData(selectedFaculty);
   }, [faculty, getAllFaculty]);
-
-  const handleCourseSelection = () =>
-    filteredData?.courses?.find((item) => item.title === course);
-
-  const uploadAssignment = () => {
-    const selectedCourse = handleCourseSelection();
-    if (!filteredData || !selectedCourse) {
-      setMessage("Please select a valid faculty and course.");
-      return;
-    }
-    if (!fileInput.current.files.length) {
-      setMessage("Please upload a file.");
-      return;
-    }
-
-    setLoading(true);
-    const formData = new FormData();
-    formData.append("course_id", selectedCourse.id);
-    formData.append("faculty_id", filteredData.id);
-    formData.append("created_by_id", userCredentials.id);
-    formData.append("text_submission", description);
-    formData.append("file_submission", fileInput.current.files[0]);
-
-    fetch(`${BASE_URL}course/uploadAssignment`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${userCredentials.token}`,
-      },
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        setMessage(result.message || "Assignment uploaded successfully");
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        setMessage("An error occurred");
-        setLoading(false);
-      });
-  };
 
   return (
     <div
@@ -130,8 +131,8 @@ const UploadAssignment = () => {
           </section>
         </div>
 
-        {/* Submission Section */}
-        <div className="font-medium my-2">
+        {/* Description Section */}
+        <div className="font-medium my-3">
           <section className="flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-3">
             <div className="flex-1 flex flex-col gap-y-2">
               <p className="text-sm md:text-[16px] capitalize">Submission</p>
@@ -146,7 +147,7 @@ const UploadAssignment = () => {
           </section>
         </div>
 
-        {/* File Upload */}
+        {/* File Upload Section */}
         <div className="font-medium my-2 flex flex-col justify-center items-center h-max gap-2 border-[1px] border-red-500 rounded-md p-3">
           <FaFileUpload size="24" />
           <p>Choose a file or drag & drop it here</p>
@@ -159,15 +160,15 @@ const UploadAssignment = () => {
             Browse File
           </button>
         </div>
-      </div>
 
-      <button
-        onClick={uploadAssignment}
-        className="my-2 mx-auto w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium"
-        disabled={loading}
-      >
-        {loading ? "Submitting..." : "Submit"}
-      </button>
+        <button
+          onClick={uploadAssignment}
+          className="my-2 mx-auto w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium"
+          disabled={loading}
+        >
+          {loading ? "Submitting..." : "Submit"}
+        </button>
+      </div>
     </div>
   );
 };
