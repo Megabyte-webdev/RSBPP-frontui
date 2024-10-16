@@ -1,7 +1,7 @@
 import { FaFileUpload } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState, useEffect, useContext, useRef } from "react";
-import axios from "axios"; // Import Axios
+import axios from "axios";
 import { ResourceContext } from "../context/ResourceContext";
 import { UserContext } from "../context/AuthContext";
 
@@ -15,7 +15,8 @@ const UploadAssignment = () => {
   const [description, setDescription] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const fileInput = useRef(null); // Use ref for file input
+  const [selectedFile, setSelectedFile] = useState(null); // Track selected file
+  const fileInput = useRef(null);
 
   const { setGetAllFaculty, getAllFaculty } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
@@ -30,7 +31,7 @@ const UploadAssignment = () => {
       return;
     }
 
-    if (!fileInput.current.files.length) {
+    if (!selectedFile) {
       setMessage("Please upload a file.");
       return;
     }
@@ -41,7 +42,7 @@ const UploadAssignment = () => {
     formData.append("faculty_id", filteredData.id);
     formData.append("created_by_id", userCredentials.id);
     formData.append("description", description);
-    formData.append("file", fileInput.current.files[0]);
+    formData.append("file", selectedFile);
 
     axios
       .post(`${BASE_URL}course/submitAssignment`, formData, {
@@ -61,6 +62,11 @@ const UploadAssignment = () => {
       });
   };
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) setSelectedFile(file);
+  };
+
   useEffect(() => {
     setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
   }, [userCredentials]);
@@ -71,9 +77,6 @@ const UploadAssignment = () => {
     );
     setFilteredData(selectedFaculty);
   }, [faculty, getAllFaculty]);
-
-  const handleCourseSelection = () =>
-    filteredData?.courses?.find((item) => item.title === course);
 
   return (
     <div
@@ -153,41 +156,44 @@ const UploadAssignment = () => {
 
         {/* Description Section */}
         <div className="font-medium my-2">
-          <section className="flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-3">
-            <div className="flex-1 flex flex-col gap-y-2">
-              <p className="text-sm md:text-[16px] capitalize">Submission</p>
-              <textarea
-                cols="30"
-                className="p-2 h-28 w-full bg-transparent placeholder:text-gray-500 placeholder:text-sm"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Add Description"
-              />
-            </div>
+          <section className="border-[1px] border-red-500 rounded-md p-3">
+            <textarea
+              cols="30"
+              className="p-2 h-28 w-full bg-transparent placeholder:text-gray-500 placeholder:text-sm"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Add Description"
+            />
           </section>
         </div>
 
         {/* File Upload Section */}
-        <div className="font-medium my-2 flex flex-col justify-center items-center h-max gap-2 border-[1px] border-red-500 rounded-md p-3">
+        <div className="font-medium my-2 flex flex-col items-center gap-2 border-[1px] border-red-500 rounded-md p-3">
           <FaFileUpload size="24" />
-          <p>Choose a file or drag & drop it here</p>
-          <button className="border-[1px] border-gray-600 my-2 mx-auto w-48 px-8 py-2 text-gray-700 bg-transparent rounded-2xl font-medium relative cursor-pointer">
-            <input
-              type="file"
-              ref={fileInput}
-              className="cursor-pointer absolute top-0 bottom-0 right-0 left-0 w-full h-full opacity-0 m-auto"
-            />
+          <p>{selectedFile ? selectedFile.name : "Choose a file or drag & drop it here"}</p>
+          <input
+            type="file"
+            ref={fileInput}
+            onChange={handleFileChange}
+            className="hidden"
+          />
+          <button
+            onClick={() => fileInput.current.click()}
+            className="border-[1px] border-gray-600 px-8 py-2 text-gray-700 bg-transparent rounded-2xl font-medium"
+          >
             Browse File
           </button>
         </div>
 
-        <button
-          onClick={uploadAssignment}
-          className="my-2 mx-auto w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium"
-          disabled={loading}
-        >
-          {loading ? "Submitting..." : "Submit"}
-        </button>
+        <div className="flex justify-center">
+          <button
+            onClick={uploadAssignment}
+            className="w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium"
+            disabled={loading}
+          >
+            {loading ? "Submitting..." : "Submit"}
+          </button>
+        </div>
       </div>
     </div>
   );
