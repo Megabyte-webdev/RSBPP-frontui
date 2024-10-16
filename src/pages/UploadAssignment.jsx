@@ -44,7 +44,7 @@ const UploadAssignment = () => {
     formData.append("file", fileInput.current.files[0]);
 
     axios
-      .post(`${BASE_URL}course/uploadAssignment`, formData, {
+      .post(`${BASE_URL}course/submitAssignment`, formData, {
         headers: {
           Authorization: `Bearer ${userCredentials.token}`,
           "Content-Type": "multipart/form-data",
