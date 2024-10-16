@@ -51,18 +51,18 @@ const ViewJournals = () => {
                     className="w-10 h-10 rounded-full"
                   />
                   <div>
-                    <p className="font-medium text-xl">{row.name}</p>
-                    <p className="text-sm text-gray-500">{row.email}</p>
+                    <p className="font-medium text-sm">{row.name}</p>
+                    <p className="text-xs text-gray-500">{row.email}</p>
                   </div>
                 </td>
-               <td className="p-2 flex items-center w-max font-bold">
+               <td className="p-2 flex items-center font-bold">
                   <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
                     {row.faculty}
                   </span>
                 </td>
                  <td className="p-2 flex items-center">{row.dateAdded}</td>
                 <td className="p-2 flex flex-col justify-center">
-<p className='text-xl font-medium'>Sales CRM</p><p className='text-sm'>{row.submission}</p></td>
+<p className='text-sm font-medium'>Sales CRM</p><p className='text-xs'>{row.submission}</p></td>
                  <td className="p-2 flex items-center">
                   {row.status}
                 </td>
