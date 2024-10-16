@@ -6,6 +6,7 @@ import { UserContext } from "../context/AuthContext"
 const AddJournal = () => {
       const [filteredData, setFilteredData] = useState(null);
 const [message, setMessage] = useState("");
+const [loading, setLoading] = useState(false);
   const [faculty, setFaculty] = useState("Select a Faculty");
   const [course, setCourse] = useState("Select a Programme");
   const [prof, setProf] = useState("Prof Samuel Attong");
@@ -14,6 +15,7 @@ const [message, setMessage] = useState("");
     setGetAllFaculty, getAllFaculty, setGetAllCourses, getAllCourses } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
 const addJournal = (course, remark) => {
+setLoading(true)
 let details = {
 course_id: course.id ,
 faculty_id: filteredData.faculty_id,
@@ -31,6 +33,7 @@ status: "pending"
                     .then(response => {
                         console.log(response);
 setMessage(response?.data?.message || 'Journal submitted successfully')
+setLoading(false)
                         toast.success(response.data.message);
                         
                       
@@ -38,6 +41,7 @@ setMessage(response?.data?.message || 'Journal submitted successfully')
                     .catch((error) => {
 setMessage(error)
                         console.log(error);
+setLoading(false)
                     });
                 };
 
@@ -63,7 +67,10 @@ setMessage(error)
     <div className='flex flex-col p-3 p-md-5 min-vh-100 poppins' style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
       <p className='sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium'><BsJournalCheck size="24" />Add Journal</p>
       <div>
+<p>
 {message && message}
+{loading && 'Loading...'}
+</p>
         {/* Dropdown */}
 
         <div className='font-medium my-3'>
