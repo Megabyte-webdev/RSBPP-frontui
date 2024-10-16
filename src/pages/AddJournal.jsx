@@ -10,21 +10,18 @@ const AddJournal = () => {
   const [filteredData, setFilteredData] = useState(null);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [faculty, setFaculty] = useState("");
-  const [course, setCourse] = useState("");
+  const [faculty, setFaculty] = useState("Select a Faculty");
+  const [course, setCourse] = useState("Select a Programme");
+  const [prof, setProf] = useState("Prof Samuel Attong");
   const [remark, setRemark] = useState("");
-  const fileInput = useRef(null); // Use ref for file input
+  const fileInput = useRef(null); // Reference for file input
 
   const { setGetAllFaculty, getAllFaculty } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
 
   const addJournal = (selectedCourse) => {
-    if (!filteredData) {
-      setMessage("Please select a faculty.");
-      return;
-    }
-    if (!selectedCourse) {
-      setMessage("Please select a valid course.");
+    if (!filteredData || !selectedCourse) {
+      setMessage("Please select a valid faculty and course.");
       return;
     }
     if (!fileInput.current.files.length) {
@@ -80,8 +77,7 @@ const AddJournal = () => {
       style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}
     >
       <p className="sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium">
-        <BsJournalCheck size="24" />
-        Add Journal
+        <BsJournalCheck size="24" />Add Journal
       </p>
       <div>
         <p>{message && message}</p>
@@ -91,12 +87,20 @@ const AddJournal = () => {
         <div className="font-medium my-3">
           <p className="text-sm md:text-xl my-2">Choose RSBPP Faculty</p>
           <section className="relative flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
+            <div className="flex flex-col gap-y-2">
+              <p className="text-xs md:text-[16px] capitalize">{faculty}</p>
+              <p className="text-xs md:text-sm text-gray-600 capitalize overflow-hidden">
+                {filteredData
+                  ? `${filteredData.description.split(" ").slice(0, 8).join(" ")}...`
+                  : "Select Faculty"}
+              </p>
+            </div>
             <select
-              className="p-2 md:p-3 w-full text-sm cursor-pointer rounded-md border-[1px] border-red-500"
+              className="p-2 md:p-3 absolute w-full min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
               value={faculty}
               onChange={(e) => setFaculty(e.target.value)}
             >
-              <option disabled value="">
+              <option disabled value="Select a Faculty">
                 Select a Faculty
               </option>
               {getAllFaculty?.data?.map((item, index) => (
@@ -105,19 +109,30 @@ const AddJournal = () => {
                 </option>
               ))}
             </select>
-            <IoIosArrowDown size="20" className="text-red-500" />
+            <p className="border-l border-gray-500 pl-4 text-red-500">
+              <IoIosArrowDown size="20" />
+            </p>
           </section>
         </div>
 
         {/* Course Dropdown */}
-        <div className="font-medium my-3">
-          <section className="flex items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
+        <div className="relative font-medium my-3">
+          <section className="flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
+            <div className="flex flex-col gap-y-2">
+              <p className="text-xs md:text-[16px] capitalize">{course}</p>
+              <p className="text-xs md:text-sm text-gray-600 capitalize">
+                Select Course
+              </p>
+            </div>
+            <small className="font-bold ml-auto px-[2px] text-[10px] md:text-xs text-red-500">
+              {prof}
+            </small>
             <select
-              className="p-2 md:p-3 w-full text-sm cursor-pointer rounded-md border-[1px] border-red-500"
+              className="p-2 md:p-3 absolute w-full min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
               value={course}
               onChange={(e) => setCourse(e.target.value)}
             >
-              <option disabled value="">
+              <option disabled value="Select a Programme">
                 Select a Course
               </option>
               {filteredData?.courses?.map((item, index) => (
@@ -126,31 +141,30 @@ const AddJournal = () => {
                 </option>
               ))}
             </select>
-            <IoIosArrowDown size="20" className="text-red-500" />
+            <p className="pl-[2px] md:pl-4 text-red-500">
+              <IoIosArrowDown size="20" />
+            </p>
           </section>
         </div>
 
         {/* Remark Section */}
         <div className="font-medium my-3">
-          <textarea
-            cols="30"
-            rows="5"
-            className="p-2 w-full bg-transparent border-[1px] border-red-500 rounded-md placeholder:text-gray-500"
-            value={remark}
-            onChange={(e) => setRemark(e.target.value)}
-            placeholder="Add Description"
-          />
+          <section className="flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
+            <div className="flex-1 flex flex-col gap-y-2">
+              <p className="text-sm md:text-[16px] capitalize">Remark</p>
+              <textarea
+                cols="30"
+                className="p-2 h-28 w-full bg-transparent placeholder:text-gray-500 placeholder:text-sm"
+                value={remark}
+                onInput={(e) => setRemark(e.target.value)}
+                placeholder="Add Description"
+              />
+            </div>
+          </section>
         </div>
 
-        {/* File Input */}
-        <input
-          type="file"
-          ref={fileInput}
-          className="my-3"
-          accept="application/pdf, image/*"
-        />
+        <input type="file" ref={fileInput} className="my-3" />
 
-        {/* Submit Button */}
         <button
           onClick={() => addJournal(handleCourseSelection())}
           className="my-3 mx-auto w-48 px-8 py-2 text-white bg-[navy] rounded-md font-medium"
