@@ -4,11 +4,11 @@ import React, { useEffect, useState } from 'react';
 const fetchAllAssignments = async () => [
   {
     id: 1,
-    name: 'Jason Price',
-    role: 'Admin',
-    email: 'janick_parisian@yahoo.com',
+    name: 'Afolabi Mubarak',
+    role: 'Student',
+    email: 'afolabimubarak18@gmail.com',
     image: 'https://via.placeholder.com/100',
-    submittedBy: 'Jason Price',
+    submittedBy: 'Afolabi Mubarak',
   },
   {
     id: 2,
@@ -52,7 +52,7 @@ const fetchAllAssignments = async () => [
 ];
 
 const fetchUserAssignments = async (user) =>
-  (await fetchAllAssignments()).filter((assignment) => assignment.submittedBy === user.name);
+  (await fetchAllAssignments()).filter((assignment) => assignment.email === user.email);
 
 const SubmittedAssignments = ({ user }) => {
   const [assignments, setAssignments] = useState([]);

@@ -2,10 +2,14 @@ import React from 'react';
 import { BsJournalCheck } from 'react-icons/bs';
 
 const ViewJournals = () => {
+
+    //scroll to top
+    scrollTo(0, 0)
+
   const data = [
     {
-      name: 'Company',
-      email: 'company.com',
+      name: 'Afolabi Mubarak',
+      email: 'afolabimubarak18@gmail.com',
       faculty: 'In progress',
       dateAdded: '15 Oct 2024',
       submission: 'Web-based app for sales',
@@ -21,6 +25,8 @@ const ViewJournals = () => {
     },
     // Add more rows if needed
   ];
+
+
 
   return (
     <div className="flex flex-col p-4 md:p-8 min-h-screen font-sans">
@@ -41,9 +47,8 @@ const ViewJournals = () => {
             {data.map((row, index) => (
               <tr
                 key={index}
-                className={`border-b ${
-                  index % 2 === 0 ? 'bg-gray-50' : 'bg-white'
-                }`}
+                className={`border-b ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'
+                  }`}
               >
                 {/* Course Name and Avatar */}
                 <td className="p-2 mx-2">

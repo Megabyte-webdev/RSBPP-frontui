@@ -15,11 +15,12 @@ const UploadAssignment = () => {
   const [course, setCourse] = useState("Select a Course");
   const [prof, setProf] = useState("Prof Samuel Attong");
   const [description, setDescription] = useState("");
-  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null); // Track selected file
   const [isDragging, setIsDragging] = useState(false); // Track drag state
   const fileInput = useRef(null);
+  //scroll to top
+  scrollTo(0, 0)
 
   const { setGetAllFaculty, getAllFaculty } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
@@ -30,12 +31,12 @@ const UploadAssignment = () => {
     );
 
     if (!filteredData || !selectedCourse) {
-      setMessage("Please select a valid faculty and course.");
+      toast.error("Please select a valid faculty and course.");
       return;
     }
 
     if (!selectedFile) {
-      setMessage("Please upload a file.");
+      toast.error("Please upload a file.");
       return;
     }
 
@@ -58,14 +59,12 @@ const UploadAssignment = () => {
     axios
       .post(`${BASE_URL}course/submitAssignment`, formData, { headers: myHeaders })
       .then((response) => {
-        setMessage(response?.data.message || "Assignment uploaded successfully");
         toast.success(response?.data.message || "Assignment submitted successfully")
         setLoading(false);
       })
       .catch((error) => {
         // Detailed error handling
         console.error("Upload error:", error.response ? error.response.data : error.message);
-        setMessage(error.response?.data?.message || "An error occurred during upload.");
         toast.error(error?.data?.message || "An error occurred during upload.")
         setLoading(false);
       });
@@ -130,7 +129,7 @@ const UploadAssignment = () => {
               </p>
             </div>
             <select
-              className="p-2 md:p-3 absolute w-full min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
+              className="p-2 md:p-3 absolute w-[98%] min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md"
               value={faculty}
               onChange={(e) => setFaculty(e.target.value)}
             >
@@ -143,7 +142,7 @@ const UploadAssignment = () => {
                 </option>
               ))}
             </select>
-            <p className="border-l border-gray-500 pl-4 text-red-500">
+            <p className="border-l border-gray-500 md:pl-7 pl-4 text-red-500">
               <IoIosArrowDown size="20" />
             </p>
           </section>
@@ -160,7 +159,7 @@ const UploadAssignment = () => {
               {prof}
             </small>
             <select
-              className="p-2 md:p-3 absolute w-full min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
+              className="p-2 md:p-3 w-[98%] absolute min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md"
               value={course}
               onChange={(e) => setCourse(e.target.value)}
             >
@@ -193,9 +192,8 @@ const UploadAssignment = () => {
 
         {/* File Upload Section with Drag-and-Drop */}
         <div
-          className={`font-medium my-2 flex flex-col items-center gap-2 border-[1px] border-red-500 rounded-md px-3 py-4 ${
-            isDragging ? "bg-gray-200" : ""
-          }`}
+          className={`font-medium my-2 flex flex-col items-center gap-2 border-[1px] border-red-500 rounded-md px-3 py-4 ${isDragging ? "bg-gray-200" : ""
+            }`}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}

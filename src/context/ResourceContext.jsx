@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { UserContext } from "./AuthContext";
 import { getItemByPost, getItemFunc, getTimeTable } from "../components/utils/getApi";
+import { TOKEN } from "../components/utils/base";
 
 export const ResourceContext = createContext();
 
@@ -85,7 +86,7 @@ function ResourceContextProvider({ children }) {
         if (getAllCourses.isDataNeeded) {
             const endPoint = "course/getAllCourses"
             const dataArray = "allCourses"
-            getItemFunc(token, setGetAllCourses, setErrorMessage, endPoint, dataArray)
+            getItemFunc(token || TOKEN, setGetAllCourses, setErrorMessage, endPoint, dataArray)
         }
     }, [getAllCourses.isDataNeeded]);
 

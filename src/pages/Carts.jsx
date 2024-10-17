@@ -103,6 +103,7 @@ const Carts = () => {
         }
     };
 
+
     useEffect(() => {
         if (fromLocal?.user === "guest" && userCredentials !== null) {
             fromLocal?.data.forEach((course) => {
@@ -150,15 +151,14 @@ const Carts = () => {
         }
     }, [getAllCarts]);
 
-    useEffect(() => {
-        if (userCredentials) {
-            setGetAllCourses((prev) => {
-                return {
-                    ...prev, isDataNeeded: true
-                }
-            });
-        }
-    }, []);
+    // useEffect(() => {
+    //         setGetAllCourses((prev) => {
+    //             return {
+    //                 ...prev, isDataNeeded: true
+    //             }
+    //         });
+    //     console.log(getAllCourses)
+    // }, []);
 
     useEffect(() => {
         if (userCredentials) {
@@ -180,11 +180,11 @@ const Carts = () => {
         ));
 
 
-    const listUsers = getAllCourses.data?.map((course) => {
-        return (
-            <LearningCourse key={course.id} userCredentials={userCredentials} cartList={ getAllCarts?.data} course={course} />
-        )
-    });
+    // const listUsers = getAllCourses.data?.map((course) => {
+    //     return (
+    //         <LearningCourse key={course.id} userCredentials={userCredentials && userCredentials} cartList={ getAllCarts?.data || fromLocal?.data} course={course} />
+    //     )
+    // });
 
     return (
         <div style={{ backgroundColor: "hsla(0, 0%, 95%, 1)" }}>
@@ -263,11 +263,25 @@ const Carts = () => {
                         {/* <Payment /> */}
                         <div className="row">
                             <h3 className='my-4'>SIMILAR COURSE</h3>
-                            {getAllCourses.data && (
+                            {/* {getAllCourses.data && (
                                 <CourseCarousel>
                                     {listUsers}
                                 </CourseCarousel>
-                            )}
+                            )} */}
+                            <div className='flex flex-wrap gap-5'>
+                                {/* left */}
+                                <div className='bg-gray-300 flex flex-col gap-y-2 w-[300px] min-h-[200px] border border-gray-600'>
+                                    <p className='bg-red-900 text-white text-xl flex items-center justify-center p-2'>Online programmes</p>
+                                    <p className='p-2 text-sm'>Check out our online programmes and enjoy your moment.</p>
+                                    <button className='w-[80%] mx-auto mt-auto p-3 bg-gray-800 font-semibold text-white text-sm'>Click View Courses</button>
+                                </div>
+                                {/* right */}
+                                <div className='bg-gray-300 flex flex-col gap-y-2 w-[300px] min-h-[200px] border border-gray-600'>
+                                    <p className='bg-red-900 text-white text-xl flex items-center justify-center p-2'>DigiKnowH</p>
+                                    <p className='p-2 text-sm'>Check out our online programmes and enjoy your moment.</p>
+                                    <button className='w-[80%] mx-auto mt-auto p-3 bg-gray-800 font-semibold text-white text-sm'>Click View Courses</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

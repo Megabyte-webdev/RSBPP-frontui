@@ -11,7 +11,6 @@ import { Spinner } from "react-bootstrap";
 
 const AddJournal = () => {
   const [filteredData, setFilteredData] = useState(null);
-  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [faculty, setFaculty] = useState("Select a Faculty");
   const [course, setCourse] = useState("Select a Programme");
@@ -21,9 +20,12 @@ const AddJournal = () => {
   const { setGetAllFaculty, getAllFaculty } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
 
+  //scroll to top
+  scrollTo(0, 0)
+
   const addJournal = (selectedCourse) => {
     if (!filteredData || !selectedCourse) {
-      setMessage("Please select a valid faculty and course.");
+      toast.error("Please select a valid faculty and course.");
       return;
     }
 
@@ -42,13 +44,11 @@ const AddJournal = () => {
         },
       })
       .then((response) => {
-        setMessage(response.data.message || "Journal submitted successfully");
         toast.success(response.data.message || "Journal submitted successfully")
         setLoading(false);
       })
       .catch((error) => {
         console.error(error);
-        setMessage("An error occurred");
         toast.error(error?.message || error?.data?.message || "An error occurred")
         setLoading(false);
       });
@@ -80,7 +80,7 @@ const AddJournal = () => {
 
         {/* Faculty Dropdown */}
         <div className="font-medium my-3">
-          <p className="text-sm md:text-sm text-xs my-2">Choose RSBPP Faculty</p>
+          <p className="md:text-sm text-xs my-2">Choose RSBPP Faculty</p>
           <section className="relative flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
             <div className="flex flex-col gap-y-2">
               <p className="text-xs md:text-[16px] capitalize">{faculty}</p>
@@ -91,7 +91,7 @@ const AddJournal = () => {
               </p>
             </div>
             <select
-              className="p-2 md:p-3 absolute w-full min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
+              className="p-2 md:p-3 absolute w-[98%] min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
               value={faculty}
               onChange={(e) => setFaculty(e.target.value)}
             >
@@ -104,7 +104,7 @@ const AddJournal = () => {
                 </option>
               ))}
             </select>
-            <p className="border-l border-gray-500 pl-4 text-red-500">
+            <p className="border-l border-gray-500 md:pl-7 pl-4 text-red-500">
               <IoIosArrowDown size="20" />
             </p>
           </section>
@@ -123,7 +123,7 @@ const AddJournal = () => {
               {prof}
             </small>
             <select
-              className="p-2 md:p-3 absolute w-full min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
+              className="p-2 md:p-3 absolute w-[98%] min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
               value={course}
               onChange={(e) => setCourse(e.target.value)}
             >
@@ -158,7 +158,7 @@ const AddJournal = () => {
           </section>
         </div>
 
-               <div className="flex justify-center">
+        <div className="flex justify-center">
           <button
             onClick={() => addJournal(handleCourseSelection())}
             className="w-48 my-2 px-8 py-2 text-white bg-[navy] rounded-md font-medium cursor-pointer"
