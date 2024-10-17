@@ -22,16 +22,16 @@ const ViewJournals = () => {
         Add Journal
       </p>
 
-      {/* Table Wrapper */}
+      {/* Table Wrapper with Horizontal Scroll */}
       <div className="overflow-x-auto mt-6">
-        <table className="min-w-full table-fixed bg-white shadow-lg rounded-lg border border-gray-300">
+        <table className="min-w-max bg-white shadow-lg rounded-lg border border-gray-300">
           <thead className="bg-gray-200">
             <tr>
-              <th className="p-4 text-left w-1/4">Course Name</th>
-              <th className="p-4 text-left w-1/6 hidden sm:table-cell">Faculty</th>
-              <th className="p-4 text-left w-1/6 hidden md:table-cell">Date Added</th>
-              <th className="p-4 text-left w-1/4">File Submission</th>
-              <th className="p-4 text-left w-1/6 hidden lg:table-cell">Status</th>
+              <th className="p-4 text-left w-[180px]">Course Name</th>
+              <th className="p-4 text-left w-[120px] hidden sm:table-cell">Faculty</th>
+              <th className="p-4 text-left w-[150px] hidden md:table-cell">Date Added</th>
+              <th className="p-4 text-left w-[200px]">File Submission</th>
+              <th className="p-4 text-left w-[120px] hidden lg:table-cell">Status</th>
             </tr>
           </thead>
           <tbody>
