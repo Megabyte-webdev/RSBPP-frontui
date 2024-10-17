@@ -34,28 +34,27 @@ const fetchUserAssignments = async (user) =>
 const SubmittedAssignments = ({ user }) => {
   const [assignments, setAssignments] = useState([]);
 
-उसेत(() => {
+  useEffect(() => {
     const loadAssignments = async () => {
       const data =
         user.role === 'admin'
           ? await fetchAllAssignments() // Fetch all for admin
           : await fetchUserAssignments(user); // Fetch only user's assignments
-सेट्स्सिग्न्मेंट्स(डटा);
+      setAssignments(data);
     };
 
-Loadssignमेंट्स();
-}, [उसेर]);
+    loadAssignments();
+  }, [user]);
 
   return (
     <div className="p-8 min-h-screen bg-gray-50 flex justify-center">
-      
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {assignments.map((assignment) => (
           <div
             key={assignment.id}
             className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center"
           >
-<img
+            <img
               src={assignment.image}
               alt={assignment.name}
               className="w-24 h-24 rounded-full mb-4"
