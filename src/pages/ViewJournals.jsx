@@ -15,12 +15,12 @@ const ViewJournals = () => {
   ];
 
   return (
-    <div className="flex flex-col p-4 md:p-8 min-h-screen bg-blue-50/50 font-sans">
+    <div className="flex flex-col p-4 md:p-8 min-h-screen font-sans">
 
       {/* Table Wrapper with Horizontal Scroll */}
       <div className="overflow-x-auto mt-6">
-        <table className="w-full min-w-[600px] bg-white shadow-lg rounded-lg border border-gray-300">
-          <thead className="bg-gray-200">
+        <table className="w-full min-w-[700px] bg-white shadow-lg rounded-lg border border-gray-300">
+          <thead className="font-semibold">
             <tr>
               <th className="p-2 mx-2 text-left">Course Name</th>
               <th className="p-2 mx-2 text-left">Faculty</th>
@@ -39,7 +39,7 @@ const ViewJournals = () => {
               >
                 {/* Course Name and Avatar */}
                 <td className="p-2 mx-2">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-x-2">
                     <img
                       src="https://via.placeholder.com/40"
                       alt="Avatar"
