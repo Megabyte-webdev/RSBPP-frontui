@@ -33,6 +33,21 @@ const fetchAllAssignments = async () => [
     email: 'nadia_block@hotmail.com',
     image: 'https://via.placeholder.com/100',
     submittedBy: 'Harriet King',
+  },  {
+    id: 4,
+    name: 'Silex Secure',
+    role: 'CTO',
+    email: 'nadia_block@hotmail.com',
+    image: 'https://via.placeholder.com/100',
+    submittedBy: 'Harriet King',
+  },
+  {
+    id: 3,
+    name: 'Harriet King',
+    role: 'CTO',
+    email: 'nadia_block@hotmail.com',
+    image: 'https://via.placeholder.com/100',
+    submittedBy: 'Harriet King',
   },
 ];
 
