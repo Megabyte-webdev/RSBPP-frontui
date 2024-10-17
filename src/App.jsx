@@ -110,6 +110,7 @@ const App = () => {
               <Route path="/add-journal" element={<AddJournal />} />
 <Route path="/view-journals" element={<ViewJournals />} />
               <Route path="/upload-assignment" element={<UploadAssignment />} />
+<Route path="/submitted-assignments" element={<SubmittedAssignments user={userCredentials?.user} />} />
               {role === "instructor" && (
                 <>
                   <Route
@@ -177,7 +178,6 @@ const App = () => {
             </Route>
             {userCredentials && (
               <>
-<Route path="/submitted-assignments" element={<SubmittedAssignments user={userCredentials?.user} />} />
 
                 <Route path="/learning/:id" element={<LearningDetails />} />
                 <Route path="/carts" element={<Carts />} />
