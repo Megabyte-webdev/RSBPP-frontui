@@ -116,6 +116,19 @@ export const adminConstants = [
                 link: "/time_table",
             },
         ]
+    },{
+        title: "Assignment",
+        logo: iconTwo,
+        subOptions: [
+            {
+                title: "Upload Assignment",
+                link: "/upload-assignment",
+            },
+            {
+                title: "Submitted Assignments",
+                link: "/submitted-assignments",
+            }
+        ]
     },
     {
         title: "Admin",
