@@ -7,7 +7,7 @@ const ViewJournals = () => {
       name: 'Company',
       email: 'company.com',
       faculty: 'In progress',
-      dateAdded: '',
+      dateAdded: '15 Oct 2024',
       submission: 'Web-based app for sales',
       status: 'Completed',
     },
@@ -15,9 +15,7 @@ const ViewJournals = () => {
   ];
 
   return (
-    <div
-      className="flex flex-col p-4 md:p-8 min-h-screen bg-blue-50/50 font-sans"
-    >
+    <div className="flex flex-col p-4 md:p-8 min-h-screen bg-blue-50/50 font-sans">
       {/* Add Journal Button */}
       <p className="sticky top-4 bg-transparent ml-auto my-2 flex items-center gap-2 text-lg font-medium text-blue-600">
         <BsJournalCheck size={24} />
@@ -26,14 +24,14 @@ const ViewJournals = () => {
 
       {/* Table Wrapper */}
       <div className="overflow-x-auto mt-6">
-        <table className="w-full bg-white shadow-lg rounded-lg">
+        <table className="w-full bg-white shadow-lg rounded-lg border-collapse">
           <thead className="bg-gray-200">
             <tr>
-              <th className="p-2 text-left">Course Name</th>
-              <th className="p-2 text-left">Faculty</th>
-              <th className="p-2 text-left">Date Added</th>
-              <th className="p-2 text-left">File Submission</th>
-              <th className="p-2 text-left">Status</th>
+              <th className="p-2 text-left w-[20%]">Course Name</th>
+              <th className="p-2 text-left w-[15%]">Faculty</th>
+              <th className="p-2 text-left w-[15%]">Date Added</th>
+              <th className="p-2 text-left w-[30%]">File Submission</th>
+              <th className="p-2 text-left w-[20%]">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -44,26 +42,41 @@ const ViewJournals = () => {
                   index % 2 === 0 ? 'bg-gray-50' : 'bg-white'
                 }`}
               >
-                <td className="p-2 flex items-center gap-2">
-                  <img
-                    src="https://via.placeholder.com/40"
-                    alt="Avatar"
-                    className="w-10 h-10 rounded-full"
-                  />
-                  <div>
-                    <p className="font-medium text-sm">{row.name}</p>
-                    <p className="text-xs text-gray-500">{row.email}</p>
+                {/* Course Name and Avatar */}
+                <td className="p-2">
+                  <div className="flex items-center gap-2">
+                    <img
+                      src="https://via.placeholder.com/40"
+                      alt="Avatar"
+                      className="w-10 h-10 rounded-full"
+                    />
+                    <div className="leading-tight">
+                      <p className="font-medium text-sm">{row.name}</p>
+                      <p className="text-xs text-gray-500">{row.email}</p>
+                    </div>
                   </div>
                 </td>
-               <td className="p-2 flex items-center font-bold">
+
+                {/* Faculty */}
+                <td className="p-2">
                   <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
                     {row.faculty}
                   </span>
                 </td>
-                 <td className="p-2 flex items-center">{row.dateAdded}</td>
-                <td className="p-2 flex flex-col justify-center">
-<p className='text-sm font-medium'>Sales CRM</p><p className='text-xs'>{row.submission}</p></td>
-                 <td className="p-2 flex items-center">
+
+                {/* Date Added */}
+                <td className="p-2">{row.dateAdded || 'N/A'}</td>
+
+                {/* File Submission */}
+                <td className="p-2">
+                  <div className="leading-tight">
+                    <p className="text-sm font-medium">Sales CRM</p>
+                    <p className="text-xs text-gray-500">{row.submission}</p>
+                  </div>
+                </td>
+
+                {/* Status */}
+                <td className="p-2 text-green-600 font-semibold">
                   {row.status}
                 </td>
               </tr>
