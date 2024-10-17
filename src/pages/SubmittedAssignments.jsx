@@ -48,6 +48,9 @@ const SubmittedAssignments = ({ user }) => {
 
   return (
     <div className="p-8 min-h-screen bg-gray-50 flex justify-center">
+      <p className="sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium">
+View Recent Submitted Assignments 
+</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {assignments.map((assignment) => (
           <div
