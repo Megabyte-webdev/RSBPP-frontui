@@ -8,7 +8,10 @@ export default {
     extend: {
       "Ripple-Bold":['Ripple-Bold'],
       "Ripple-BoldItalic":['Ripple-BoldItalic'] ,
-      "Ripple-Regular":['Ripple-Regular'] 
+      "Ripple-Regular":['Ripple-Regular'],
+      gridTemplateColumns:{
+        'auto': "repeat(auto-fill, minmax(200px, 1fr))"
+      }
       
     },
   },
