@@ -24,14 +24,14 @@ const ViewJournals = () => {
 
       {/* Table Wrapper */}
       <div className="overflow-x-auto mt-6">
-        <table className="min-w-full bg-white shadow-lg rounded-lg border-collapse">
+        <table className="min-w-full table-fixed bg-white shadow-lg rounded-lg border border-gray-300">
           <thead className="bg-gray-200">
             <tr>
-              <th className="p-2 text-left w-[120px]">Course Name</th>
-              <th className="p-2 text-left w-[100px]">Faculty</th>
-              <th className="p-2 text-left w-[120px]">Date Added</th>
-              <th className="p-2 text-left w-[120px]">File Submission</th>
-              <th className="p-2 text-left w-[120px]">Status</th>
+              <th className="p-4 text-left w-1/4">Course Name</th>
+              <th className="p-4 text-left w-1/6 hidden sm:table-cell">Faculty</th>
+              <th className="p-4 text-left w-1/6 hidden md:table-cell">Date Added</th>
+              <th className="p-4 text-left w-1/4">File Submission</th>
+              <th className="p-4 text-left w-1/6 hidden lg:table-cell">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -43,40 +43,40 @@ const ViewJournals = () => {
                 }`}
               >
                 {/* Course Name and Avatar */}
-                <td className="p-2">
-                  <div className="flex items-center gap-2">
+                <td className="p-4">
+                  <div className="flex items-center gap-4">
                     <img
                       src="https://via.placeholder.com/40"
                       alt="Avatar"
-                      className="w-10 h-10 rounded-full"
+                      className="w-12 h-12 rounded-full"
                     />
-                    <div className="leading-tight">
-                      <p className="font-medium text-sm">{row.name}</p>
-                      <p className="text-xs text-gray-500">{row.email}</p>
+                    <div className="leading-snug">
+                      <p className="font-medium text-base">{row.name}</p>
+                      <p className="text-sm text-gray-500">{row.email}</p>
                     </div>
                   </div>
                 </td>
 
                 {/* Faculty */}
-                <td className="p-2">
-                  <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                <td className="p-4 hidden sm:table-cell">
+                  <span className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm">
                     {row.faculty}
                   </span>
                 </td>
 
                 {/* Date Added */}
-                <td className="p-2">{row.dateAdded || 'N/A'}</td>
+                <td className="p-4 hidden md:table-cell">{row.dateAdded || 'N/A'}</td>
 
                 {/* File Submission */}
-                <td className="p-2">
-                  <div className="leading-tight">
-                    <p className="text-sm font-medium">Sales CRM</p>
-                    <p className="text-xs text-gray-500">{row.submission}</p>
+                <td className="p-4">
+                  <div className="leading-snug">
+                    <p className="text-base font-medium">Sales CRM</p>
+                    <p className="text-sm text-gray-500">{row.submission}</p>
                   </div>
                 </td>
 
                 {/* Status */}
-                <td className="p-2 text-green-600 font-semibold">
+                <td className="p-4 text-green-600 font-semibold hidden lg:table-cell">
                   {row.status}
                 </td>
               </tr>
