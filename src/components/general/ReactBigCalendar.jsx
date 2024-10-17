@@ -96,8 +96,8 @@ const ReactBigCalendar = ({ timeTables }) => {
             <div className='bg-white p-3 rounded-3'>
                 <div className="d-flex justify-content-between my-2">
                     <div className='d-flex align-items-center'>
-                        <button onClick={()=> setDate(moment().toDate())} className='btn border rounded-pill'>Today</button>
-                        <div className='ms-3 d-none d-md-block'>
+                        <button onClick={()=> setDate(moment().toDate())} className='btn border rounded-pill text-xs md:text-sm'>Today</button>
+                        <div className='ms-2 md:ms-3 d-none d-md-block'>
                             <input id='date_picker' className='border py-2 px-3 rounded-pill' onChange={(e)=> setDate(e.target.value)} value={date} type="date"/>
                         </div>
                     </div>
