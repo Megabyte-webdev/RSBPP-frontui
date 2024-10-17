@@ -54,8 +54,8 @@ export const sidebarConstants = [
                 link: "/upload-assignment",
             },
             {
-                title: "View Assignment",
-                link: "/view-assignment",
+                title: "Submitted Assignments",
+                link: "/submitted-assignments",
             }
         ]
     },
