@@ -63,6 +63,7 @@ import DigiKnowH from "./components/onlineprograms/DigiKnowH";
 import ViewJournals from "./pages/ViewJournals";
 import AddJournal from "./pages/AddJournal";
 import UploadAssignment from "./pages/UploadAssignment";
+import SubmittedAssignments from "./pages/SubmittedAssignments";
 // const LazyMeeting = lazy(() => ./components/onlineprograms/OnlineProgramsLayout
 
 const App = () => {
@@ -171,6 +172,7 @@ const App = () => {
                     element={<FacultyAdministration />}
                   />
                   <Route path="/add_instructor" element={<AddInstructor />} />
+<Route path="/submitted-assignments" element={<SubmittedAssignments />} />
                 </>
               )}
             </Route>
