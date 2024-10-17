@@ -47,7 +47,7 @@ const SubmittedAssignments = ({ user }) => {
   }, [user]);
 
   return (
-    <div className="p-8 min-h-screen bg-gray-50 flex justify-center">
+    <div className="p-8 min-h-max bg-gray-50 flex justify-center">
                 <div className="w-full grid grid-cols-auto gap-4 pt-5 gap-y-6 px-3 sm:px-0">
 
         {assignments.map((assignment) => (
