@@ -24,7 +24,7 @@ const ViewJournals = () => {
 
       {/* Table Wrapper */}
       <div className="overflow-x-auto mt-6">
-        <table className="w-full bg-white shadow-lg rounded-lg border-collapse">
+        <table className="min-w-full bg-white shadow-lg rounded-lg border-collapse">
           <thead className="bg-gray-200">
             <tr>
               <th className="p-2 text-left w-[120px]">Course Name</th>
