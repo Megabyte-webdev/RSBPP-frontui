@@ -22,11 +22,11 @@ const ViewJournals = () => {
         <table className="w-full min-w-[600px] bg-white shadow-lg rounded-lg border border-gray-300">
           <thead className="bg-gray-200">
             <tr>
-              <th className="p-4 text-left">Course Name</th>
-              <th className="p-4 text-left">Faculty</th>
-              <th className="p-4 text-left">Date Added</th>
-              <th className="p-4 text-left">File Submission</th>
-              <th className="p-4 text-left">Status</th>
+              <th className="p-2 mx-2 text-left">Course Name</th>
+              <th className="p-2 mx-2 text-left">Faculty</th>
+              <th className="p-2 mx-2 text-left">Date Added</th>
+              <th className="p-2 mx-2 text-left">File Submission</th>
+              <th className="p-2 mx-2 text-left">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -38,8 +38,8 @@ const ViewJournals = () => {
                 }`}
               >
                 {/* Course Name and Avatar */}
-                <td className="p-4">
-                  <div className="flex items-center gap-4">
+                <td className="p-2 mx-2">
+                  <div className="flex items-center gap-3">
                     <img
                       src="https://via.placeholder.com/40"
                       alt="Avatar"
@@ -53,17 +53,17 @@ const ViewJournals = () => {
                 </td>
 
                 {/* Faculty */}
-                <td className="p-4">
-                  <span className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm">
+                <td className="p-2 mx-2">
+                  <span className="px-2 py-2 bg-blue-100 text-blue-800 rounded-full text-sm">
                     {row.faculty}
                   </span>
                 </td>
 
                 {/* Date Added */}
-                <td className="p-4">{row.dateAdded || 'N/A'}</td>
+                <td className="p-2 mx-2">{row.dateAdded || 'N/A'}</td>
 
                 {/* File Submission */}
-                <td className="p-4">
+                <td className="p-2 mx-2">
                   <div className="leading-snug">
                     <p className="text-base font-medium">Sales CRM</p>
                     <p className="text-sm text-gray-500">{row.submission}</p>
@@ -71,7 +71,7 @@ const ViewJournals = () => {
                 </td>
 
                 {/* Status */}
-                <td className="p-4 text-green-600 font-semibold">
+                <td className="p-2 mx-2 text-green-600 font-semibold">
                   {row.status}
                 </td>
               </tr>
