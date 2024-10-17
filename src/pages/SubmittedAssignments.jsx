@@ -19,6 +19,14 @@ const fetchAllAssignments = async () => [
     submittedBy: 'Jukkoe Sisao',
   },
   {
+    id: 4,
+    name: 'Silex Secure',
+    role: 'CTO',
+    email: 'nadia_block@hotmail.com',
+    image: 'https://via.placeholder.com/100',
+    submittedBy: 'Harriet King',
+  },
+  {
     id: 3,
     name: 'Harriet King',
     role: 'CTO',
@@ -47,7 +55,10 @@ const SubmittedAssignments = ({ user }) => {
   }, [user]);
 
   return (
-    <div className="p-8 min-h-max bg-gray-50 flex justify-center">
+    <div className="p-8 min-h-max bg-gray-50 flex flex-col gap-y-2">
+      <p className="sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium">
+        View Submitted Assignments
+      </p>
                 <div className="w-full grid grid-cols-auto gap-4 pt-5 gap-y-6 px-3 sm:px-0">
 
         {assignments.map((assignment) => (
