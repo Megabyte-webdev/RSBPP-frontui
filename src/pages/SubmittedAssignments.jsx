@@ -48,7 +48,8 @@ const SubmittedAssignments = ({ user }) => {
 
   return (
     <div className="p-8 min-h-screen bg-gray-50 flex justify-center">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div className="w-full grid grid-cols-auto gap-4 pt-5 gap-y-6 px-3 sm:px-0">
+
         {assignments.map((assignment) => (
           <div
             key={assignment.id}
