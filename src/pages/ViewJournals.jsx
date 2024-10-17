@@ -20,7 +20,7 @@ const ViewJournals = () => {
       {/* Table Wrapper with Horizontal Scroll */}
       <div className="overflow-x-auto mt-6">
         <table className="w-full min-w-[700px] bg-white shadow-lg rounded-lg border border-gray-300">
-          <thead className="font-semibold">
+          <thead className="bg-transparent font-medium ">
             <tr>
               <th className="p-2 mx-2 text-left">Course Name</th>
               <th className="p-2 mx-2 text-left">Faculty</th>
@@ -71,7 +71,7 @@ const ViewJournals = () => {
                 </td>
 
                 {/* Status */}
-                <td className="p-2 mx-2 text-green-600 font-semibold">
+                <td className="p-2 mx-2 font-medium">
                   {row.status}
                 </td>
               </tr>
