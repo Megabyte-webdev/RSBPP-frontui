@@ -1,59 +1,50 @@
 import React, { useEffect, useState } from 'react';
 
 // Simulated API response
-const fetchAssignments = async () => {
-  return [
-    {
-      id: 1,
-      name: 'Jason Price',
-      role: 'Admin',
-      email: 'janick_parisian@yahoo.com',
-      image: 'https://via.placeholder.com/100',
-    },
-    {
-      id: 2,
-      name: 'Jukkoe Sisao',
-      role: 'CEO',
-      email: 'sibyl_koezy@gmail.com',
-      image: 'https://via.placeholder.com/100',
-    },
-    {
-      id: 3,
-      name: 'Harriet King',
-      role: 'CTO',
-      email: 'nadia_block@hotmail.com',
-      image: 'https://via.placeholder.com/100',
-    },
-    {
-      id: 4,
-      name: 'Lenora Benson',
-      role: 'Lead',
-      email: 'fel.wallace@kunde.us',
-      image: 'https://via.placeholder.com/100',
-    },
-    {
-      id: 5,
-      name: 'Olivia Reese',
-      role: 'Strategist',
-      email: 'kemmer.hattie@cremin.us',
-      image: 'https://via.placeholder.com/100',
-    },
-    // Add more items as needed...
-  ];
-};
+const fetchAllAssignments = async () => [
+  {
+    id: 1,
+    name: 'Jason Price',
+    role: 'Admin',
+    email: 'janick_parisian@yahoo.com',
+    image: 'https://via.placeholder.com/100',
+    submittedBy: 'Jason Price',
+  },
+  {
+    id: 2,
+    name: 'Jukkoe Sisao',
+    role: 'CEO',
+    email: 'sibyl_koezy@gmail.com',
+    image: 'https://via.placeholder.com/100',
+    submittedBy: 'Jukkoe Sisao',
+  },
+  {
+    id: 3,
+    name: 'Harriet King',
+    role: 'CTO',
+    email: 'nadia_block@hotmail.com',
+    image: 'https://via.placeholder.com/100',
+    submittedBy: 'Harriet King',
+  },
+];
 
-const SubmittedAssignments = () => {
+const fetchUserAssignments = async (user) =>
+  (await fetchAllAssignments()).filter((assignment) => assignment.submittedBy === user.name);
+
+const SubmittedAssignments = ({ user }) => {
   const [assignments, setAssignments] = useState([]);
 
   useEffect(() => {
-    // Fetch assignments from the simulated API
     const loadAssignments = async () => {
-      const data = await fetchAssignments();
+      const data =
+        user.role === 'admin'
+          ? await fetchAllAssignments() // Fetch all for admin
+          : await fetchUserAssignments(user); // Fetch only user's assignments
       setAssignments(data);
     };
 
     loadAssignments();
-  }, []);
+  }, [user]);
 
   return (
     <div className="p-8 min-h-screen bg-gray-50 flex justify-center">
@@ -71,6 +62,9 @@ const SubmittedAssignments = () => {
             <h3 className="text-lg font-semibold">{assignment.name}</h3>
             <p className="text-sm text-gray-500">{assignment.role}</p>
             <p className="text-sm text-gray-400">{assignment.email}</p>
+            <p className="text-xs text-gray-500">
+              Submitted by: {assignment.submittedBy}
+            </p>
           </div>
         ))}
       </div>
