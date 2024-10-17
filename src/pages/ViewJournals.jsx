@@ -11,6 +11,14 @@ const ViewJournals = () => {
       submission: 'Web-based app for sales',
       status: 'Completed',
     },
+    {
+      name: 'Afolabi',
+      email: 'afowebdev.com',
+      faculty: 'In progress',
+      dateAdded: '15 Oct 2024',
+      submission: 'Web-based app for sales',
+      status: 'Completed',
+    },
     // Add more rows if needed
   ];
 
