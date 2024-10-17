@@ -27,11 +27,11 @@ const ViewJournals = () => {
         <table className="w-full bg-white shadow-lg rounded-lg border-collapse">
           <thead className="bg-gray-200">
             <tr>
-              <th className="p-2 text-left w-[20%]">Course Name</th>
-              <th className="p-2 text-left w-[15%]">Faculty</th>
-              <th className="p-2 text-left w-[15%]">Date Added</th>
-              <th className="p-2 text-left w-[30%]">File Submission</th>
-              <th className="p-2 text-left w-[20%]">Status</th>
+              <th className="p-2 text-left w-[120px]">Course Name</th>
+              <th className="p-2 text-left w-[100px]">Faculty</th>
+              <th className="p-2 text-left w-[120px]">Date Added</th>
+              <th className="p-2 text-left w-[120px]">File Submission</th>
+              <th className="p-2 text-left w-[120px]">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -58,7 +58,7 @@ const ViewJournals = () => {
                 </td>
 
                 {/* Faculty */}
-                <td className="p-2 w-[12%]">
+                <td className="p-2">
                   <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
                     {row.faculty}
                   </span>
