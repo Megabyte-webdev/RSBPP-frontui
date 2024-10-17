@@ -58,7 +58,7 @@ const ViewJournals = () => {
                 </td>
 
                 {/* Faculty */}
-                <td className="p-2">
+                <td className="p-2 w-[12%]">
                   <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
                     {row.faculty}
                   </span>
