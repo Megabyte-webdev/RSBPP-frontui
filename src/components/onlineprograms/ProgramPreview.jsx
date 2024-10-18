@@ -25,7 +25,7 @@ const ProgramPreview = ({ details }) => {
             </div>
             {/* Right side*/}
             <div className='w-full md:w-1/3 flex flex-col items-end' >
-                <p className='w-full md:w-[90%] text-sm text-black border border-gray-700 px-3 py-4 underline cursor-pointer' onClick={() => HandleAddToCart}> Add To Cart
+                <p className='w-full md:w-[90%] text-sm text-black border border-gray-700 px-3 py-4 underline cursor-pointer' onClick={ HandleAddToCart}> Add To Cart
                 </p>
                 <p className='w-full md:w-[90%] text-sm text-black border border-gray-700 px-3 py-4'>${details?.price && details?.price}
                 </p>
