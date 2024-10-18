@@ -26,7 +26,8 @@ const ProgramPreview = ({ details }) => {
                         'Authorization': `Bearer ${userCredentials.token}`,
                     },
                 });
-toast.success(response?.data?.message || 'Course added to cart')
+toast.success(response?.data?.message || 'Course added to cart');
+        navigate('/carts'); // Navigate to carts page
 
             } catch (error) {
                 console.error('Error adding to cart:', error);
