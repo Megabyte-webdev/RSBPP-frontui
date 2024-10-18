@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { UserContext } from '../../../context/AuthContext'; // Import the context
-import { useContext, useState } from 'react'; // Import useState for loading state
+import { UserContext } from '../../context/AuthContext'; // Import the context
+import { useContext, useState } from 'react';
 
 import toast from 'react-hot-toast'
 import './program.css';
-import BASE_URL from '../../utils/base'
+import BASE_URL from '../utils/base'
+
 const ProgramPreview = ({ details }) => {
     const navigate = useNavigate();
     const { userCredentials } = useContext(UserContext); // Get user credentials from context
