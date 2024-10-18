@@ -229,8 +229,9 @@ const UploadAssignment = () => {
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           className={`font-medium my-2 flex flex-col items-center gap-2 border-[1px] border-red-500 rounded-md px-3 py-4 ${isDragging ? "bg-gray-200":""}`}>
-          <FaFileUpload size={24} className="text-gray-500 mb-2" />
-          <p className="text-gray-500">Drag and drop your file here or click to upload</p>
+          <FaFileUpload size={24} className="text-gray-700 mb-2" />
+          <p className="text-gray-600 text-center text-sm">
+{selectedFile ? selectedFile.name: 'Drag and drop your file here or click to upload'}</p>
           <input
             type="file"
             accept=".pdf, .doc, .docx"
@@ -241,14 +242,12 @@ const UploadAssignment = () => {
           <button
             type="button"
             onClick={() => fileInput.current.click()}
-            className="mt-2 bg-transparent border-[1px] border-gray-500 text-gray-500 px-6 py-2 rounded-md font-medium"
+            className="mt-2 bg-transparent border-[1px] border-gray-700 text-gray-500 px-6 py-2 rounded-md font-medium"
           >
             Select File
           </button>
         </div>
-        {selectedFile && (
-          <p className="mt-2 text-gray-600">{selectedFile.name}</p>
-        )}
+        
       </div>
 
       {/* Submit Button */}
