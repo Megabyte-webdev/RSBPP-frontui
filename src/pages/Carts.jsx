@@ -147,7 +147,7 @@ setFromLocal(null)
             });
         }
 
-    }, []);
+    }, [userCredentials]);
 
     useEffect(() => {
         if (userCredentials) {
@@ -172,7 +172,7 @@ setFromLocal(null)
                 }
             });
         }
-    }, []);
+    }, [userCredentials]);
 
 // Define cart list based on user state
     const cartList = userCredentials === null ? 
