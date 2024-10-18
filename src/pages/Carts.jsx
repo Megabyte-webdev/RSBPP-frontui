@@ -93,6 +93,7 @@ const Carts = () => {
                 }
     
                 // Update state to reflect the removal
+localStorage.setItem("carts", { user: "guest", data: newCartData });
                 setFromLocal({ user: "guest", data: newCartData });
             } catch (error) {
                 console.error(error);
@@ -121,7 +122,7 @@ const Carts = () => {
                                 ...prev, isDataNeeded: true
                             }
                         });
-                        localStorage.removeItem('carts');
+                        
                     })
                     .catch((error) => {
                         console.log(error);
@@ -134,6 +135,9 @@ const Carts = () => {
                 }
                 addToCart(details);
             });
+localStorage.removeItem('carts');
+
+setFromLocal(null)
         }
         if (userCredentials !== null) {
             setGetAllCarts((prev) => {
