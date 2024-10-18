@@ -6,7 +6,7 @@ import { useContext, useState } from 'react';
 
 import toast from 'react-hot-toast'
 import './program.css';
-import BASE_URL from '../utils/base'
+import {BASE_URL} from '../utils/base'
 
 const ProgramPreview = ({ details }) => {
     const navigate = useNavigate();
