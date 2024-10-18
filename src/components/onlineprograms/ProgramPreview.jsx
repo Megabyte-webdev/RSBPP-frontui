@@ -56,7 +56,7 @@ localStorage.setItem("comingFrom", JSON.stringify({ user: "guest" }));
         navigate('/carts'); // Navigate to carts page
 toast.success('course added to cart');
         }else{
-toast.error('Course already in cart's)
+toast.error('Course already in cart')
 }
 
         
