@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { UserContext } from '../../context/AuthContext'; // Import the context
+import { UserContext } from '../../../context/AuthContext'; // Import the context
 import { useContext, useState } from 'react'; // Import useState for loading state
 
 import toast from 'react-hot-toast'
