@@ -71,7 +71,7 @@ const Footer = () => {
       </div>
       
     </div>
-    <div className="py-4 bg-white w-[90%] mx-auto my-2 text-sm font-medium flex flex-col md:flex-row items-center gap-3 md:justify-between text-center">
+    <div className="py-4 bg-white w-[90%] mx-auto my-2 text-sm md:text-[18px] font-medium flex flex-col md:flex-row items-center gap-3 md:justify-between text-center">
     <p>Copyright &copy; 2023 Axpos By Jegtheme. All rights reserved</p>
     <div className="flex gap-x-2">
       <p>Term & Conditions</p>

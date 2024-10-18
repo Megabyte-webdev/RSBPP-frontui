@@ -35,7 +35,7 @@ const Nav = () => {
   return (
     <div>
       {/* top cta */}
-      <div className='font-[Ripple-Bold] text-xs md:text-[16px] text-white gap-2 py-3 px-[4%] bg-[#8B0002] px flex flex-col sm:flex-row justify-center items-center sm:justify-between'>
+      <div className='font-[Ripple-Bold] text-xs md:text-[16px] text-white gap-2 py-3 px-[4%] lg:px-[5%] bg-[#8B0002] px flex flex-col sm:flex-row justify-center items-center sm:justify-between'>
         <div className='flex gap-x-3'>
           <a className='no-underline text-white font-bold' href="tel:+31(0)10 307 2137">+31(0)10 307 2137</a>
           <a className='no-underline text-white font-bold' href="mailto:info@rsbpp.nl">info@rsbpp.nl</a>
@@ -48,9 +48,9 @@ const Nav = () => {
         </div>
       </div>
       {/* main nav */}
-      <div className="uppercase px-[4%] flex items-center justify-between text-sm py-4">
-        <img className="w-32 md:w-60 cursor-pointer" src={logo} alt="logo" />
-        <ul className="text-[14px] text-black hidden md:flex md:flex-wrap items-center md:justify-center gap-x-5 gap-y-2">
+      <div className="uppercase px-[4%] lg:px-[5%] flex items-center justify-between text-sm py-4">
+        <img className="w-32 md:w-60 cursor-pointer mr-auto" src={logo} alt="logo" />
+        <ul className="text-[14px] text-black hidden md:flex md:flex-wrap items-center md:justify-center gap-x-2 gap-y-2">
           <NavLink to='https://rsbpp.nl/' className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
             <p>HOME</p>
           </NavLink>
@@ -107,7 +107,7 @@ const Nav = () => {
 
         </ul>
 
-        <p onClick={() => { navigate('/carts'); localStorage.setItem("comingFrom", JSON.stringify({ user: "guest" })) }} className="ml-auto mr-2 relative cursor-pointer"><FaShoppingCart size="24" /> <span className="absolute top-[-13px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{getAllCarts?.data ? getAllCarts?.data.length : guestCart}</span></p>
+        <p onClick={() => { navigate('/carts'); localStorage.setItem("comingFrom", JSON.stringify({ user: "guest" })) }} className="ml-2 mr-2 relative cursor-pointer flex item-center"><FaShoppingCart size="24" /> <span className="absolute top-[-13px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{getAllCarts?.data ? getAllCarts?.data.length : guestCart}</span></p>
 
         <div className="md:hidden bg-[#8B0002] py-2 px-3 text-white rounded-md cursor-pointer" onClick={() => setMenu(!menu)}>
           {

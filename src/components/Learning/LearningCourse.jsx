@@ -35,7 +35,12 @@ const LearningCourse = ({ course, userCredentials, cartList, getAllInstructors }
   const adminAndInstructor = userRole === "admin" || userRole === "instructor"
   const adminAuth = userRole === "admin"
   const hasItem = cartList?.some(item => item.courseId === course.id)
+  function HandleAddToCart(){
+    scrollTo(0, 0); navigate('/carts'); if (fromLocal === null || (fromLocal && !fromLocal.data.find((item) => item.title === details.title))) {
+        localStorage.setItem("carts", JSON.stringify(fromLocal ? [{ user: "guest", data: [...fromLocal.data, details] }] : [{ user: "guest", data: [details] }]))
+    } localStorage.setItem("comingFrom", JSON.stringify({ user: "guest" }))
 
+}
   const addToCart = () => {
     setGetAllCarts((prev) => {
       return {

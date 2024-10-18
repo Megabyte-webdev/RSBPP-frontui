@@ -32,9 +32,9 @@ const Programmes = () => {
   }, []);
 
   return (
-    <div className="h-max flex flex-col gap-y-4 md:flex-row md:items-stretch md:px-[2%] px-[4%] bg-gray-100 my-5 font-[Ripple-Bold] font-extrabold">
+    <div className="h-max flex flex-col gap-y-4 md:flex-row md:items-stretch md:px-[2%] px-[4%] lg:px-[5%] bg-gray-100 my-5 font-[Ripple-Bold] font-extrabold">
       {/* Left side */}
-      <div className="relative md:top-[-25px] w-full min-h-full md:w-[300px] text-white py-2">
+      <div className="relative md:top-[-25px] w-full min-h-full md:w-[350px] text-white py-2">
         <img
           className="object-cover absolute top-0 right-0 bottom-0 left-0 m-auto w-full h-full z-0"
           src={img}

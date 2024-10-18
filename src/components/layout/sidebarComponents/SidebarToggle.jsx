@@ -25,7 +25,7 @@ const SidebarToggle = ({ handleSubOptionClick, isOpenOption, handleClose, consta
             <div className={makeActive}>
                 <div
                     onClick={() => handleSubOptionClick(constant.title)}
-                    className="d-flex align-items-center hover_effect mb-2 px-3 py-2 fs_sm justify-content-between pointer"
+                    className="d-flex align-items-center hover_effect mb-2 sm:px-[4px] px-3 sm:py-[5px] py-2 fs_sm justify-content-between pointer"
                 >
                     <div className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
                         <span className={`me-2  rounded ${instructor ? "blue_bg" : "sidebar_icon"}`}>

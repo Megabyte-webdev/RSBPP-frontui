@@ -13,7 +13,7 @@ const ProgramPreview = ({ details }) => {
     
     }
     return (
-        <div className='font-[Ripple-Bold] font-bold flex flex-col md:flex-row md: justify-between gap-4 p-[4%] my-5'>
+        <div className='font-[Ripple-Bold] font-bold flex flex-col md:flex-row md: justify-between gap-4 p-[4%] lg:px-[5%] my-5'>
             {/* Left side*/}
             <div className='flex-1 w-full md:w-3/4'>
 

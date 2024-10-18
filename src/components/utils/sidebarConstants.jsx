@@ -76,17 +76,6 @@ export const sidebarConstants = [
         ]
     },
     {
-        title: "Quizzes",
-        logo: iconSeven,
-        subOptions: [
-            {
-                title: "Quiz",
-                // link: "/quiz",
-                link: "/soon",
-            }
-        ]
-    },
-    {
         title: "Profile",
         logo: iconEight,
         subOptions: [
@@ -117,12 +106,24 @@ export const adminConstants = [
             },
         ]
     },{
+        title: "Journals",
+        logo: iconTwo,
+        subOptions: [
+            {
+                title: "All Journals",
+                link: "/view-journals",
+            }
+        ]
+    },{
         title: "Assignment",
         logo: iconTwo,
         subOptions: [
             {
-                title: "Upload Assignment",
+                title: "Add Assignment",
                 link: "/upload-assignment",
+            },{
+                title: "View All Assignments",
+                link: "/view-assignments",
             },
             {
                 title: "Submitted Assignments",

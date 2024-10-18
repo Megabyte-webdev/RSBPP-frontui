@@ -271,15 +271,15 @@ const Carts = () => {
                             <div className='flex flex-wrap gap-5'>
                                 {/* left */}
                                 <div className='bg-gray-300 flex flex-col gap-y-2 w-[300px] min-h-[200px] border border-gray-600'>
-                                    <p className='bg-red-900 text-white text-xl flex items-center justify-center p-2'>Online programmes</p>
+                                    <p className='bg-red-900 text-white text-xl flex items-center justify-center p-4'>Online programmes</p>
                                     <p className='p-2 text-sm'>Check out our online programmes and enjoy your moment.</p>
-                                    <button className='w-[80%] mx-auto mt-auto p-3 bg-gray-800 font-semibold text-white text-sm'>Click View Courses</button>
+                                    <button onClick={()=>{navigate('/online-programmes'); scrollTo(0,0)}} className='w-max mx-2 mt-auto py-2 px-3 bg-gray-800 rounded-md font-semibold text-white text-sm'>View Courses</button>
                                 </div>
                                 {/* right */}
                                 <div className='bg-gray-300 flex flex-col gap-y-2 w-[300px] min-h-[200px] border border-gray-600'>
-                                    <p className='bg-red-900 text-white text-xl flex items-center justify-center p-2'>DigiKnowH</p>
+                                    <p className='bg-red-900 text-white text-xl flex items-center justify-center p-4'>DigiKnowH</p>
                                     <p className='p-2 text-sm'>Check out our online programmes and enjoy your moment.</p>
-                                    <button className='w-[80%] mx-auto mt-auto p-3 bg-gray-800 font-semibold text-white text-sm'>Click View Courses</button>
+                                    <button onClick={()=>{navigate('/digiknowh'); scrollTo(0,0)}} className='w-max mx-2 mt-auto py-2 px-3 bg-gray-800 rounded-md font-semibold text-white text-sm'>View Courses</button>
                                 </div>
                             </div>
                         </div>
