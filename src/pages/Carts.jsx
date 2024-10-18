@@ -9,7 +9,7 @@ import { UserContext } from '../context/AuthContext';
 import { cartsTotalFunction } from '../components/utils/getApi';
 import Nav from '../components/onlineprograms/Nav';
 import axios from 'axios';
-import { BASE_URL } from '../components/utils/base';
+import { BASE_URL, TOKEN } from '../components/utils/base';
 import toast from 'react-hot-toast';
 
 const Carts = () => {
@@ -27,7 +27,7 @@ const Carts = () => {
 
     const [error, setError] = useState('');
     const [currentTotal, setCurrentTotal] = useState('');
-    const on = true;
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const token = userCredentials?.token || TOKEN;
     const user = userCredentials?.user;
 
@@ -38,7 +38,7 @@ const Carts = () => {
         setFromLocal(carts);
     }, []);
 
-    const deleteFunc = async (cart, setIsSubmitting) => {
+    const deleteFunc = async (cart) => {
         setIsSubmitting(true);
         try {
             if (userCredentials) {
@@ -104,10 +104,10 @@ const Carts = () => {
 
     const cartList = userCredentials === null 
         ? fromLocal?.data.map((cart) => (
-            <CartsItem key={cart.cartsId} cart={cart} on={on} deleteFunc={deleteFunc} />
+            <CartsItem key={cart.cartsId} cart={cart} deleteFunc={deleteFunc} isSubmitting={isSubmitting} />
         )) 
         : getAllCarts?.data?.map((cart) => (
-            <CartsItem key={cart.cartsId} cart={cart} on={on} deleteFunc={deleteFunc} />
+            <CartsItem key={cart.cartsId} cart={cart} deleteFunc={deleteFunc} isSubmitting={isSubmitting} />
         ));
 
     return (
