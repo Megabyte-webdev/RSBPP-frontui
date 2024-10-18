@@ -7,23 +7,14 @@ import CourseCarousel from '../components/general/CourseCarousel';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/AuthContext';
 import { cartsTotalFunction } from '../components/utils/getApi';
-// import StripeElement from '../components/stripe/StripeElement';
-// import Payment from "../components/stripe/clone/Payment";
 import Nav from '../components/onlineprograms/Nav';
 import axios from 'axios';
-import { BASE_URL, TOKEN } from '../components/utils/base';
+import { BASE_URL } from '../components/utils/base';
 import toast from 'react-hot-toast';
 
 const Carts = () => {
     const navigate = useNavigate();
     const { userCredentials } = useContext(UserContext);
-
-    const comingFrom = localStorage.getItem("comingFrom") ? JSON.parse(localStorage.getItem("comingFrom")) : null;
-
-    if (comingFrom !== null) {
-        localStorage.removeItem("comingFrom");
-        console.log(comingFrom);
-    }
 
     const {
         fromLocal,
@@ -41,112 +32,68 @@ const Carts = () => {
     const user = userCredentials?.user;
 
     useEffect(() => {
-        // Load initial cart state from local storage
-        const carts = localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts"))[0] : null;
+        const carts = localStorage.getItem("carts") 
+            ? JSON.parse(localStorage.getItem("carts"))[0] 
+            : null;
         setFromLocal(carts);
     }, []);
 
     const deleteFunc = async (cart, setIsSubmitting) => {
         setIsSubmitting(true);
-        if (userCredentials) {
-            // User is logged in; perform API request to remove from server
-            setGetAllCarts((prev) => ({
-                ...prev,
-                isDataNeeded: false,
-            }));
-    
-            const params = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': "application/json",
-                    'Authorization': `Bearer ${userCredentials.token}`,
-                },
-            };
-            try {
-                const response = await fetch(`${BASE_URL}cart/removeCart/${cart.cartsId}`, params);
-                if (response.ok) {
-                    await response.json();
-                    setGetAllCarts((prev) => ({
-                        ...prev,
-                        isDataNeeded: true,
-                    }));
-                }
-            } catch (error) {
-                console.error(error);
-                setError(error?.response?.data?.message || error?.message || error);
-            } finally {
-                setIsSubmitting(false);
-            }
-        } else {
-            // User is a guest; remove from local storage
-            try {
-                setIsSubmitting(true);
-                console.log(cart)
-                console.log("delete from storage");
+        try {
+            if (userCredentials) {
+                await axios.post(`${BASE_URL}cart/removeCart/${cart.cartsId}`, {}, {
+                    headers: { Authorization: `Bearer ${userCredentials.token}` },
+                });
+                setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
+            } else {
                 const newCartData = fromLocal.data.filter((item) => item.id !== cart.id);
-                
-                // Update the local storage
                 if (newCartData.length > 0) {
                     localStorage.setItem("carts", JSON.stringify([{ user: "guest", data: newCartData }]));
                 } else {
                     localStorage.removeItem("carts");
                 }
-    
-                // Update state to reflect the removal
-localStorage.setItem("carts", { user: "guest", data: newCartData });
                 setFromLocal({ user: "guest", data: newCartData });
-            } catch (error) {
-                console.error(error);
-                setError(error?.response?.data?.message || error?.message || error);
-            } finally {
-                setIsSubmitting(false);
             }
+        } catch (error) {
+            console.error(error);
+            setError(error.message || 'Error deleting item');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
-
     useEffect(() => {
-        if (fromLocal?.user === "guest" && userCredentials !== null) {
-            fromLocal?.data.forEach((course) => {
-                const addToCart = (details) => {
-                    axios.post(`${BASE_URL}cart/addCart`, details, {
-                        headers: {
-                            'Authorization': `Bearer ${userCredentials.token}`,
-                        },
-                    })
-                    .then(response => {
-                        console.log(response);
-                        toast.success(response.data.message);
-                        setGetAllCarts((prev) => {
-                            return {
-                                ...prev, isDataNeeded: true
-                            }
-                        });
-                        
-                    })
-                    .catch((error) => {
-                        console.log(error);
+        if (fromLocal?.user === "guest" && userCredentials) {
+            const addToCart = async (course) => {
+                try {
+                    const details = {
+                        user_id: userCredentials?.user.id,
+                        course_id: course.id,
+                    };
+                    const response = await axios.post(`${BASE_URL}cart/addCart`, details, {
+                        headers: { Authorization: `Bearer ${userCredentials.token}` },
                     });
-                };
 
-                let details = {
-                    user_id: userCredentials?.user.id,
-                    course_id: course.id
+                    toast.success(response.data.message);
+                    setGetAllCarts((prev) => ({
+                        ...prev,
+                        data: [...(prev.data || []), response.data.cart],
+                        isDataNeeded: true,
+                    }));
+                } catch (error) {
+                    console.error('Error adding to cart:', error);
                 }
-                addToCart(details);
-            });
-localStorage.removeItem('carts');
+            };
 
-setFromLocal(null)
-        }
-        if (userCredentials !== null) {
-            setGetAllCarts((prev) => {
-                return {
-                    ...prev, isDataNeeded: true
-                }
-            });
+            fromLocal?.data.forEach(addToCart);
+            localStorage.removeItem('carts');
+            setFromLocal(null);
         }
 
+        if (userCredentials) {
+            setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
+        }
     }, [userCredentials]);
 
     useEffect(() => {
@@ -155,143 +102,74 @@ setFromLocal(null)
         }
     }, [getAllCarts]);
 
-    // useEffect(() => {
-    //         setGetAllCourses((prev) => {
-    //             return {
-    //                 ...prev, isDataNeeded: true
-    //             }
-    //         });
-    //     console.log(getAllCourses)
-    // }, []);
-
-    useEffect(() => {
-        if (userCredentials) {
-            setGetAllCarts((prev) => {
-                return {
-                    ...prev, isDataNeeded: true
-                }
-            });
-        }
-    }, [userCredentials]);
-
-// Define cart list based on user state
-    const cartList = userCredentials === null ? 
-        fromLocal?.data.map((cart) => (
+    const cartList = userCredentials === null 
+        ? fromLocal?.data.map((cart) => (
             <CartsItem key={cart.cartsId} cart={cart} on={on} deleteFunc={deleteFunc} />
-        )) : 
-        getAllCarts?.data?.map((cart) => (
+        )) 
+        : getAllCarts?.data?.map((cart) => (
             <CartsItem key={cart.cartsId} cart={cart} on={on} deleteFunc={deleteFunc} />
         ));
 
-
-    // const listUsers = getAllCourses.data?.map((course) => {
-    //     return (
-    //         <LearningCourse key={course.id} userCredentials={userCredentials && userCredentials} cartList={ getAllCarts?.data || fromLocal?.data} course={course} />
-    //     )
-    // });
-
     return (
         <div style={{ backgroundColor: "hsla(0, 0%, 95%, 1)" }}>
-            {userCredentials !== null ? <NavBar /> : <Nav />}
+            {userCredentials ? <NavBar /> : <Nav />}
             <div className="brown_bg p-3 p-md-5 text-white">
-                <div className="d-flex justify-center align-items-center">
-                </div>
-                <div className="text-center ">
-                    <h2 className="my-5">
-                        Registered Courses
-                    </h2>
+                <div className="text-center">
+                    <h2 className="my-5">Registered Courses</h2>
                 </div>
             </div>
 
-            {
-                <div className="mt-5 border-top pb-5">
-                    <div className="container">
-                        {(fromLocal?.data.length > 0 || getAllCarts?.data?.length > 0) ? (
-                            <div className="row py-4 mb-5">
-                                <div className="col-md-8">
-                                    <div>
-                                        <div className="border-bottom pb-3">
-                                            <h5>Shopping Cart</h5>
-                                            <p>Showing {userCredentials !== null ? getAllCarts.data?.length : fromLocal.data?.length} products you added</p>
-                                        </div>
-                                        {cartList}
-                                        {error}
-                                    </div>
+            <div className="mt-5 border-top pb-5">
+                <div className="container">
+                    {(fromLocal?.data?.length > 0 || getAllCarts?.data?.length > 0) ? (
+                        <div className="row py-4 mb-5">
+                            <div className="col-md-8">
+                                <div className="border-bottom pb-3">
+                                    <h5>Shopping Cart</h5>
+                                    <p>Showing {userCredentials ? getAllCarts.data?.length : fromLocal.data?.length} products</p>
                                 </div>
-                                <div className="col-md-4">
-                                    <div>
-                                        <div className="border border-black p-4">
-                                            <h4>Order Summary</h4>
-                                            <div>
-                                                {userCredentials
-                                                    ?
-                                                    getAllCarts.data?.map((cart) => (
-                                                        <div key={cart.cartsId} className="d-flex mb-3 justify-between">
-                                                            <p>{cart.title}:</p>
-                                                            <p>${cart.price}</p>
-                                                        </div>
-                                                    ))
-                                                    : fromLocal.data?.map((cart) => (
-                                                        <div key={cart.cartsId} className="d-flex mb-3 justify-between">
-                                                            <p>{cart.title}:</p>
-                                                            <p>${cart.price}</p>
-                                                        </div>
-                                                    ))}
-
-                                            </div>
-                                            <div className="border-top py-3 ash_text">
-                                                <div className="d-flex mb-3 text-black fw-bold justify-between">
-                                                    <p>Total Price</p>
-                                                    <p>${userCredentials !== null ? currentTotal : (fromLocal.data?.reduce((acc, cart) => parseInt(acc) + parseInt(cart.price), 0))}</p>
-
-                                                </div>
-                                                <div className='mt-4'>
-                                                    {
-                                                        userCredentials
-                                                            ? <button onClick={() => navigate('/checkout', { state: { cartCourses: getAllCarts?.data, currentTotal: currentTotal } })} className='col-12 btn bg-black rounded-full py-2 text-white'>Checkout</button>
-                                                            : <button onClick={() => { navigate('/registration'); localStorage.setItem("comingFrom", JSON.stringify({ user: "guest" })) }} className='col-12 btn bg-black rounded-full py-2 text-white'>Checkout</button>
-                                                    }
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {cartList}
+                                {error && <p className="text-danger">{error}</p>}
                             </div>
-                        ) : (
-                            <p className='fs-4 fw-bold text-center py-5'>Cart is empty</p>
-                        )}
-                        {/* <StripeElement
-                            token={token}
-                            user={user}
-                        /> */}
-                        {/* <Payment /> */}
-                        <div className="row">
-                            <h3 className='my-4'>SIMILAR COURSE</h3>
-                            {/* {getAllCourses.data && (
-                                <CourseCarousel>
-                                    {listUsers}
-                                </CourseCarousel>
-                            )} */}
-                            <div className='flex flex-wrap gap-5 m-2'>
-                                {/* left */}
-                                <div className='bg-gray-100 flex flex-col gap-y-2 w-[300px] min-h-[200px] border border-gray-600 pb-2'>
-                                    <p className='bg-red-900 text-white text-xl flex items-center justify-center p-4'>Online programmes</p>
-                                    <p className='p-2 text-sm'>Check out our online programmes and enjoy your moment.</p>
-                                    <button onClick={()=>{navigate('/online-programmes'); scrollTo(0,0)}} className='w-max mx-2 mb-2 mt-auto py-2 px-3 bg-gray-800 rounded-md font-semibold text-white text-sm'>View Courses</button>
-                                </div>
-                                {/* right */}
-                                <div className='bg-gray-100 flex flex-col gap-y-2 w-[300px] min-h-[200px] border border-gray-600 pb-2'>
-                                    <p className='bg-red-900 text-white text-xl flex items-center justify-center p-4'>DigiKnowH</p>
-                                    <p className='p-2 text-sm'>Check out our online programmes and enjoy your moment.</p>
-                                    <button onClick={()=>{navigate('/digiknowh'); scrollTo(0,0)}} className='w-max mx-2 mb-2 mt-auto py-2 px-3 bg-gray-800 rounded-md font-semibold text-white text-sm'>View Courses</button>
+
+                            <div className="col-md-4">
+                                <div className="border border-black p-4">
+                                    <h4>Order Summary</h4>
+                                    {userCredentials ? getAllCarts.data?.map((cart) => (
+                                        <div key={cart.cartsId} className="d-flex mb-3 justify-between">
+                                            <p>{cart.title}:</p>
+                                            <p>${cart.price}</p>
+                                        </div>
+                                    )) : fromLocal.data?.map((cart) => (
+                                        <div key={cart.cartsId} className="d-flex mb-3 justify-between">
+                                            <p>{cart.title}:</p>
+                                            <p>${cart.price}</p>
+                                        </div>
+                                    ))}
+
+                                    <div className="border-top py-3">
+                                        <div className="d-flex mb-3 text-black fw-bold justify-between">
+                                            <p>Total Price</p>
+                                            <p>${userCredentials ? currentTotal : fromLocal.data?.reduce((acc, cart) => acc + parseInt(cart.price), 0)}</p>
+                                        </div>
+
+                                        <button 
+                                            onClick={() => navigate('/checkout', { state: { cartCourses: getAllCarts?.data, currentTotal } })} 
+                                            className="col-12 btn bg-black rounded-full py-2 text-white"
+                                        >
+                                            Checkout
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    ) : (
+                        <p className="fs-4 fw-bold text-center py-5">Cart is empty</p>
+                    )}
                 </div>
-            }
+            </div>
         </div>
     );
-}
+};
 
 export default Carts;
