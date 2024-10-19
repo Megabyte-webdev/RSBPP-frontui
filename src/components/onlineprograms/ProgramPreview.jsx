@@ -6,7 +6,9 @@ import { useContext, useState } from 'react';
 
 import toast from 'react-hot-toast'
 import './program.css';
-import {BASE_URL} from '../utils/base'
+import { BASE_URL } from '../utils/base'
+import { Spinner } from 'react-bootstrap';
+import { ResourceContext } from '../../context/ResourceContext';
 
 const ProgramPreview = ({ details }) => {
     const navigate = useNavigate();
@@ -16,23 +18,37 @@ const ProgramPreview = ({ details }) => {
         ? JSON.parse(localStorage.getItem("carts"))[0]
         : null;
 
+        const {
+            setGetAllCarts
+        } = useContext(ResourceContext);
+    
+
     async function HandleAddToCart() {
         setLoading(true); // Start loading
 
         if (userCredentials) {
+            let item = {
+                user_id: userCredentials?.user.id,
+                course_id: details.id
+            }
             try {
-               const response= await axios.post(`${BASE_URL}cart/addCart`, details, {
+                const response = await axios.post(`${BASE_URL}cart/addCart`, item, {
                     headers: {
                         'Authorization': `Bearer ${userCredentials.token}`,
                     },
                 });
-toast.success(response?.data?.message || 'Course added to cart');
-        navigate('/carts'); // Navigate to carts page
-
+                if(response){
+                    setGetAllCarts((prev) => ({
+                        ...prev,
+                        isDataNeeded: true,
+                    }));
+                toast.success(response?.data?.message || 'Course added to cart');
+                navigate('/carts'); // Navigate to carts page
+                }
             } catch (error) {
                 console.error('Error adding to cart:', error);
                 setLoading(false); // Stop loading on error
-toast.error(response?.data?.message || 'An error occurred')
+                toast.error(error?.data?.message || 'An error occurred')
                 return;
             }
         }
@@ -40,7 +56,7 @@ toast.error(response?.data?.message || 'An error occurred')
         // Add item to local storage cart
         if (
             fromLocal === null ||
-            (fromLocal && !fromLocal.data.find((item) => item.title !== details.title))
+            (fromLocal && !fromLocal.data.find((item) => item.title === details.title))
         ) {
             localStorage.setItem(
                 "carts",
@@ -51,17 +67,14 @@ toast.error(response?.data?.message || 'An error occurred')
                 )
             );
 
-localStorage.setItem("comingFrom", JSON.stringify({ user: "guest" }));
+            localStorage.setItem("comingFrom", JSON.stringify({ user: "guest" }));
 
-        setLoading(false); // Stop loading
-        scrollTo(0, 0); // Scroll to top
-        navigate('/carts'); // Navigate to carts page
-toast.success('course added to cart');
-        }else{
-toast.error('Course already in cart')
-}
+            setLoading(false); // Stop loading
+            scrollTo(0, 0); // Scroll to top
+            navigate('/carts'); // Navigate to carts page
+        }
 
-        
+
     }
 
     return (
@@ -81,12 +94,9 @@ toast.error('Course already in cart')
             {/* Right side */}
             <div className='w-full md:w-1/3 flex flex-col items-end'>
                 <p
-                    className={`w-full md:w-[90%] text-sm text-black border border-gray-700 px-3 py-4 underline cursor-pointer ${
-                        loading ? 'cursor-not-allowed opacity-50' : ''
-                    }`}
-                    onClick={loading ? null : HandleAddToCart} // Disable click if loading
-                >
-                    {loading ? 'Adding to Cart...' : 'Add To Cart'}
+                    className={`w-full md:w-[90%] text-sm text-black border border-gray-700 px-3 py-4 underline cursor-pointer ${loading ? 'cursor-not-allowed opacity-50' : ''}`}
+                    onClick={loading ? null : HandleAddToCart}>
+                    {loading ? <span>Adding to cart <Spinner animation="border" size="sm" className='ml-2' /></span> : <span>Add To Cart</span>}
                 </p>
                 <p className='w-full md:w-[90%] text-sm text-black border border-gray-700 px-3 py-4'>
                     ${details?.price}

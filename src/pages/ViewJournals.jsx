@@ -1,99 +1,119 @@
-import React from 'react';
-import { BsJournalCheck } from 'react-icons/bs';
+import { useContext, useEffect, useState } from 'react';
+import { BASE_URL } from '../components/utils/base';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { UserContext } from '../context/AuthContext';
+import { ResourceContext } from '../context/ResourceContext';
+import { useNavigate } from 'react-router-dom';
 
 const ViewJournals = () => {
+    const navigate = useNavigate();
+    const { getAllFaculty, setGetAllFaculty } = useContext(ResourceContext);
+    const { userCredentials } = useContext(UserContext);
+    const [journals, setJournals] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    //scroll to top
-    scrollTo(0, 0)
+    useEffect(() => {
+        if (!userCredentials) return; // Prevent unnecessary fetch if user is not available
 
-  const data = [
-    {
-      name: 'Afolabi Mubarak',
-      email: 'afolabimubarak18@gmail.com',
-      faculty: 'In progress',
-      dateAdded: '15 Oct 2024',
-      submission: 'Web-based app for sales',
-      status: 'Completed',
-    },
-    {
-      name: 'Afolabi',
-      email: 'afowebdev.com',
-      faculty: 'In progress',
-      dateAdded: '15 Oct 2024',
-      submission: 'Web-based app for sales',
-      status: 'Completed',
-    },
-    // Add more rows if needed
-  ];
+        setLoading(true);
+        const myHeaders = {
+            Authorization: `Bearer ${userCredentials.token}`,
+        };
 
+        axios
+            .get(`${BASE_URL}course/getAllJournal`, { headers: myHeaders })
+            .then((response) => {
+                console.log('API Response:', response.data);
 
+                // Filter journals to only show those belonging to the current user
+                const userJournals = response.data.allJournal.filter(
+                    (journal) => journal.user_id === userCredentials.user.id
+                );
 
-  return (
-    <div className="flex flex-col p-4 md:p-8 min-h-screen font-sans">
+                setJournals(userJournals);
+                setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error('Error fetching journals:', error);
+                toast.error('Failed to load journals.');
+                setLoading(false);
+            });
+    }, [userCredentials, setGetAllFaculty]);
 
-      {/* Table Wrapper with Horizontal Scroll */}
-      <div className="overflow-x-auto mt-6">
-        <table className="w-full min-w-[700px] bg-white shadow-lg rounded-lg border border-gray-300">
-          <thead className="bg-transparent font-medium ">
-            <tr>
-              <th className="p-2 mx-2 text-left">Course Name</th>
-              <th className="p-2 mx-2 text-left">Faculty</th>
-              <th className="p-2 mx-2 text-left">Date Added</th>
-              <th className="p-2 mx-2 text-left">File Submission</th>
-              <th className="p-2 mx-2 text-left">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((row, index) => (
-              <tr
-                key={index}
-                className={`border-b ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'
-                  }`}
-              >
-                {/* Course Name and Avatar */}
-                <td className="p-2 mx-2">
-                  <div className="flex items-center gap-x-2">
-                    <img
-                      src="https://via.placeholder.com/40"
-                      alt="Avatar"
-                      className="w-12 h-12 rounded-full"
-                    />
-                    <div className="leading-snug">
-                      <p className="font-medium text-base">{row.name}</p>
-                      <p className="text-sm text-gray-500">{row.email}</p>
-                    </div>
-                  </div>
-                </td>
+    const getDetails = (attr, info, facId) => {
+        const faculty = getAllFaculty?.data?.find((item) => item.id === facId);
+        if (!faculty) return { title: 'N/A' };
+        if (attr === 'course') {
+            return faculty.courses?.find((item) => item.id === info) || { title: 'N/A' };
+        }
+        return faculty;
+    };
 
-                {/* Faculty */}
-                <td className="p-2 mx-2">
-                  <span className="px-2 py-2 bg-blue-100 text-blue-800 rounded-full text-sm">
-                    {row.faculty}
-                  </span>
-                </td>
+    const formatDate = (timestamp) => {
+        const dateObj = new Date(timestamp);
+        const year = dateObj.getFullYear();
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
 
-                {/* Date Added */}
-                <td className="p-2 mx-2">{row.dateAdded || 'N/A'}</td>
+    const handleEdit = (journal) => {
+      navigate("/add-journal", { state: { editData: journal } });
+    };
 
-                {/* File Submission */}
-                <td className="p-2 mx-2">
-                  <div className="leading-snug">
-                    <p className="text-base font-medium">Sales CRM</p>
-                    <p className="text-sm text-gray-500">{row.submission}</p>
-                  </div>
-                </td>
+    return (
+        <div className="flex flex-col p-4 md:p-8 min-h-max w-full font-sans">
+            <p className="sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium">
+                All Journal
+            </p>
 
-                {/* Status */}
-                <td className="p-2 mx-2 font-medium">
-                  {row.status}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
+            <div className="overflow-x-auto mt-6">
+                {loading ? (
+                    <p>Loading...</p>
+                ) : journals.length > 0 ? (
+                    <table className="w-full min-w-[700px] overflow-auto bg-white rounded-lg border border-gray-300">
+                        <thead className="bg-gray-200 font-medium">
+                            <tr>
+                                <th className="p-2 mx-2 text-left min-w-[150px]">Course Name</th>
+                                <th className="p-2 mx-2 text-left min-w-[150px]">Faculty</th>
+                                <th className="p-2 mx-2 text-left min-w-[150px]">Date Added</th>
+                                <th className="p-2 mx-2 text-left min-w-[150px]">File Submission</th>
+                                <th className="p-2 mx-2 text-left min-w-[150px]">Status</th>
+                                <th className="p-2 mx-2 text-left min-w-[150px]">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {journals.map((row) => (
+                                <tr key={row.id}>
+                                    <td className="p-2 mx-2 min-w-[150px]">
+                                        {getDetails('course', row.course_id, row.faculty_id)?.title}
+                                    </td>
+                                    <td className="p-2 mx-2 min-w-[150px]">
+                                        {getDetails('faculty', row.course_id, row.faculty_id)?.title}
+                                    </td>
+                                    <td className="p-2 mx-2 min-w-[150px]">{formatDate(row.created_at)}</td>
+                                    <td className="p-2 mx-2">{row.submission || 'N/A'}</td>
+                                    <td className="p-2 mx-2">{row.status || 'N/A'}</td>
+                                    <td className="p-2 mx-2">
+                                        <button
+                                            onClick={() => handleEdit(row)}
+                                            className="bg-blue-500 text-white font-semibold px-3 py-2 rounded-md"
+                                        >
+                                            Edit
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <p>No Journals available.</p>
+                )}
+            </div>
+        </div>
+    );
 };
 
 export default ViewJournals;

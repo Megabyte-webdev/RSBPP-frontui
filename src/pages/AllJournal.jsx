@@ -10,7 +10,7 @@ const AllJournal = () => {
     const navigate = useNavigate();
     const { getAllFaculty, setGetAllFaculty } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
-    const [assignments, setAssignments] = useState([]);
+    const [journals, setJournals] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -19,16 +19,16 @@ const AllJournal = () => {
             Authorization: `Bearer ${userCredentials.token}`,
         };
 
-        axios.get(`${BASE_URL}course/getAllAssignment`, { headers: myHeaders })
+        axios.get(`${BASE_URL}course/getAllJournal`, { headers: myHeaders })
             .then((response) => {
                 console.log("API Response:", response.data);
-                setAssignments(response?.data?.allAssignment || []);
+                setJournals(response?.data?.allAssignment || []);
                 setGetAllFaculty(prev => ({ ...prev, isDataNeeded: true }));
                 setLoading(false);
             })
             .catch((error) => {
-                console.error("Error fetching assignments:", error);
-                toast.error("Failed to load assignments.");
+                console.error("Error fetching journals:", error);
+                toast.error("Failed to load journals.");
                 setLoading(false);
             });
     }, [userCredentials]);
@@ -64,7 +64,7 @@ const AllJournal = () => {
                 
             {loading ? (
                 <p>Loading...</p>
-            ) : assignments.length > 0 ? (
+            ) : journals.length > 0 ? (
                 <table className="w-full min-w-[700px] overflow-auto bg-white rounded-lg border border-gray-300">
                     <thead className='bg-gray-200 font-medium'>
                         <tr>
@@ -77,7 +77,7 @@ const AllJournal = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {assignments.map((row) => (
+                        {journals.map((row) => (
                             <tr key={row.id}>
                                 <td className='p-2 mx-2 min-w-[150px]'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
                                 <td className='p-2 mx-2 min-w-[150px]'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
@@ -90,7 +90,7 @@ const AllJournal = () => {
                     </tbody>
                 </table>
             ) : (
-                <p>No assignments available.</p>
+                <p>No Journals available.</p>
             )}
       
             </div>  

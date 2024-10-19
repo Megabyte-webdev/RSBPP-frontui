@@ -18,17 +18,16 @@ const NavBar = () => {
         getAllCarts,
         setGetAllCarts } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
-
+    const role = userCredentials?.user?.role
     useEffect(() => {
+        if(userCredentials){
         setGetAllCarts((prev) => {
             return {
               ...prev, isDataNeeded: true
             }
           })
-
-}, [])
-
-    const role = userCredentials?.user?.role
+        }
+}, [userCredentials])
 
     console.count("render")
     return (
@@ -63,7 +62,7 @@ const NavBar = () => {
                                 className='nav-link '>
                                 <div
                                     className='d-flex justify-content-center align-items-center me-3 text-white rounded-circle brown_bg fs_xsm'
-                                    style={{ width: "20px", height: "20px" }}><span>{getAllCarts.data?.length}</span> </div>
+                                    style={{ width: "20px", height: "20px" }}><span>{userCredentials && getAllCarts?.data?.length}</span> </div>
                                 <span><BiSolidCart size={25} /></span>
                             </Link>
                         </div>

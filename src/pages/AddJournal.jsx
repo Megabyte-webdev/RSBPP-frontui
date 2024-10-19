@@ -1,62 +1,48 @@
 import { BsJournalCheck } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState, useEffect, useContext } from "react";
-import axios from "axios"; // Import Axios
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { ResourceContext } from "../context/ResourceContext";
 import { UserContext } from "../context/AuthContext";
 import { BASE_URL } from "../components/utils/base";
 import toast from "react-hot-toast";
 import { Spinner } from "react-bootstrap";
 
-
 const AddJournal = () => {
+  const navigate = useNavigate(); // Used for navigation
+  const location = useLocation(); // Get location object
+
+  // Extract editData and determine if we're in edit mode
+  const editData = location.state?.editData || null;
+  const isEditMode = Boolean(editData); // Define isEditMode
+
   const [filteredData, setFilteredData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [faculty, setFaculty] = useState("Select a Faculty");
   const [course, setCourse] = useState("Select a Programme");
   const [prof, setProf] = useState("Prof Samuel Attong");
   const [remark, setRemark] = useState("");
-
   const { setGetAllFaculty, getAllFaculty } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
 
-  //scroll to top
-  scrollTo(0, 0)
-
-  const addJournal = (selectedCourse) => {
-    if (!filteredData || !selectedCourse) {
-      toast.error("Please select a valid faculty and course.");
-      return;
-    }
-
-    setLoading(true);
-    const formData = new FormData();
-    formData.append("course_id", selectedCourse.id);
-    formData.append("faculty_id", filteredData.id);
-    formData.append("created_by_id", filteredData.id);
-    formData.append("text_submission", remark);
-    formData.append("status", "");
-
-    axios
-      .post(`${BASE_URL}course/addJournal`, formData, {
-        headers: {
-          Authorization: `Bearer ${userCredentials.token}`,
-        },
-      })
-      .then((response) => {
-        toast.success(response.data.message || "Journal submitted successfully")
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        toast.error(error?.message || error?.data?.message || "An error occurred")
-        setLoading(false);
-      });
-  };
-
+  // Populate data if in edit mode
   useEffect(() => {
     setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
-  }, [userCredentials]);
+
+    if (isEditMode) {
+      const selectedFaculty = getAllFaculty?.data?.find(
+        (item) => item.id === editData.faculty_id
+      );
+      const selectedCourse = selectedFaculty?.courses?.find(
+        (course) => course.id === editData.course_id
+      );
+
+      setFaculty(selectedFaculty ? selectedFaculty.title : "Select a Faculty");
+      setCourse(selectedCourse ? selectedCourse.title : "Select a Programme");
+      setRemark(editData.text_submission || "");
+    }
+  }, []);
 
   useEffect(() => {
     const selectedFaculty = getAllFaculty?.data?.find(
@@ -68,16 +54,54 @@ const AddJournal = () => {
   const handleCourseSelection = () =>
     filteredData?.courses?.find((item) => item.title === course);
 
+  const submitJournal = (selectedCourse) => {
+    if (!filteredData || !selectedCourse) {
+      toast.error("Please select a valid faculty and course.");
+      return;
+    }
+
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("course_id", selectedCourse.id);
+    formData.append("faculty_id", filteredData.id);
+    formData.append("created_by_id", userCredentials.user.id);
+    formData.append("text_submission", remark);
+    formData.append("status", "");
+    
+    const url = isEditMode
+      ? `${BASE_URL}course/updateJournal/${editData.id}`
+      : `${BASE_URL}course/addJournal`;
+
+    axios
+      .post(url, formData, {
+        headers: {
+          Authorization: `Bearer ${userCredentials.token}`,
+        },
+      })
+      .then((response) => {
+        toast.success(response.data.message || "Journal saved successfully");
+        setLoading(false);
+        navigate("/view-journals");
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error(
+          error?.response?.data?.message || "An error occurred"
+        );
+        setLoading(false);
+      });
+  };
+
   return (
     <div
       className="flex flex-col p-3 p-md-5 min-vh-100 poppins"
       style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}
     >
       <p className="sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium">
-        <BsJournalCheck size="24" />Add Journal
+        <BsJournalCheck size="24" />
+        {isEditMode ? "Edit Journal" : "Add Journal"}
       </p>
       <div>
-
         {/* Faculty Dropdown */}
         <div className="font-medium my-3">
           <p className="md:text-sm text-xs my-2">Choose RSBPP Faculty</p>
@@ -160,12 +184,12 @@ const AddJournal = () => {
 
         <div className="flex justify-center">
           <button
-            onClick={() => addJournal(handleCourseSelection())}
+            onClick={() => submitJournal(handleCourseSelection())}
             className="w-48 my-2 px-8 py-2 text-white bg-[navy] rounded-md font-medium cursor-pointer"
             disabled={loading}
           >
-            <span>{loading ? "Submitting..." : "Submit"}</span>
-            {loading && (<span className='ms-2'><Spinner size='sm' /></span>)}
+            <span>{loading ? "Submitting..." : isEditMode ? "Update" : "Submit"}</span>
+            {loading && <Spinner size="sm" className="ms-2" />}
           </button>
         </div>
       </div>
