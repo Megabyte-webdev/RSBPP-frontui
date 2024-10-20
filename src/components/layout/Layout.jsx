@@ -13,16 +13,14 @@ import { ResourceContext } from "../../context/ResourceContext";
 const Layout = () => {
     const navigate = useNavigate();
     const { userCredentials } = useContext(UserContext);
-    const carts = JSON.parse(localStorage.getItem("carts") || "null");
-
     const { setGetAllCarts, setCartStore } = useContext(ResourceContext);
+
+    const carts = JSON.parse(localStorage.getItem("carts") || "null");
 
     const addToCart = async (details) => {
         try {
             const response = await axios.post(`${BASE_URL}cart/addCart`, details, {
-                headers: {
-                    Authorization: `Bearer ${userCredentials.token}`,
-                },
+                headers: { Authorization: `Bearer ${userCredentials.token}` },
             });
             toast.success(response.data.message);
             setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
@@ -33,32 +31,30 @@ const Layout = () => {
     };
 
     useEffect(() => {
-        // If user is not logged in, redirect to login
-        if (userCredentials === null) {
+        if (!userCredentials) {
+            // Redirect to login and reset cart state for guests
             navigate("/login");
+            setCartStore({ user: "guest", data: [] });
+            carts && localStorage.removeItem("carts");
             console.log("User logged out");
-            setCartStore({ user: "guest", data: [] })
-carts && localStorage.removeItem('carts')
             return;
         }
 
-        // If guest cart exists and user logs in, transfer guest cart items
-                if (carts?.user === "guest" && userCredentials) {
-            // Transfer each course from guest cart to user's cart
-           
-                carts?.data?.map((course) => 
-                    addToCart({
+        // Transfer guest cart items to user cart if user logs in
+        if (carts?.user === "guest") {
+            const transferCartItems = async () => {
+                for (const course of carts.data) {
+                    await addToCart({
                         user_id: userCredentials.user.id,
                         course_id: course.id,
-                    })
-                )
-            
+                    });
+                }
                 localStorage.removeItem("carts");
-               
-          
+            };
+            transferCartItems();
         }
 
-        // Refresh user carts when user logs in
+        // Refresh user carts upon login
         setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
     }, [userCredentials]);
 
