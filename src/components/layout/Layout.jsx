@@ -38,6 +38,7 @@ const Layout = () => {
             navigate("/login");
             console.log("User logged out");
             setCartStore({ user: "guest", data: [] })
+carts && localStorage.removeItem('carts')
             return;
         }
 
