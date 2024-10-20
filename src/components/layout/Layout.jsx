@@ -42,7 +42,7 @@ const Layout = () => {
         }
 
         // If guest cart exists and user logs in, transfer guest cart items
-        if (carts && userCredentials) {
+        if (carts !== null && userCredentials) {
             navigate("/carts");
             // Transfer each course from guest cart to user's cart
            
