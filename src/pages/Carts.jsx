@@ -25,7 +25,6 @@ const Carts = () => {
     const token = userCredentials?.token;
     const carts = JSON.parse(localStorage.getItem("carts") || "null");
 
-    // Refactored deleteFromCart function to prevent clearing entire storage.
     const deleteFromCart = async (cart, setIsSubmitting) => {
         setIsSubmitting(true);
 
@@ -39,7 +38,6 @@ const Carts = () => {
 
         try {
             if (userCredentials) {
-                // Delete item from authenticated user's cart
                 setGetAllCarts((prev) => ({ ...prev, isDataNeeded: false }));
                 const response = await fetch(`${BASE_URL}cart/removeCart/${cart.cartsId}`, params);
 
@@ -48,17 +46,11 @@ const Carts = () => {
                     setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
                 }
             } else {
-                // Delete item from guest cart (localStorage)
                 const updatedCartData = cartStore.data.filter((item) => item.id !== cart.id);
-
                 if (updatedCartData.length > 0) {
-                    localStorage.setItem(
-                        "carts",
-                        JSON.stringify([{ user: "guest", data: updatedCartData }])
-                    );
+                    localStorage.setItem("carts", JSON.stringify([{ user: "guest", data: updatedCartData }]));
                     setCartStore({ user: "guest", data: updatedCartData });
                 } else {
-                    // If no items remain, set empty cart instead of null
                     localStorage.removeItem("carts");
                     setCartStore({ user: "guest", data: [] });
                 }
@@ -85,26 +77,27 @@ const Carts = () => {
     };
 
     useEffect(() => {
-       
-        // If guest cart exists and user logs in, transfer guest cart items
         if (carts?.user === "guest" && userCredentials) {
-            // Transfer each course from guest cart to user's cart
-        
-                carts.data.forEach((course) => 
-                    addToCart({
+            const transferCartItems = async () => {
+                for (const course of carts.data) {
+                    await addToCart({
                         user_id: userCredentials.user.id,
                         course_id: course.id,
-                    })
-                )
+                    });
+                }
                 localStorage.removeItem("carts");
                 setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
-setCartStore(getAllCarts)
+                setCartStore(getAllCarts);
+            };
+            transferCartItems();
         }
     }, [userCredentials]);
 
     useEffect(() => {
         if (userCredentials) {
-            cartsTotalFunction(token, userCredentials.user.id, setError, setCurrentTotal, setCartStore);
+            cartsTotalFunction(token, userCredentials.user.id, setError, setCurrentTotal, (newCart) => {
+                setCartStore(newCart);
+            });
         }
     }, [getAllCarts]);
 
@@ -115,7 +108,7 @@ setCartStore(getAllCarts)
         }
     }, [userCredentials]);
 
-    const cartList = Array.isArray(cartStore?.data) ? (
+    const cartList = cartStore?.data?.length > 0 ? (
         cartStore.data.map((cart) => (
             <CartsItem key={cart.cartsId} cart={cart} on={true} deleteFunc={deleteFromCart} />
         ))
@@ -194,7 +187,7 @@ setCartStore(getAllCarts)
                                 <button onClick={() => { navigate('/digiknowh'); scrollTo(0, 0) }} className='w-max mx-2 mb-2 mt-auto py-2 px-3 bg-gray-800 rounded-md font-semibold text-white text-sm'>View Courses</button>
                             </div>
                         </div>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
