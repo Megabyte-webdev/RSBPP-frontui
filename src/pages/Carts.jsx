@@ -183,13 +183,13 @@ const Carts = () => {
                             {/* Online programmes */}
                             <div className='bg-gray-100 flex flex-col gap-y-2 w-[300px] min-h-[200px] border border-gray-600 pb-2'>
                                 <p className='bg-red-900 text-white text-xl flex items-center justify-center p-4'>Online programmes</p>
-                                <p className='p-2 text-sm'>Check out our online programmes and enjoy your moment.</p>
+                                <p className='p-2 text-sm'>Engage with forward-thinking community and access our flexible online education from anywhere in the world.</p>
                                 <button onClick={() => { navigate('/online-programmes'); scrollTo(0, 0) }} className='w-max mx-2 mb-2 mt-auto py-2 px-3 bg-gray-800 rounded-md font-semibold text-white text-sm'>View Courses</button>
                             </div>
                             {/* DigiKnowH */}
                             <div className='bg-gray-100 flex flex-col gap-y-2 w-[300px] min-h-[200px] border border-gray-600 pb-2'>
                                 <p className='bg-red-900 text-white text-xl flex items-center justify-center p-4'>DigiKnowH</p>
-                                <p className='p-2 text-sm'>Check out our online programmes and enjoy your moment.</p>
+                                <p className='p-2 text-sm'>The Digital Skills Learning programme is tailored for people who are curious and open to learning about digital technologies, tools, and practices.</p>
                                 <button onClick={() => { navigate('/digiknowh'); scrollTo(0, 0) }} className='w-max mx-2 mb-2 mt-auto py-2 px-3 bg-gray-800 rounded-md font-semibold text-white text-sm'>View Courses</button>
                             </div>
                         </div>
