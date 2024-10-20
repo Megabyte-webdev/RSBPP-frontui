@@ -6,7 +6,7 @@ import { TOKEN } from "../components/utils/base";
 export const ResourceContext = createContext();
 
 function ResourceContextProvider({ children }) {
-    const [fromLocal, setFromLocal] = useState();
+    const [cartStore, setCartStore] = useState({ user: "guest", data: [] });
     const { userCredentials } = useContext(UserContext);
     const token = userCredentials?.token ? userCredentials.token : null;
     const userId = userCredentials?.user?.id;
@@ -164,8 +164,8 @@ function ResourceContextProvider({ children }) {
                 setGetAllInstructors,
                 getAllInstructorsSchedules,
                 setGetAllInstructorsSchedules,
-                fromLocal,
-                setFromLocal
+                cartStore,
+                setCartStore
             }}
         >
             {children}

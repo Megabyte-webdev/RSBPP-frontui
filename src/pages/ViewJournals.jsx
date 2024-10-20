@@ -27,7 +27,7 @@ const ViewJournals = () => {
                 console.log('API Response:', response.data);
 
                 // Filter journals to only show those belonging to the current user
-                const userJournals = response.data.allJournal.filter(
+                const userJournals = userCredentials?.user?.role === "admin" ? response.data.allJournal : response.data.allJournal.filter(
                     (journal) => journal.user_id === userCredentials.user.id
                 );
 

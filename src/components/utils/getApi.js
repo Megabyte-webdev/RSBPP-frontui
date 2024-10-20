@@ -135,7 +135,8 @@ export const cartsTotalFunction = (
   token,
   userId,
   setError,
-  setCurrentTotal
+  setCurrentTotal,
+  setCartStore
 ) => {
   const getApi = `${BASE_URL}cart/getCart/${userId}`;
 
@@ -148,7 +149,8 @@ export const cartsTotalFunction = (
       })
       .then((response) => {
         setCurrentTotal(response.data.totalPrice);
-        console.log(response);
+        console.log(response, response?.data?.Cart);
+        setCartStore({data: response?.data?.Cart})
       })
       .catch((error) => {
         console.log(error);

@@ -3,10 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../../context/AuthContext'; // Import the context
 import { useContext, useState } from 'react';
-
-import toast from 'react-hot-toast'
+import toast from 'react-hot-toast';
 import './program.css';
-import { BASE_URL } from '../utils/base'
+import { BASE_URL } from '../utils/base';
 import { Spinner } from 'react-bootstrap';
 import { ResourceContext } from '../../context/ResourceContext';
 
@@ -18,63 +17,64 @@ const ProgramPreview = ({ details }) => {
         ? JSON.parse(localStorage.getItem("carts"))[0]
         : null;
 
-        const {
-            setGetAllCarts
-        } = useContext(ResourceContext);
-    
+    const { setGetAllCarts, setCartStore } = useContext(ResourceContext);
 
     async function HandleAddToCart() {
         setLoading(true); // Start loading
 
         if (userCredentials) {
+            console.log("User adding to cart");
             let item = {
                 user_id: userCredentials?.user.id,
                 course_id: details.id
-            }
+            };
             try {
                 const response = await axios.post(`${BASE_URL}cart/addCart`, item, {
                     headers: {
-                        'Authorization': `Bearer ${userCredentials.token}`,
+                        'Authorization': `Bearer ${userCredentials?.token}`,
                     },
                 });
-                if(response){
+
+                if (response) {
+                    console.log('Cart response:', response); // Debugging API response
                     setGetAllCarts((prev) => ({
                         ...prev,
                         isDataNeeded: true,
                     }));
-                toast.success(response?.data?.message || 'Course added to cart');
-                navigate('/carts'); // Navigate to carts page
+                    toast.success(response?.data?.message || 'Course added to cart');
+                    navigate('/carts'); // Navigate to carts page
                 }
             } catch (error) {
-                console.error('Error adding to cart:', error);
-                setLoading(false); // Stop loading on error
-                toast.error(error?.data?.message || 'An error occurred')
-                return;
+                console.error('Error adding to cart:', error); // Log errors
+                toast.error(error?.response
+                    ? JSON.stringify(error?.response.data?.message)
+                    : 'An error occurred'
+                );
+            } finally {
+                setLoading(false); // Stop loading
             }
-        }
+        } else {
+            console.log("User not signed in, adding to local storage"); // Debugging guest cart addition
 
-        // Add item to local storage cart
-        if (
-            fromLocal === null ||
-            (fromLocal && !fromLocal.data.find((item) => item.title === details.title))
-        ) {
-            localStorage.setItem(
-                "carts",
-                JSON.stringify(
-                    fromLocal
-                        ? [{ user: "guest", data: [...fromLocal.data, details] }]
-                        : [{ user: "guest", data: [details] }]
-                )
-            );
+            if (
+                fromLocal === null ||
+                (fromLocal && !fromLocal.data.find((item) => item.title === details.title))
+            ) {
+                const updatedCart = fromLocal
+                    ? { user: "guest", data: [...fromLocal.data, details] }
+                    : { user: "guest", data: [details] };
 
-            localStorage.setItem("comingFrom", JSON.stringify({ user: "guest" }));
+                localStorage.setItem("carts", JSON.stringify([updatedCart]));
+                setCartStore({ data: details });
 
+                scrollTo(0, 0); // Scroll to top
+                navigate('/carts'); // Navigate to carts page
+                toast.success('Course added to cart successfully');
+            } else {
+                toast.error('Course already exists in cart');
+            }
             setLoading(false); // Stop loading
-            scrollTo(0, 0); // Scroll to top
-            navigate('/carts'); // Navigate to carts page
         }
-
-
     }
 
     return (
@@ -95,8 +95,13 @@ const ProgramPreview = ({ details }) => {
             <div className='w-full md:w-1/3 flex flex-col items-end'>
                 <p
                     className={`w-full md:w-[90%] text-sm text-black border border-gray-700 px-3 py-4 underline cursor-pointer ${loading ? 'cursor-not-allowed opacity-50' : ''}`}
-                    onClick={loading ? null : HandleAddToCart}>
-                    {loading ? <span>Adding to cart <Spinner animation="border" size="sm" className='ml-2' /></span> : <span>Add To Cart</span>}
+                    onClick={loading ? null : HandleAddToCart}
+                >
+                    {loading ? (
+                        <span>Adding to cart <Spinner animation="border" size="sm" className='ml-2' /></span>
+                    ) : (
+                        <span>Add To Cart</span>
+                    )}
                 </p>
                 <p className='w-full md:w-[90%] text-sm text-black border border-gray-700 px-3 py-4'>
                     ${details?.price}

@@ -94,8 +94,8 @@ const UploadAssignment = () => {
         resetFields(); // Reset fields after successful upload
       })
       .catch((error) => {
-        console.error("Upload error:", error.response ? error.response.data : error.message);
-        toast.error(error?.data?.message || "An error occurred during upload.");
+        console.error("Upload error:", error, error.response ? error.response.data : error.message);
+        toast.error(error?.message || error?.data?.message || "An error occurred during upload.");
         setLoading(false);
       });
   };

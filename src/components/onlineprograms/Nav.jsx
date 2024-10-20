@@ -13,14 +13,14 @@ const Nav = () => {
   const [menu, setMenu] = useState(false);
   const [dropdown, setDropdown] = useState({});
   const {
-    fromLocal,
+    cartStore,
     getAllCarts
   } = useContext(ResourceContext)
-
+  
   useEffect(() => {
-    setGuestCart(fromLocal ? fromLocal.data.length : 0)
-    console.log(fromLocal)
-  }, [fromLocal])
+    setGuestCart(cartStore?.data ? cartStore?.data?.length : 0)
+    console.log(cartStore)
+  }, [cartStore])
 
   const handleDropdown = (event, name) => {
     event.preventDefault();
@@ -107,7 +107,7 @@ const Nav = () => {
 
         </ul>
 
-        <p onClick={() => { navigate('/carts'); localStorage.setItem("comingFrom", JSON.stringify({ user: "guest" })) }} className="ml-2 mr-2 relative cursor-pointer flex item-center"><FaShoppingCart size="24" /> <span className="absolute top-[-13px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{getAllCarts?.data ? getAllCarts?.data.length : guestCart}</span></p>
+        <p onClick={() => { navigate('/carts'); localStorage.setItem("comingFrom", JSON.stringify({ user: "guest" })) }} className="ml-2 mr-2 relative cursor-pointer flex item-center"><FaShoppingCart size="24" /> <span className="absolute top-[-13px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{guestCart}</span></p>
 
         <div className="md:hidden bg-[#8B0002] py-2 px-3 text-white rounded-md cursor-pointer" onClick={() => setMenu(!menu)}>
           {

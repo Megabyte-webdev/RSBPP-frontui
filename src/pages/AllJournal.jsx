@@ -22,7 +22,7 @@ const AllJournal = () => {
         axios.get(`${BASE_URL}course/getAllJournal`, { headers: myHeaders })
             .then((response) => {
                 console.log("API Response:", response.data);
-                setJournals(response?.data?.allAssignment || []);
+                setJournals(response?.data?.allJournal || []);
                 setGetAllFaculty(prev => ({ ...prev, isDataNeeded: true }));
                 setLoading(false);
             })

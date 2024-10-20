@@ -65,7 +65,7 @@ import AddJournal from "./pages/AddJournal";
 import UploadAssignment from "./pages/UploadAssignment";
 import SubmittedAssignments from "./pages/SubmittedAssignments";
 import AllAssignment from "./pages/AllAssignment";
-import AllJournal from "./pages/AllJournal";
+// import AllJournal from "./pages/AllJournal";
 // const LazyMeeting = lazy(() => ./components/onlineprograms/OnlineProgramsLayout
 
 const App = () => {
@@ -176,7 +176,7 @@ const App = () => {
                   />
                   <Route path="/add_instructor" element={<AddInstructor />} />
                   <Route path="/view-assignments" element={<AllAssignment />} />
-                  <Route path="/view-journals" element={<AllJournal />} />
+                  <Route path="/view-journals" element={<ViewJournals />} />
                 </>
               )}
             </Route>
