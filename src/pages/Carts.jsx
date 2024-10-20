@@ -98,6 +98,7 @@ const Carts = () => {
                 )
                 localStorage.removeItem("carts");
                 setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
+setCartStore(getAllCarts)
         }
     }, [userCredentials]);
 
