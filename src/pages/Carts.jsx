@@ -90,7 +90,7 @@ const Carts = () => {
         if (carts?.user === "guest" && userCredentials) {
             // Transfer each course from guest cart to user's cart
         
-                carts.data.map((course) => 
+                carts.data.forEach((course) => 
                     addToCart({
                         user_id: userCredentials.user.id,
                         course_id: course.id,
