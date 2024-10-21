@@ -15,8 +15,7 @@ const NavBar = () => {
     
     const navigate = useNavigate()
     const {
-        getAllCarts,
-        setGetAllCarts, setCartStore, cartStore } = useContext(ResourceContext);
+        setGetAllCarts, cartStore } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
     const role = userCredentials?.user?.role
     useEffect(() => {
@@ -63,7 +62,7 @@ const NavBar = () => {
                                 className='nav-link '>
                                 <div
                                     className='d-flex justify-content-center align-items-center me-3 text-white rounded-circle brown_bg fs_xsm'
-                                    style={{ width: "20px", height: "20px" }}><span>{cartStore?.data?.length}</span> </div>
+                                    style={{ width: "20px", height: "20px" }}><span>{cartStore?.data?.length || 0}</span> </div>
                                 <span><BiSolidCart size={25} /></span>
                             </Link>
                         </div>

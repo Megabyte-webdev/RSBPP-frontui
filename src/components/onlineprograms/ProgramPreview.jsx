@@ -17,7 +17,7 @@ const ProgramPreview = ({ details }) => {
         ? JSON.parse(localStorage.getItem("carts"))[0]
         : null;
 
-    const { setGetAllCarts, setCartStore } = useContext(ResourceContext);
+    const { setGetAllCarts, setCartStore, getAllCarts } = useContext(ResourceContext);
 
     async function HandleAddToCart() {
         setLoading(true); // Start loading
@@ -41,6 +41,7 @@ const ProgramPreview = ({ details }) => {
                         ...prev,
                         isDataNeeded: true,
                     }));
+                    console.log(getAllCarts)
                     toast.success(response?.data?.message || 'Course added to cart');
                     navigate('/carts'); // Navigate to carts page
                 }
@@ -65,7 +66,7 @@ const ProgramPreview = ({ details }) => {
                     : { user: "guest", data: [details] };
 
                 localStorage.setItem("carts", JSON.stringify([updatedCart]));
-                setCartStore({ data: details });
+                setCartStore({ data: [details] });
 
                 scrollTo(0, 0); // Scroll to top
                 navigate('/carts'); // Navigate to carts page

@@ -6,24 +6,24 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/AuthContext';
 import { cartsTotalFunction } from '../components/utils/getApi';
 import Nav from '../components/onlineprograms/Nav';
-import axios from 'axios';
+// import axios from 'axios';
 import { BASE_URL } from '../components/utils/base';
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
 
 const Carts = () => {
     const navigate = useNavigate();
     const { userCredentials } = useContext(UserContext);
-    const { 
-        cartStore, 
-        setCartStore, 
-        getAllCarts, 
-        setGetAllCarts 
+    const {
+        cartStore,
+        setCartStore,
+        getAllCarts,
+        setGetAllCarts
     } = useContext(ResourceContext);
 
     const [error, setError] = useState('');
     const [currentTotal, setCurrentTotal] = useState('');
     const token = userCredentials?.token;
-    const carts = JSON.parse(localStorage.getItem("carts") || "null");
+    // const carts = JSON.parse(localStorage.getItem("carts") && localStorage.getItem("carts")) || null;
 
     const deleteFromCart = async (cart, setIsSubmitting) => {
         setIsSubmitting(true);
@@ -63,35 +63,18 @@ const Carts = () => {
         }
     };
 
-    const addToCart = async (details) => {
-        try {
-            const response = await axios.post(`${BASE_URL}cart/addCart`, details, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            toast.success(response.data.message);
-            setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
-        } catch (error) {
-            console.error(error);
-            toast.error(error?.response?.data?.message || error.message);
-        }
-    };
-
-    useEffect(() => {
-        if (carts?.user === "guest" && userCredentials) {
-            const transferCartItems = async () => {
-                for (const course of carts.data) {
-                    await addToCart({
-                        user_id: userCredentials.user.id,
-                        course_id: course.id,
-                    });
-                }
-                localStorage.removeItem("carts");
-                setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
-                setCartStore(getAllCarts);
-            };
-            transferCartItems();
-        }
-    }, [userCredentials]);
+    // const addToCart = async (details) => {
+    //     try {
+    //         const response = await axios.post(`${BASE_URL}cart/addCart`, details, {
+    //             headers: { Authorization: `Bearer ${token}` },
+    //         });
+    //         toast.success(response.data.message);
+    //         setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
+    //     } catch (error) {
+    //         console.error(error);
+    //         toast.error(error?.response?.data?.message || error.message);
+    //     }
+    // };
 
     useEffect(() => {
         if (userCredentials) {
@@ -150,8 +133,8 @@ const Carts = () => {
                                         <div className="d-flex mb-3 text-black fw-bold justify-between">
                                             <p>Total Price</p>
                                             <p>
-                                                ${userCredentials ? currentTotal : 
-                                                cartStore.data.reduce((acc, cart) => acc + parseFloat(cart.price), 0)}
+                                                ${userCredentials ? currentTotal :
+                                                    cartStore.data.reduce((acc, cart) => acc + parseFloat(cart.price), 0)}
                                             </p>
                                         </div>
                                         <button

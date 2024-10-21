@@ -13,9 +13,9 @@ import { ResourceContext } from "../../context/ResourceContext";
 const Layout = () => {
     const navigate = useNavigate();
     const { userCredentials } = useContext(UserContext);
-    const { setGetAllCarts, setCartStore } = useContext(ResourceContext);
+    const { setGetAllCarts,getAllCarts, setCartStore } = useContext(ResourceContext);
 
-    const carts = JSON.parse(localStorage.getItem("carts") || "null");
+    const carts = JSON.parse(localStorage.getItem("carts") && localStorage.getItem("carts")) || null;
 
     const addToCart = async (details) => {
         try {
@@ -31,7 +31,7 @@ const Layout = () => {
     };
 
     useEffect(() => {
-        if (!userCredentials) {
+        if (userCredentials === null) {
             // Redirect to login and reset cart state for guests
             navigate("/login");
             setCartStore({ user: "guest", data: [] });
@@ -41,21 +41,29 @@ const Layout = () => {
         }
 
         // Transfer guest cart items to user cart if user logs in
-        if (carts?.user === "guest") {
-            const transferCartItems = async () => {
-                for (const course of carts.data) {
-                    await addToCart({
+        if (carts !== null && userCredentials !== null) {
+            console.log(carts[0])
+            navigate("/carts");
+                carts[0]?.data.map((course)=>{
+                    let detail={
                         user_id: userCredentials.user.id,
                         course_id: course.id,
-                    });
-                }
-                localStorage.removeItem("carts");
-            };
-            transferCartItems();
+                    }
+                    addToCart(detail);
+                })
+              
+                localStorage.removeItem("carts");                    
+                
+
         }
 
         // Refresh user carts upon login
-        setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
+        try{
+            setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }))
+        }finally{
+        setCartStore({data: getAllCarts.data})
+        console.log(getAllCarts)
+        }
     }, [userCredentials]);
 
     return (

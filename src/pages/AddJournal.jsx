@@ -49,7 +49,15 @@ const AddJournal = () => {
       (item) => item.title === faculty
     );
     setFilteredData(selectedFaculty);
-  }, [faculty, getAllFaculty]);
+
+    const matchFaculty = getAllFaculty?.data?.find(
+      (item) => item.id === editData.faculty_id
+    );
+    if(faculty !== "Select a Faculty" && matchFaculty.title !== faculty){
+    console.log("select a course")
+    setCourse("Select a Programme")
+    
+  }  }, [faculty, getAllFaculty]);
 
   const handleCourseSelection = () =>
     filteredData?.courses?.find((item) => item.title === course);
