@@ -50,10 +50,6 @@ const SubmittedAssignments = ({ user }) => {
     return `${year}-${month}-${day}`;
   };
 
-  const handleEdit = (assignment) => {
-    navigate('/upload-assignment', { state: { editData: assignment } });
-  };
-
   /*content
 : 
 "New Assignment"

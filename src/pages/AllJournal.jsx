@@ -78,7 +78,7 @@ const AllJournal = () => {
                     </thead>
                     <tbody>
                         {journals.map((row) => (
-                            <tr key={row.id}>
+                            <tr key={row.id} onClick={()=>{navigate('/remark-journal', { state: { journal: row } }); scrollTo(0,0)}}>
                                 <td className='p-2 mx-2 min-w-[150px]'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
                                 <td className='p-2 mx-2 min-w-[150px]'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
                                 <td className='p-2 mx-2 min-w-[150px]'>{formatDate(row.created_at)}</td>

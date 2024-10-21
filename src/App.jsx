@@ -61,6 +61,7 @@ import OnlinePrograms from "./components/onlineprograms/OnlinePrograms";
 import Programme from "./components/onlineprograms/Programme";
 import DigiKnowH from "./components/onlineprograms/DigiKnowH";
 import ViewJournals from "./pages/ViewJournals";
+import RemarkJournal from "./pages/RemarkJournal";
 import AddJournal from "./pages/AddJournal";
 import UploadAssignment from "./pages/UploadAssignment";
 import SubmittedAssignments from "./pages/SubmittedAssignments";
@@ -175,6 +176,7 @@ const App = () => {
                     element={<FacultyAdministration />}
                   />
                   <Route path="/add_instructor" element={<AddInstructor />} />
+                  <Route path="/remark-journal" element={<RemarkJournal />} />
                   <Route path="/view-assignments" element={<AllAssignment />} />
                   <Route path="/view-journals" element={<ViewJournals />} />
                 </>

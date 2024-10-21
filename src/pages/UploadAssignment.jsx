@@ -7,99 +7,156 @@ import { UserContext } from "../context/AuthContext";
 import { BASE_URL } from "../components/utils/base";
 import { Spinner } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { useLocation } from "react-router-dom"; // Import useLocation
+import { useNavigate, useLocation } from "react-router-dom";
 
 const UploadAssignment = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { setGetAllFaculty, getAllFaculty } = useContext(ResourceContext);
+  const { userCredentials } = useContext(UserContext);
+  const role = userCredentials?.user.role.toLowerCase();
+  const editData = location.state?.editData || null;
+
   const [filteredData, setFilteredData] = useState(null);
+  const [selectedFaculty, setSelectedFaculty] = useState(null);
+  const [selectedCourse, setSelectedCourse] = useState(null);
   const [faculty, setFaculty] = useState("Select a Faculty");
-  const [course, setCourse] = useState("Select a Course");
+  const [course, setCourse] = useState("Select a Programme");
   const [prof, setProf] = useState("Prof Samuel Attong");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [assignmentId, setAssignmentId] = useState(null);
+
   const fileInput = useRef(null);
+  const myHeaders = { Authorization: `Bearer ${userCredentials.token}` };
 
-  const { setGetAllFaculty, getAllFaculty } = useContext(ResourceContext);
-  const { userCredentials } = useContext(UserContext);
-  const role = userCredentials?.user.role.toLowerCase();
-
-  const location = useLocation(); // Get the location object
-  const editData = location.state?.editData || null; // Extract editData from location state
-
+  // Load all faculty data on component mount
   useEffect(() => {
-    // Load faculty and course data
     setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
+  }, []);
 
+  // Sync faculty and course when editData is provided
+  useEffect(() => {
     if (editData) {
-      // Find the faculty and course based on their IDs
-      const selectedFaculty = getAllFaculty?.data?.find(item => item.id === editData.faculty_id);
-      const selectedCourse = selectedFaculty?.courses?.find(course => course.id === editData.course_id); // Assuming courses are under faculty
+      const facultyItem = getAllFaculty?.data?.find(item => item.id === editData.faculty_id);
+      setSelectedFaculty(facultyItem || null);
 
-      // Set states with found titles
-      setFaculty(selectedFaculty ? selectedFaculty.title : "Select a Faculty");
-      setCourse(selectedCourse ? selectedCourse.title : "Select a Course");
-      setDescription(editData.content || ""); // Adjust according to your data structure
-      // Do not reset selectedFile; it will depend on user interaction
+      
+        const courseItem = facultyItem?.courses?.find(course => course.id === editData.course_id);
+        setSelectedCourse(courseItem || null);
+
+
+      setFaculty(facultyItem ? facultyItem.title : "Select a Faculty");
+      setCourse(courseItem ? courseItem.title : "Select a Programme");
+      setDescription(editData.content || "");
     }
-  }, [editData]);
+  }, [editData, getAllFaculty]);
+
+  // Sync selected faculty with user input
+  useEffect(() => {
+    const facultyItem = getAllFaculty?.data?.find(item => item.title === faculty);
+    setSelectedFaculty(facultyItem || null);
+    // Check if we're editing and have editData
+  if (editData && facultyItem) {
+    // Set the course to the one in editData if the faculty matches
+    const matchingCourse = facultyItem.courses.find(course => course.id === editData.course_id);
+    setCourse(matchingCourse ? matchingCourse.title : "Select a Programme");
+  } else {
+     // Set the course to the one in editData if the faculty matches
+     const matchingCourse = facultyItem?.courses.find(item => item.title === course);
+    // If not editing and course not match, reset course to "Select a Programme"
+    setCourse(matchingCourse ? matchingCourse.title : "Select a Programme");
+  }
+    console.log(faculty)
+  }, [faculty, getAllFaculty]);
+
+  // Sync selected course with user input and load assignments for non-admin users
+useEffect(() => {
+  if (selectedFaculty) {
+    const courseItem = selectedFaculty.courses?.find(item => item.title === course);
+    setSelectedCourse(courseItem || null);
+
+    if (role !== "admin" && courseItem) {
+      axios
+        .get(`${BASE_URL}course/getAllAssignmentCourse/${courseItem.id}`, { headers: myHeaders })
+        .then((response) => {
+          const newAssignmentId = response.data?.allAssignment[0]?.id || null;
+          setAssignmentId(newAssignmentId);
+          console.log(response.data?.allAssignment[0]); // Log fetched assignment data
+          console.log(newAssignmentId);
+          if(newAssignmentId === null){
+            toast.error("No Assignment Found for this course")
+          } // Log the new assignment ID
+        })
+        .catch((error) => {
+          console.error("Error fetching assignment:", error);
+          toast.error("Error fetching assignment fr this course")
+          setAssignmentId(null);
+        });
+    }
+  }
+}, [course, selectedFaculty, role]);
+
 
   const uploadAssignment = () => {
-    const selectedCourse = filteredData?.courses?.find(
-      (item) => item.title === course
-    );
-
-    if (!filteredData || !selectedCourse) {
+    if (!selectedFaculty || !selectedCourse) {
       toast.error("Please select a valid faculty and course.");
       return;
     }
 
-    if (!selectedFile && !editData) { // Allow submission if editing
+    if (!selectedFile && !editData) {
       toast.error("Please upload a file.");
       return;
     }
 
     setLoading(true);
     const formData = new FormData();
+    const apiFunc = role === "admin" ? (editData ? 'updateAssignment' : 'addAssignment') : 'submitAssignment';
+
     if (role === "admin") {
+      if (editData) formData.append("id", editData.id);
       formData.append("title", `${course} Assignment`);
       formData.append("course_id", selectedCourse.id);
-      formData.append("faculty_id", filteredData.id);
-      formData.append("created_by_id", userCredentials.id);
+      formData.append("faculty_id", selectedFaculty.id);
+      formData.append("created_by_id", userCredentials?.user?.id);
       formData.append("content", description);
-      if (selectedFile) formData.append("file", selectedFile); // Only add if new file
-      formData.append("image", selectedCourse.image);
+      if (selectedFile) formData.append("file", selectedFile);
+      formData.append("image", editData ? editData.image : selectedCourse.image);
       formData.append("status", "active");
     } else {
-      formData.append("assignment_id", editData ? editData.id : "2"); // Use editData ID if editing
+      formData.append("assignment_id", assignmentId);
       formData.append("course_id", selectedCourse.id);
-      formData.append("faculty_id", filteredData.id);
-      formData.append("created_by_id", userCredentials.id);
+      formData.append("faculty_id", selectedFaculty.id);
+      formData.append("created_by_id", userCredentials?.user?.id);
       formData.append("text_submission", description);
-      if (selectedFile) formData.append("file_submission", selectedFile); // Only add if new file
-      formData.append("status", editData ? "update" : "submit");
+      if (selectedFile) formData.append("file_submission", selectedFile);
+      formData.append("status", "submit");
+
     }
 
-    const myHeaders = {
-      Authorization: `Bearer ${userCredentials.token}`,
-    };
-
-    const apiFunc = editData ? 'updateAssignment' : (role === "admin" ? 'addAssignment' : 'submitAssignment');
-
+    console.log([...formData])
     axios
       .post(`${BASE_URL}course/${apiFunc}`, formData, { headers: myHeaders })
       .then((response) => {
-        toast.success(response?.data.message || "Assignment submitted successfully");
+        toast.success(response.data.message || "Assignment submitted successfully");
         setLoading(false);
-        resetFields(); // Reset fields after successful upload
+        resetFields();
+        if(role === "admin"){
+          navigate('/view-assignments');
+          scrollTo(0,0)
+        }else{
+          navigate('/submitted-assignments');
+          scrollTo(0,0)
+        } 
       })
       .catch((error) => {
-        console.error("Upload error:", error, error.response ? error.response.data : error.message);
-        toast.error(error?.message || error?.data?.message || "An error occurred during upload.");
+        console.error("Upload error:", error);
+        toast.error(error.response?.data?.message || "An error occurred during upload.");
         setLoading(false);
       });
   };
-
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -131,15 +188,11 @@ const UploadAssignment = () => {
 
   const resetFields = () => {
     setFaculty("Select a Faculty");
-    setCourse("Select a Course");
+    setCourse("Select a Programme");
     setDescription("");
     setSelectedFile(null);
   };
 
-  useEffect(() => {
-    const selectedFaculty = getAllFaculty?.data?.find((item) => item.title === faculty);
-    setFilteredData(selectedFaculty);
-  }, [faculty, getAllFaculty]);
 
   return (
     <div className="flex flex-col p-3 p-md-5 min-vh-100 poppins" style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
@@ -155,8 +208,8 @@ const UploadAssignment = () => {
           <div className="flex flex-col gap-y-2">
             <p className="text-xs md:text-[16px] capitalize">{faculty}</p>
             <p className="text-xs md:text-sm text-gray-600 capitalize overflow-hidden">
-              {filteredData
-                ? `${filteredData.description.split(" ").slice(0, 8).join(" ")}...`
+              {selectedFaculty
+                ? `${selectedFaculty.description.split(" ").slice(0, 8).join(" ")}...`
                 : "Select Faculty"}
             </p>
           </div>
@@ -180,35 +233,37 @@ const UploadAssignment = () => {
         </section>
       </div>
 
-      {/* Course Dropdown */}
-      <div className="font-medium my-3">
-        <section className="relative flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
-          <div className="flex flex-col gap-y-2">
-            <p className="text-xs md:text-[16px] capitalize">{course}</p>
-            <p className="text-xs md:text-sm text-gray-600 capitalize">Select Course</p>
-          </div>
-          <small className="font-bold ml-auto px-[2px] text-[10px] md:text-xs text-red-500">
-            {prof}
-          </small>
-          <select
-            className="p-2 md:p-3 w-[98%] absolute min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md"
-            value={course}
-            onChange={(e) => setCourse(e.target.value)}
-          >
-            <option disabled value="Select a Course">
-              Select a Course
-            </option>
-            {filteredData?.courses?.map((item, index) => (
-              <option key={index} value={item.title}>
-                {item.title}
+        {/* Course Dropdown */}
+        <div className="relative font-medium my-3">
+          <section className="flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
+            <div className="flex flex-col gap-y-2">
+              <p className="text-xs md:text-[16px] capitalize">{course}</p>
+              <p className="text-xs md:text-sm text-gray-500 capitalize">
+                Select Course
+              </p>
+            </div>
+            <small className="font-bold ml-auto px-[2px] text-[10px] md:text-xs text-red-500">
+              {prof}
+            </small>
+            <select
+              className="p-2 md:p-3 absolute w-[98%] min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
+              value={course}
+              onChange={(e) => setCourse(e.target.value)}
+            >
+              <option disabled value="Select a Programme">
+                Select a Course
               </option>
-            ))}
-          </select>
-          <p className="pl-[1px] md:pl-4 text-red-500">
-            <IoIosArrowDown size="20" />
-          </p>
-        </section>
-      </div>
+              {selectedFaculty?.courses?.map((item, index) => (
+                <option key={index} value={item.title}>
+                  {item.title}
+                </option>
+              ))}
+            </select>
+            <p className="pl-[2px] md:pl-4 text-red-500">
+              <IoIosArrowDown size="20" />
+            </p>
+          </section>
+        </div>
 
       {/* Description Field */}
       <div className="font-medium my-2 border-[1px] border-red-500 p-2 md:p-3">

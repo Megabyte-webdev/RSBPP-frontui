@@ -49,15 +49,25 @@ const AddJournal = () => {
       (item) => item.title === faculty
     );
     setFilteredData(selectedFaculty);
+if(editData && faculty){
+  const matchFaculty = getAllFaculty?.data?.find(
+    (item) => item.id === editData.faculty_id
+  );
 
-    const matchFaculty = getAllFaculty?.data?.find(
-      (item) => item.id === editData.faculty_id
-    );
-    if(faculty !== "Select a Faculty" && matchFaculty.title !== faculty){
-    console.log("select a course")
-    setCourse("Select a Programme")
+  if(faculty !== "Select a Faculty" && matchFaculty.title !== faculty){
+  console.log("select a course")
+  setCourse("Select a Programme")
+}else{
+  const selectedCourse = selectedFaculty?.courses?.find(
+    (course) => course.id === editData.course_id
+  );
+  setCourse(selectedCourse && selectedCourse.title)
+}
+}else{
+  setCourse("Select a Programme")
+}
     
-  }  }, [faculty, getAllFaculty]);
+  }, [faculty, getAllFaculty]);
 
   const handleCourseSelection = () =>
     filteredData?.courses?.find((item) => item.title === course);
@@ -70,14 +80,16 @@ const AddJournal = () => {
 
     setLoading(true);
     const formData = new FormData();
+    editData && formData.append("id", editData.id);
     formData.append("course_id", selectedCourse.id);
     formData.append("faculty_id", filteredData.id);
     formData.append("created_by_id", userCredentials.user.id);
     formData.append("text_submission", remark);
-    formData.append("status", "");
+    formData.append("status", editData ? editData.status:"pending");
+    console.log(formData)
     
     const url = isEditMode
-      ? `${BASE_URL}course/updateJournal/${editData.id}`
+      ? `${BASE_URL}course/updateJournal`
       : `${BASE_URL}course/addJournal`;
 
     axios
