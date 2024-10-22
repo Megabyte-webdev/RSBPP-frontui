@@ -21,13 +21,6 @@ const ExploreDigiKnowH =()=>{
            (program) => program.course_type === "digiknowh"
          );
  
-         const groupedByFaculty = digiknowhPrograms.reduce((acc, program) => {
-           const faculty = program.faculty_label || "Others";
-           if (!acc[faculty]) acc[faculty] = [];
-           acc[faculty].push(program);
-           return acc;
-         }, {});
- 
          setGroupedData(groupedByFaculty);
          setLoading(false);
        })
@@ -67,12 +60,17 @@ Overall, the DigiKnowH programme promises an engaging and enriching experience f
 <img className='w-full h-[300px] md:h-[600px] object-cover' src={DigiImg} alt=""/>
 <h3 className='my-3 text-2xl font-medium'>Digital Skills Programme ( DigiknowH)</h3>
 <ul className='flex flex-wrap gap-y-3 justify-between px-0 font-medium'>
-              <Link to='/digiknowh/' className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p> Effective Social Media Strategy</Link>
-              <Link className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p> Content Creation & Brand Building
-AI - CRM</Link>
-   <Link className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p>
-AI - CRM</Link>
-              <Link className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p> Digital Transformation StrategyItem</Link>
+
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          digiknowhPrograms.length !== 0 ?digiknowhPrograms?.map(([faculty, programs]) => (
+           <Link to={`/digiknowh/${program.title
+                        .replace(/[:\s]+/g, "-")
+                        .toLowerCase()}`}
+                      state={{ courseId: program.id }} className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p> {program?.title}</Link>
+                
+                )):(<li>No Courses Available For Now</li>)}
 </ul>
 </div>
 
