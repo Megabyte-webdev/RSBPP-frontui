@@ -1,3 +1,4 @@
+
 import { useContext, useEffect, useState, useMemo } from 'react';
 import { BASE_URL, IMAGE_URL } from '../components/utils/base';
 import axios from 'axios';
@@ -45,13 +46,6 @@ const SubmittedAssignments = () => {
     }
   }, [userCredentials.token, course, location.state, setGetAllFaculty, setGetAllUsers]);
 
-  useEffect(() => {
-    const { assignment } = location.state || {};
-    if (assignment) {
-      fetchAssignments(assignment.courseId); // Ensure to call fetchAssignments when navigating back
-    }
-  }, [location.state]); // Trigger on change of location.state
-
   const GetUserDetails = useMemo(() => {
     return (userId) => {
       const user = getAllUsers?.data?.find((item) => item.id === userId);
@@ -78,7 +72,7 @@ const SubmittedAssignments = () => {
               <div
                 key={row.id}
                 onClick={() => {
-                  navigate('/grade-assignment', { state: { assignment: row, courseId: row.course_id } });
+                  navigate('/grade-assignment', { state: { assignment: row } });
                   scrollTo(0, 0);
                 }}
                 className="min-h-[300px] cursor-pointer bg-white shadow-lg rounded-lg p-6 flex flex-col items-center"
