@@ -9,7 +9,7 @@ import partner4 from '../../assets/online-programmes/Docenti-removebg-preview.pn
 
 const Partners = () => {
   return (
-    <div className='h-max md:h-14 md:px-[2%] px-[4%] flex flex-col md:flex-row md:items-center md:justify-between'>
+    <div className='h-max md:h-16 md:px-[2%] px-[4%] flex flex-col md:flex-row md:items-center md:justify-between'>
       <h3 className='h-max text-xl md:text-2xl font-bold text-black md:border-0 border-b border-b-gray-300 py-3'>Our Partners</h3>
       <div className='w-full md:w-[70%] flex md:items-center pt-3 md:mx-6'>
         <Swiper
