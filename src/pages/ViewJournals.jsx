@@ -152,7 +152,7 @@ const ViewJournals = () => {
                                     <td className="p-2 mx-2">{row.status || 'N/A'}</td>
                                     <td className="p-2 mx-2">
                                         <button
-                                            onClick={(event) => userCredentials?.user?.role==="admin"?navigate('/remark-journal'): handleEdit(event, row)}
+                                            onClick={(event) => userCredentials?.user?.role==="admin"?navigate('/remark-journal',{ state: { journal: row } }): handleEdit(event, row)}
                                             className="bg-blue-500 text-white font-semibold px-3 py-2 rounded-md"
                                         >
                                            {userCredentials?.user?.role==="admin"? 'Remark': 'Edit'}
