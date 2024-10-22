@@ -17,8 +17,7 @@ const GradeAssignment = () => {
   const [score, setScore] = useState(assignment?.grade || 0);
   const [submissionId, setSubmissionId] = useState(null);
 
-  const { setGetAllFaculty, getAllFaculty, setGetAllUsers, getAllUsers } =
-    useContext(ResourceContext);
+  const { setGetAllFaculty, getAllFaculty, setGetAllUsers, getAllUsers } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
 
   useEffect(() => {
@@ -30,16 +29,17 @@ const GradeAssignment = () => {
         },
       })
       .then((response) => {
-        setSubmissionId(response.data.allAssignmentSubmit[0]?.id);
+        const submission = response.data.allAssignmentSubmit.find(sub => sub.user_id === assignment.user_id);
+        if (submission) {
+          setSubmissionId(submission.id);
+        }
       })
       .catch((error) => {
         console.error(error);
-        toast.error(
-          error?.response?.data?.message || "Error confirming assignment submission"
-        );
+        toast.error(error?.response?.data?.message || "Error confirming assignment submission");
       })
       .finally(() => setSubmissionLoading(false));
-  }, [assignment.course_id, userCredentials.token]);
+  }, [assignment.course_id, assignment.user_id, userCredentials.token]);
 
   useEffect(() => {
     // Ensure data is marked as needed to trigger fetch
@@ -65,7 +65,6 @@ const GradeAssignment = () => {
       .then((response) => {
         toast.success(response.data.message || "Remark sent");
         // Update the assignment state with the new values
-        // Update the local state to reflect the new grade and remark
         assignment.grade = score; // Update the assignment with the new grade
         assignment.remark = remark; // Update the assignment with the new remark
       })
@@ -81,7 +80,7 @@ const GradeAssignment = () => {
   }, [assignment.user_id, getAllUsers]);
 
   return (
-    <div className="px-[2%] flex flex-col items-center gap-3 min-[800px]:items-start  min-[800px]:flex-row">
+    <div className="px-[2%] flex flex-col items-center gap-3 min-[800px]:items-start min-[800px]:flex-row">
       <div className="grid grid-cols-auto gap-4 pt-5 gap-y-6 px-2 sm:px-0">
         <div
           key={assignment.id}
@@ -125,9 +124,7 @@ const GradeAssignment = () => {
         <div className="flex items-center justify-center mt-[-3px] mb-2">
           <button
             onClick={handleGrade}
-            className={`bg-[navy] text-white py-2 px-8 rounded-md ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`bg-[navy] text-white py-2 px-8 rounded-md ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
             disabled={loading}
           >
             <span>Submit</span>
