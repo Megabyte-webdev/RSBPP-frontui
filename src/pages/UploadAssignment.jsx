@@ -51,7 +51,7 @@ useEffect(() => {
         console.error("Error fetching instructors:", error);
         toast.error("Failed to load instructors.");
       });
-  }, [slectedCourse]);
+  }, [selectedCourse]);
 
 
 
