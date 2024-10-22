@@ -54,8 +54,8 @@ export const sidebarConstants = [
                 link: "/upload-assignment",
             },
             {
-                title: "Submitted Assignments",
-                link: "/submitted-assignments",
+                title: "View All Assignments",
+                link: "/view-assignments",
             }
         ]
     },
@@ -124,10 +124,6 @@ export const adminConstants = [
             },{
                 title: "View All Assignments",
                 link: "/view-assignments",
-            },
-            {
-                title: "Submitted Assignments",
-                link: "/submitted-assignments",
             }
         ]
     },

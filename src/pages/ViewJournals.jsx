@@ -13,8 +13,12 @@ const ViewJournals = () => {
     const [journals, setJournals] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // Pagination states
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(5); // Number of journals per page
+
     useEffect(() => {
-        if (!userCredentials) return; // Prevent unnecessary fetch if user is not available
+        if (!userCredentials) return;
 
         setLoading(true);
         const myHeaders = {
@@ -26,10 +30,12 @@ const ViewJournals = () => {
             .then((response) => {
                 console.log('API Response:', response.data);
 
-                // Filter journals to only show those belonging to the current user
-                const userJournals = userCredentials?.user?.role === "admin" ? response.data.allJournal : response.data.allJournal.filter(
-                    (journal) => journal.user_id === userCredentials.user.id
-                );
+                const userJournals =
+                    userCredentials?.user?.role === 'admin'
+                        ? response.data.allJournal
+                        : response.data.allJournal.filter(
+                              (journal) => journal.user_id === userCredentials.user.id
+                          );
 
                 setJournals(userJournals);
                 setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
@@ -59,23 +65,59 @@ const ViewJournals = () => {
         return `${year}-${month}-${day}`;
     };
 
-    const handleEdit = (journal) => {
-      navigate("/add-journal", { state: { editData: journal } });
+    const handleEdit = (event, journal) => {
+        event.stopPropagation(); // Prevent row click event
+        navigate('/add-journal', { state: { editData: journal } });
+    };
+
+    const totalPages = Math.ceil(journals.length / pageSize);
+    const displayedJournals = journals.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage((prevPage) => prevPage + 1);
+        }
+    };
+
+    const handlePreviousPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage((prevPage) => prevPage - 1);
+        }
     };
 
     return (
-        <div className="flex flex-col p-4 md:p-8 min-h-max w-full font-sans">
+        <div className="flex flex-col p-4 md:p-8 min-h-full w-full font-sans">
             <p className="sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium">
                 All Journal
             </p>
 
             <div className="overflow-x-auto mt-6">
+                <div className="flex justify-between my-2">
+                    <button
+                        onClick={handlePreviousPage}
+                        disabled={currentPage === 1}
+                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md"
+                    >
+                        Previous
+                    </button>
+                    <span>
+                        Page {currentPage} of {totalPages}
+                    </span>
+                    <button
+                        onClick={handleNextPage}
+                        disabled={currentPage === totalPages}
+                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md"
+                    >
+                        Next
+                    </button>
+                </div>
                 {loading ? (
                     <p>Loading...</p>
-                ) : journals.length > 0 ? (
+                ) : displayedJournals.length > 0 ? (
                     <table className="w-full min-w-[700px] overflow-auto bg-white rounded-lg border border-gray-300">
                         <thead className="bg-gray-200 font-medium">
                             <tr>
+                                <th className="p-2 mx-2 text-left min-w-[50px]">S/N</th>
                                 <th className="p-2 mx-2 text-left min-w-[150px]">Course Name</th>
                                 <th className="p-2 mx-2 text-left min-w-[150px]">Faculty</th>
                                 <th className="p-2 mx-2 text-left min-w-[150px]">Date Added</th>
@@ -85,8 +127,18 @@ const ViewJournals = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {journals.map((row) => (
-                                <tr key={row.id}>
+                            {displayedJournals.map((row, index) => (
+                                <tr
+                                    className="cursor-pointer"
+                                    key={row.id}
+                                    onClick={() => {
+                                        navigate(`${userCredentials?.user?.role === "admin" ? '/remark-journal':'/journal-remark'}`, { state: { journal: row } });
+                                        scrollTo(0, 0);
+                                    }}
+                                >
+                                    <td className="p-2 mx-2 min-w-[50px]">
+                                        {(currentPage - 1) * pageSize + index + 1}
+                                    </td>
                                     <td className="p-2 mx-2 min-w-[150px]">
                                         {getDetails('course', row.course_id, row.faculty_id)?.title}
                                     </td>
@@ -98,7 +150,7 @@ const ViewJournals = () => {
                                     <td className="p-2 mx-2">{row.status || 'N/A'}</td>
                                     <td className="p-2 mx-2">
                                         <button
-                                            onClick={() => handleEdit(row)}
+                                            onClick={(event) => handleEdit(event, row)}
                                             className="bg-blue-500 text-white font-semibold px-3 py-2 rounded-md"
                                         >
                                             Edit

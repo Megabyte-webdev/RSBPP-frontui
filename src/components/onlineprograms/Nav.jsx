@@ -16,7 +16,7 @@ const Nav = () => {
     cartStore,
     getAllCarts
   } = useContext(ResourceContext)
-  
+
   useEffect(() => {
     setGuestCart(cartStore?.data ? cartStore?.data?.length : 0)
     console.log(cartStore)
@@ -59,12 +59,12 @@ const Nav = () => {
             {
               dropdown.aboutUs &&
               <ul className="z-[100] p-2 text-[13px] font-semibold absolute top-full mt-3 md:min-w-60 bg-gray-100 text-black w-full transition-all duration-500">
-                <li className='py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Who We Are</NavLink></li>
-                <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">Mission/Vision</NavLink></li>
-                <li className='py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Our Leadership</NavLink></li>
-                <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">Advisory Board</NavLink></li>
-                <li className='py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Management Board</NavLink></li>
-                <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">Contact Us</NavLink></li>
+                <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/about-us/' className="no-underline text-inherit">Who We Are</NavLink></li>
+                <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/mission-statement/' className="no-underline text-inherit">Mission/Vision</NavLink></li>
+                <li className='hover:bg-white py-2 px-4'><NavLink to='/online-programmes/#' className="no-underline text-inherit">Our Leadership</NavLink></li>
+                <li className='hover:bg-white py-2 px-4'><NavLink to='/https://rsbpp.nl/index.php/advisory-board/' className="no-underline text-inherit">Advisory Board</NavLink></li>
+                <li className='hover:bg-white py-2 px-4'><NavLink to='/online-programmes/#' className="no-underline text-inherit">Management Board</NavLink></li>
+                <li className='hover:bg-white py-2 px-4'><NavLink to='/https://rsbpp.nl/index.php/contact-us/' className="no-underline text-inherit">Contact Us</NavLink></li>
               </ul>
             }
           </NavLink>
@@ -73,9 +73,9 @@ const Nav = () => {
             {
               dropdown.programmes &&
               <ul className="z-[100] p-2 text-[13px] font-semibold absolute top-full mt-3 md:min-w-60 bg-gray-100 text-black w-full">
-                <li className='py-2 px-4'><NavLink className="no-underline text-inherit">Executive Education</NavLink></li>
-                <li className='py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Online Programmes</NavLink></li>
-                <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">DigiKnowH</NavLink></li>
+                <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/executive-education-programmes/' className="no-underline text-inherit">Executive Education</NavLink></li>
+                <li className='hover:bg-white py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Online Programmes</NavLink></li>
+                <li className='hover:bg-white py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">DigiKnowH</NavLink></li>
               </ul>
             }
           </NavLink>
@@ -84,8 +84,8 @@ const Nav = () => {
             {
               dropdown.faculties &&
               <ul className="z-[100] p-2 text-[13px] font-semibold absolute top-full mt-3 md:min-w-60 bg-gray-100 text-black w-full">
-                <li className='py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Faculty of Business, Communication and Finance</NavLink></li>
-                <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">Faculty of Good Governance, and Public Policy</NavLink></li>
+                <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/faculty-of-business-communication-and-finance/' className="no-underline text-inherit">Faculty of Business, Communication and Finance</NavLink></li>
+                <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/faculty-of-good-governance/' className="no-underline text-inherit">Faculty of Good Governance, and Public Policy</NavLink></li>
               </ul>
             }
           </NavLink>
@@ -100,7 +100,7 @@ const Nav = () => {
             {
               dropdown.download &&
               <ul className="z-[100] p-2 text-[13px] font-semibold absolute top-full left-0 mt-3 md:min-w-60 bg-gray-100 text-black w-full">
-                <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">2024 Course Brochure</NavLink></li>
+                <li className='py-2 px-4 hover:bg-white'><NavLink to='https://rsbpp.nl/wp-content/uploads/2024/06/RSBPP-BROCHURE-24-25-V5-v2.1_compressed.pdf' className="no-underline text-inherit">2024 Course Brochure</NavLink></li>
               </ul>
             }
           </NavLink>
@@ -139,12 +139,12 @@ const Nav = () => {
               {
                 dropdown.aboutUs &&
                 <ul className="p-2 text-[13px] font-semibold mt-3 bg-gray-100 text-black w-full">
-                  <li className='py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Who We Are</NavLink></li>
-                  <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">Mission/Vision</NavLink></li>
-                  <li className='py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Our Leadership</NavLink></li>
-                  <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">Advisory Board</NavLink></li>
-                  <li className='py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Management Board</NavLink></li>
-                  <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">Contact Us</NavLink></li>
+                  <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/about-us/' className="no-underline text-inherit">Who We Are</NavLink></li>
+                  <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/mission-statement/' className="no-underline text-inherit">Mission/Vision</NavLink></li>
+                  <li className='hover:bg-white py-2 px-4'><NavLink to='/online-programmes/#' className="no-underline text-inherit">Our Leadership</NavLink></li>
+                  <li className='hover:bg-white py-2 px-4'><NavLink to='/https://rsbpp.nl/index.php/advisory-board/' className="no-underline text-inherit">Advisory Board</NavLink></li>
+                  <li className='hover:bg-white py-2 px-4'><NavLink to='/online-programmes/#' className="no-underline text-inherit">Management Board</NavLink></li>
+                  <li className='hover:bg-white py-2 px-4'><NavLink to='/https://rsbpp.nl/index.php/contact-us/' className="no-underline text-inherit">Contact Us</NavLink></li>
                 </ul>
               }
             </NavLink>
@@ -153,9 +153,9 @@ const Nav = () => {
               {
                 dropdown.programmes &&
                 <ul className="p-2 text-[13px] font-semibold mt-3 bg-gray-100 text-black w-full">
-                  <li className='py-2 px-4'><NavLink className="no-underline text-inherit">Executive Education</NavLink></li>
-                  <li className='py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Online Programmes</NavLink></li>
-                  <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">DigiKnowH</NavLink></li>
+                  <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/executive-education-programmes/' className="no-underline text-inherit">Executive Education</NavLink></li>
+                  <li className='hover:bg-white py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Online Programmes</NavLink></li>
+                  <li className='hover:bg-white py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">DigiKnowH</NavLink></li>
                 </ul>
               }
             </NavLink>
@@ -164,8 +164,8 @@ const Nav = () => {
               {
                 dropdown.faculties &&
                 <ul className="p-2 text-[13px] font-semibold mt-3 bg-gray-100 text-black w-full">
-                  <li className='py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Faculty of Business, Communication and Finance</NavLink></li>
-                  <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">Faculty of Good Governance, and Public Policy</NavLink></li>
+                  <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/faculty-of-business-communication-and-finance/' className="no-underline text-inherit">Faculty of Business, Communication and Finance</NavLink></li>
+                  <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/faculty-of-good-governance/' className="no-underline text-inherit">Faculty of Good Governance, and Public Policy</NavLink></li>
                 </ul>
               }
             </NavLink>
@@ -179,8 +179,8 @@ const Nav = () => {
               <p>DOWNLOADS +</p>
               {
                 dropdown.download &&
-                <ul className="p-2 text-[13px] font-semibold mt-3 bg-gray-100 text-black w-full">
-                  <li className='py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">2024 Course Brochure</NavLink></li>
+                <ul className="z-[100] p-2 text-[13px] font-semibold absolute top-full left-0 mt-3 md:min-w-60 bg-gray-100 text-black w-full">
+                  <li className='py-2 px-4 hover:bg-white'><NavLink to='https://rsbpp.nl/wp-content/uploads/2024/06/RSBPP-BROCHURE-24-25-V5-v2.1_compressed.pdf' className="no-underline text-inherit">2024 Course Brochure</NavLink></li>
                 </ul>
               }
             </NavLink>

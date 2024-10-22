@@ -66,6 +66,7 @@ import AddJournal from "./pages/AddJournal";
 import UploadAssignment from "./pages/UploadAssignment";
 import SubmittedAssignments from "./pages/SubmittedAssignments";
 import AllAssignment from "./pages/AllAssignment";
+import GradeAssignment from "./pages/GradeAssignment";
 // import AllJournal from "./pages/AllJournal";
 // const LazyMeeting = lazy(() => ./components/onlineprograms/OnlineProgramsLayout
 
@@ -111,9 +112,10 @@ const App = () => {
               <Route path="/soon" element={<ComingSoon />} />
               <Route path="/user_update" element={<ProfileUpdate />} />
               <Route path="/add-journal" element={<AddJournal />} />
+              <Route path="/journal-remark" element={<RemarkJournal />} />
 <Route path="/view-journals" element={<ViewJournals />} />
               <Route path="/upload-assignment" element={<UploadAssignment />} />
-<Route path="/submitted-assignments" element={<SubmittedAssignments user={userCredentials?.user} />} />
+<Route path="/view-assignments/:course" element={<SubmittedAssignments />} />
               {role === "instructor" && (
                 <>
                   <Route
@@ -178,6 +180,8 @@ const App = () => {
                   <Route path="/add_instructor" element={<AddInstructor />} />
                   <Route path="/remark-journal" element={<RemarkJournal />} />
                   <Route path="/view-assignments" element={<AllAssignment />} />
+                  <Route path="/view-assignments/:course" element={<SubmittedAssignments />} />
+                  <Route path="/grade-assignment" element={<GradeAssignment />} />
                   <Route path="/view-journals" element={<ViewJournals />} />
                 </>
               )}
