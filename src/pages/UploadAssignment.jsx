@@ -1,4 +1,4 @@
-Add it to this import { FaFileUpload } from "react-icons/fa";
+import { FaFileUpload } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
