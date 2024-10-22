@@ -34,8 +34,8 @@ const ViewJournals = () => {
                     userCredentials?.user?.role === 'admin'
                         ? response.data.allJournal
                         : response.data.allJournal.filter(
-                              (journal) => journal.user_id === userCredentials.user.id
-                          );
+                            (journal) => journal.user_id === userCredentials.user.id
+                        );
 
                 setJournals(userJournals);
                 setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
@@ -91,26 +91,28 @@ const ViewJournals = () => {
                 All Journal
             </p>
 
+            <div className="flex justify-between my-2">
+                <button
+                    onClick={handlePreviousPage}
+                    disabled={currentPage === 1}
+                    className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md"
+                >
+                    Previous
+                </button>
+                <span>
+                    Page {currentPage} of {totalPages}
+                </span>
+                <button
+                    onClick={handleNextPage}
+                    disabled={currentPage === totalPages}
+                    className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md"
+                >
+                    Next
+                </button>
+            </div>
+
             <div className="overflow-x-auto mt-6">
-                <div className="flex justify-between my-2">
-                    <button
-                        onClick={handlePreviousPage}
-                        disabled={currentPage === 1}
-                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md"
-                    >
-                        Previous
-                    </button>
-                    <span>
-                        Page {currentPage} of {totalPages}
-                    </span>
-                    <button
-                        onClick={handleNextPage}
-                        disabled={currentPage === totalPages}
-                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md"
-                    >
-                        Next
-                    </button>
-                </div>
+
                 {loading ? (
                     <p>Loading...</p>
                 ) : displayedJournals.length > 0 ? (
@@ -132,7 +134,7 @@ const ViewJournals = () => {
                                     className="cursor-pointer"
                                     key={row.id}
                                     onClick={() => {
-                                        navigate(`${userCredentials?.user?.role === "admin" ? '/remark-journal':'/journal-remark'}`, { state: { journal: row } });
+                                        navigate(`${userCredentials?.user?.role === "admin" ? '/remark-journal' : '/journal-remark'}`, { state: { journal: row } });
                                         scrollTo(0, 0);
                                     }}
                                 >

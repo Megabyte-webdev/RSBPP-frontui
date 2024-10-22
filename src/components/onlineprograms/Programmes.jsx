@@ -6,25 +6,37 @@ import programList from "./programList";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/base";
 import axios from "axios";
-import '../../fonts/fonts.css'
+import '../../fonts/fonts.css';
+
 const Programmes = () => {
   const [loading, setLoading] = useState(false);
-  const [filteredData, setFilteredData] = useState([]);
+  const [groupedData, setGroupedData] = useState({});
+
   useEffect(() => {
     setLoading(true);
     axios
       .get(`${BASE_URL}guest/getAllCourses`)
       .then((response) => {
-        console.log(response.data);
         const { allCourses } = response.data;
-        setFilteredData(
-          allCourses.filter((program) => program.course_type === "online")
+
+        // Filter online programs and group by faculty label
+        const onlinePrograms = allCourses.filter(
+          (program) => program.course_type === "online"
         );
+
+        const groupedByFaculty = onlinePrograms.reduce((acc, program) => {
+          const faculty = program.faculty_label || "Others";
+          if (!acc[faculty]) acc[faculty] = [];
+          acc[faculty].push(program);
+          return acc;
+        }, {});
+
+        setGroupedData(groupedByFaculty);
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
-        setLoading("");
+        console.error("Error fetching courses:", err);
+        setLoading(false);
       });
   }, []);
 
@@ -43,15 +55,15 @@ const Programmes = () => {
             Our Programmes
           </h2>
           <div className="py-3 border-b border-b-gray-400">
-            <h4 className='text-[18px]'>Executive Education</h4>
-            <p className='text-[16px] font-roboto'> 
+            <h4 className="text-[18px]">Executive Education</h4>
+            <p className="text-[16px] font-roboto">
               Our programmes are structured to accommodate the busy schedule of
               working professionals, allowing participants to work while.
             </p>
           </div>
           <div className="py-3 border-b border-b-gray-400">
-            <h4 className='text-[18px]'>DigiKnowH</h4>
-            <p className='text-[16px] font-roboto'>
+            <h4 className="text-[18px]">DigiKnowH</h4>
+            <p className="text-[16px] font-roboto">
               The Digital Learning programme is specifically designed for
               curious people who are open to learning about digital
               technologies, tools, and practices.
@@ -59,31 +71,37 @@ const Programmes = () => {
           </div>
         </div>
       </div>
+
       {/* Right side */}
       <div className="bg-gray-100 px-4 md:px-1 mt-2 flex-1 w-full min-h-full text-[#8B0002]">
-        {programList.map((program) => (
-          <section className="py-2" key={program.id}>
-            <h2 className= "text-3xl my-3">{program.heading}</h2>
-            <ul className="flex flex-wrap gap-y-3 justify-between px-0 font-medium">
-              {filteredData.length !== 0 &&
-                filteredData.map((item) => (
-                  <li key={item.id}
-                   className="flex-initial w-full min-[900px]:w-[48%] text-sm md:text-[15px] lg:text-[17px] flex items-center"
-                   ><Link className="underline text-inherit flex"
-                    to={`/online-programmes/${item.title.replace(/[:\s]+/g, "-").toLowerCase()}`}
-                    state={{ courseId: item.id }}
-                   >
-                    <p>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          Object.entries(groupedData).map(([faculty, programs]) => (
+            <section className="py-2" key={faculty}>
+              <h2 className="text-3xl my-3">{faculty}</h2>
+              <ul className="flex flex-wrap gap-y-3 justify-between px-0 font-medium">
+                {programs.map((program) => (
+                  <li
+                    key={program.id}
+                    className="flex-initial w-full min-[900px]:w-[48%] text-sm md:text-[15px] lg:text-[17px] flex items-center"
+                  >
+                    <Link
+                      className="underline text-inherit flex"
+                      to={`/online-programmes/${program.title
+                        .replace(/[:\s]+/g, "-")
+                        .toLowerCase()}`}
+                      state={{ courseId: program.id }}
+                    >
                       <FaCheck className="text-xl mr-2" />
-                    </p>{" "}
-                    {item.title}
-                  </Link>
+                      {program.title}
+                    </Link>
                   </li>
                 ))}
-              {(!filteredData && loading )&& <div>Loading...</div>}
-            </ul>
-          </section>
-        ))}
+              </ul>
+            </section>
+          ))
+        )}
       </div>
     </div>
   );

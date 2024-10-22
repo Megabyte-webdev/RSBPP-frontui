@@ -5,6 +5,7 @@ import { IoIosMenu, IoIosClose } from 'react-icons/io'
 import { TiSocialFacebook, TiSocialInstagram, TiSocialLinkedin, TiSocialTwitter } from 'react-icons/ti'
 import { FaShoppingCart } from "react-icons/fa";
 import { ResourceContext } from "../../context/ResourceContext";
+import { UserContext } from "../../context/AuthContext";
 
 const Nav = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Nav = () => {
     cartStore,
     getAllCarts
   } = useContext(ResourceContext)
+  const {userCredentials} = useContext(UserContext);
 
   useEffect(() => {
     setGuestCart(cartStore?.data ? cartStore?.data?.length : 0)
@@ -54,7 +56,7 @@ const Nav = () => {
           <NavLink to='https://rsbpp.nl/' className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
             <p>HOME</p>
           </NavLink>
-          <NavLink onClick={(e) => handleDropdown(e, 'aboutUs')} className="relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/doctors">
+          <NavLink onClick={(e) => handleDropdown(e, 'aboutUs')} className="relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https://rsbpp.nl/#">
             <p className="">ABOUT US +</p>
             {
               dropdown.aboutUs &&
@@ -68,7 +70,7 @@ const Nav = () => {
               </ul>
             }
           </NavLink>
-          <NavLink onClick={(e) => handleDropdown(e, 'programmes')} to='/online-programmes' className="group relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
+          <NavLink onClick={(e) => handleDropdown(e, 'programmes')} to='https:/index.php/programmes/' className="group relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
             <p> PROGRAMMES +</p>
             {
               dropdown.programmes &&
@@ -79,7 +81,7 @@ const Nav = () => {
               </ul>
             }
           </NavLink>
-          <NavLink onClick={(e) => handleDropdown(e, 'faculties')} className="relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
+          <NavLink onClick={(e) => handleDropdown(e, 'faculties')} className="relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https://rsbpp.nl/#">
             <p>FACULTIES +</p>
             {
               dropdown.faculties &&
@@ -89,13 +91,13 @@ const Nav = () => {
               </ul>
             }
           </NavLink>
-          <NavLink className="group px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
-            <p>NEWS&EVENTS</p>
+          <NavLink className="group px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https:/rsbpp.nl/#">
+            <p>NEWS & EVENTS</p>
           </NavLink>
-          <NavLink className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
+          <NavLink className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https:/rsbpp.nl/#">
             <p>SUPPORT AND GUIDANCE</p>
           </NavLink>
-          <NavLink onClick={(e) => handleDropdown(e, 'download')} className="relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
+          <NavLink onClick={(e) => handleDropdown(e, 'download')} className="relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https:/rsbpp.nl/#">
             <p>DOWNLOADS +</p>
             {
               dropdown.download &&
@@ -107,7 +109,7 @@ const Nav = () => {
 
         </ul>
 
-        <p onClick={() => { navigate('/carts'); localStorage.setItem("comingFrom", JSON.stringify({ user: "guest" })) }} className="ml-2 mr-2 relative cursor-pointer flex item-center"><FaShoppingCart size="24" /> <span className="absolute top-[-13px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{guestCart}</span></p>
+        <p onClick={() => { navigate('/carts'); {!userCredentials && localStorage.setItem("comingFrom", JSON.stringify({ user: "guest" }))} }} className="ml-2 mr-2 relative cursor-pointer flex item-center"><FaShoppingCart size="24" /> <span className="absolute top-[-13px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{guestCart}</span></p>
 
         <div className="md:hidden bg-[#8B0002] py-2 px-3 text-white rounded-md cursor-pointer" onClick={() => setMenu(!menu)}>
           {
@@ -117,11 +119,11 @@ const Nav = () => {
 
       </div>
       {/* Side nav */}
-      <div onClick={(event) => { if (!event.target.closest('sideNav') && event.target === document.querySelector('.sideNav-container')) { setMenu(false) } }} className={`sideNav-container ${menu === true ? 'opacity-1 left-0' : 'opacity-0 left-[-999px]'} md:hidden fixed z-[100] p-2 text-[13px] font-semibold top-0 bottom-0 w-screen h-full bg-[rgba(0,0,0,.8)] transition-all duration-500`}>
+      <div onClick={(event) => { if (!event.target.closest('sideNav') && event.target === document.querySelector('.sideNav-container')) { setMenu(false) } }} className={`sideNav-container ${menu === true ? 'opacity-1 left-0' : 'opacity-0 left-[-999px]'} md:hidden fixed z-[100] text-[13px] font-semibold top-0 bottom-0 w-screen h-full bg-[rgba(0,0,0,.8)] transition-all duration-500`}>
         <div className='bg-white w-full md:w-96 h-full pt-12'>
           <div className="flex justify-between items-center p-3">
             <img className="w-32 md:w-60 cursor-pointer" src={logo} alt="logo" />
-            <p onClick={() => { navigate('/carts'); localStorage.setItem("comingFrom", JSON.stringify({ user: "guest" })) }} className="ml-auto mr-2 relative cursor-pointer"><FaShoppingCart size="24" /> <span className="absolute top-[-10px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{guestCart}</span></p>
+            <p onClick={() => { navigate('/carts'); {!userCredentials && localStorage.setItem("comingFrom", JSON.stringify({ user: "guest" }))} }} className="ml-auto mr-2 relative cursor-pointer"><FaShoppingCart size="24" /> <span className="absolute top-[-10px] right-0 w-max h-max px-1 rounded-full bg-red-700 text-white text-xs">{guestCart}</span></p>
 
             <div className="md:hidden bg-[#8B0002] py-2 px-3 text-white rounded-md cursor-pointer" onClick={() => setMenu(!menu)}>
               {
@@ -131,10 +133,10 @@ const Nav = () => {
 
           </div>
           <ul className="py-5 text-[15px] text-black flex flex-col gap-y-2">
-            <NavLink className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/">
+            <NavLink className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https://rsbpp.nl">
               <p>HOME</p>
             </NavLink>
-            <NavLink onClick={(e) => handleDropdown(e, 'aboutUs')} className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/doctors">
+            <NavLink onClick={(e) => handleDropdown(e, 'aboutUs')} className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https:/rsbpp.nl/#">
               <p className="">ABOUT US +</p>
               {
                 dropdown.aboutUs &&
@@ -148,7 +150,7 @@ const Nav = () => {
                 </ul>
               }
             </NavLink>
-            <NavLink onClick={(e) => handleDropdown(e, 'programmes')} to='/online-programmes' className="group px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
+            <NavLink onClick={(e) => handleDropdown(e, 'programmes')} to='https:/index.php/programmes/' className="group px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
               <p> PROGRAMMES +</p>
               {
                 dropdown.programmes &&
@@ -159,7 +161,7 @@ const Nav = () => {
                 </ul>
               }
             </NavLink>
-            <NavLink onClick={(e) => handleDropdown(e, 'faculties')} className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
+            <NavLink onClick={(e) => handleDropdown(e, 'faculties')} className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https://rsbpp.nl/#">
               <p>FACULTIES +</p>
               {
                 dropdown.faculties &&
@@ -169,13 +171,13 @@ const Nav = () => {
                 </ul>
               }
             </NavLink>
-            <NavLink className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
+            <NavLink className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https://rsbpp.nl/#">
               <p>NEWS&EVENTS</p>
             </NavLink>
-            <NavLink className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
+            <NavLink className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https://rsbpp.nl/#">
               <p>SUPPORT AND GUIDANCE</p>
             </NavLink>
-            <NavLink onClick={(e) => handleDropdown(e, 'download')} className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="/contact">
+            <NavLink onClick={(e) => handleDropdown(e, 'download')} className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https://rsbpp.nl/#">
               <p>DOWNLOADS +</p>
               {
                 dropdown.download &&

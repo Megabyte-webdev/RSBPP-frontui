@@ -49,7 +49,7 @@ const GradeDetails = ({data, setScore, score, setRemark, remark}) => {
 
   return (
     
-    <div className="flex flex-col p-3 p-md-5 min-vh-100 poppins" style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
+    <div className="flex flex-col p-3 min-vh-100 poppins" style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
 
       {/* Faculty Dropdown */}
       <div className="font-medium my-3">
@@ -109,7 +109,7 @@ const GradeDetails = ({data, setScore, score, setRemark, remark}) => {
         <div
           className={`min-h-32 font-medium my-2 flex flex-col items-center gap-2 border-[1px] border-red-500 rounded-md px-3 py-4`}>
           <MdOutlineCloudUpload size={24} className="text-gray-700 mb-2" />
-          <p className="text-gray-800 text-center text-sm md:text-xl">
+          <p className="text-gray-800 text-center text-sm">
 {data?.file_submission ? data?.file_submission?.split("/")[1].slice(0, 8)+"...": 'No files Submitted'}</p>
           <a href={`${IMAGE_URL}${data?.file_submission}`}  target="_blank">
           <button

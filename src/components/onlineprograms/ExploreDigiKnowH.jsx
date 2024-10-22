@@ -1,8 +1,42 @@
 import DigiImg from '../../assets/online-programmes/digiknow.jpg'
 import { Link } from 'react-router-dom'
 import {FaCheck} from 'react-icons/fa'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { BASE_URL } from '../utils/base';
 
 const ExploreDigiKnowH =()=>{
+   const [loading, setLoading] = useState(false);
+   const [groupedData, setGroupedData] = useState({});
+ 
+   useEffect(() => {
+     setLoading(true);
+     axios
+       .get(`${BASE_URL}guest/getAllCourses`)
+       .then((response) => {
+         const { allCourses } = response.data;
+ 
+         // Filter online programs and group by faculty label
+         const digiknowhPrograms = allCourses.filter(
+           (program) => program.course_type === "digiknowh"
+         );
+ 
+         const groupedByFaculty = digiknowhPrograms.reduce((acc, program) => {
+           const faculty = program.faculty_label || "Others";
+           if (!acc[faculty]) acc[faculty] = [];
+           acc[faculty].push(program);
+           return acc;
+         }, {});
+ 
+         setGroupedData(groupedByFaculty);
+         setLoading(false);
+       })
+       .catch((err) => {
+         console.error("Error fetching courses:", err);
+         setLoading(false);
+       });
+   }, []);
+ 
 
 return(
 <div className='flex flex-col md:flex-row md: justify-between items-center gap-4 md:px-[2%] px-[4%] my-5 font-[Ripple-Bold]'>
@@ -33,7 +67,7 @@ Overall, the DigiKnowH programme promises an engaging and enriching experience f
 <img className='w-full h-[300px] md:h-[600px] object-cover' src={DigiImg} alt=""/>
 <h3 className='my-3 text-2xl font-medium'>Digital Skills Programme ( DigiknowH)</h3>
 <ul className='flex flex-wrap gap-y-3 justify-between px-0 font-medium'>
-              <Link className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p> Effective Social Media Strategy</Link>
+              <Link to='/digiknowh/' className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p> Effective Social Media Strategy</Link>
               <Link className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p> Content Creation & Brand Building
 AI - CRM</Link>
    <Link className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p>
