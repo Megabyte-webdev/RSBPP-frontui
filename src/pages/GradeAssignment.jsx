@@ -39,7 +39,7 @@ const GradeAssignment = () => {
         );
       })
       .finally(() => setSubmissionLoading(false));
-  }, [assignment, userCredentials.token]);
+  }, [assignment.course_id, userCredentials.token]);
 
   useEffect(() => {
     // Ensure data is marked as needed to trigger fetch
@@ -64,6 +64,10 @@ const GradeAssignment = () => {
       })
       .then((response) => {
         toast.success(response.data.message || "Remark sent");
+        // Update the assignment state with the new values
+        // Update the local state to reflect the new grade and remark
+        assignment.grade = score; // Update the assignment with the new grade
+        assignment.remark = remark; // Update the assignment with the new remark
       })
       .catch((error) => {
         toast.error(error?.response?.data?.message || "An error occurred");
@@ -75,15 +79,6 @@ const GradeAssignment = () => {
     const user = getAllUsers?.data?.find((item) => item.id === assignment.user_id);
     return user || { first_name: "N/A", last_name: "", role: "N/A", email: "", image: "" };
   }, [assignment.user_id, getAllUsers]);
-
-  // const getDetails = (attr, info, facId) => {
-  //   const faculty = getAllFaculty?.data?.find((item) => item.id === facId);
-  //   if (!faculty) return { title: "N/A" };
-  //   if (attr === "course") {
-  //     return faculty.courses?.find((item) => item.id === info) || { title: "N/A" };
-  //   }
-  //   return faculty;
-  // };
 
   return (
     <div className="px-[2%] flex flex-col items-center gap-3 min-[800px]:items-start  min-[800px]:flex-row">
