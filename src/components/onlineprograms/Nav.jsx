@@ -25,7 +25,7 @@ const Nav = () => {
   }, [cartStore])
 
   const handleDropdown = (event, name) => {
-    event.preventDefault();
+    
     setDropdown((prev) => {
       const newDropdown = {}
       Object.keys(prev).forEach(key => (newDropdown[key] = false));
@@ -34,6 +34,10 @@ const Nav = () => {
     });
 
   }
+  // Function to close all dropdowns
+  const handleMouseLeaveDropdown = () => {
+    setDropdown({}); // Close all dropdowns
+  };
   return (
     <div>
       {/* top cta */}
@@ -43,69 +47,69 @@ const Nav = () => {
           <a className='no-underline text-white font-bold' href="mailto:info@rsbpp.nl">info@rsbpp.nl</a>
         </div>
         <div className='flex gap-3 text-white'>
-          <TiSocialFacebook size='20' />
-          <TiSocialTwitter size='20' />
-          <TiSocialLinkedin size='20' />
-          <TiSocialInstagram size='20' />
+          <a href=''><TiSocialFacebook size='20' /></a>
+          <a href=''><TiSocialTwitter size='20' /></a>
+          <a href=''><TiSocialLinkedin size='20' /></a>
+          <a href=''><TiSocialInstagram size='20' /></a>
         </div>
       </div>
       {/* main nav */}
       <div className="uppercase px-[4%] lg:px-[5%] flex items-center justify-between text-sm py-4">
         <img className="w-32 md:w-60 cursor-pointer mr-auto" src={logo} alt="logo" />
         <ul className="text-[14px] text-black hidden md:flex md:flex-wrap items-center md:justify-center gap-x-2 gap-y-2">
-          <NavLink to='https://rsbpp.nl/' className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
+          <a href='https://rsbpp.nl/' className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
             <p>HOME</p>
-          </NavLink>
-          <NavLink onClick={(e) => handleDropdown(e, 'aboutUs')} className="relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https://rsbpp.nl/#">
+          </a>
+          <li onClick={(e) => handleDropdown(e, 'aboutUs')} className="cursor-pointer relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
             <p className="">ABOUT US +</p>
             {
               dropdown.aboutUs &&
-              <ul className="z-[100] p-2 text-[13px] font-semibold absolute top-full mt-3 md:min-w-60 bg-gray-100 text-black w-full transition-all duration-500">
-                <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/about-us/' className="no-underline text-inherit">Who We Are</NavLink></li>
-                <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/mission-statement/' className="no-underline text-inherit">Mission/Vision</NavLink></li>
-                <li className='hover:bg-white py-2 px-4'><NavLink to='/online-programmes/#' className="no-underline text-inherit">Our Leadership</NavLink></li>
-                <li className='hover:bg-white py-2 px-4'><NavLink to='/https://rsbpp.nl/index.php/advisory-board/' className="no-underline text-inherit">Advisory Board</NavLink></li>
-                <li className='hover:bg-white py-2 px-4'><NavLink to='/online-programmes/#' className="no-underline text-inherit">Management Board</NavLink></li>
-                <li className='hover:bg-white py-2 px-4'><NavLink to='/https://rsbpp.nl/index.php/contact-us/' className="no-underline text-inherit">Contact Us</NavLink></li>
+              <ul onMouseLeave={handleMouseLeaveDropdown} onClick={()=>setMenu(false)} className="z-[100] p-2 text-[13px] font-semibold absolute top-full mt-3 md:min-w-60 bg-gray-200 text-black w-full transition-all duration-500">
+                <li className='flex'><a href='https://rsbpp.nl/index.php/about-us/' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Who We Are</a></li>
+                <li className='flex'><a href='https://rsbpp.nl/index.php/mission-statement/' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Mission/Vision</a></li>
+                <li className='flex'><a href='/online-programmes/#' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Our Leadership</a></li>
+                <li className='flex'><a href='/https://rsbpp.nl/index.php/advisory-board/' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Advisory Board</a></li>
+                <li className='flex'><a href='/online-programmes/#' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Management Board</a></li>
+                <li className='flex'><a href='/https://rsbpp.nl/index.php/contact-us/' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Contact Us</a></li>
               </ul>
             }
-          </NavLink>
-          <NavLink onClick={(e) => handleDropdown(e, 'programmes')} to='https:/index.php/programmes/' className="group relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
+          </li>
+          <li onClick={(e) => handleDropdown(e, 'programmes')} className="group cursor-pointer relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
             <p> PROGRAMMES +</p>
             {
               dropdown.programmes &&
-              <ul className="z-[100] p-2 text-[13px] font-semibold absolute top-full mt-3 md:min-w-60 bg-gray-100 text-black w-full">
-                <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/executive-education-programmes/' className="no-underline text-inherit">Executive Education</NavLink></li>
-                <li className='hover:bg-white py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Online Programmes</NavLink></li>
-                <li className='hover:bg-white py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">DigiKnowH</NavLink></li>
+              <ul onMouseLeave={handleMouseLeaveDropdown} className="z-[100] p-2 text-[13px] font-semibold absolute top-full mt-3 md:min-w-60 bg-gray-200 text-black w-full">
+                <li className='flex'><a href='https://rsbpp.nl/index.php/executive-education-programmes/' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Executive Education</a></li>
+                <li className='flex'><NavLink to='/online-programmes' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Online Programmes</NavLink></li>
+                <li className='flex'><NavLink to='/digiknowh' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">DigiKnowH</NavLink></li>
               </ul>
             }
-          </NavLink>
-          <NavLink onClick={(e) => handleDropdown(e, 'faculties')} className="relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https://rsbpp.nl/#">
+          </li>
+          <li onClick={(e) => handleDropdown(e, 'faculties')} className="cursor-pointer relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
             <p>FACULTIES +</p>
             {
               dropdown.faculties &&
-              <ul className="z-[100] p-2 text-[13px] font-semibold absolute top-full mt-3 md:min-w-60 bg-gray-100 text-black w-full">
-                <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/faculty-of-business-communication-and-finance/' className="no-underline text-inherit">Faculty of Business, Communication and Finance</NavLink></li>
-                <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/faculty-of-good-governance/' className="no-underline text-inherit">Faculty of Good Governance, and Public Policy</NavLink></li>
+              <ul onMouseLeave={handleMouseLeaveDropdown} className="z-[100] p-2 text-[13px] font-semibold absolute top-full mt-3 md:min-w-60 bg-gray-200 text-black w-full">
+                <li className='flex'><a href='https://rsbpp.nl/index.php/faculty-of-business-communication-and-finance/' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Faculty of Business, Communication and Finance</a></li>
+                <li className='flex'><a href='https://rsbpp.nl/index.php/faculty-of-good-governance/' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Faculty of Good Governance, and Public Policy</a></li>
               </ul>
             }
-          </NavLink>
-          <NavLink className="group px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https:/rsbpp.nl/#">
+          </li>
+          <a className="group px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" href="https:/rsbpp.nl/#">
             <p>NEWS & EVENTS</p>
-          </NavLink>
-          <NavLink className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https:/rsbpp.nl/#">
+          </a>
+          <a className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" href="https:/rsbpp.nl/#">
             <p>SUPPORT AND GUIDANCE</p>
-          </NavLink>
-          <NavLink onClick={(e) => handleDropdown(e, 'download')} className="relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https:/rsbpp.nl/#">
+          </a>
+          <li onClick={(e) => handleDropdown(e, 'download')} className="cursor-pointer relative px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
             <p>DOWNLOADS +</p>
             {
               dropdown.download &&
-              <ul className="z-[100] p-2 text-[13px] font-semibold absolute top-full left-0 mt-3 md:min-w-60 bg-gray-100 text-black w-full">
-                <li className='py-2 px-4 hover:bg-white'><NavLink to='https://rsbpp.nl/wp-content/uploads/2024/06/RSBPP-BROCHURE-24-25-V5-v2.1_compressed.pdf' className="no-underline text-inherit">2024 Course Brochure</NavLink></li>
+              <ul onMouseLeave={handleMouseLeaveDropdown} className="z-[100] p-2 text-[13px] font-semibold absolute top-full left-0 mt-3 md:min-w-60 bg-gray-200 text-black w-full">
+                <li className='flex'><a href='https://rsbpp.nl/wp-content/uploads/2024/06/RSBPP-BROCHURE-24-25-V5-v2.1_compressed.pdf' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">2024 Course Brochure</a></li>
               </ul>
             }
-          </NavLink>
+          </li>
 
         </ul>
 
@@ -132,60 +136,60 @@ const Nav = () => {
             </div>
 
           </div>
-          <ul className="py-5 text-[15px] text-black flex flex-col gap-y-2">
-            <NavLink className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https://rsbpp.nl">
+          <ul className="py-5 px-3 text-[15px] text-black flex flex-col gap-y-2">
+            <NavLink onClick={() => setMenu(false)} className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https://rsbpp.nl">
               <p>HOME</p>
             </NavLink>
-            <NavLink onClick={(e) => handleDropdown(e, 'aboutUs')} className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https:/rsbpp.nl/#">
+            <li onClick={(e) => handleDropdown(e, 'aboutUs')} className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
               <p className="">ABOUT US +</p>
               {
                 dropdown.aboutUs &&
-                <ul className="p-2 text-[13px] font-semibold mt-3 bg-gray-100 text-black w-full">
-                  <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/about-us/' className="no-underline text-inherit">Who We Are</NavLink></li>
-                  <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/mission-statement/' className="no-underline text-inherit">Mission/Vision</NavLink></li>
-                  <li className='hover:bg-white py-2 px-4'><NavLink to='/online-programmes/#' className="no-underline text-inherit">Our Leadership</NavLink></li>
-                  <li className='hover:bg-white py-2 px-4'><NavLink to='/https://rsbpp.nl/index.php/advisory-board/' className="no-underline text-inherit">Advisory Board</NavLink></li>
-                  <li className='hover:bg-white py-2 px-4'><NavLink to='/online-programmes/#' className="no-underline text-inherit">Management Board</NavLink></li>
-                  <li className='hover:bg-white py-2 px-4'><NavLink to='/https://rsbpp.nl/index.php/contact-us/' className="no-underline text-inherit">Contact Us</NavLink></li>
+                <ul className="p-2 text-[13px] font-semibold mt-3 bg-gray-200 text-black">
+                  <li className='flex'><a href='https://rsbpp.nl/index.php/about-us/' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Who We Are</a></li>
+                  <li className='flex'><a href='https://rsbpp.nl/index.php/mission-statement/' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Mission/Vision</a></li>
+                  <li className='flex'><NavLink onClick={() => setMenu(false)} to='/online-programmes/#' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Our Leadership</NavLink></li>
+                  <li className='flex'><a href='/https://rsbpp.nl/index.php/advisory-board/' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Advisory Board</a></li>
+                  <li className='flex'><a href='/online-programmes/#' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Management Board</a></li>
+                  <li className='flex'><a href='/https://rsbpp.nl/index.php/contact-us/' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Contact Us</a></li>
                 </ul>
               }
-            </NavLink>
-            <NavLink onClick={(e) => handleDropdown(e, 'programmes')} to='https:/index.php/programmes/' className="group px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
+            </li>
+            <li onClick={(e) => handleDropdown(e, 'programmes')} className="group hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
               <p> PROGRAMMES +</p>
               {
                 dropdown.programmes &&
-                <ul className="p-2 text-[13px] font-semibold mt-3 bg-gray-100 text-black w-full">
-                  <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/executive-education-programmes/' className="no-underline text-inherit">Executive Education</NavLink></li>
-                  <li className='hover:bg-white py-2 px-4'><NavLink to='/online-programmes' className="no-underline text-inherit">Online Programmes</NavLink></li>
-                  <li className='hover:bg-white py-2 px-4'><NavLink to='/digiknowh' className="no-underline text-inherit">DigiKnowH</NavLink></li>
+                <ul onClick={() => setMenu(false)} className="p-2 text-[13px] font-semibold mt-3 bg-gray-200 text-black w-full">
+                  <li className='flex'> <a to='https://rsbpp.nl/index.php/executive-education-programmes/' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Executive Education</a></li>
+                  <li className='flex'><NavLink to='/online-programmes' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Online Programmes</NavLink></li>
+                  <li className='flex'><NavLink to='/digiknowh' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">DigiKnowH</NavLink></li>
                 </ul>
               }
-            </NavLink>
-            <NavLink onClick={(e) => handleDropdown(e, 'faculties')} className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https://rsbpp.nl/#">
+            </li>
+            <li onClick={(e) => handleDropdown(e, 'faculties')} className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
               <p>FACULTIES +</p>
               {
                 dropdown.faculties &&
-                <ul className="p-2 text-[13px] font-semibold mt-3 bg-gray-100 text-black w-full">
-                  <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/faculty-of-business-communication-and-finance/' className="no-underline text-inherit">Faculty of Business, Communication and Finance</NavLink></li>
-                  <li className='hover:bg-white py-2 px-4'><NavLink to='https://rsbpp.nl/index.php/faculty-of-good-governance/' className="no-underline text-inherit">Faculty of Good Governance, and Public Policy</NavLink></li>
+                <ul onClick={() => setMenu(false)} className="p-2 text-[13px] font-semibold mt-3 bg-gray-200 text-black w-full">
+                  <li className='flex'><a href='https://rsbpp.nl/index.php/faculty-of-business-communication-and-finance/' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Faculty of Business, Communication and Finance</a></li>
+                  <li className='flex'><a href='https://rsbpp.nl/index.php/faculty-of-good-governance/' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">Faculty of Good Governance, and Public Policy</a></li>
                 </ul>
               }
-            </NavLink>
-            <NavLink className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https://rsbpp.nl/#">
+            </li>
+            <a className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" href="https://rsbpp.nl/#">
               <p>NEWS&EVENTS</p>
-            </NavLink>
-            <NavLink className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https://rsbpp.nl/#">
+            </a>
+            <a className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" href="https://rsbpp.nl/#">
               <p>SUPPORT AND GUIDANCE</p>
-            </NavLink>
-            <NavLink onClick={(e) => handleDropdown(e, 'download')} className="px-[9px] hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit" to="https://rsbpp.nl/#">
+            </a>
+            <li onClick={(e) => handleDropdown(e, 'download')} className="hover:text-[#8B0002] [&.active]:text-[#8B0002] no-underline text-inherit">
               <p>DOWNLOADS +</p>
               {
                 dropdown.download &&
-                <ul className="z-[100] p-2 text-[13px] font-semibold absolute top-full left-0 mt-3 md:min-w-60 bg-gray-100 text-black w-full">
-                  <li className='py-2 px-4 hover:bg-white'><NavLink to='https://rsbpp.nl/wp-content/uploads/2024/06/RSBPP-BROCHURE-24-25-V5-v2.1_compressed.pdf' className="no-underline text-inherit">2024 Course Brochure</NavLink></li>
+                <ul onClick={() => setMenu(false)} className="z-[100] p-2 text-[13px] font-semibold absolute top-full left-0 mt-3 md:min-w-60 bg-gray-200 text-black w-full">
+                  <li className='py-2 px-4 hover:bg-white'><a href='https://rsbpp.nl/wp-content/uploads/2024/06/RSBPP-BROCHURE-24-25-V5-v2.1_compressed.pdf' className="hover:bg-white w-full py-2 px-4 no-underline text-inherit">2024 Course Brochure</a></li>
                 </ul>
               }
-            </NavLink>
+            </li>
 
           </ul>
 
