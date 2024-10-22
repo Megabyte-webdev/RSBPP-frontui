@@ -96,8 +96,8 @@ const AllAssignment = () => {
 };
 
 
-    const handleViewAssignments = (assignment) => {
-        const course = getDetails('course', assignment.course_id, assignment.faculty_id);
+    const handleViewAssignments = async (assignment) => {
+        const course = await getDetails('course', assignment.course_id, assignment.faculty_id);
         if (course) {
             navigate(`/view-assignments/${course.title}`, { state: { courseId: assignment.course_id } });
         }
