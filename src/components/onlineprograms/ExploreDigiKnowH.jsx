@@ -7,7 +7,7 @@ import { BASE_URL } from '../utils/base';
 
 const ExploreDigiKnowH =()=>{
    const [loading, setLoading] = useState(false);
-   const [groupedData, setGroupedData] = useState({});
+   const [groupedData, setGroupedData] = useState([]);
  
    useEffect(() => {
      setLoading(true);
@@ -21,7 +21,7 @@ const ExploreDigiKnowH =()=>{
            (program) => program.course_type === "digiknowh"
          );
  
-         setGroupedData(groupedByFaculty);
+         setGroupedData(digiknowhPrograms);
          setLoading(false);
        })
        .catch((err) => {
@@ -64,11 +64,11 @@ Overall, the DigiKnowH programme promises an engaging and enriching experience f
         {loading ? (
           <div>Loading...</div>
         ) :(
-          digiknowhPrograms.length !== 0 ?digiknowhPrograms?.map(([faculty, programs]) => (
-           <Link to={`/digiknowh/${program.title
+          groupedData.length !== 0 ?groupedData?.map(([faculty, programs]) => (
+           <Link to={`/digiknowh/${program?.title
                         .replace(/[:\s]+/g, "-")
                         .toLowerCase()}`}
-                      state={{ courseId: program.id }} className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p> {program?.title}</Link>
+                      state={{ courseId: program?.id }} className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p> {program?.title}</Link>
                 
                 )):(<li>No Courses Available For Now</li>))}
 </ul>
