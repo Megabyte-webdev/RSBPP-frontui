@@ -39,7 +39,7 @@ const UploadAssignment = () => {
 
 useEffect(() => {
     axios
-      .get(`${BASE_URL}instructors`, { headers: myHeaders })
+      .get(`${BASE_URL}instructor/get`, { headers: myHeaders })
       .then((response) => {
         const instructors = response.data.instructors || [];
         if (instructors.length > 0) {
@@ -51,7 +51,7 @@ useEffect(() => {
         console.error("Error fetching instructors:", error);
         toast.error("Failed to load instructors.");
       });
-  }, [selectedCourse]);
+  }, [slectedCourse]);
 
 
 
