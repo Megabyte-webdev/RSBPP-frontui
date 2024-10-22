@@ -16,28 +16,32 @@ const SubmittedAssignments = () => {
   const [assignments, setAssignments] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const fetchAssignments = async (courseId) => {
     const myHeaders = {
       Authorization: `Bearer ${userCredentials.token}`,
     };
 
-    if (course) {
-      const { courseId } = location.state;
-      setLoading(true);
+    try {
+      const response = await axios.get(`${BASE_URL}course/getAssignmentSubmit/${courseId}`, { headers: myHeaders });
+      console.log("API Response:", response.data);
+      setAssignments(response?.data?.allAssignmentSubmit || []);
+    } catch (error) {
+      console.error("Error fetching assignments:", error);
+      toast.error("Failed to load assignments.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      axios
-        .get(`${BASE_URL}course/getAssignmentSubmit/${courseId}`, { headers: myHeaders })
-        .then((response) => {
-          console.log("API Response:", response.data);
-          setAssignments(response?.data?.allAssignmentSubmit || []);
-          setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
-          setGetAllUsers((prev) => ({ ...prev, isDataNeeded: true }));
-        })
-        .catch((error) => {
-          console.error("Error fetching assignments:", error);
-          toast.error("Failed to load assignments.");
-        })
-        .finally(() => setLoading(false));
+  useEffect(() => {
+    if (course) {
+      const { courseId } = location.state || {};
+      if (courseId) {
+        setLoading(true);
+        fetchAssignments(courseId);
+        setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
+        setGetAllUsers((prev) => ({ ...prev, isDataNeeded: true }));
+      }
     }
   }, [userCredentials.token, course, location.state, setGetAllFaculty, setGetAllUsers]);
 
@@ -47,14 +51,6 @@ const SubmittedAssignments = () => {
       return user || { first_name: "N/A", last_name: "", role: "N/A", email: "", image: "" };
     };
   }, [getAllUsers]);
-
-  const formatDate = (timestamp) => {
-    const dateObj = new Date(timestamp);
-    const year = dateObj.getFullYear();
-    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-    const day = String(dateObj.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
 
   return (
     <div className="p-8 min-h-max bg-gray-200 flex flex-col gap-y-2">
@@ -92,11 +88,7 @@ const SubmittedAssignments = () => {
                 <p className="text-sm text-gray-600 my-[2px]">{user.email}</p>
 
                 <div className="flex justify-between items-center text-[10px]">
-                  <p
-                    className={`mt-1 ${
-                      row?.grade !== null ? 'text-green-500' : 'text-red-500'
-                    } font-semibold`}
-                  >
+                  <p className={`mt-1 ${row?.grade !== null ? 'text-green-500' : 'text-red-500'} font-semibold`}>
                     Grade: {row?.grade || 'Pending'}
                   </p>
                 </div>
