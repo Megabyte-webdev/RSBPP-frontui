@@ -68,8 +68,10 @@ const SubmittedAssignments = () => {
         <div className="text-xl font-semibold">No Submitted Assignments</div>
       ) : (
         <div className="w-full grid grid-cols-auto gap-4 pt-5 gap-y-6 px-3 sm:px-0">
-          {assignments.map((row) => (
-            return (
+          {assignments.map((row) => 
+const user = GetUserDetails(row.user_id);
+
+return(
               <div
                 key={row.id}
                 onClick={() => {
