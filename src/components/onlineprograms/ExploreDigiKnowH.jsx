@@ -63,14 +63,14 @@ Overall, the DigiKnowH programme promises an engaging and enriching experience f
 
         {loading ? (
           <div>Loading...</div>
-        ) : (
+        ) :(
           digiknowhPrograms.length !== 0 ?digiknowhPrograms?.map(([faculty, programs]) => (
            <Link to={`/digiknowh/${program.title
                         .replace(/[:\s]+/g, "-")
                         .toLowerCase()}`}
                       state={{ courseId: program.id }} className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p> {program?.title}</Link>
                 
-                :(<li>No Courses Available For Now</li>))}
+                )):(<li>No Courses Available For Now</li>))}
 </ul>
 </div>
 
