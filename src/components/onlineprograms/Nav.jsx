@@ -47,10 +47,10 @@ const Nav = () => {
           <a className='no-underline text-white font-bold' href="mailto:info@rsbpp.nl">info@rsbpp.nl</a>
         </div>
         <div className='flex gap-3 text-white'>
-          <a href=''><TiSocialFacebook size='20' /></a>
-          <a href=''><TiSocialTwitter size='20' /></a>
-          <a href=''><TiSocialLinkedin size='20' /></a>
-          <a href=''><TiSocialInstagram size='20' /></a>
+          <a href='https://www.facebook.com/profile.php?id=61558624776513&_rdc=1&_rdr' className='text-inherit hover:text-blue-800'><TiSocialFacebook size='20' /></a>
+          <a className='text-inherit hover:text-blue-600' href='https://twitter.com/'><TiSocialTwitter size='20' /></a>
+          <a className='text-inherit hover:text-[teal]' href='https://www.linkedin.com/company/rottedam-school-of-business-public-policy/about/?viewAsMember=true'><TiSocialLinkedin size='20' /></a>
+          <a className='text-inherit hover:text-red-600' href='https://instagram.com/'><TiSocialInstagram size='20' /></a>
         </div>
       </div>
       {/* main nav */}
