@@ -43,7 +43,7 @@ useEffect(() => {
       .then((response) => {
         const instructors = response.data.instructors || [];
         if (instructors.length > 0) {
-          const firstInstructor = instructors[0];
+          const firstInstructor = instructors.find((identity)=> identity.faculty_id === selectedFaculty.id) ;
           setProf(`${firstInstructor.title || ""} ${firstInstructor.first_name} ${firstInstructor.last_name}`);
         }
       })
@@ -51,7 +51,7 @@ useEffect(() => {
         console.error("Error fetching instructors:", error);
         toast.error("Failed to load instructors.");
       });
-  }, [selectedCourse]);
+  }, [selectedFaculty]);
 
 
 
