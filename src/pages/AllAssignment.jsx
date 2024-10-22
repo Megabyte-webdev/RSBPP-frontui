@@ -90,9 +90,11 @@ const AllAssignment = () => {
         return `${year}-${month}-${day}`;
     };
 
-    const handleEdit = (assignment) => {
-        navigate('/upload-assignment', { state: { editData: assignment } });
-    };
+    const handleEdit = (assignment, event) => {
+    event.stopPropagation(); // Prevents the row click event
+    navigate('/upload-assignment', { state: { editData: assignment } });
+};
+
 
     const handleViewAssignments = (assignment) => {
         const course = getDetails('course', assignment.course_id, assignment.faculty_id);
@@ -160,7 +162,7 @@ const AllAssignment = () => {
                                     </td>
                                     <td className='p-2 mx-2'>{row.status || 'N/A'}</td>
                                     <td className='p-2 mx-2'>
-                                        <button onClick={() => handleEdit(row)} className='bg-blue-500 text-white font-semibold px-3 py-2 rounded-md'>Edit</button>
+                                        <button onClick={(e, ) => handleEdit(row, e)} className='bg-blue-500 text-white font-semibold px-3 py-2 rounded-md'>Edit</button>
                                     </td>
                                 </tr>
                             ))}
