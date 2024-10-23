@@ -29,7 +29,7 @@ const AllAssignment = () => {
 
             try {
                 const response = await axios.get(`${BASE_URL}course/${role === "admin" ? "getAllAssignment" : "getAssignmentSubmitCourseAll"}`, { headers: myHeaders });
-                setAssignments(response.data.allAssignment || []);
+                setAssignments(role === "admin" ?response.data.allAssignment :response.data.allAssignmentSubmit || []);
                 setGetAllFaculty(prev => ({ ...prev, isDataNeeded: true }));
             } catch (error) {
                 console.error("Error fetching assignments:", error);
