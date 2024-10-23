@@ -25,7 +25,7 @@ const NavBar = () => {
               ...prev, isDataNeeded: true
             }
           })
-}, [])
+}, [userCredentials])
 useEffect(()=>{
 
 setCartStore(getAllCarts)
