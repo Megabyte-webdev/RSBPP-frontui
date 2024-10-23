@@ -17,7 +17,9 @@ const NavBar = () => {
 
     useEffect(() => {
         // Refetch cart data on location change
+if (role === "student"){
         setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
+}
     }, [location]);  // Trigger on every route change
 
     console.count("render");
