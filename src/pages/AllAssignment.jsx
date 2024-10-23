@@ -145,7 +145,7 @@ const AllAssignment = () => {
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Course Name</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Faculty</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Date Added</th>
-                                <th className='p-2 mx-2 text-left min-w-[150px]'>Submissions</th>
+                                <th className='p-2 mx-2 text-left min-w-[150px]'>{role==="admin"?'Submissions':'Grade'}</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Status</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Action</th>
                             </tr>
@@ -158,7 +158,7 @@ const AllAssignment = () => {
                                     <td className='p-2 mx-2 min-w-[150px]'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{formatDate(row.created_at)}</td>
                                     <td className='p-2 mx-2 text-center'>
-                                        {submissionsLoading[row.course_id] ? "Loading..." : (submissions[row.course_id]?.length || 0)}
+                                        {role==='admin'? (submissionsLoading[row.course_id] ? "Loading..." : (submissions[row.course_id]?.length || 0)) : row?.grade}
                                     </td>
                                     <td className='p-2 mx-2'>{row.status || 'N/A'}</td>
                                     <td className='p-2 mx-2'>
