@@ -25,7 +25,7 @@ const NavBar = () => {
               ...prev, isDataNeeded: true
             }
           })
-}, [])
+}, [cartStore,userCredentials])
 
     console.count("render")
     return (
