@@ -21,12 +21,7 @@ if (role === "student"){
         setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
 
 }
-    }, []);
-useEffect(()=>{
-setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
-setCartStore(getAllCarts)
-},[getAllCarts, cartStore])
-
+    }, [userCredentials]);
   // Trigger on every route change
 
     console.count("render");
@@ -62,7 +57,7 @@ setCartStore(getAllCarts)
                             <Link to={"/carts"} className='nav-link'>
                                 <div className='d-flex justify-content-center align-items-center me-3 text-white rounded-circle brown_bg fs_xsm'
                                     style={{ width: "20px", height: "20px" }}>
-                                    <span>{cartStore?.data?.length || 0}</span>
+                                    <span>{getAllCarts?.data?.length || 0}</span>
                                 </div>
                                 <span><BiSolidCart size={25} /></span>
                             </Link>
