@@ -116,6 +116,7 @@ const App = () => {
 <Route path="/view-journals" element={<ViewJournals />} />
               <Route path="/upload-assignment" element={<UploadAssignment />} />
 <Route path="/view-assignments/:course" element={<SubmittedAssignments />} />
+ <Route path="/view-assignments" element={<AllAssignment />} />
               {role === "instructor" && (
                 <>
                   <Route
@@ -188,7 +189,6 @@ const App = () => {
             </Route>
             {userCredentials && (
               <>
-                  <Route path="/view-assignments" element={<AllAssignment />} />
 
                 <Route path="/learning/:id" element={<LearningDetails />} />
                 <Route path="/carts" element={<Carts />} />
