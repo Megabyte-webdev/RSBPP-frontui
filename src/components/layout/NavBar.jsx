@@ -20,7 +20,7 @@ const NavBar = () => {
 if (role === "student"){
         setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
 }
-    }, [location]);  // Trigger on every route change
+    }, [location, getAllCarts]);  // Trigger on every route change
 
     console.count("render");
 
