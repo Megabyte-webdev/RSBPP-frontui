@@ -131,7 +131,7 @@ if(role === "admin"){
 
              {/* Pagination Controls */}
              <div className="flex justify-between my-2">
-                <button onClick={handlePreviousPage} disabled={currentPage === 1} className='bg-gray-300 text-gray-700 px-4 py-2 rounded-md'>Previous</button>
+                <button onClick={handlePreviousPage} disabled={currentPage === 1} className='bg-gray-300 text-gray-700 px-4 py-2 rounded-md'>Prev</button>
                 <span>Page {currentPage} of {totalPages}</span>
                 <button onClick={handleNextPage} disabled={currentPage === totalPages} className='bg-gray-300 text-gray-700 px-4 py-2 rounded-md'>Next</button>
             </div>
