@@ -28,7 +28,7 @@ const NavBar = () => {
 setCartStore(getAllCarts)
          
         }
-}, [userCredentials])
+}, [])
 
     console.count("render")
     return (
