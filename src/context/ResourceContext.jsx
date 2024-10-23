@@ -96,7 +96,7 @@ function ResourceContextProvider({ children }) {
         if (getAllCarts.isDataNeeded) {
             const endPoint = `cart/getCart/${userId}`
             const dataArray = "Cart"
-            getItemFunc(token, setGetAllCarts, setErrorMessage, endPoint, dataArray)
+            getItemFunc(token, setGetAllCarts, setErrorMessage, endPoint, dataArray,setCartStore)
         }
     }, [getAllCarts.isDataNeeded]);
 
