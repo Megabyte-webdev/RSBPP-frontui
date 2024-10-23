@@ -91,7 +91,7 @@ const ViewJournals = () => {
                 All Journal
             </p>
 
-            <div className="flex justify-between my-2">
+            <div className="flex justify-between my-3">
                 <button
                     onClick={handlePreviousPage}
                     disabled={currentPage === 1}

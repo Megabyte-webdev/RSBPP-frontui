@@ -164,7 +164,7 @@ if(role === "admin"){
                                     <td className='p-2 mx-2 min-w-[150px]'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{formatDate(row.created_at)}</td>
                                     <td className='p-2 mx-2 text-left'>
-                                        {role==='admin'? (submissionsLoading[row.course_id] ? "Loading..." : (submissions[row.course_id]?.length || 0)) : row?.grade}
+                                        {role==='admin'? (submissionsLoading[row.course_id] ? "Loading..." : (submissions[row.course_id]?.length || 0)) : row?.grade || 'pending'}
                                     </td>
                                     <td className='p-2 mx-2'>{row.status || 'N/A'}</td>
                                     {role === "admin" && <td className='p-2 mx-2'>

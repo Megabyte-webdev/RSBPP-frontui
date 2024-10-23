@@ -16,8 +16,6 @@ const UploadAssignment = () => {
   const { userCredentials } = useContext(UserContext);
   const role = userCredentials?.user.role.toLowerCase();
   const editData = location.state?.editData || null;
-
-  const [filteredData, setFilteredData] = useState(null);
   const [selectedFaculty, setSelectedFaculty] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [faculty, setFaculty] = useState("Select a Faculty");
@@ -37,21 +35,21 @@ const UploadAssignment = () => {
     setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
   }, []);
 
-useEffect(() => {
+  useEffect(() => {
     axios
       .get(`${BASE_URL}instructor/get`, { headers: myHeaders })
       .then((response) => {
         const instructors = response.data.instructors || [];
         if (instructors.length > 0) {
-          const firstInstructor = instructors.find((identity)=> identity.faculty_id === selectedFaculty.id) ;
-          setProf(`${firstInstructor.title || ""} ${firstInstructor.first_name} ${firstInstructor.last_name}`);
+          const firstInstructor = instructors.find((identity) => identity.faculty_id === selectedFaculty.id);
+          setProf(`${firstInstructor?.title || ""} ${firstInstructor?.last_name || ""}`);
         }
       })
       .catch((error) => {
         console.error("Error fetching instructors:", error);
         toast.error("Failed to load instructors.");
       });
-  }, [selectedFaculty]);
+  }, [selectedCourse]);
 
 
 
@@ -62,8 +60,8 @@ useEffect(() => {
       setSelectedFaculty(facultyItem || null);
 
 
-        const courseItem = facultyItem?.courses?.find(course => course.id === editData.course_id);
-        setSelectedCourse(courseItem || null);
+      const courseItem = facultyItem?.courses?.find(course => course.id === editData.course_id);
+      setSelectedCourse(courseItem || null);
 
 
       setFaculty(facultyItem ? facultyItem.title : "Select a Faculty");
@@ -77,45 +75,45 @@ useEffect(() => {
     const facultyItem = getAllFaculty?.data?.find(item => item.title === faculty);
     setSelectedFaculty(facultyItem || null);
     // Check if we're editing and have editData
-  if (editData && facultyItem) {
-    // Set the course to the one in editData if the faculty matches
-    const matchingCourse = facultyItem.courses.find(course => course.id === editData.course_id);
-    setCourse(matchingCourse ? matchingCourse.title : "Select a Programme");
-  } else {
-     // Set the course to the one in editData if the faculty matches
-     const matchingCourse = facultyItem?.courses.find(item => item.title === course);
-    // If not editing and course not match, reset course to "Select a Programme"
-    setCourse(matchingCourse ? matchingCourse.title : "Select a Programme");
-  }
+    if (editData && facultyItem) {
+      // Set the course to the one in editData if the faculty matches
+      const matchingCourse = facultyItem.courses.find(course => course.id === editData.course_id);
+      setCourse(matchingCourse ? matchingCourse.title : "Select a Programme");
+    } else {
+      // Set the course to the one in editData if the faculty matches
+      const matchingCourse = facultyItem?.courses.find(item => item.title === course);
+      // If not editing and course not match, reset course to "Select a Programme"
+      setCourse(matchingCourse ? matchingCourse.title : "Select a Programme");
+    }
     console.log(faculty)
   }, [faculty, getAllFaculty]);
 
   // Sync selected course with user input and load assignments for non-admin users
-useEffect(() => {
-  if (selectedFaculty) {
-    const courseItem = selectedFaculty.courses?.find(item => item.title === course);
-    setSelectedCourse(courseItem || null);
+  useEffect(() => {
+    if (selectedFaculty) {
+      const courseItem = selectedFaculty.courses?.find(item => item.title === course);
+      setSelectedCourse(courseItem || null);
 
-    if (role !== "admin" && courseItem) {
-      axios
-        .get(`${BASE_URL}course/getAllAssignmentCourse/${courseItem.id}`, { headers: myHeaders })
-        .then((response) => {
-          const newAssignmentId = response.data?.allAssignment[0]?.id || null;
-          setAssignmentId(newAssignmentId);
-          console.log(response.data?.allAssignment[0]); // Log fetched assignment data
-          console.log(newAssignmentId);
-          if(newAssignmentId === null){
-            toast.error("No Assignment Found for this course")
-          } // Log the new assignment ID
-        })
-        .catch((error) => {
-          console.error("Error fetching assignment:", error);
-          toast.error("Error fetching assignment fr this course")
-          setAssignmentId(null);
-        });
+      if (role !== "admin" && courseItem) {
+        axios
+          .get(`${BASE_URL}course/getAllAssignmentCourse/${courseItem.id}`, { headers: myHeaders })
+          .then((response) => {
+            const newAssignmentId = response.data?.allAssignment[0]?.id || null;
+            setAssignmentId(newAssignmentId);
+            console.log(response.data?.allAssignment[0]); // Log fetched assignment data
+            console.log(newAssignmentId);
+            if (newAssignmentId === null) {
+              toast.error("No Assignment Found for this course")
+            } // Log the new assignment ID
+          })
+          .catch((error) => {
+            console.error("Error fetching assignment:", error);
+            toast.error("Error fetching assignment fr this course")
+            setAssignmentId(null);
+          });
+      }
     }
-  }
-}, [course, selectedFaculty, role]);
+  }, [course, selectedFaculty, role]);
 
 
   const uploadAssignment = () => {
@@ -161,13 +159,9 @@ useEffect(() => {
         toast.success(response.data.message || "Assignment submitted successfully");
         setLoading(false);
         resetFields();
-        if(role === "admin"){
-          navigate('/view-assignments');
-          scrollTo(0,0)
-        }else{
-          navigate('/submitted-assignments');
-          scrollTo(0,0)
-        } 
+        navigate('/view-assignments');
+        scrollTo(0, 0)
+
       })
       .catch((error) => {
         console.error("Upload error:", error);
@@ -215,7 +209,7 @@ useEffect(() => {
   return (
     <div className="flex flex-col p-3 p-md-5 min-vh-100 poppins" style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
       <p className="sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium">
-        {(role === "admin")  ? (editData ? "Edit Assignment" : 'Add Assignment') : 'Upload Assignment'}
+        {(role === "admin") ? (editData ? "Edit Assignment" : 'Add Assignment') : 'Upload Assignment'}
 
       </p>
 
@@ -251,41 +245,41 @@ useEffect(() => {
         </section>
       </div>
 
-        {/* Course Dropdown */}
-        <div className="relative font-medium my-3">
-          <section className="flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
-            <div className="flex flex-col gap-y-2">
-              <p className="text-xs md:text-[16px] capitalize">{course}</p>
-              <p className="text-xs md:text-sm text-gray-500 capitalize">
-                Select Course
-              </p>
-            </div>
-            <small className="font-bold ml-auto px-[2px] text-[10px] md:text-xs text-red-500">
-              {prof}
-            </small>
-            <select
-              className="p-2 md:p-3 absolute w-[98%] min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
-              value={course}
-              onChange={(e) => setCourse(e.target.value)}
-            >
-              <option disabled value="Select a Programme">
-                Select a Course
-              </option>
-              {selectedFaculty?.courses?.map((item, index) => (
-                <option key={index} value={item.title}>
-                  {item.title}
-                </option>
-              ))}
-            </select>
-            <p className="pl-[2px] md:pl-4 text-red-500">
-              <IoIosArrowDown size="20" />
+      {/* Course Dropdown */}
+      <div className="relative font-medium my-3">
+        <section className="flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
+          <div className="flex flex-col gap-y-2">
+            <p className="text-xs md:text-[16px] capitalize">{course}</p>
+            <p className="text-xs md:text-sm text-gray-500 capitalize">
+              Select Course
             </p>
-          </section>
-        </div>
+          </div>
+          <small className="font-bold ml-auto px-[2px] text-[10px] md:text-xs text-red-500">
+            {prof}
+          </small>
+          <select
+            className="p-2 md:p-3 absolute w-[98%] min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
+            value={course}
+            onChange={(e) => setCourse(e.target.value)}
+          >
+            <option disabled value="Select a Programme">
+              Select a Course
+            </option>
+            {selectedFaculty?.courses?.map((item, index) => (
+              <option key={index} value={item.title}>
+                {item.title}
+              </option>
+            ))}
+          </select>
+          <p className="pl-[2px] md:pl-4 text-red-500">
+            <IoIosArrowDown size="20" />
+          </p>
+        </section>
+      </div>
 
       {/* Description Field */}
-      <div className="font-medium my-2 border-[1px] border-red-500 p-2 md:p-3">
-      <p className='text-sm md:text-[16px]'>{role === "admin" ? "Assignment":"Submission"}</p>
+      <div className="font-medium my-2 border-[1px] border-red-500 p-2 md:p-3 rounded-md">
+        <p className='text-sm md:text-[16px]'>{role === "admin" ? "Assignment" : "Submission"}</p>
         <textarea
           rows="4"
           value={description}
@@ -301,10 +295,10 @@ useEffect(() => {
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          className={`font-medium my-2 flex flex-col items-center gap-2 border-[1px] border-red-500 rounded-md px-3 py-4 ${isDragging ? "bg-gray-200":""}`}>
+          className={`font-medium my-2 flex flex-col items-center gap-2 border-[1px] border-red-500 rounded-md px-3 py-4 ${isDragging ? "bg-gray-200" : ""}`}>
           <FaFileUpload size={24} className="text-gray-700 mb-2" />
           <p className="text-gray-600 text-center text-sm">
-{selectedFile ? selectedFile.name: 'Drag and drop your file here or click to upload'}</p>
+            {selectedFile ? selectedFile.name : 'Drag and drop your file here or click to upload'}</p>
           <input
             type="file"
             accept=".pdf, .doc, .docx"
@@ -330,7 +324,7 @@ useEffect(() => {
           className={`bg-[navy] text-white my-2 py-2 px-8 rounded-md ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
           disabled={loading}
         >
-          {loading ? <Spinner animation="border" size="sm" /> : (role === "admin" ? (editData ? "Edit" : 'Upload'):"Submit")}
+          {loading ? <Spinner animation="border" size="sm" /> : (role === "admin" ? (editData ? "Edit" : 'Upload') : "Submit")}
         </button>
       </div>
     </div>

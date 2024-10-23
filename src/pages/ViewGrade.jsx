@@ -35,7 +35,7 @@ const ViewGrade = () => {
             View Grade
             </p>
 
-            <div className="my-2">
+            <div className="my-3">
                 {assignment && <div className="flex flex-col gap-y-3">
                     <div className="flex gap-3 text-sm md:text-xl">
                         <p className="font-bold">Faculty: </p>
@@ -56,8 +56,8 @@ const ViewGrade = () => {
                         <p className='text-sm md:text-[16px]'>Score Point</p>
 
 
-                        <div className='font-bold text-[18px] my-2 md:mx-[10%]'>
-                            {assignment ? `${assignment?.grade}/100`:'Pending' }
+                        <div className={`${assignment?.grade ?'text-green-500':'text-red-500'} font-bold text-[18px] my-2 md:mx-[10%]`}>
+                            {assignment?.grade ? `${assignment?.grade}/100`:'Pending' }
                         </div>
 
                     </div>
@@ -69,10 +69,8 @@ const ViewGrade = () => {
                                 <textarea
                                     cols="30"
                                     className="p-2 h-28 w-full bg-transparent placeholder:text-gray-500 placeholder:text-sm"
-                                    value={assignment?.remark}
-                                    ref={remarkRef}
+                                    value={assignment?.remark || "No comment"}
                                     disabled={true}
-                                    placeholder="Add Description"
                                 />
                             </div>
                         </section>

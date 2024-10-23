@@ -8,6 +8,8 @@ import iconSeven from "../../assets/side-icons/new7.png"
 import iconEight from "../../assets/side-icons/user-update.svg"
 // import iconNine from "../../assets/side-icons/icon9.png"
 import journal from "../../assets/side-icons/journal-6.svg"
+import assignment from "../../assets/side-icons/assign-user-svgrepo-com.svg"
+
 export const sidebarConstants = [
     {
         title: "Courses",
@@ -47,7 +49,7 @@ export const sidebarConstants = [
     },
     {
         title: "Assignment",
-        logo: iconTwo,
+        logo: assignment,
         subOptions: [
             {
                 title: "Upload Assignment",
@@ -116,7 +118,7 @@ export const adminConstants = [
         ]
     },{
         title: "Assignment",
-        logo: iconTwo,
+        logo: assignment,
         subOptions: [
             {
                 title: "Add Assignment",
