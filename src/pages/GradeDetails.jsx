@@ -102,7 +102,7 @@ const GradeDetails = ({ data, setScore, score, setRemark, remark }) => {
         <div className={`min-h-32 font-medium my-2 flex flex-col items-center gap-2 border-[1px] border-red-500 rounded-md px-3 py-4`}>
           <MdOutlineCloudUpload size={24} className="text-gray-700 mb-2" />
           <p className="text-gray-800 text-center text-sm">
-            {data?.file_submission ? data?.file_submission.split("/").pop() : 'No files Submitted'}
+            {data?.file_submission ? data?.file_submission.slice(0,10) : 'No files Submitted'}
           </p>
           {data?.file_submission && (
             <a href={`${IMAGE_URL}${data?.file_submission}`} target="_blank" rel="noopener noreferrer">
@@ -118,7 +118,7 @@ const GradeDetails = ({ data, setScore, score, setRemark, remark }) => {
       </div>
 
       {/* Score Field */}
-      <div className="h-20 font-medium my-2 border-[1px] border-red-500 p-2 md:p-3 rounded-md flex justify-between">
+      <div className="h-24 font-medium my-2 border-[1px] border-red-500 p-2 md:p-3 rounded-md flex justify-between">
         <div>
           <p className='text-sm md:text-[16px]'>Score Point</p>
           <input
@@ -126,7 +126,7 @@ const GradeDetails = ({ data, setScore, score, setRemark, remark }) => {
             placeholder="Enter a score"
             onInput={handleScore}
             value={score}
-            className='mx-2 bg-gray-200 placeholder:text-gray-500 py-2 px-3 w-full text-sm'
+            className='mx-2 bg-gray-200 placeholder:text-gray-500 py-2 px-3 w-[80%] text-sm'
           />
         </div>
         <div className='font-bold text-red-500 text-[18px] my-2 md:mx-[10%]'>
