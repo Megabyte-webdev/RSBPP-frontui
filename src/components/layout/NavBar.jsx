@@ -25,7 +25,6 @@ const NavBar = () => {
               ...prev, isDataNeeded: true
             }
           })
-setCartStore({data: getAllCarts.data})
 }, [])
 
     console.count("render")
@@ -61,7 +60,7 @@ setCartStore({data: getAllCarts.data})
                                 className='nav-link '>
                                 <div
                                     className='d-flex justify-content-center align-items-center me-3 text-white rounded-circle brown_bg fs_xsm'
-                                    style={{ width: "20px", height: "20px" }}><span>{cartStore?.data?.length || 0}</span> </div>
+                                    style={{ width: "20px", height: "20px" }}><span>{getAllCarts?.data?.length || 0}</span> </div>
                                 <span><BiSolidCart size={25} /></span>
                             </Link>
                         </div>
