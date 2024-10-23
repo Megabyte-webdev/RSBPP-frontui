@@ -11,7 +11,7 @@ import { UserContext } from '../../context/AuthContext';
 const NavBar = () => {
     const navigate = useNavigate();
     const location = useLocation();  // Detects route changes
-    const { setGetAllCarts, getAllCarts } = useContext(ResourceContext);
+    const { setGetAllCarts, getAllCarts, cartStore, setCartStore } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
     const role = userCredentials?.user?.role;
 
@@ -19,8 +19,14 @@ const NavBar = () => {
         // Refetch cart data on location change
 if (role === "student"){
         setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
+
 }
-    }, [location, getAllCarts]);  // Trigger on every route change
+    }, []);
+useEffect(()=>{
+setCartStore(getAllCarts)
+},[getAllCarts])
+
+  // Trigger on every route change
 
     console.count("render");
 
@@ -55,7 +61,7 @@ if (role === "student"){
                             <Link to={"/carts"} className='nav-link'>
                                 <div className='d-flex justify-content-center align-items-center me-3 text-white rounded-circle brown_bg fs_xsm'
                                     style={{ width: "20px", height: "20px" }}>
-                                    <span>{getAllCarts?.data?.length || 0}</span>
+                                    <span>{cartStore?.data?.length || 0}</span>
                                 </div>
                                 <span><BiSolidCart size={25} /></span>
                             </Link>
