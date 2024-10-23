@@ -19,15 +19,13 @@ const NavBar = () => {
     const { userCredentials } = useContext(UserContext);
     const role = userCredentials?.user?.role
     useEffect(() => {
-        if(userCredentials){
+       
         setGetAllCarts((prev) => {
             return {
               ...prev, isDataNeeded: true
             }
           })
 setCartStore(getAllCarts)
-         
-        }
 }, [])
 
     console.count("render")
