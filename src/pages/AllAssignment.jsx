@@ -97,10 +97,12 @@ const AllAssignment = () => {
 
 
     const handleViewAssignments = async (assignment) => {
+if(role === "admin"){
         const course = await getDetails('course', assignment.course_id, assignment.faculty_id);
         if (course) {
             navigate(`/view-assignments/${course.title}`, { state: { courseId: assignment.course_id } });
         }
+}
     };
 
     // Calculate total pages
@@ -147,7 +149,7 @@ const AllAssignment = () => {
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Date Added</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>{role==="admin"?'Submissions':'Grade'}</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Status</th>
-                                <th className='p-2 mx-2 text-left min-w-[150px]'>Action</th>
+                               {role==="admin" && <th className='p-2 mx-2 text-left min-w-[150px]'>Action</th>}
                             </tr>
                         </thead>
                         <tbody>
@@ -161,9 +163,9 @@ const AllAssignment = () => {
                                         {role==='admin'? (submissionsLoading[row.course_id] ? "Loading..." : (submissions[row.course_id]?.length || 0)) : row?.grade}
                                     </td>
                                     <td className='p-2 mx-2'>{row.status || 'N/A'}</td>
-                                    <td className='p-2 mx-2'>
+                                    {role === "admin" && <td className='p-2 mx-2'>
                                         <button onClick={(e, ) => handleEdit(row, e)} className='bg-blue-500 text-white font-semibold px-3 py-2 rounded-md'>Edit</button>
-                                    </td>
+                                    </td>}
                                 </tr>
                             ))}
                         </tbody>
