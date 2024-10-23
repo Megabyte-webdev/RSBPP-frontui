@@ -23,8 +23,9 @@ if (role === "student"){
 }
     }, []);
 useEffect(()=>{
+setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
 setCartStore(getAllCarts)
-},[getAllCarts])
+},[getAllCarts, cartStore])
 
   // Trigger on every route change
 
