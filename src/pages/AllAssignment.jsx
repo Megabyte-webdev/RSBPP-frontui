@@ -28,7 +28,7 @@ const AllAssignment = () => {
             };
 
             try {
-                const response = await axios.get(`${BASE_URL}course/${role === "admin" ? "getAllAssignment" : "getMyAssignment"}`, { headers: myHeaders });
+                const response = await axios.get(`${BASE_URL}course/${role === "admin" ? "getAllAssignment" : "getAssignmentSubmitCourseAll"}`, { headers: myHeaders });
                 setAssignments(response.data.allAssignment || []);
                 setGetAllFaculty(prev => ({ ...prev, isDataNeeded: true }));
             } catch (error) {
