@@ -7,7 +7,7 @@ import iconThree from "../../assets/side-icons/new3.png"
 import iconSeven from "../../assets/side-icons/new7.png"
 import iconEight from "../../assets/side-icons/user-update.svg"
 // import iconNine from "../../assets/side-icons/icon9.png"
-
+import journal from "../../assets/side-icons/journal-6.svg"
 export const sidebarConstants = [
     {
         title: "Courses",
@@ -33,7 +33,7 @@ export const sidebarConstants = [
     },
     {
         title: "Jounals",
-        logo: iconTwo,
+        logo: journal,
         subOptions: [
             {
                 title: "Add Journal",
@@ -107,7 +107,7 @@ export const adminConstants = [
         ]
     },{
         title: "Journals",
-        logo: iconTwo,
+        logo: journal,
         subOptions: [
             {
                 title: "All Journals",

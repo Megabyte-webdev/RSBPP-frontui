@@ -1,7 +1,7 @@
 import { IoIosArrowDown } from "react-icons/io";
 import { useState, useEffect, useContext } from "react";
 import { ResourceContext } from "../context/ResourceContext";
-import toast from "react-hot-toast";
+
 import { useNavigate } from "react-router-dom";
 import { MdOutlineCloudUpload } from "react-icons/md";
 import { IMAGE_URL } from "../components/utils/base";
@@ -14,7 +14,6 @@ const GradeDetails = ({ data, setScore, score, setRemark, remark }) => {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [faculty, setFaculty] = useState("Select a Faculty");
   const [course, setCourse] = useState("Select a Programme");
-  const [prof, setProf] = useState("Prof Samuel Attong");
 
   // Load all faculty data on component mount
   useEffect(() => {
@@ -76,7 +75,6 @@ const GradeDetails = ({ data, setScore, score, setRemark, remark }) => {
             </p>
           </div>
           <small className="font-bold ml-auto px-[2px] text-[10px] md:text-xs text-red-500">
-            {prof}
           </small>
 
           <p className="pl-[2px] md:pl-4 text-red-500">
@@ -102,7 +100,7 @@ const GradeDetails = ({ data, setScore, score, setRemark, remark }) => {
         <div className={`min-h-32 font-medium my-2 flex flex-col items-center gap-2 border-[1px] border-red-500 rounded-md px-3 py-4`}>
           <MdOutlineCloudUpload size={24} className="text-gray-700 mb-2" />
           <p className="text-gray-800 text-center text-sm">
-            {data?.file_submission ? data?.file_submission.slice(0,10) : 'No files Submitted'}
+            {data?.file_submission ? data?.file_submission.slice(0, 10) : 'No files Submitted'}
           </p>
           {data?.file_submission && (
             <a href={`${IMAGE_URL}${data?.file_submission}`} target="_blank" rel="noopener noreferrer">

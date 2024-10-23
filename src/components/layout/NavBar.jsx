@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FiSearch } from "react-icons/fi";
 import { IoIosNotificationsOutline } from "react-icons/io";
@@ -7,22 +7,25 @@ import { BiSolidCart, BiSolidMessage } from "react-icons/bi";
 import { TfiViewGrid } from 'react-icons/tfi';
 import { ResourceContext } from '../../context/ResourceContext';
 import { UserContext } from '../../context/AuthContext';
+import { cartsTotalFunction } from '../utils/getApi';
 
 const NavBar = () => {
     const navigate = useNavigate();
-    const location = useLocation();  // Detects route changes
-    const { setGetAllCarts, getAllCarts, cartStore, setCartStore } = useContext(ResourceContext);
+    const {getAllCarts, cartStore, setCartStore } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
+    const [error, setError] = useState('');
+    const [currentTotal, setCurrentTotal] = useState('');
+    const token = userCredentials?.token;
     const role = userCredentials?.user?.role;
 
-    useEffect(() => {
         // Refetch cart data on location change
-if (role === "student"){
-        setGetAllCarts((prev) => ({ ...prev, isDataNeeded: true }));
-
-}
-    }, [userCredentials]);
-  // Trigger on every route change
+        useEffect(() => {
+            if (userCredentials) {
+                cartsTotalFunction(token, userCredentials.user.id, setError, setCurrentTotal, (newCart) => {
+                    setCartStore(newCart);
+                });
+            }
+        }, [getAllCarts]);
 
     console.count("render");
 
@@ -57,7 +60,7 @@ if (role === "student"){
                             <Link to={"/carts"} className='nav-link'>
                                 <div className='d-flex justify-content-center align-items-center me-3 text-white rounded-circle brown_bg fs_xsm'
                                     style={{ width: "20px", height: "20px" }}>
-                                    <span>{getAllCarts?.data?.length || 0}</span>
+                                    <span>{cartStore?.data?.length || 0}</span>
                                 </div>
                                 <span><BiSolidCart size={25} /></span>
                             </Link>
