@@ -28,7 +28,7 @@ const NavBar = () => {
 }, [userCredentials])
 useEffect(()=>{
 
-setCartStore(getAllCarts)
+setCartStore({user: "guest", data: getAllCarts.data})
 },[getAllCarts])
 
     console.count("render")
