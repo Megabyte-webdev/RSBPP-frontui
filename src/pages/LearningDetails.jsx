@@ -69,10 +69,10 @@ const LearningDetails = () => {
 
     console.log(state)
     return (
-        <div className='poppins'>
+        <div className='poppins w-screen overflow-hidden'>
             <NavBar />
             <div className="brown_bg p-3 text-white">
-                <div className="d-flex justify-content-center align-items-center">
+                <div className="flex justify-center items-center">
                     <div>
                         <span> <BiSolidBadgeCheck size={25} /> </span>
                         <span>{state.course.course_type}</span>
@@ -104,7 +104,7 @@ const LearningDetails = () => {
             </div>
             <div className="p-3 border-bottom">
                 <div className="container">
-                    <div className="d-flex">
+                    <div className="flex min-w-full">
                         <button onClick={() => handleView('about')} style={{ color: view === "about" ? "#ab3335" : "" }} className=' fw-semibold hover_effect bg-white border-0 fs-md-5 me-2 me-md-4'>About</button>
                         <button onClick={() => handleView('objectives')} style={{ color: view === "objectives" ? "#ab3335" : "" }} className='fw-semibold hover_effect bg-white border-0 fs-md-5 me-2 me-md-4'>Objectives</button>
                         <button onClick={() => handleView('outlines')} style={{ color: view === "outlines" ? "#ab3335" : "" }} className='fw-semibold hover_effect bg-white border-0 fs-md-5 me-2 me-md-4'>Outline</button>
