@@ -102,9 +102,9 @@ const LearningDetails = () => {
                     </div>
                 )}
             </div>
-            <div className="p-3 border-bottom">
+            <div className="border-bottom">
                 <div className="container">
-                    <div className="flex min-w-full overflow-x-auto">
+                    <div className="flex min-w-full p-3 overflow-x-auto">
                         <button onClick={() => handleView('about')} style={{ color: view === "about" ? "#ab3335" : "" }} className=' fw-semibold hover_effect bg-white border-0 fs-md-5 me-2 me-md-4'>About</button>
                         <button onClick={() => handleView('objectives')} style={{ color: view === "objectives" ? "#ab3335" : "" }} className='fw-semibold hover_effect bg-white border-0 fs-md-5 me-2 me-md-4'>Objectives</button>
                         <button onClick={() => handleView('outlines')} style={{ color: view === "outlines" ? "#ab3335" : "" }} className='fw-semibold hover_effect bg-white border-0 fs-md-5 me-2 me-md-4'>Outline</button>
