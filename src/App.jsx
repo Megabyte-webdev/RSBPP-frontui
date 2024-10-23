@@ -188,6 +188,7 @@ const App = () => {
             </Route>
             {userCredentials && (
               <>
+                  <Route path="/view-assignments" element={<AllAssignment />} />
 
                 <Route path="/learning/:id" element={<LearningDetails />} />
                 <Route path="/carts" element={<Carts />} />
