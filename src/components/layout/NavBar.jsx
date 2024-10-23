@@ -15,7 +15,7 @@ const NavBar = () => {
     
     const navigate = useNavigate()
     const {
-        setGetAllCarts, cartStore } = useContext(ResourceContext);
+        setGetAllCarts, getAllCarts, cartStore, setCartStore } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
     const role = userCredentials?.user?.role
     useEffect(() => {
@@ -25,6 +25,7 @@ const NavBar = () => {
               ...prev, isDataNeeded: true
             }
           })
+setCartStore(getAllCarts)
          
         }
 }, [userCredentials])
