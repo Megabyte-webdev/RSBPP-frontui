@@ -85,7 +85,7 @@ const RemarkJournal = () => {
       </div>
 
       {/* User and Journal Details Section */}
-      <div className="grid gap-6 w-full max-w-2xl">
+      <div className="grid gap-6 w-full max-w-4xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <DataField label="First Name" value={user?.first_name} />
           <DataField label="Last Name" value={user?.last_name} />
@@ -101,27 +101,30 @@ const RemarkJournal = () => {
           />
         </div>
 
-        {/* Journal Text Submission Section */}
-        <div className="w-full">
-          <label className="block text-gray-700 font-medium mb-2">Journal Submission</label>
-          <div className="p-4 border bg-white rounded-md shadow-sm">
-            <p className="text-gray-800 whitespace-pre-wrap">
-              {journal?.text_submission || "No journal submitted."}
-            </p>
+        {/* Journal and Remark Section (Responsive Layout) */}
+        <div className="flex flex-col md:flex-row gap-6 mt-4">
+          {/* Journal Submission */}
+          <div className="flex-1">
+            <label className="block text-gray-700 font-medium mb-2">Journal Submission</label>
+            <div className="p-4 border bg-white rounded-md shadow-sm h-full">
+              <p className="text-gray-800 whitespace-pre-wrap">
+                {journal?.text_submission || "No journal submitted."}
+              </p>
+            </div>
           </div>
-        </div>
 
-        {/* Remark Section */}
-        <div className="w-full">
-          <label className="block text-gray-700 font-medium mb-2">Remark</label>
-          <textarea
-            ref={remarkRef}
-            className="w-full h-24 p-3 border rounded-md"
-            placeholder="Add Remark"
-            value={remark}
-            disabled={role !== "admin"}
-            onChange={(e) => setRemark(e.target.value)}
-          />
+          {/* Remark Section */}
+          <div className="flex-1">
+            <label className="block text-gray-700 font-medium mb-2">Remark</label>
+            <textarea
+              ref={remarkRef}
+              className="w-full h-24 p-3 border rounded-md"
+              placeholder="Add Remark"
+              value={remark}
+              disabled={role !== "admin"}
+              onChange={(e) => setRemark(e.target.value)}
+            />
+          </div>
         </div>
 
         {/* Action Button */}
