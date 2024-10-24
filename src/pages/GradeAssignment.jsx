@@ -81,7 +81,7 @@ const GradeAssignment = () => {
 
   return (
     <div className="px-[2%] flex flex-col items-center gap-3 min-[800px]:items-start min-[800px]:flex-row">
-      <div className="grid grid-cols-auto gap-4 pt-5 gap-y-6 px-2 sm:px-0">
+      <div className="w-80 gap-4 pt-5 gap-y-6 px-2 sm:px-0">
         <div
           key={assignment.id}
           className="h-max cursor-pointer bg-white shadow-md shadow-slate-600 rounded-lg p-6 flex flex-col items-center"
@@ -127,7 +127,7 @@ const GradeAssignment = () => {
             className={`bg-[navy] text-white py-2 px-8 rounded-md ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
             disabled={loading}
           >
-            <span>Submit</span>
+            <span>{assignment?.grade ? 'Updat' : 'Submit'}</span>
             {loading && <Spinner animation="border" size="sm" />}
           </button>
         </div>

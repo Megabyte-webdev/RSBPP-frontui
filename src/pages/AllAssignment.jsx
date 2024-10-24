@@ -158,7 +158,7 @@ if(role === "admin"){
                         </thead>
                         <tbody>
                             {displayedAssignments.map((row, index) => (
-                                <tr className="cursor-pointer" key={row.id} onClick={() => { handleViewAssignments(row) }}>
+                                <tr key={row.id} onClick={() => { handleViewAssignments(row) }}>
                                     <td className='p-2 mx-2 min-w-[50px]'>{(currentPage - 1) * pageSize + index + 1}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
@@ -168,7 +168,7 @@ if(role === "admin"){
                                     </td>
                                     <td className='p-2 mx-2'>{row.status || 'N/A'}</td>
                                     {role === "admin" && <td className='p-2 mx-2'>
-                                        <button onClick={(e, ) => handleEdit(row, e)} className='bg-blue-500 text-white font-semibold px-3 py-2 rounded-md'>Edit</button>
+                                        <button onClick={(e, ) => handleEdit(row, e)} className='bg-blue-500 text-white font-semibold px-2 py-1 rounded-md'>Edit</button>
                                     </td>}
                                 </tr>
                             ))}

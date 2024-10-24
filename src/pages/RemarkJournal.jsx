@@ -1,7 +1,7 @@
 import { BsJournalCheck } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
 import { ResourceContext } from '../context/ResourceContext';
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState, useMemo } from "react";
 import { BASE_URL, IMAGE_URL } from "../components/utils/base";
 import { UserContext } from "../context/AuthContext";
 import axios from "axios";
@@ -13,16 +13,28 @@ const RemarkJournal = () => {
     const remarkRef= useRef(null)
 
     const { journal } = location.state;
+    
     const [loading, setLoading] = useState(false);
     const [remark, setRemark] = useState(journal?.remark);
 
-    const { getAllFaculty, setGetAllFaculty } = useContext(ResourceContext);
+    const { setGetAllUsers, getAllUsers, getAllFaculty, setGetAllFaculty } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
     const role= userCredentials?.user?.role
     useEffect(() => {
         setGetAllFaculty(prev => ({ ...prev, isDataNeeded: true }));
+        setGetAllUsers((prev) => ({ ...prev, isDataNeeded: true }));
+      
+    
     }, [])
+    const GetUserDetails = useMemo(() => {
+        return (userId) => {
+          const user = getAllUsers?.data?.find((item) => item.id === userId);
+          return user || { first_name: "N/A", last_name: "", role: "N/A", email: "", image: "" };
+        };
+      }, [getAllUsers]);
 
+      const user = GetUserDetails(journal?.user_id);
+      console.log(user)
 
     const getDetails = (attr, info, facId) => {
         const faculty = getAllFaculty?.data?.find((item) => item.id === facId);
@@ -75,36 +87,27 @@ const RemarkJournal = () => {
 
     return (
         <div
-            className="flex flex-col p-3 p-md-5 min-vh-100 poppins"
+            className="flex flex-col p-3 p-md-5 min-vh-100 poppins items-center"
             style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}
         >
-            <p className="sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium">
-                <BsJournalCheck size="24" /> Remark Journal
-            </p>
-
-            <div className="">
-                {journal && <div className="flex flex-col gap-y-3">
-                    <div className="flex gap-3 text-sm md:text-xl">
-                        <p className="font-bold">Faculty: </p>
-                        <p className="md:text-[18px]">{getDetails('faculty', journal?.course_id, journal?.faculty_id)?.title}</p>
-                    </div>
-                    <div className="flex gap-3 text-sm md:text-xl">
-                        <p className="font-semibold">Course: </p>
-                        <p className="md:text-[18px]">{getDetails('course', journal?.course_id, journal?.faculty_id)?.title}</p>
-                    </div>
-                    <div className="flex gap-3 text-sm md:text-xl">
-                        <p className="font-semibold">Date: </p>
-                        <p className="md:text-[18px]">{formatDate(journal?.created_at)}</p>
-                    </div>
-                    {/* <div className="flex items-center gap-3 text-sm md:text-xl">
-                        <p className="font-semibold">File Submitted: </p>
-                        <img className={`${journal?.file_submission && "w-full h-[300px] object-cover"}`} src={`${IMAGE_URL}${journal?.file_submission}`} alt={journal?.file_submission} />
-                    </div> */}
-
-                    <div className="flex flex-col gap-1 text-sm md:text-xl">
-                        <p className="font-semibold">Journal: </p>
-                        <p className="border-[1px] border-green-500 p-2 md:text-[16px] text-sm rounded-md">{journal?.text_submission}</p>
-                    </div>
+        <div>
+            <img src={`${IMAGE_URL}/profile/${user?.image}`} alt={user?.image} className='w-40 h-40 rounded-full' />
+          <p>{user?}</p>
+        </div>
+          <section className='flex flex-wrap justify-between'>
+            <label className='flex flex-col gap-2 w-40'>
+                First Name
+                <p className='border-[1px] border-gray-600 bg-gray-300'>{user?.first_name}</p>
+            </label>
+            <label>
+                Last Name
+                <p>{user?.last_name}</p>
+            </label>
+            <label>
+                FirstName
+                <p>afo</p>
+            </label>
+            </section>
 
                     {/* Remark Section */}
                     <div className="font-medium my-3">
@@ -134,8 +137,7 @@ const RemarkJournal = () => {
                         </button>
                     </div>}
 
-                </div>}
-            </div>
+            
 
         </div>
 

@@ -123,7 +123,6 @@ const ViewJournals = () => {
                                 <th className="p-2 mx-2 text-left min-w-[150px]">Course Name</th>
                                 <th className="p-2 mx-2 text-left min-w-[150px]">Faculty</th>
                                 <th className="p-2 mx-2 text-left min-w-[150px]">Date Added</th>
-                                <th className="p-2 mx-2 text-left min-w-[150px]">File Submission</th>
                                 <th className="p-2 mx-2 text-left min-w-[150px]">Status</th>
                                 <th className="p-2 mx-2 text-left min-w-[150px]">Action</th>
                             </tr>
@@ -131,12 +130,9 @@ const ViewJournals = () => {
                         <tbody>
                             {displayedJournals.map((row, index) => (
                                 <tr
-                                    className="cursor-pointer"
+                                    className="hover:bg-[rgba(180,180,180,.7)]"
                                     key={row.id}
-                                    onClick={() => {
-                                        navigate(`${userCredentials?.user?.role === "admin" ? '/remark-journal' : '/journal-remark'}`, { state: { journal: row } });
-                                        scrollTo(0, 0);
-                                    }}
+                                    
                                 >
                                     <td className="p-2 mx-2 min-w-[50px]">
                                         {(currentPage - 1) * pageSize + index + 1}
@@ -148,14 +144,13 @@ const ViewJournals = () => {
                                         {getDetails('faculty', row.course_id, row.faculty_id)?.title}
                                     </td>
                                     <td className="p-2 mx-2 min-w-[150px]">{formatDate(row.created_at)}</td>
-                                    <td className="p-2 mx-2">{row.submission || 'N/A'}</td>
-                                    <td className="p-2 mx-2">{row.status || 'N/A'}</td>
+                                    <td className={`${row?.remark ? 'text-green-500' : 'text-red-500'} font-medium p-2 mx-2`}>{row.remark ? 'remarked':'pending'}</td>
                                     <td className="p-2 mx-2">
                                         <button
                                             onClick={(event) => userCredentials?.user?.role==="admin"?navigate('/remark-journal',{ state: { journal: row } }): handleEdit(event, row)}
-                                            className="bg-blue-500 text-white font-semibold px-3 py-2 rounded-md"
+                                            className="bg-blue-500 text-white font-semibold px-2 py-1 rounded-md"
                                         >
-                                           {userCredentials?.user?.role==="admin"? 'Remark': 'Edit'}
+                                           {userCredentials?.user?.role==="admin"? (row?.remark ? 'Edit' : 'Remark'): 'Edit'}
                                         </button>
                                     </td>
                                 </tr>

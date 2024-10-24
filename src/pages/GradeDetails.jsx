@@ -128,7 +128,8 @@ const GradeDetails = ({ data, setScore, score, setRemark, remark }) => {
           />
         </div>
         <div className='font-bold text-red-500 text-[18px] my-2 md:mx-[10%]'>
-          {score}/100
+        {data?.grade ? `${score}/100`:'Pending' }
+                        
         </div>
       </div>
     </div>
