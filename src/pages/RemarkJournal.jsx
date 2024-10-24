@@ -88,12 +88,12 @@ const RemarkJournal = () => {
     return (
         <div
             className="flex flex-col p-3 p-md-5 min-vh-100 poppins items-center"
-            style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}
-        >
+            style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
         <div>
             <img src={`${IMAGE_URL}/profile/${user?.image}`} alt={user?.image} className='w-40 h-40 rounded-full' />
           <p>{user?.role}</p>
         </div>
+
 <div className='flex flex-wrap'>
           <section className='flex flex-wrap justify-between'>
             <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4''>
