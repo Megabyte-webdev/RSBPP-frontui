@@ -96,7 +96,7 @@ const RemarkJournal = () => {
 
 <div className='flex flex-wrap'>
           <section className='flex flex-wrap justify-between'>
-            <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4''>
+            <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4'>
                 <p className='text-gray-700'>First Name</p>
                 <p className='border-[1px] border-gray-600 bg-gray-300'>{user?.first_name}</p>
             </label>
