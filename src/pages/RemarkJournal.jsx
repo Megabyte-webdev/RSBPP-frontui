@@ -94,36 +94,37 @@ const RemarkJournal = () => {
           <p>{user?.role}</p>
         </div>
 
-<div className='flex flex-wrap'>
+<div className='flex flex-wrap md:w-3/4'>
           <section className='flex flex-wrap justify-between'>
             <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
                 <p className='text-gray-700'>First Name</p>
-                <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{user?.first_name}</p>
+                <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{user?.first_name || null}</p>
             </label>
             <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
                 <p className='text-gray-700'>Last Name</p>
-                <p className='border-[1px] border-gray-600 bg-gray-300 py-2 px-4'>{user?.last_name}</p>
+                 <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>
+{user?.last_name}</p>
             </label>
   <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
                 <p className='text-gray-700'>Email</p>
-                <p className='border-[1px] border-gray-600 bg-gray-300 py-2 px-4'>{user?.email}</p>
+                  <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{user?.email || null}</p>
             </label>  
 
-<label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>-col gap-2 w-full md:w-40'>
-                <p className='text-gray-700'>Phone Number</p>
-                <p className='border-[1px] border-gray-600 bg-gray-300 py-2 px-4'>{user?.mobile}</p>
+<label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
+                <p className='text-gray-700'>Faculty</p>
+                 <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{getDetails('faculty', assignment?.course_id, assignment?.faculty_id).?title || null}</p>
             </label>
   <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
                 <p className='text-gray-700'>Date Of Birth</p>
-                <p className='border-[1px] border-gray-600 bg-gray-300 py-2 px-4'>{user?.dob}</p>
+                <p className='border-[1px] border-gray-600 bg-gray-300 py-2 px-4'>{user?.dob || null}</p>
             </label>
    <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
-                <p className='text-gray-700'>Gender</p>
-                <p className='border-[1px] border-gray-600 bg-gray-300 py-2 px-4'>{user?.gender}</p>
+                <p className='text-gray-700'>Course</p>
+               <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{getDetails('course', assignment?.course_id, assignment?.faculty_id).?title || null}</p>
             </label>
             </section>
 {/* Remark Section */}
-                    <div className="font-medium my-3">
+                    <div className="font-medium my-3 md:w-1/4">
                         <section className={`flex justify-between items-center gap-2 border-[1px] border-gray-500 bg-gray-300 rounded-md p-2 md:p-3`}>
                             <div className="flex-1 flex flex-col gap-y-2">
                                 <p className="text-sm md:text-[16px] capitalize">Remark</p>
