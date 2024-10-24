@@ -100,24 +100,24 @@ const RemarkJournal = () => {
                 <p className='text-gray-700'>First Name</p>
                 <p className='border-[1px] border-gray-600 bg-gray-300'>{user?.first_name}</p>
             </label>
-             <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4''>
+             <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4'>
                 <p className='text-gray-700'>Last Name</p>
                 <p className='border-[1px] border-gray-600 bg-gray-300'>{user?.last_name}</p>
             </label>
 
- <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4''>
+ <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4'>
                 <p className='text-gray-700'>Email</p>
                 <p className='border-[1px] border-gray-600 bg-gray-300'>{user?.email}</p>
             </label>
- <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4''>
+ <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4'>
                 <p className='text-gray-700'>Phone Number</p>
                 <p className='border-[1px] border-gray-600 bg-gray-300'>{user?.mobile}</p>
             </label>
- <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4''>
+ <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4'>
                 <p className='text-gray-700'>Date Of Birth</p>
                 <p className='border-[1px] border-gray-600 bg-gray-300'>{user?.dob}</p>
             </label>
- <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4''>
+ <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4'>
                 <p className='text-gray-700'>Gender</p>
                 <p className='border-[1px] border-gray-600 bg-gray-300 py-2 px-4'>{user?.gender}</p>
             </label>
