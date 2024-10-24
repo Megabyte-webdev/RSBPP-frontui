@@ -106,7 +106,7 @@ const RemarkJournal = () => {
           <label className="block text-gray-700 font-medium mb-2">Journal Submission</label>
           <div className="p-4 border bg-white rounded-md shadow-sm">
             <p className="text-gray-800 whitespace-pre-wrap">
-              {journal?.submission || "No journal submitted."}
+              {journal?.text_submission || "No journal submitted."}
             </p>
           </div>
         </div>
