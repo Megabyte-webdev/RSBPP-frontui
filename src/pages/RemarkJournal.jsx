@@ -74,6 +74,7 @@ const RemarkJournal = () => {
       className="flex flex-col items-center min-h-screen p-5 bg-gray-50"
       style={{ backgroundColor: "hsla(219, 50%, 95%, 0.3)" }}
     >
+      {/* User Profile Section */}
       <div className="flex flex-col items-center mb-8">
         <img
           src={`${IMAGE_URL}/profile/${user?.image}`}
@@ -83,6 +84,7 @@ const RemarkJournal = () => {
         <p className="text-lg font-semibold">{user?.role}</p>
       </div>
 
+      {/* User and Journal Details Section */}
       <div className="grid gap-6 w-full max-w-2xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <DataField label="First Name" value={user?.first_name} />
@@ -99,6 +101,17 @@ const RemarkJournal = () => {
           />
         </div>
 
+        {/* Journal Text Submission Section */}
+        <div className="w-full">
+          <label className="block text-gray-700 font-medium mb-2">Journal Submission</label>
+          <div className="p-4 border bg-white rounded-md shadow-sm">
+            <p className="text-gray-800 whitespace-pre-wrap">
+              {journal?.submission || "No journal submitted."}
+            </p>
+          </div>
+        </div>
+
+        {/* Remark Section */}
         <div className="w-full">
           <label className="block text-gray-700 font-medium mb-2">Remark</label>
           <textarea
@@ -111,6 +124,7 @@ const RemarkJournal = () => {
           />
         </div>
 
+        {/* Action Button */}
         {role === "admin" && (
           <div className="flex justify-center mt-4">
             <button
@@ -121,7 +135,7 @@ const RemarkJournal = () => {
               {loading ? (
                 <Spinner size="sm" className="mr-2" />
               ) : (
-                journal?.remark ? "Edit Remark" : "Add Remark"
+                journal?.remark && journal?.remark !== remark ? "Edit Remark" : "Add Remark"
               )}
             </button>
           </div>
@@ -131,6 +145,7 @@ const RemarkJournal = () => {
   );
 };
 
+// Reusable DataField Component
 const DataField = ({ label, value }) => (
   <div className="flex flex-col">
     <p className="text-sm text-gray-600 mb-1">{label}</p>
