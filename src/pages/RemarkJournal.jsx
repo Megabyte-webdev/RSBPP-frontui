@@ -89,35 +89,35 @@ const RemarkJournal = () => {
         <div
             className="flex flex-col p-3 p-md-5 min-vh-100 poppins items-center"
             style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
-        <div className="flex justify-center">
+        <div className="flex flex-col justify-center">
             <img src={`${IMAGE_URL}/profile/${user?.image}`} alt={user?.image} className='w-40 h-40 rounded-full' />
           <p>{user?.role}</p>
         </div>
 
 <div className='flex flex-wrap'>
           <section className='flex flex-wrap justify-between'>
-            <label className='flex flex-col gap-2 w-full md:w-40'>
+            <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
                 <p className='text-gray-700'>First Name</p>
-                <p className='py-2 px-4 border-[1px] border-gray-600 bg-gray-300'>{user?.first_name}</p>
+                <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{user?.first_name}</p>
             </label>
-             <label className='flex flex-col gap-2 w-full md:w-40'>
+            <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
                 <p className='text-gray-700'>Last Name</p>
                 <p className='border-[1px] border-gray-600 bg-gray-300 py-2 px-4'>{user?.last_name}</p>
             </label>
-
- <label className='flex flex-col gap-2 w-full md:w-40'>
+  <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
                 <p className='text-gray-700'>Email</p>
                 <p className='border-[1px] border-gray-600 bg-gray-300 py-2 px-4'>{user?.email}</p>
-            </label>
- <label className='flex flex-col gap-2 w-full md:w-40'>
+            </label>  
+
+<label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>-col gap-2 w-full md:w-40'>
                 <p className='text-gray-700'>Phone Number</p>
                 <p className='border-[1px] border-gray-600 bg-gray-300 py-2 px-4'>{user?.mobile}</p>
             </label>
- <label className='flex flex-col gap-2 w-full md:w-40'>
+  <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
                 <p className='text-gray-700'>Date Of Birth</p>
                 <p className='border-[1px] border-gray-600 bg-gray-300 py-2 px-4'>{user?.dob}</p>
             </label>
- <label className='flex flex-col gap-2 w-full md:w-40'>
+   <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
                 <p className='text-gray-700'>Gender</p>
                 <p className='border-[1px] border-gray-600 bg-gray-300 py-2 px-4'>{user?.gender}</p>
             </label>
