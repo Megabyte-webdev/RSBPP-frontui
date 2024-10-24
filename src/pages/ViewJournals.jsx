@@ -37,7 +37,14 @@ const ViewJournals = () => {
                             (journal) => journal.user_id === userCredentials.user.id
                         );
 
-                setJournals(userJournals);
+                // Sort journals alphabetically by course name
+                const sortedJournals = userJournals.sort((a, b) => {
+                    const courseA = getDetails('course', a.course_id, a.faculty_id)?.title.toLowerCase();
+                    const courseB = getDetails('course', b.course_id, b.faculty_id)?.title.toLowerCase();
+                    return courseA.localeCompare(courseB);
+                });
+
+                setJournals(sortedJournals);
                 setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
                 setLoading(false);
             })
@@ -112,7 +119,6 @@ const ViewJournals = () => {
             </div>
 
             <div className="overflow-x-auto mt-6">
-
                 {loading ? (
                     <p>Loading...</p>
                 ) : displayedJournals.length > 0 ? (
@@ -132,7 +138,6 @@ const ViewJournals = () => {
                                 <tr
                                     className="hover:bg-[rgba(180,180,180,.7)]"
                                     key={row.id}
-                                    
                                 >
                                     <td className="p-2 mx-2 min-w-[50px]">
                                         {(currentPage - 1) * pageSize + index + 1}
@@ -144,13 +149,15 @@ const ViewJournals = () => {
                                         {getDetails('faculty', row.course_id, row.faculty_id)?.title}
                                     </td>
                                     <td className="p-2 mx-2 min-w-[150px]">{formatDate(row.created_at)}</td>
-                                    <td className={`${row?.remark ? 'text-green-500' : 'text-red-500'} font-medium p-2 mx-2`}>{row.remark ? 'remarked':'pending'}</td>
+                                    <td className={`${row?.remark ? 'text-green-500' : 'text-red-500'} font-medium p-2 mx-2`}>
+                                        {row.remark ? 'remarked' : 'pending'}
+                                    </td>
                                     <td className="p-2 mx-2">
                                         <button
-                                            onClick={(event) => userCredentials?.user?.role==="admin"?navigate('/remark-journal',{ state: { journal: row } }): handleEdit(event, row)}
+                                            onClick={(event) => userCredentials?.user?.role === "admin" ? navigate('/remark-journal', { state: { journal: row } }) : handleEdit(event, row)}
                                             className="bg-blue-500 text-white font-semibold px-2 py-1 rounded-md"
                                         >
-                                           {userCredentials?.user?.role==="admin"? (row?.remark ? 'Edit' : 'Remark'): 'Edit'}
+                                            {userCredentials?.user?.role === "admin" ? (row?.remark ? 'Edit' : 'Remark') : 'Edit'}
                                         </button>
                                     </td>
                                 </tr>
