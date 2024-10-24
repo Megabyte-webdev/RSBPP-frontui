@@ -37,14 +37,8 @@ const ViewJournals = () => {
                             (journal) => journal.user_id === userCredentials.user.id
                         );
 
-                // Sort journals alphabetically by course name
-                const sortedJournals = userJournals.sort((a, b) => {
-                    const courseA = getDetails('course', a.course_id, a.faculty_id)?.title.toLowerCase();
-                    const courseB = getDetails('course', b.course_id, b.faculty_id)?.title.toLowerCase();
-                    return courseA.localeCompare(courseB);
-                });
-
-                setJournals(sortedJournals);
+                // Set the journals and trigger faculty data fetching
+                setJournals(userJournals);
                 setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
                 setLoading(false);
             })
@@ -64,6 +58,14 @@ const ViewJournals = () => {
         return faculty;
     };
 
+    const sortJournalsByCourse = (journals) => {
+        return [...journals].sort((a, b) => {
+            const courseA = getDetails('course', a.course_id, a.faculty_id)?.title.toLowerCase() || '';
+            const courseB = getDetails('course', b.course_id, b.faculty_id)?.title.toLowerCase() || '';
+            return courseA.localeCompare(courseB);
+        });
+    };
+
     const formatDate = (timestamp) => {
         const dateObj = new Date(timestamp);
         const year = dateObj.getFullYear();
@@ -78,7 +80,10 @@ const ViewJournals = () => {
     };
 
     const totalPages = Math.ceil(journals.length / pageSize);
-    const displayedJournals = journals.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+    const displayedJournals = sortJournalsByCourse(journals).slice(
+        (currentPage - 1) * pageSize,
+        currentPage * pageSize
+    );
 
     const handleNextPage = () => {
         if (currentPage < totalPages) {
@@ -154,10 +159,16 @@ const ViewJournals = () => {
                                     </td>
                                     <td className="p-2 mx-2">
                                         <button
-                                            onClick={(event) => userCredentials?.user?.role === "admin" ? navigate('/remark-journal', { state: { journal: row } }) : handleEdit(event, row)}
+                                            onClick={(event) =>
+                                                userCredentials?.user?.role === "admin"
+                                                    ? navigate('/remark-journal', { state: { journal: row } })
+                                                    : handleEdit(event, row)
+                                            }
                                             className="bg-blue-500 text-white font-semibold px-2 py-1 rounded-md"
                                         >
-                                            {userCredentials?.user?.role === "admin" ? (row?.remark ? 'Edit' : 'Remark') : 'Edit'}
+                                            {userCredentials?.user?.role === "admin"
+                                                ? row?.remark ? 'Edit' : 'Remark'
+                                                : 'Edit'}
                                         </button>
                                     </td>
                                 </tr>
