@@ -98,7 +98,7 @@ const RemarkJournal = () => {
           <section className='flex flex-wrap justify-between'>
             <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
                 <p className='text-gray-700'>First Name</p>
-                <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{user?.first_name || null}</p>
+                <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{user?.first_name} || null</p>
             </label>
             <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
                 <p className='text-gray-700'>Last Name</p>
@@ -107,20 +107,20 @@ const RemarkJournal = () => {
             </label>
   <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
                 <p className='text-gray-700'>Email</p>
-                  <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{user?.email || null}</p>
+                  <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{user?.email} || null</p>
             </label>  
 
 <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
                 <p className='text-gray-700'>Faculty</p>
-                 <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{getDetails('faculty', assignment?.course_id, assignment?.faculty_id).?title || null}</p>
+                 <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{getDetails('faculty', assignment?.course_id, assignment?.faculty_id).?title} || null</p>
             </label>
   <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
                 <p className='text-gray-700'>Date Of Birth</p>
-                <p className='border-[1px] border-gray-600 bg-gray-300 py-2 px-4'>{user?.dob || null}</p>
+                <p className='border-[1px] border-gray-600 bg-gray-300 py-2 px-4'>{user?.dob} || null</p>
             </label>
    <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
                 <p className='text-gray-700'>Course</p>
-               <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{getDetails('course', assignment?.course_id, assignment?.faculty_id).?title || null}</p>
+               <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{getDetails('course', assignment?.course_id, assignment?.faculty_id).?title} || null</p>
             </label>
             </section>
 {/* Remark Section */}
