@@ -121,7 +121,7 @@ const RemarkJournal = () => {
               {loading ? (
                 <Spinner size="sm" className="mr-2" />
               ) : (
-                journal?.remark && journal?.remark !== remark ? "Edit Remark" : "Add Remark"
+                journal?.remark ? "Edit Remark" : "Add Remark"
               )}
             </button>
           </div>
