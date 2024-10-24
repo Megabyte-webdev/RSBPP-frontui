@@ -92,26 +92,39 @@ const RemarkJournal = () => {
         >
         <div>
             <img src={`${IMAGE_URL}/profile/${user?.image}`} alt={user?.image} className='w-40 h-40 rounded-full' />
-          <p>{user?}</p>
+          <p>{user?.role}</p>
         </div>
+<div className='flex flex-wrap'>
           <section className='flex flex-wrap justify-between'>
-            <label className='flex flex-col gap-2 w-40'>
-                First Name
+            <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4''>
+                <p className='text-gray-700'>First Name</p>
                 <p className='border-[1px] border-gray-600 bg-gray-300'>{user?.first_name}</p>
             </label>
-            <label>
-                Last Name
-                <p>{user?.last_name}</p>
+             <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4''>
+                <p className='text-gray-700'>Last Name</p>
+                <p className='border-[1px] border-gray-600 bg-gray-300'>{user?.last_name}</p>
             </label>
-            <label>
-                FirstName
-                <p>afo</p>
+
+ <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4''>
+                <p className='text-gray-700'>Email</p>
+                <p className='border-[1px] border-gray-600 bg-gray-300'>{user?.email}</p>
+            </label>
+ <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4''>
+                <p className='text-gray-700'>Phone Number</p>
+                <p className='border-[1px] border-gray-600 bg-gray-300'>{user?.mobile}</p>
+            </label>
+ <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4''>
+                <p className='text-gray-700'>Date Of Birth</p>
+                <p className='border-[1px] border-gray-600 bg-gray-300'>{user?.dob}</p>
+            </label>
+ <label className='flex flex-col gap-2 w-full md:w-40 py-2 px-4''>
+                <p className='text-gray-700'>Gender</p>
+                <p className='border-[1px] border-gray-600 bg-gray-300 py-2 px-4'>{user?.gender}</p>
             </label>
             </section>
-
-                    {/* Remark Section */}
+{/* Remark Section */}
                     <div className="font-medium my-3">
-                        <section className={`flex justify-between items-center gap-2 border-[1px] ${journal?.remark ? 'border-green-500':'border-red-500'} rounded-md p-2 md:p-3`}>
+                        <section className={`flex justify-between items-center gap-2 border-[1px] border-gray-500 bg-gray-300 rounded-md p-2 md:p-3`}>
                             <div className="flex-1 flex flex-col gap-y-2">
                                 <p className="text-sm md:text-[16px] capitalize">Remark</p>
                                 <textarea
@@ -126,6 +139,11 @@ const RemarkJournal = () => {
                             </div>
                         </section>
                     </div>
+
+
+</div>
+
+                    
 
                     {role === "admin" && <div className="flex justify-center">
                         <button
