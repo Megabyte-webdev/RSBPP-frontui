@@ -1,6 +1,6 @@
 import { BsJournalCheck } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
-import { ResourceContext } from '../context/ResourceContext';
+import { ResourceContext } from "../context/ResourceContext";
 import { useContext, useEffect, useRef, useState, useMemo } from "react";
 import { BASE_URL, IMAGE_URL } from "../components/utils/base";
 import { UserContext } from "../context/AuthContext";
@@ -9,158 +9,133 @@ import toast from "react-hot-toast";
 import { Spinner } from "react-bootstrap";
 
 const RemarkJournal = () => {
-    const location = useLocation();
-    const remarkRef= useRef(null)
+  const location = useLocation();
+  const remarkRef = useRef(null);
+  const { journal } = location.state;
 
-    const { journal } = location.state;
-    
-    const [loading, setLoading] = useState(false);
-    const [remark, setRemark] = useState(journal?.remark);
+  const [loading, setLoading] = useState(false);
+  const [remark, setRemark] = useState(journal?.remark);
 
-    const { setGetAllUsers, getAllUsers, getAllFaculty, setGetAllFaculty } = useContext(ResourceContext);
-    const { userCredentials } = useContext(UserContext);
-    const role= userCredentials?.user?.role
-    useEffect(() => {
-        setGetAllFaculty(prev => ({ ...prev, isDataNeeded: true }));
-        setGetAllUsers((prev) => ({ ...prev, isDataNeeded: true }));
-      
-    
-    }, [])
-    const GetUserDetails = useMemo(() => {
-        return (userId) => {
-          const user = getAllUsers?.data?.find((item) => item.id === userId);
-          return user || { first_name: "N/A", last_name: "", role: "N/A", email: "", image: "" };
-        };
-      }, [getAllUsers]);
+  const { setGetAllUsers, getAllUsers, getAllFaculty, setGetAllFaculty } =
+    useContext(ResourceContext);
+  const { userCredentials } = useContext(UserContext);
+  const role = userCredentials?.user?.role;
 
-      const user = GetUserDetails(journal?.user_id);
-      console.log(user)
+  useEffect(() => {
+    setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
+    setGetAllUsers((prev) => ({ ...prev, isDataNeeded: true }));
+  }, []);
 
-    const getDetails = (attr, info, facId) => {
-        const faculty = getAllFaculty?.data?.find((item) => item.id === facId);
-        if (!faculty) return { title: 'N/A' };
-        if (attr === 'course') {
-            return faculty.courses?.find((item) => item.id === info) || { title: 'N/A' };
-        }
-        return faculty;
+  const GetUserDetails = useMemo(() => {
+    return (userId) => {
+      const user = getAllUsers?.data?.find((item) => item.id === userId);
+      return (
+        user || { first_name: "N/A", last_name: "", role: "N/A", email: "", image: "" }
+      );
     };
+  }, [getAllUsers]);
 
+  const user = GetUserDetails(journal?.user_id);
 
-    const formatDate = (timestamp) => {
-        const dateObj = new Date(timestamp);
-        const year = dateObj.getFullYear();
-        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-        const day = String(dateObj.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    };
+  const getDetails = (attr, info, facId) => {
+    const faculty = getAllFaculty?.data?.find((item) => item.id === facId);
+    if (!faculty) return { title: "N/A" };
+    if (attr === "course") {
+      return faculty.courses?.find((item) => item.id === info) || { title: "N/A" };
+    }
+    return faculty;
+  };
 
-    const handleRemark = () => {
-        if(journal?.remark === remark){
-            remarkRef.current.focus();
-            return;
-        }
-        let details = {
-            id: journal?.id,
-            remark: remark
-        }
-        setLoading(true)
-        axios
-            .post(`${BASE_URL}course/remarkJournal`, details, {
-                headers: {
-                    Authorization: `Bearer ${userCredentials.token}`,
-                },
-            })
-            .then((response) => {
-                toast.success(response.data.message || "Remark sent");
-                setLoading(false);
-                //   navigate("/view-journals");
-            })
-            .catch((error) => {
-                console.error(error);
-                toast.error(
-                    error?.response?.data?.message || "An error occurred"
-                );
-                setLoading(false);
-            });
-
+  const handleRemark = () => {
+    if (journal?.remark === remark) {
+      remarkRef.current.focus();
+      return;
     }
 
-    return (
-        <div
-            className="flex flex-col p-3 p-md-5 min-vh-100 poppins items-center"
-            style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
-        <div className="flex flex-col justify-center">
-            <img src={`${IMAGE_URL}/profile/${user?.image}`} alt={user?.image} className='w-40 h-40 rounded-full' />
-          <p>{user?.role}</p>
+    let details = { id: journal?.id, remark: remark };
+    setLoading(true);
+
+    axios
+      .post(`${BASE_URL}course/remarkJournal`, details, {
+        headers: { Authorization: `Bearer ${userCredentials.token}` },
+      })
+      .then((response) => {
+        toast.success(response.data.message || "Remark sent");
+        setLoading(false);
+      })
+      .catch((error) => {
+        toast.error(error?.response?.data?.message || "An error occurred");
+        setLoading(false);
+      });
+  };
+
+  return (
+    <div
+      className="flex flex-col items-center min-h-screen p-5 bg-gray-50"
+      style={{ backgroundColor: "hsla(219, 50%, 95%, 0.3)" }}
+    >
+      <div className="flex flex-col items-center mb-8">
+        <img
+          src={`${IMAGE_URL}/profile/${user?.image}`}
+          alt="User Profile"
+          className="w-32 h-32 rounded-full mb-2"
+        />
+        <p className="text-lg font-semibold">{user?.role}</p>
+      </div>
+
+      <div className="grid gap-6 w-full max-w-2xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <DataField label="First Name" value={user?.first_name} />
+          <DataField label="Last Name" value={user?.last_name} />
+          <DataField label="Email" value={user?.email} />
+          <DataField
+            label="Faculty"
+            value={getDetails("faculty", journal?.course_id, journal?.faculty_id)?.title}
+          />
+          <DataField label="Date of Birth" value={user?.dob} />
+          <DataField
+            label="Course"
+            value={getDetails("course", journal?.course_id, journal?.faculty_id)?.title}
+          />
         </div>
 
-<div className='flex flex-wrap md:w-3/4'>
-          <section className='flex flex-wrap justify-between'>
-            <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
-                <p className='text-gray-700'>First Name</p>
-                <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{user?.first_name} || null</p>
-            </label>
-            <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
-                <p className='text-gray-700'>Last Name</p>
-                 <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>
-{user?.last_name}</p>
-            </label>
-  <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
-                <p className='text-gray-700'>Email</p>
-                  <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{user?.email} || null</p>
-            </label>  
-
-<label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
-                <p className='text-gray-700'>Faculty</p>
-                 <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{getDetails('faculty', assignment?.course_id, assignment?.faculty_id).?title} || null</p>
-            </label>
-  <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
-                <p className='text-gray-700'>Date Of Birth</p>
-                <p className='border-[1px] border-gray-600 bg-gray-300 py-2 px-4'>{user?.dob} || null</p>
-            </label>
-   <label className='flex flex-col gap-2 w-full md:flex-1 md:basis-[40%]'>
-                <p className='text-gray-700'>Course</p>
-               <p className='py-2 px-4 border-[1px] border-gray-200 bg-gray-100'>{getDetails('course', assignment?.course_id, assignment?.faculty_id).?title} || null</p>
-            </label>
-            </section>
-{/* Remark Section */}
-                    <div className="font-medium my-3 md:w-1/4">
-                        <section className={`flex justify-between items-center gap-2 border-[1px] border-gray-500 bg-gray-300 rounded-md p-2 md:p-3`}>
-                            <div className="flex-1 flex flex-col gap-y-2">
-                                <p className="text-sm md:text-[16px] capitalize">Remark</p>
-                                <textarea
-                                    cols="30"
-                                    className="p-2 h-28 w-full bg-transparent placeholder:text-gray-500 placeholder:text-sm"
-                                    value={remark}
-                                    ref={remarkRef}
-                                    disabled={role=== "admin" ? false : true}
-                                    onInput={(e) => setRemark(e.target.value)}
-                                    placeholder="Add Description"
-                                />
-                            </div>
-                        </section>
-                    </div>
-
-
-</div>
-
-                    
-
-                    {role === "admin" && <div className="flex justify-center">
-                        <button
-                            onClick={handleRemark}
-                            className="w-48 my-2 px-8 py-2 text-white bg-[navy] rounded-md font-medium cursor-pointer"
-                            disabled={loading}>
-                            <span>{(journal?.remark && journal?.remark !== remark) ? 'Edit Remark' : 'Add Remark'}</span>
-                            <span>{loading && <Spinner size="sm" className="ms-2" />}</span>
-                        </button>
-                    </div>}
-
-            
-
+        <div className="w-full">
+          <label className="block text-gray-700 font-medium mb-2">Remark</label>
+          <textarea
+            ref={remarkRef}
+            className="w-full h-24 p-3 border rounded-md"
+            placeholder="Add Remark"
+            value={remark}
+            disabled={role !== "admin"}
+            onChange={(e) => setRemark(e.target.value)}
+          />
         </div>
 
-    )
+        {role === "admin" && (
+          <div className="flex justify-center mt-4">
+            <button
+              onClick={handleRemark}
+              className="w-48 px-4 py-2 text-white bg-blue-600 rounded-md"
+              disabled={loading}
+            >
+              {loading ? (
+                <Spinner size="sm" className="mr-2" />
+              ) : (
+                journal?.remark && journal?.remark !== remark ? "Edit Remark" : "Add Remark"
+              )}
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
-}
+const DataField = ({ label, value }) => (
+  <div className="flex flex-col">
+    <p className="text-sm text-gray-600 mb-1">{label}</p>
+    <p className="p-2 border bg-gray-100 rounded-md">{value || "N/A"}</p>
+  </div>
+);
+
 export default RemarkJournal;
