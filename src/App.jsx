@@ -107,7 +107,7 @@ const App = () => {
               <Route path="/user_update" element={<ProfileUpdate />} />
 
               {/* Journal and Assignment Routes */}
-              {(role === "instructor" || role === "user") && (
+              {(role === "instructor" || role === "student") && (
                 <>
                   <Route path="/add-journal" element={<AddJournal />} />
                   <Route path="/journal-remark" element={<RemarkJournal />} />
