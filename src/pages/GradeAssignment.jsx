@@ -67,6 +67,7 @@ const GradeAssignment = () => {
         // Update the assignment state with the new values
         assignment.grade = score; // Update the assignment with the new grade
         assignment.remark = remark; // Update the assignment with the new remark
+navigate(-1)
       })
       .catch((error) => {
         toast.error(error?.response?.data?.message || "An error occurred");
