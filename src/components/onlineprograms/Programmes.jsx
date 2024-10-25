@@ -93,7 +93,7 @@ const Programmes = () => {
                         .toLowerCase()}`}
                       state={{ courseId: program.id }}
                     >
-                      <FaCheck className="text-xl mr-2" />
+                      <FaCheck className="flex-shrink-0 text-xl mr-2" />
                       {program.title}
                     </Link>
                   </li>
