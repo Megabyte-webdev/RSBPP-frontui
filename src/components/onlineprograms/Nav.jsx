@@ -15,7 +15,8 @@ const Nav = () => {
   const [dropdown, setDropdown] = useState({});
   const {
     cartStore,
-    getAllCarts
+    getAllCarts,
+setCartStore
   } = useContext(ResourceContext)
   const {userCredentials} = useContext(UserContext);
 
