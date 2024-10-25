@@ -127,7 +127,7 @@ const GradeAssignment = () => {
             className={`bg-[navy] text-white py-2 px-8 rounded-md ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
             disabled={loading}
           >
-            <span>{assignment?.grade ? 'Updat' : 'Submit'}</span>
+            <span>{assignment?.grade ? 'Update' : 'Submit'}</span>
             {loading && <Spinner animation="border" size="sm" />}
           </button>
         </div>
