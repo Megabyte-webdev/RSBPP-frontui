@@ -6,7 +6,7 @@ import { TiSocialFacebook, TiSocialInstagram, TiSocialLinkedin, TiSocialTwitter 
 import { FaShoppingCart } from "react-icons/fa";
 import { ResourceContext } from "../../context/ResourceContext";
 import { UserContext } from "../../context/AuthContext";
-
+import { cartsTotalFunction } from '../utils/getApi';
 const Nav = () => {
   const navigate = useNavigate();
 
@@ -18,6 +18,22 @@ const Nav = () => {
     getAllCarts
   } = useContext(ResourceContext)
   const {userCredentials} = useContext(UserContext);
+
+    const [error, setError] = useState('');
+    const [currentTotal, setCurrentTotal] = useState('');
+    const token = userCredentials?.token;
+    const role = userCredentials?.user?.role;
+
+        // Refetch cart data on location change
+        useEffect(() => {
+            if (userCredentials) {
+                cartsTotalFunction(token, userCredentials.user.id, setError, setCurrentTotal, (newCart) => {
+                    setCartStore(newCart);
+                });
+            }
+        }, [getAllCarts]);
+
+
 
   useEffect(() => {
     setGuestCart(cartStore?.data ? cartStore?.data?.length : 0)
