@@ -44,7 +44,7 @@ const UploadAssignment = () => {
       setSelectedFaculty(facultyItem || null);
       setFaculty(facultyItem ? facultyItem.title : "Select a Faculty");
     }
-  }, [role, getAllCourses, getAllFaculty, userCredentials]);
+  }, [getAllCourses, getAllFaculty]);
 
   // Sync faculty and course when editData is provided
   useEffect(() => {
@@ -73,7 +73,7 @@ const UploadAssignment = () => {
       const matchingCourse = facultyItem?.courses.find((c) => c.title === course);
       setCourse(matchingCourse ? matchingCourse.title : "Select a Programme");
     }
-  }, [faculty, getAllFaculty, course, editData]);
+  }, [editData]);
 
   // Sync selected course with user input and load assignments for non-admin users
   useEffect(() => {
@@ -96,7 +96,7 @@ const UploadAssignment = () => {
           });
       }
     }
-  }, [course, selectedFaculty, role]);
+  }, [course, selectedFaculty]);
 
   const uploadAssignment = () => {
     if (!selectedFaculty || !selectedCourse) {
