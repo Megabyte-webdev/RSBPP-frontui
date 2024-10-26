@@ -14,8 +14,9 @@ const UploadAssignment = () => {
   const location = useLocation();
   const { setGetAllFaculty, getAllFaculty, getAllCourses } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
-  const role = userCredentials?.user.role.toLowerCase();
+  const role = userCredentials?.user?.role.toLowerCase();
   const editData = location.state?.editData || null;
+
   const [selectedFaculty, setSelectedFaculty] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [faculty, setFaculty] = useState("Select a Faculty");
@@ -33,41 +34,25 @@ const UploadAssignment = () => {
   // Load all faculty data on component mount
   useEffect(() => {
     setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
-  }, []);
+  }, [setGetAllFaculty]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${BASE_URL}instructor/get`, { headers: myHeaders })
-  //     .then((response) => {
-  //       const instructors = response.data.instructors || [];
-  //       if (instructors.length > 0) {
-  //         const firstInstructor = instructors.find((identity) => identity.faculty_id === selectedFaculty.id);
-  //         setProf(`${firstInstructor?.title || ""} ${firstInstructor?.last_name || ""}`);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching instructors:", error);
-  //       toast.error("Failed to load instructors.");
-  //     });
-  // }, [selectedCourse]);
+  useEffect(() => {
+    if (role === "instructor") {
+      const myCourse = getAllCourses.data?.find((course) => course.created_by_id === userCredentials.user.id);
+      const facultyItem = getAllFaculty?.data?.find((f) => f.id === myCourse?.faculty_id);
 
-useEffect(()=>{
-  if(role === "instructor"){
-    const oneOfMyCourses= getAllCourses.data?.find((course) => course.created_by_id == userCredentials?.user.id)
-    const oneFaculty = faculty?.find((one) => one.id === oneOfMyCourses.faculty_id)
-    setSelectedFaculty(oneFaculty || null);
-
-    setFaculty(oneFaculty ? oneFaculty.title : "Select a Faculty");
-  }
-},[])
+      setSelectedFaculty(facultyItem || null);
+      setFaculty(facultyItem ? facultyItem.title : "Select a Faculty");
+    }
+  }, [role, getAllCourses, getAllFaculty, userCredentials]);
 
   // Sync faculty and course when editData is provided
   useEffect(() => {
     if (editData) {
-      const facultyItem = getAllFaculty?.data?.find(item => item.id === editData.faculty_id);
+      const facultyItem = getAllFaculty?.data?.find((item) => item.id === editData.faculty_id);
       setSelectedFaculty(facultyItem || null);
 
-      const courseItem = facultyItem?.courses?.find(course => course.id === editData.course_id);
+      const courseItem = facultyItem?.courses?.find((c) => c.id === editData.course_id);
       setSelectedCourse(courseItem || null);
 
       setFaculty(facultyItem ? facultyItem.title : "Select a Faculty");
@@ -78,26 +63,22 @@ useEffect(()=>{
 
   // Sync selected faculty with user input
   useEffect(() => {
-    const facultyItem = getAllFaculty?.data?.find(item => item.title === faculty);
+    const facultyItem = getAllFaculty?.data?.find((item) => item.title === faculty);
     setSelectedFaculty(facultyItem || null);
-    // Check if we're editing and have editData
+
     if (editData && facultyItem) {
-      // Set the course to the one in editData if the faculty matches
-      const matchingCourse = facultyItem.courses.find(course => course.id === editData.course_id);
+      const matchingCourse = facultyItem.courses.find((c) => c.id === editData.course_id);
       setCourse(matchingCourse ? matchingCourse.title : "Select a Programme");
     } else {
-      // Set the course to the one in editData if the faculty matches
-      const matchingCourse = facultyItem?.courses.find(item => item.title === course);
-      // If not editing and course not match, reset course to "Select a Programme"
+      const matchingCourse = facultyItem?.courses.find((c) => c.title === course);
       setCourse(matchingCourse ? matchingCourse.title : "Select a Programme");
     }
-    console.log(faculty)
-  }, [faculty, getAllFaculty]);
+  }, [faculty, getAllFaculty, course, editData]);
 
   // Sync selected course with user input and load assignments for non-admin users
   useEffect(() => {
     if (selectedFaculty) {
-      const courseItem = selectedFaculty.courses?.find(item => item.title === course);
+      const courseItem = selectedFaculty.courses?.find((c) => c.title === course);
       setSelectedCourse(courseItem || null);
 
       if (role !== "admin" && courseItem) {
@@ -106,21 +87,16 @@ useEffect(()=>{
           .then((response) => {
             const newAssignmentId = response.data?.allAssignment[0]?.id || null;
             setAssignmentId(newAssignmentId);
-            console.log(response.data?.allAssignment[0]); // Log fetched assignment data
-            console.log(newAssignmentId);
-            if (newAssignmentId === null) {
-              toast.error("No Assignment Found for this course")
-            } // Log the new assignment ID
+            if (!newAssignmentId) toast.error("No Assignment Found for this course");
           })
           .catch((error) => {
             console.error("Error fetching assignment:", error);
-            toast.error("Error fetching assignment fr this course")
+            toast.error("Error fetching assignment for this course.");
             setAssignmentId(null);
           });
       }
     }
   }, [course, selectedFaculty, role]);
-
 
   const uploadAssignment = () => {
     if (!selectedFaculty || !selectedCourse) {
@@ -135,14 +111,14 @@ useEffect(()=>{
 
     setLoading(true);
     const formData = new FormData();
-    const apiFunc = role === "instructor" ? (editData ? 'updateAssignment' : 'addAssignment') : 'submitAssignment';
+    const apiFunc = role === "instructor" ? (editData ? "updateAssignment" : "addAssignment") : "submitAssignment";
 
     if (role === "instructor") {
       if (editData) formData.append("id", editData.id);
       formData.append("title", `${course} Assignment`);
       formData.append("course_id", selectedCourse.id);
       formData.append("faculty_id", selectedFaculty.id);
-      formData.append("created_by_id", userCredentials?.user?.id);
+      formData.append("created_by_id", userCredentials.user.id);
       formData.append("content", description);
       if (selectedFile) formData.append("file", selectedFile);
       formData.append("image", editData ? editData.image : selectedCourse.image);
@@ -151,23 +127,19 @@ useEffect(()=>{
       formData.append("assignment_id", assignmentId);
       formData.append("course_id", selectedCourse.id);
       formData.append("faculty_id", selectedFaculty.id);
-      formData.append("created_by_id", userCredentials?.user?.id);
+      formData.append("created_by_id", userCredentials.user.id);
       formData.append("text_submission", description);
       if (selectedFile) formData.append("file_submission", selectedFile);
       formData.append("status", "submit");
-
     }
 
-    console.log([...formData])
     axios
       .post(`${BASE_URL}course/${apiFunc}`, formData, { headers: myHeaders })
       .then((response) => {
         toast.success(response.data.message || "Assignment submitted successfully");
         setLoading(false);
         resetFields();
-        navigate('/view-assignments');
-        scrollTo(0, 0)
-
+        navigate("/view-assignments");
       })
       .catch((error) => {
         console.error("Upload error:", error);
@@ -175,33 +147,20 @@ useEffect(()=>{
         setLoading(false);
       });
   };
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    if (file) {
-      if (file.size > 5242880) {
-        toast.error("File size should not exceed 5MB");
-        return;
-      }
+    if (file && file.size <= 5242880) {
       setSelectedFile(file);
+    } else {
+      toast.error("File size should not exceed 5MB");
     }
   };
 
-  const handleDragOver = (event) => {
-    event.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = () => {
-    setIsDragging(false);
-  };
-
+  const handleDragOver = (event) => event.preventDefault();
   const handleDrop = (event) => {
     event.preventDefault();
-    setIsDragging(false);
-    const file = event.dataTransfer.files[0];
-    if (file) {
-      handleFileChange({ target: { files: [file] } });
-    }
+    handleFileChange({ target: { files: event.dataTransfer.files } });
   };
 
   const resetFields = () => {
@@ -210,7 +169,6 @@ useEffect(()=>{
     setDescription("");
     setSelectedFile(null);
   };
-
 
   return (
     <div className="flex flex-col p-3 p-md-5 min-vh-100 poppins" style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
