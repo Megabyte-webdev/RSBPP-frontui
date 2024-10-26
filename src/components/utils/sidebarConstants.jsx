@@ -211,5 +211,17 @@ export const facultyConstants = [
                 link: "/faculty_list",
             },
         ]
-    },
+    },{
+        title: "Assignment",
+        logo: assignment,
+        subOptions: [
+            {
+                title: "Add Assignment",
+                link: "/upload-assignment",
+            },{
+                title: "View All Assignments",
+                link: "/view-assignments",
+            }
+        ]
+    }
 ]

@@ -16,7 +16,7 @@ const UploadAssignment = () => {
   const { userCredentials } = useContext(UserContext);
   const role = userCredentials?.user.role.toLowerCase();
   const editData = location.state?.editData || null;
-  const [selectedFaculty, setSelectedFaculty] = useState(null);
+  const [selectedFaculty, setSelectedFaculty,getAllCourses] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [faculty, setFaculty] = useState("Select a Faculty");
   const [course, setCourse] = useState("Select a Programme");
@@ -35,23 +35,31 @@ const UploadAssignment = () => {
     setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
   }, []);
 
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}instructor/get`, { headers: myHeaders })
-      .then((response) => {
-        const instructors = response.data.instructors || [];
-        if (instructors.length > 0) {
-          const firstInstructor = instructors.find((identity) => identity.faculty_id === selectedFaculty.id);
-          setProf(`${firstInstructor?.title || ""} ${firstInstructor?.last_name || ""}`);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching instructors:", error);
-        toast.error("Failed to load instructors.");
-      });
-  }, [selectedCourse]);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${BASE_URL}instructor/get`, { headers: myHeaders })
+  //     .then((response) => {
+  //       const instructors = response.data.instructors || [];
+  //       if (instructors.length > 0) {
+  //         const firstInstructor = instructors.find((identity) => identity.faculty_id === selectedFaculty.id);
+  //         setProf(`${firstInstructor?.title || ""} ${firstInstructor?.last_name || ""}`);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching instructors:", error);
+  //       toast.error("Failed to load instructors.");
+  //     });
+  // }, [selectedCourse]);
 
+useEffect(()=>{
+  if(role === "instructor"){
+    const oneOfMyCourses= getAllCourses.data?.find((course) => course.created_by_id == userCredentials?.user.id)
+    const oneFaculty = faculty?.find((one) => one.id === oneOfMyCourses.faculty_id)
+    setSelectedFaculty(oneFaculty || null);
 
+    setFaculty(oneFaculty ? oneFaculty.title : "Select a Faculty");
+  }
+},[])
 
   // Sync faculty and course when editData is provided
   useEffect(() => {
@@ -59,10 +67,8 @@ const UploadAssignment = () => {
       const facultyItem = getAllFaculty?.data?.find(item => item.id === editData.faculty_id);
       setSelectedFaculty(facultyItem || null);
 
-
       const courseItem = facultyItem?.courses?.find(course => course.id === editData.course_id);
       setSelectedCourse(courseItem || null);
-
 
       setFaculty(facultyItem ? facultyItem.title : "Select a Faculty");
       setCourse(courseItem ? courseItem.title : "Select a Programme");
@@ -129,9 +135,9 @@ const UploadAssignment = () => {
 
     setLoading(true);
     const formData = new FormData();
-    const apiFunc = role === "admin" ? (editData ? 'updateAssignment' : 'addAssignment') : 'submitAssignment';
+    const apiFunc = role === "instructor" ? (editData ? 'updateAssignment' : 'addAssignment') : 'submitAssignment';
 
-    if (role === "admin") {
+    if (role === "instructor") {
       if (editData) formData.append("id", editData.id);
       formData.append("title", `${course} Assignment`);
       formData.append("course_id", selectedCourse.id);
@@ -209,7 +215,7 @@ const UploadAssignment = () => {
   return (
     <div className="flex flex-col p-3 p-md-5 min-vh-100 poppins" style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
       <p className="sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium">
-        {(role === "admin") ? (editData ? "Edit Assignment" : 'Add Assignment') : 'Upload Assignment'}
+        {(role === "instructor") ? (editData ? "Edit Assignment" : 'Add Assignment') : 'Upload Assignment'}
 
       </p>
 
@@ -279,7 +285,7 @@ const UploadAssignment = () => {
 
       {/* Description Field */}
       <div className="font-medium my-2 border-[1px] border-red-500 p-2 md:p-3 rounded-md">
-        <p className='text-sm md:text-[16px]'>{role === "admin" ? "Assignment" : "Submission"}</p>
+        <p className='text-sm md:text-[16px]'>{role === "instructor" ? "Assignment" : "Submission"}</p>
         <textarea
           rows="4"
           value={description}
@@ -324,7 +330,7 @@ const UploadAssignment = () => {
           className={`bg-[navy] text-white my-2 py-2 px-8 rounded-md ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
           disabled={loading}
         >
-          {loading ? <Spinner animation="border" size="sm" /> : (role === "admin" ? (editData ? "Edit" : 'Upload') : "Submit")}
+          {loading ? <Spinner animation="border" size="sm" /> : (role === "instructor" ? (editData ? "Edit" : 'Upload') : "Submit")}
         </button>
       </div>
     </div>
