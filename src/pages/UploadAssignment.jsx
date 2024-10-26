@@ -16,7 +16,7 @@ const UploadAssignment = () => {
   const { userCredentials } = useContext(UserContext);
   const role = userCredentials?.user.role.toLowerCase();
   const editData = location.state?.editData || null;
-  const [selectedFaculty, setSelectedFaculty,getAllCourses] = useState(null);
+  const [selectedFaculty, setSelectedFaculty] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [faculty, setFaculty] = useState("Select a Faculty");
   const [course, setCourse] = useState("Select a Programme");
