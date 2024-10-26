@@ -37,15 +37,7 @@ const UploadAssignment = () => {
 setGetAllCourses((prev) => ({ ...prev, isDataNeeded: true }));
   }, [setGetAllFaculty, setGetAllCourses]);
 
-  useEffect(() => {
-    if (role === "instructor") {
-      const myCourse = getAllCourses?.data?.find((course) => course?.created_by_id === userCredentials.user.id);
-      const facultyItem = getAllFaculty?.data?.find((f) => f.id === myCourse?.faculty_id);
-
-      setSelectedFaculty(facultyItem || null);
-      setFaculty(facultyItem ? facultyItem.title : "Select a Faculty");
-    }
-  }, [getAllCourses, getAllFaculty]);
+  
 
   // Sync faculty and course when editData is provided
   useEffect(() => {
