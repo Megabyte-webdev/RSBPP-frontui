@@ -7,7 +7,10 @@ import { FaShoppingCart } from "react-icons/fa";
 import { ResourceContext } from "../../context/ResourceContext";
 import { UserContext } from "../../context/AuthContext";
 import { cartsTotalFunction } from '../utils/getApi';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 093751d8ad704f15d80a6c010cb05cd8d9ff0539
 const Nav = () => {
   const navigate = useNavigate();
 
@@ -18,8 +21,13 @@ const Nav = () => {
     const [currentTotal, setCurrentTotal] = useState('');
   const {
     cartStore,
+<<<<<<< HEAD
     setCartStore,
     getAllCarts
+=======
+    getAllCarts,
+setCartStore
+>>>>>>> 093751d8ad704f15d80a6c010cb05cd8d9ff0539
   } = useContext(ResourceContext)
   const {userCredentials} = useContext(UserContext);
   const token = userCredentials?.token;
@@ -31,6 +39,22 @@ const Nav = () => {
         });
     }
 }, [getAllCarts]);
+
+    const [error, setError] = useState('');
+    const [currentTotal, setCurrentTotal] = useState('');
+    const token = userCredentials?.token;
+    const role = userCredentials?.user?.role;
+
+        // Refetch cart data on location change
+        useEffect(() => {
+            if (userCredentials) {
+                cartsTotalFunction(token, userCredentials.user.id, setError, setCurrentTotal, (newCart) => {
+                    setCartStore(newCart);
+                });
+            }
+        }, [userCredentials]);
+
+
 
   useEffect(() => {
     setGuestCart(cartStore?.data ? cartStore?.data?.length : 0)

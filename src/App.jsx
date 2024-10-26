@@ -11,7 +11,7 @@ import Registration from "./pages/Registration";
 import DashboardTwo from "./pages/DashboardTwo";
 import AdminDashboard from "./pages/AdminDashboard";
 import VideoConference from "./pages/VideoConference";
-import ThemeContextProvider, { ThemeContext } from "./context/ThemeContext";
+import ThemeContextProvider from "./context/ThemeContext";
 import Courses from "./pages/Courses";
 import CoursesAnalysis from "./pages/CoursesAnalysis";
 import Chats from "./pages/Chats";
@@ -19,7 +19,6 @@ import QuizPage from "./pages/QuizPage";
 import Messages from "./pages/Messages";
 import ToastProvider from "./context/ToastProvider";
 import UserContextProvider, { UserContext } from "./context/AuthContext";
-// import { UserContext } from './context/AuthContext'
 import MyLearning from "./pages/MyLearning";
 import LearningDetails from "./pages/LearningDetails";
 import { Suspense, lazy, useContext } from "react";
@@ -49,7 +48,6 @@ import FacultyAddCourse from "./components/instructor/FacultyAddCourse";
 import AddInstructor from "./components/stats/AddInstructor";
 import InstructorCourses from "./pages/InstructorCourses";
 import ComingSoon from "./pages/ComingSoon";
-// import StripeApp from './components/stripe/main/StripeApp'
 import FacultyEditCourse from "./components/instructor/FacultyEditCourse";
 import MyClassSchedules from "./pages/MyClassSchedules";
 import ProfileUpdate from "./pages/ProfileUpdate";
@@ -69,22 +67,16 @@ import AllAssignment from "./pages/AllAssignment";
 import GradeAssignment from "./pages/GradeAssignment";
 import ViewGrade from "./pages/ViewGrade";
 
-// import AllJournal from "./pages/AllJournal";
-// const LazyMeeting = lazy(() => ./components/onlineprograms/OnlineProgramsLayout
-
 const App = () => {
   const { userCredentials } = useContext(UserContext);
   const role = userCredentials?.user.role.toLowerCase();
-  
+
   return (
-    // <UserContextProvider>
     <ResourceContextProvider>
       <ThemeContextProvider>
         <Router>
-          {/* <Suspense fallback={<div>Loading...</div>}> */}
           <Routes>
             <Route path="/" element={<Layout />}>
-              
               <Route
                 index
                 element={
@@ -113,74 +105,51 @@ const App = () => {
               <Route path="/test" element={<CustomPagination />} />
               <Route path="/soon" element={<ComingSoon />} />
               <Route path="/user_update" element={<ProfileUpdate />} />
-              <Route path="/add-journal" element={<AddJournal />} />
-              <Route path="/journal-remark" element={<RemarkJournal />} />
-<Route path="/view-journals" element={<ViewJournals />} />
-              <Route path="/upload-assignment" element={<UploadAssignment />} />
-<Route path="/view-assignments/:course" element={<SubmittedAssignments />} />
- <Route path="/view-assignments" element={<AllAssignment />} />
- <Route path="/view-grade/:assignment" element={<ViewGrade />} />
-              {role === "instructor" && (
-                <>
-                  <Route
-                    path="/schedule_classes"
-                    element={<UpComingClasses />}
-                  />
-                  <Route path="/create_schedule" element={<CreateSchedule />} />
-                  <Route
-                    path="/meetings_history"
-                    element={<MeetingHistory />}
-                  />
-                  <Route
-                    path="/meetings_history/:id"
-                    element={<MeetingView />}
-                  />
-                  <Route
-                    path="/participant_list"
-                    element={<MeetingParticipant />}
-                  />
-                  <Route path="/faculty_list" element={<FacultyList />} />
-                  <Route path="/profile_form" element={<UpdateProfile />} />
-                  <Route
-                    path="/faculty_add_course"
-                    element={<FacultyAddCourse />}
-                  />
 
+              {/* Journal and Assignment Routes */}
+              {(role === "instructor" || role === "student") && (
+                <>
+                  <Route path="/add-journal" element={<AddJournal />} />
+                  <Route path="/journal-remark" element={<RemarkJournal />} />
+                  <Route path="/view-journals" element={<ViewJournals />} />
+                  <Route path="/upload-assignment" element={<UploadAssignment />} />
                   <Route
-                    path="/instructor_courses"
-                    element={<InstructorCourses />}
+                    path="/view-assignments/:course"
+                    element={<SubmittedAssignments />}
                   />
+                  <Route path="/view-assignments" element={<AllAssignment />} />
                   <Route
-                    path="/instructor_courses/:id"
-                    element={<FacultyEditCourse />}
+                    path="/view-grade/:assignment"
+                    element={<ViewGrade />}
                   />
                 </>
               )}
+
+              {role === "instructor" && (
+                <>
+                  <Route path="/schedule_classes" element={<UpComingClasses />} />
+                  <Route path="/create_schedule" element={<CreateSchedule />} />
+                  <Route path="/meetings_history" element={<MeetingHistory />} />
+                  <Route path="/meetings_history/:id" element={<MeetingView />} />
+                  <Route path="/participant_list" element={<MeetingParticipant />} />
+                  <Route path="/faculty_list" element={<FacultyList />} />
+                  <Route path="/profile_form" element={<UpdateProfile />} />
+                  <Route path="/faculty_add_course" element={<FacultyAddCourse />} />
+                  <Route path="/instructor_courses" element={<InstructorCourses />} />
+                  <Route path="/instructor_courses/:id" element={<FacultyEditCourse />} />
+                </>
+              )}
+
               {role === "admin" && (
                 <>
-                  <Route
-                    path="/schedule_classes"
-                    element={<UpComingClasses />}
-                  />
+                  <Route path="/schedule_classes" element={<UpComingClasses />} />
                   <Route path="/create_schedule" element={<CreateSchedule />} />
                   <Route path="/faculty_courses" element={<MyLearning />} />
-                  <Route
-                    path="/faculty_courses/:id"
-                    element={<FacultyEditCourse />}
-                  />
+                  <Route path="/faculty_courses/:id" element={<FacultyEditCourse />} />
                   <Route path="/registra" element={<RegisteredStudent />} />
-                  <Route
-                    path="/courses_administration"
-                    element={<CourseAdministration />}
-                  />
-                  <Route
-                    path="/courses_administration/:id"
-                    element={<CourseMembers />}
-                  />
-                  <Route
-                    path="/faculty_administration"
-                    element={<FacultyAdministration />}
-                  />
+                  <Route path="/courses_administration" element={<CourseAdministration />} />
+                  <Route path="/courses_administration/:id" element={<CourseMembers />} />
+                  <Route path="/faculty_administration" element={<FacultyAdministration />} />
                   <Route path="/add_instructor" element={<AddInstructor />} />
                   <Route path="/remark-journal" element={<RemarkJournal />} />
                   <Route path="/view-assignments" element={<AllAssignment />} />
@@ -190,37 +159,34 @@ const App = () => {
                 </>
               )}
             </Route>
+
             {userCredentials && (
               <>
-
                 <Route path="/learning/:id" element={<LearningDetails />} />
                 <Route path="/carts" element={<Carts />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/success" element={<SuccessfulCheckoutPage />} />
               </>
             )}
+
             <Route path="/login" element={<NewLogin />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/verify_email" element={<Login />} />
-            <Route path="/carts" element={<Carts />} />
-            
-            <Route path="/" element={<OnlineProgramsLayout />} >
-              <Route path='/online-programmes' element={<OnlinePrograms />} />
-              <Route path='/online-programmes/:program' element={<Programme />} />
-              <Route path='/digiknowh' element={<DigiKnowH/>} />
+
+            <Route path="/" element={<OnlineProgramsLayout />}>
+              <Route path="/online-programmes" element={<OnlinePrograms />} />
+              <Route path="/online-programmes/:program" element={<Programme />} />
+              <Route path="/digiknowh" element={<DigiKnowH />} />
             </Route>
-            {/* Catch-all route for 404 */}
+
             <Route path="*" element={<Navigate to="/not-found" replace />} />
-            {/* 404 page component */}
             <Route path="/not-found" element={<NotFound />} />
           </Routes>
-          {/* </Suspense> */}
         </Router>
         <ToastProvider />
       </ThemeContextProvider>
     </ResourceContextProvider>
-    // </UserContextProvider>
   );
 };
 

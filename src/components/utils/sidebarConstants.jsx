@@ -211,6 +211,18 @@ export const facultyConstants = [
                 link: "/faculty_list",
             },
         ]
+<<<<<<< HEAD
+=======
+        },{
+        title: "Journals",
+        logo: journal,
+        subOptions: [
+            {
+                title: "All Journals",
+                link: "/view-journals",
+            }
+        ]
+>>>>>>> 093751d8ad704f15d80a6c010cb05cd8d9ff0539
     },{
         title: "Assignment",
         logo: assignment,
