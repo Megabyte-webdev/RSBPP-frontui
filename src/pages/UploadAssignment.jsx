@@ -12,7 +12,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 const UploadAssignment = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { setGetAllFaculty, getAllFaculty } = useContext(ResourceContext);
+  const { setGetAllFaculty, getAllFaculty, getAllCourses } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
   const role = userCredentials?.user.role.toLowerCase();
   const editData = location.state?.editData || null;
