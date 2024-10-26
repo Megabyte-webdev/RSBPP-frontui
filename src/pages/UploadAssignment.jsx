@@ -12,7 +12,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 const UploadAssignment = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { setGetAllFaculty, getAllFaculty, getAllCourses } = useContext(ResourceContext);
+  const { setGetAllFaculty, getAllFaculty, getAllCourses,setGetAllCourses } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
   const role = userCredentials?.user?.role.toLowerCase();
   const editData = location.state?.editData || null;
@@ -34,11 +34,12 @@ const UploadAssignment = () => {
   // Load all faculty data on component mount
   useEffect(() => {
     setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
-  }, [setGetAllFaculty]);
+setGetAllCourses((prev) => ({ ...prev, isDataNeeded: true }));
+  }, [setGetAllFaculty, setGetAllCourses]);
 
   useEffect(() => {
     if (role === "instructor") {
-      const myCourse = getAllCourses.data?.find((course) => course.created_by_id === userCredentials.user.id);
+      const myCourse = getAllCourses?.data?.find((course) => course?.created_by_id === userCredentials.user.id);
       const facultyItem = getAllFaculty?.data?.find((f) => f.id === myCourse?.faculty_id);
 
       setSelectedFaculty(facultyItem || null);
