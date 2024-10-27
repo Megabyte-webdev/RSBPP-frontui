@@ -49,7 +49,7 @@ useEffect(() => {
       return;
     }
 
-    const myCourse = getAllCourses?.data?.find(one => userCredentials?.user?.id === one.created_by_id );
+    const myCourse = getAllCourses?.data?.find(one => parseInt(userCredentials?.user?.id) === parseInt(one.created_by_id) );
     
     console.log(getAllCourses);
     console.log(myCourse);
