@@ -37,15 +37,24 @@ setGetAllCourses((prev) => ({ ...prev, isDataNeeded: true }));
   }, []);
 
 useEffect(() => {
-    if (role === "instructor") {
-      const myCourse = getAllCourses?.data?.find((course) => course?.created_by_id === userCredentials.user.id);
-setProf(myCourse?.title)
-      const facultyItem = getAllFaculty?.data?.find((f) => f.id === myCourse?.faculty_id);
+  if (role === "instructor") {
+    const myCourse = getAllCourses?.data?.find(
+      (course) => course?.created_by_id === userCredentials.user.id
+    );
 
+    if (myCourse) {
+      // Find and set the matching faculty for this course
+      const facultyItem = getAllFaculty?.data?.find(
+        (faculty) => faculty.id === myCourse.faculty_id
+      );
+
+      // Set faculty details if found
       setSelectedFaculty(facultyItem || null);
       setFaculty(facultyItem ? facultyItem.title : "Select a Faculty");
     }
-  }, [getAllCourses, getAllFaculty]);
+  }
+}, [getAllCourses, getAllFaculty]);
+
 
   useEffect(() => {
     axios
