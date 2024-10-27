@@ -49,7 +49,7 @@ useEffect(() => {
       return;
     }
 
-    const myCourse = getAllCourses.data.find((one) => userCredentials?.user?.id === one.created_by_id );
+    const myCourse = getAllCourses?.data?.find(one => userCredentials?.user?.id === one.created_by_id );
     
     console.log(getAllCourses);
     console.log(myCourse);
@@ -57,8 +57,7 @@ useEffect(() => {
     
     if (myCourse) {
       // Find and set the matching faculty for this course
-      const facultyItem = getAllFaculty?.data?.find(
-        (faculty) => faculty.id === getAllCourses?.data[0]?.faculty_id
+      const facultyItem = getAllFaculty?.data?.find(faculty => faculty.id === myCourse?.faculty_id
       );
 
       // Set faculty details if found
