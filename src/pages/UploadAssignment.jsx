@@ -33,9 +33,15 @@ const UploadAssignment = () => {
   // Load all faculty data on component mount
   useEffect(() => {
     setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
-setGetAllCourses((prev) => ({ ...prev, isDataNeeded: true }));
-  }, []);
 
+  }, []);
+useEffect(() => {
+        setGetAllCourses((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
 useEffect(() => {
   if (role === "instructor") {
     const myCourse = getAllCourses?.data?.find(
