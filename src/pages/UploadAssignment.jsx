@@ -44,10 +44,17 @@ useEffect(() => {
     }, [])
 useEffect(() => {
   if (role === "instructor") {
-    const myCourse = getAllCourses?.data?.find(
-      (course) => course?.created_by_id === userCredentials.user.id
-    );
+    if (!getAllCourses?.data || !getAllFaculty?.data) {
+      console.log('Waiting for data...');
+      return;
+    }
 
+    const myCourse = getAllCourses.data.find((one) => userCredentials?.user?.id === one.created_by_id );
+    
+    console.log(getAllCourses);
+    console.log(myCourse);
+    console.log(userCredentials?.user?.id);
+    
     if (myCourse) {
       // Find and set the matching faculty for this course
       const facultyItem = getAllFaculty?.data?.find(
@@ -60,23 +67,6 @@ useEffect(() => {
     }
   }
 }, [getAllCourses, getAllFaculty]);
-
-
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}instructor/get`, { headers: myHeaders })
-      .then((response) => {
-        const instructors = response.data.instructors || [];
-        if (instructors.length > 0) {
-          const firstInstructor = instructors.find((identity) => identity.faculty_id === selectedFaculty.id);
-          setProf(`${firstInstructor?.title || ""} ${firstInstructor?.last_name || ""}`);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching instructors:", error);
-        toast.error("Failed to load instructors.");
-      });
-  }, [selectedCourse]);
 
 
 
