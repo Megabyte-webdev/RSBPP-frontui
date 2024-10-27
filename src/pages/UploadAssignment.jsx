@@ -349,7 +349,7 @@ useEffect(() => {
           className={`bg-[navy] text-white my-2 py-2 px-8 rounded-md ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
           disabled={loading}
         >
-          {loading ? <Spinner animation="border" size="sm" /> : (role === "admin" ? (editData ? "Edit" : 'Upload') : "Submit")}
+          {loading ? <Spinner animation="border" size="sm" /> : (role === "instructor" ? (editData ? "Edit" : 'Upload') : "Submit")}
         </button>
       </div>
     </div>
