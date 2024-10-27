@@ -145,9 +145,9 @@ useEffect(() => {
 
     setLoading(true);
     const formData = new FormData();
-    const apiFunc = role === "admin" ? (editData ? 'updateAssignment' : 'addAssignment') : 'submitAssignment';
+    const apiFunc = role === "instructor" ? (editData ? 'updateAssignment' : 'addAssignment') : 'submitAssignment';
 
-    if (role === "admin") {
+    if (role === "instructor") {
       if (editData) formData.append("id", editData.id);
       formData.append("title", `${course} Assignment`);
       formData.append("course_id", selectedCourse.id);
