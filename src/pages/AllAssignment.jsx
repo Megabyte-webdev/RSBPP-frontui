@@ -153,7 +153,7 @@ if(role === "instructor"){
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Date Added</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>{role==="admin"?'Submissions':'Grade'}</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Status</th>
-                               {role==="admin" && <th className='p-2 mx-2 text-left min-w-[150px]'>Action</th>}
+                               {role==="instructor" && <th className='p-2 mx-2 text-left min-w-[150px]'>Action</th>}
                             </tr>
                         </thead>
                         <tbody>
