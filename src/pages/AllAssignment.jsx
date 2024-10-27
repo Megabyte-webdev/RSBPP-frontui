@@ -28,8 +28,8 @@ const AllAssignment = () => {
             };
 
             try {
-                const response = await axios.get(`${BASE_URL}course/${role === "admin" ? "getAllAssignment" : "getAssignmentSubmitCourseAll"}`, { headers: myHeaders });
-                setAssignments(role === "admin" ?response.data.allAssignment :response.data.allAssignmentSubmit || []);
+                const response = await axios.get(`${BASE_URL}course/${role === "instructor" ? "getAllAssignment" : "getAssignmentSubmitCourseAll"}`, { headers: myHeaders });
+                setAssignments(role === "instructor" ?response.data.allAssignment :response.data.allAssignmentSubmit || []);
                 setGetAllFaculty(prev => ({ ...prev, isDataNeeded: true }));
                 console.log(response.data)
             } catch (error) {
