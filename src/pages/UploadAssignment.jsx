@@ -51,7 +51,7 @@ useEffect(() => {
     if (myCourse) {
       // Find and set the matching faculty for this course
       const facultyItem = getAllFaculty?.data?.find(
-        (faculty) => faculty.id === myCourse.faculty_id
+        (faculty) => faculty.id === getAllCourses?.data[0]?.faculty_id
       );
 
       // Set faculty details if found
