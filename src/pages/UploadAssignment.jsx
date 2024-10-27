@@ -44,14 +44,14 @@ useEffect(() => {
     }, [])
 useEffect(() => {
   if (role === "instructor") {
-    const myCourse = getAllCourses?.data?.find(
+    const myCourse = getAllCourses?.data?.filter(
       (course) => course?.created_by_id === userCredentials.user.id
     );
 
-    if (myCourse) {
+    if (myCourse.length !== 0) {
       // Find and set the matching faculty for this course
       const facultyItem = getAllFaculty?.data?.find(
-        (faculty) => faculty.id === myCourse.faculty_id
+        (faculty) => faculty.id === myCourse[0].faculty_id
       );
 
       // Set faculty details if found
@@ -263,8 +263,8 @@ useEffect(() => {
   {role === "instructor"
     ? (
         selectedFaculty && (
-          <option key={selectedFaculty.id} value={selectedFaculty.title}>
-            {selectedFaculty.title}
+          <option key={selectedFaculty?.id} value={selectedFaculty.title}>
+            {selectedFaculty?.title}
           </option>
         )
       )
