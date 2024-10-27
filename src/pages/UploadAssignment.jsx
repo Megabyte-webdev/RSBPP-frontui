@@ -246,20 +246,29 @@ useEffect(() => {
                 : "Select Faculty"}
             </p>
           </div>
-          <select
-            className="p-2 md:p-3 absolute w-[98%] min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md"
-            value={faculty}
-            onChange={(e) => setFaculty(e.target.value)}
-          >
-            <option disabled value="Select a Faculty">
-              Select a Faculty
-            </option>
-            {getAllFaculty?.data?.map((item, index) => (
-              <option key={index} value={item.title}>
-                {item.title}
-              </option>
-            ))}
-          </select>
+         <select
+  className="p-2 md:p-3 absolute w-[98%] min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md"
+  value={faculty}
+  onChange={(e) => setFaculty(e.target.value)}
+>
+  <option disabled value="Select a Faculty">
+    Select a Faculty
+  </option>
+  {role === "instructor"
+    ? (
+        selectedFaculty && (
+          <option key={selectedFaculty.id} value={selectedFaculty.title}>
+            {selectedFaculty.title}
+          </option>
+        )
+      )
+    : getAllFaculty?.data?.map((item) => (
+        <option key={item.id} value={item.title}>
+          {item.title}
+        </option>
+      ))}
+</select>
+
           <p className="border-l border-gray-500 md:pl-7 pl-4 text-red-500">
             <IoIosArrowDown size="20" />
           </p>
