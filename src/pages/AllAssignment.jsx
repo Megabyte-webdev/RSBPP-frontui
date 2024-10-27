@@ -98,7 +98,7 @@ const AllAssignment = () => {
 
 
     const handleViewAssignments = async (assignment) => {
-if(role === "admin"){
+if(role === "instructor"){
         const course = await getDetails('course', assignment.course_id, assignment.faculty_id);
         if (course) {
             navigate(`/view-assignments/${course.title}`, { state: { courseId: assignment.course_id } });
