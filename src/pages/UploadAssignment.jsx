@@ -39,6 +39,7 @@ setGetAllCourses((prev) => ({ ...prev, isDataNeeded: true }));
 useEffect(() => {
     if (role === "instructor") {
       const myCourse = getAllCourses?.data?.find((course) => course?.created_by_id === userCredentials.user.id);
+setProf(myCourse?.title)
       const facultyItem = getAllFaculty?.data?.find((f) => f.id === myCourse?.faculty_id);
 
       setSelectedFaculty(facultyItem || null);
@@ -105,7 +106,7 @@ useEffect(() => {
       const courseItem = selectedFaculty.courses?.find(item => item.title === course);
       setSelectedCourse(courseItem || null);
 
-      if (role !== "admin" && courseItem) {
+      if (role !== "instructor" && courseItem) {
         axios
           .get(`${BASE_URL}course/getAllAssignmentCourse/${courseItem.id}`, { headers: myHeaders })
           .then((response) => {
