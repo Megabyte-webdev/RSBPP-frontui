@@ -120,8 +120,7 @@ if(editData && faculty){
     axios
       .post(url, formData, {
         headers: {
-  Authorization: `Bearer ${userCredentials?.token}`,
-  "Content-Type": "multipart/form-data", // Ensure this matches your backend's expectation
+  "Authorization" : `Bearer ${userCredentials?.token}`
 },
 
       })
