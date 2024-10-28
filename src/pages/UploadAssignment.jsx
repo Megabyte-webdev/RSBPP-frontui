@@ -140,7 +140,7 @@ useEffect(() => {
 
 // Show dropdown if assignment list is available and role is "student"
 useEffect(() => {
-  if (role === "student" && (assignmentList && assignmentList?.length !== 0 ) {
+  if (role === "student" && (assignmentList && assignmentList?.length !== 0) ) {
     setShowAssignmentDropdown(true);
   }
 }, [assignmentList]);
