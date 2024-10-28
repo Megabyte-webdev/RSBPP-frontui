@@ -96,7 +96,7 @@ const JournalJournal = () => {
 
         {/* Journal Text Submission Section */}
         <div className="w-full">
-          <label className="block text-gray-700 font-medium mb-2">Journal Submission</label>
+          <label className="block text-gray-700 font-medium mb-2">Journal Submitted</label>
           <div className="p-4 border bg-white rounded-md shadow-sm">
             <p className="text-gray-800 whitespace-pre-wrap">
               {journal?.text_submission || "No journal submitted."}
