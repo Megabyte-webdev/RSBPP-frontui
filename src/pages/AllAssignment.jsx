@@ -74,6 +74,21 @@ const AllAssignment = () => {
         }
     }, [assignments, userCredentials]);
 
+
+const getContent(assignmentId){
+const myHeaders = {
+                    Authorization: `Bearer ${userCredentials.token}`,
+                };
+
+                try {
+                    const response = await axios.get(`${BASE_URL}course/getAssignment/${assignmentId}',{ headers: myHeaders })
+                     return response.data.assignment
+                } catch (error) {
+                    return {content: "..."}
+                }
+            }
+
+}
     const getDetails = (attr, info, facId) => {
         const faculty = getAllFaculty?.data?.find((item) => item.id === facId);
         if (!faculty) return { title: 'N/A' };
@@ -161,7 +176,7 @@ const AllAssignment = () => {
                             {displayedAssignments.map((row, index) => (
                                 <tr className='cursor-pointer' key={row.id} onClick={() => { handleViewAssignments(row) }}>
                                     <td className='p-2 mx-2 min-w-[50px]'>{(currentPage - 1) * pageSize + index + 1}</td>
-<td className='p-2 mx-2 min-w-[150px]'>{row?.content}</td>
+<td className='p-2 mx-2 min-w-[150px]'>{user.role === "instructor"?row?.content:getContent(row?.assignment_id)?.content}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{formatDate(row.created_at)}</td>
