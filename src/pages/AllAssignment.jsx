@@ -75,24 +75,16 @@ const AllAssignment = () => {
     }, [assignments, userCredentials]);
 
 
-const [assignmentContents, setAssignmentContents] = useState({});
 
-const fetchContent = async (assignmentId) => {
-  try {
-    const content = await getContent(assignmentId);
-    setAssignmentContents((prev) => ({ ...prev, [assignmentId]: content.content }));
-  } catch (error) {
-    setAssignmentContents((prev) => ({ ...prev, [assignmentId]: '...' }));
-  }
-};
-
-useEffect(() => {
-  assignments.forEach((assignment) => {
-    if (!assignmentContents[assignment?.id]) {
-      fetchContent(assignment?.id);
-    }
-  });
-}, [assignments]);
+const fetchContent = (assignmentId) => {
+ 
+   axios.get(`${BASE_URL}course/getAssignment/${assignmentId}`, { headers: myHeaders }).then(response=>
+return response?.data?.assignment 
+).catch(err=>
+return {content:"..."}
+)
+                   
+}
 
     const getDetails = (attr, info, facId) => {
         const faculty = getAllFaculty?.data?.find((item) => item.id === facId);
@@ -183,7 +175,7 @@ useEffect(() => {
                                     <td className='p-2 mx-2 min-w-[50px]'>{(currentPage - 1) * pageSize + index + 1}</td>
 
  <td className='p-2 mx-2 min-w-[150px]'>
-  {role === "instructor" ? row?.content : assignmentContents[row.assignment_id] || 'Loading...'}
+  {role === "instructor" ? row?.content : fetchContent(row?.assignment_id)?.content || 'Loading...'}
 </td>
 
  <td className='p-2 mx-2 min-w-[150px]'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
