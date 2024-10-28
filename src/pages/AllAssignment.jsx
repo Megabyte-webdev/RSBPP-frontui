@@ -190,7 +190,7 @@ const getContent = (assignmentId) => {
                                     <td className='p-2 mx-2 min-w-[50px]'>{(currentPage - 1) * pageSize + index + 1}</td>
 
  <td className='p-2 mx-2 min-w-[150px]'>
-  {role === "instructor" ? row?.content : getContent(row?.assignment_id) || 'Loading...'}
+  {role === "instructor" ? row?.content : getContent(row?.assignment_id)}
 </td>
 
  <td className='p-2 mx-2 min-w-[150px]'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
