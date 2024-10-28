@@ -15,6 +15,7 @@ const AllAssignment = () => {
     const [loading, setLoading] = useState(true);
     const [submissions, setSubmissions] = useState({});
     const [submissionsLoading, setSubmissionsLoading] = useState({});
+const [assignmentContents, setAssignmentContents] = useState({});
 
     // Pagination states
     const [currentPage, setCurrentPage] = useState(1);
@@ -76,15 +77,29 @@ const AllAssignment = () => {
 
 
 
-const fetchContent = (assignmentId) => {
- 
-   axios.get(`${BASE_URL}course/getAssignment/${assignmentId}`, { headers: myHeaders }).then((response)=>{
-return response?.data?.assignment 
-}).catch((err)=>{
-return {content:"..."}
-})
-                   
-}
+const fetchContent = async (assignmentId) => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}course/getAssignment/${assignmentId}`,
+        { headers: myHeaders }
+      );
+      return response?.data?.assignment?.content || 'No content available';
+    } catch (error) {
+      console.error('Error fetching assignment content:', error);
+      return '...'; // Handle error gracefully
+    }
+  };
+
+const getContent = (assignmentId) => {
+    if (assignmentContents[assignmentId]) {
+      return assignmentContents[assignmentId]; // Return cached content if available
+    } else {
+      fetchContent(assignmentId).then((content) =>
+        setAssignmentContents((prev) => ({ ...prev, [assignmentId]: content }))
+      );
+      return 'Loading...'; // Display loading until content is fetched
+    }
+  };
 
     const getDetails = (attr, info, facId) => {
         const faculty = getAllFaculty?.data?.find((item) => item.id === facId);
@@ -175,7 +190,7 @@ return {content:"..."}
                                     <td className='p-2 mx-2 min-w-[50px]'>{(currentPage - 1) * pageSize + index + 1}</td>
 
  <td className='p-2 mx-2 min-w-[150px]'>
-  {role === "instructor" ? row?.content : fetchContent(row?.assignment_id)?.content || 'Loading...'}
+  {role === "instructor" ? row?.content : getContent(row?.assignment_id) || 'Loading...'}
 </td>
 
  <td className='p-2 mx-2 min-w-[150px]'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
