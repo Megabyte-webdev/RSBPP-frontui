@@ -86,7 +86,7 @@ const fetchContent = async (assignmentId) => {
       return response?.data?.assignment?.content || 'No content available';
     } catch (error) {
       console.error('Error fetching assignment content:', error);
-      return '...'; // Handle error gracefully
+      return 'error'; // Handle error gracefully
     }
   };
 
