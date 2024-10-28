@@ -131,11 +131,11 @@ const ViewJournals = () => {
                 All Journal
             </p>
 
-            <div className="flex justify-between my-3">
+            <div className="flex justify-between my-3 text-xs">
                 <button
                     onClick={handlePreviousPage}
                     disabled={currentPage === 1}
-                    className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md"
+                    className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md disabled:opacity-50"
                 >
                     Prev
                 </button>
@@ -145,7 +145,7 @@ const ViewJournals = () => {
                 <button
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages}
-                    className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md"
+                    className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md disabled:opacity-50"
                 >
                     Next
                 </button>

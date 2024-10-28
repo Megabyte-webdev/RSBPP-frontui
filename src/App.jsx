@@ -67,6 +67,9 @@ import SubmittedAssignments from "./pages/SubmittedAssignments";
 import AllAssignment from "./pages/AllAssignment";
 import GradeAssignment from "./pages/GradeAssignment";
 import ViewGrade from "./pages/ViewGrade";
+import GivenAssignments from "./pages/GivenAssignments";
+
+
 
 const App = () => {
   const { userCredentials } = useContext(UserContext);
@@ -115,6 +118,7 @@ const App = () => {
                 element={<SubmittedAssignments />}
               />
               <Route path="/view-assignments" element={<AllAssignment />} />
+              <Route path="/all-assignments" element={<GivenAssignments />} />
               <Route
                 path="/view-grade/:assignment"
                 element={<ViewGrade />}

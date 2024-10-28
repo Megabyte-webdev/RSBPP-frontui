@@ -86,7 +86,7 @@ const fetchContent = async (assignmentId) => {
       return response?.data?.assignment?.content || 'No content available';
     } catch (error) {
       console.error('Error fetching assignment content:', error);
-      return 'error'; // Handle error gracefully
+      return '...'; // Handle error gracefully
     }
   };
 
@@ -161,10 +161,10 @@ const getContent = (assignmentId) => {
             </p>
 
             {/* Pagination Controls */}
-            <div className="flex justify-between my-2">
-                <button onClick={handlePreviousPage} disabled={currentPage === 1} className='bg-gray-300 text-gray-700 px-4 py-2 rounded-md'>Prev</button>
+            <div className="flex justify-between my-2 text-xs">
+                <button onClick={handlePreviousPage} disabled={currentPage === 1} className='bg-gray-300 text-gray-700 px-4 py-2 rounded-md disabled:opacity-50'>Prev</button>
                 <span>Page {currentPage} of {totalPages}</span>
-                <button onClick={handleNextPage} disabled={currentPage === totalPages} className='bg-gray-300 text-gray-700 px-4 py-2 rounded-md'>Next</button>
+                <button onClick={handleNextPage} disabled={currentPage === totalPages} className='bg-gray-300 text-gray-700 px-4 py-2 rounded-md disabled:opacity-50'>Next</button>
             </div>
 
             <div className='overflow-x-auto mt-6'>
