@@ -57,10 +57,10 @@ export const sidebarConstants = [
             },
             {
                 title: "Submitted Assignments",
-                link: "/submitted-assignments",
+                link: "/view-assignments",
             },{
 title: "All Assignments",
-                link: "/view-assignments",
+                link: "/all-assignments",
 }
         ]
     },
