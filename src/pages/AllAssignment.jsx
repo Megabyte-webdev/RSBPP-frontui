@@ -82,11 +82,10 @@ const myHeaders = {
 
                 try {
                     const response = await axios.get(`${BASE_URL}course/getAssignment/${assignmentId}',{ headers: myHeaders })
-                     return response.data.assignment
+                     return response?.data?.assignment
                 } catch (error) {
                     return {content: "..."}
                 }
-            }
 
 }
     const getDetails = (attr, info, facId) => {
