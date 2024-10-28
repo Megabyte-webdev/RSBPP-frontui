@@ -111,10 +111,10 @@ const App = () => {
               <Route path="/view-journals" element={<ViewJournals />} />
               <Route path="/upload-assignment" element={<UploadAssignment />} />
               <Route
-                path="/view-assignments/:course"
+                path="/submitted-assignments/:course"
                 element={<SubmittedAssignments />}
               />
-              <Route path="/view-assignments" element={<AllAssignment />} />
+              <Route path="/submitted-assignments" element={<AllAssignment />} />
               <Route
                 path="/view-grade/:assignment"
                 element={<ViewGrade />}
