@@ -120,7 +120,7 @@ if(editData && faculty){
     axios
       .post(url, formData, {
         headers: {
-  "Authorization" : `Bearer ${userCredentials?.token}`
+  Authorization : `Bearer ${userCredentials?.token}`
 },
 
       })
