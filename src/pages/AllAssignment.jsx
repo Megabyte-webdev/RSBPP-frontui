@@ -75,19 +75,25 @@ const AllAssignment = () => {
     }, [assignments, userCredentials]);
 
 
-const getContent= async(assignmentId) =>{
-const myHeaders = {
-                    Authorization: `Bearer ${userCredentials.token}`,
-                };
+const [assignmentContents, setAssignmentContents] = useState({});
 
-                try {
-                    const response = await axios.get(`${BASE_URL}course/getAssignment/${assignmentId}`,{ headers: myHeaders })
-                     return response?.data?.assignment
-                } catch (error) {
-                    return {content: "..."}
-                }
+const fetchContent = async (assignmentId) => {
+  try {
+    const content = await getContent(assignmentId);
+    setAssignmentContents((prev) => ({ ...prev, [assignmentId]: content.content }));
+  } catch (error) {
+    setAssignmentContents((prev) => ({ ...prev, [assignmentId]: '...' }));
+  }
+};
 
-}
+useEffect(() => {
+  assignments.forEach((assignment) => {
+    if (!assignmentContents[assignment?.id]) {
+      fetchContent(assignment?.id);
+    }
+  });
+}, [assignments]);
+
     const getDetails = (attr, info, facId) => {
         const faculty = getAllFaculty?.data?.find((item) => item.id === facId);
         if (!faculty) return { title: 'N/A' };
@@ -175,9 +181,12 @@ const myHeaders = {
                             {displayedAssignments.map((row, index) => (
                                 <tr className='cursor-pointer' key={row.id} onClick={() => { handleViewAssignments(row) }}>
                                     <td className='p-2 mx-2 min-w-[50px]'>{(currentPage - 1) * pageSize + index + 1}</td>
-<td className='p-2 mx-2 min-w-[150px]'>{user.role === "instructor"?row?.content:getContent(row?.assignment_id)?.content}</td>
-                                    <td className='p-2 mx-2 min-w-[150px]'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
-                                    <td className='p-2 mx-2 min-w-[150px]'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
+
+ <td className='p-2 mx-2 min-w-[150px]'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
+    <td className='p-2 mx-2 min-w-[150px]'>
+  {role === "instructor" ? row?.content : assignmentContents[row.assignment_id] || 'Loading...'}
+</td>
+                                <td className='p-2 mx-2 min-w-[150px]'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{formatDate(row.created_at)}</td>
                                     <td className='p-2 mx-2 text-left'>
                                         {role === 'instructor' ? (submissionsLoading[row.course_id] ? "Loading..." : (submissions[row.course_id]?.length || 0)) : row?.grade || 'pending'}
