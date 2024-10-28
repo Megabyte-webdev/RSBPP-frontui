@@ -328,8 +328,8 @@ const UploadAssignment = () => {
 
               // For any other role, show all courses
               return (
-                <option key={item.id} value={item.title}>
-                  {item.title}
+                <option key={item?.id} value={item?.title}>
+                  {item?.title}
                 </option>
               );
             })}
