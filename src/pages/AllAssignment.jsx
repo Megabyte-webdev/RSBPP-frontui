@@ -10,12 +10,12 @@ const AllAssignment = () => {
     const navigate = useNavigate();
     const { getAllFaculty, setGetAllFaculty } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
-    const role= userCredentials?.user?.role;
+    const role = userCredentials?.user?.role;
     const [assignments, setAssignments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [submissions, setSubmissions] = useState({});
     const [submissionsLoading, setSubmissionsLoading] = useState({});
-    
+
     // Pagination states
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10); // Number of assignments per page
@@ -29,7 +29,7 @@ const AllAssignment = () => {
 
             try {
                 const response = await axios.get(`${BASE_URL}course/${role === "instructor" ? "getAllAssignment" : "getAssignmentSubmitCourseAll"}`, { headers: myHeaders });
-                setAssignments(role === "instructor" ?response.data.allAssignment :response.data.allAssignmentSubmit || []);
+                setAssignments(role === "instructor" ? response.data.allAssignment : response.data.allAssignmentSubmit || []);
                 setGetAllFaculty(prev => ({ ...prev, isDataNeeded: true }));
                 console.log(response.data)
             } catch (error) {
@@ -47,13 +47,13 @@ const AllAssignment = () => {
         const fetchSubmissions = async () => {
             const newSubmissionsLoading = {};
             const newSubmissions = {};
-            
+
             for (const assignment of assignments) {
                 newSubmissionsLoading[assignment.course_id] = true;
                 const myHeaders = {
                     Authorization: `Bearer ${userCredentials.token}`,
                 };
-                
+
                 try {
                     const response = await axios.get(`${BASE_URL}course/getAssignmentSubmit/${assignment.course_id}`, { headers: myHeaders });
                     newSubmissions[assignment.course_id] = response.data.allAssignmentSubmit || [];
@@ -64,7 +64,7 @@ const AllAssignment = () => {
                     newSubmissionsLoading[assignment.course_id] = false;
                 }
             }
-            
+
             setSubmissions(newSubmissions);
             setSubmissionsLoading(newSubmissionsLoading);
         };
@@ -92,21 +92,21 @@ const AllAssignment = () => {
     };
 
     const handleEdit = (assignment, event) => {
-    event.stopPropagation(); // Prevents the row click event
-    navigate('/upload-assignment', { state: { editData: assignment } });
-};
+        event.stopPropagation(); // Prevents the row click event
+        navigate('/upload-assignment', { state: { editData: assignment } });
+    };
 
 
     const handleViewAssignments = async (assignment) => {
-if(role === "instructor"){
-        const course = await getDetails('course', assignment.course_id, assignment.faculty_id);
-        if (course) {
-            navigate(`/view-assignments/${course.title}`, { state: { courseId: assignment.course_id } });
+        if (role === "instructor") {
+            const course = await getDetails('course', assignment.course_id, assignment.faculty_id);
+            if (course) {
+                navigate(`/view-assignments/${course.title}`, { state: { courseId: assignment.course_id } });
+            }
+        } else {
+            navigate(`/view-grade/${assignment.course_label}`, { state: { assignment: assignment } });
+
         }
-}else{
-    navigate(`/view-grade/${assignment.course_label}`, { state: { assignment: assignment } });
-        
-}
     };
 
     // Calculate total pages
@@ -133,8 +133,8 @@ if(role === "instructor"){
                 All Assignments
             </p>
 
-             {/* Pagination Controls */}
-             <div className="flex justify-between my-2">
+            {/* Pagination Controls */}
+            <div className="flex justify-between my-2">
                 <button onClick={handlePreviousPage} disabled={currentPage === 1} className='bg-gray-300 text-gray-700 px-4 py-2 rounded-md'>Prev</button>
                 <span>Page {currentPage} of {totalPages}</span>
                 <button onClick={handleNextPage} disabled={currentPage === totalPages} className='bg-gray-300 text-gray-700 px-4 py-2 rounded-md'>Next</button>
@@ -151,24 +151,24 @@ if(role === "instructor"){
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Course Name</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Faculty</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Date Added</th>
-                                <th className='p-2 mx-2 text-left min-w-[150px]'>{role==="admin"?'Submissions':'Grade'}</th>
+                                <th className='p-2 mx-2 text-left min-w-[150px]'>{role === "instructor" ? 'Submissions' : 'Grade'}</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Status</th>
-                               {role==="instructor" && <th className='p-2 mx-2 text-left min-w-[150px]'>Action</th>}
+                                {role === "instructor" && <th className='p-2 mx-2 text-left min-w-[150px]'>Action</th>}
                             </tr>
                         </thead>
                         <tbody>
                             {displayedAssignments.map((row, index) => (
-                                <tr key={row.id} onClick={() => { handleViewAssignments(row) }}>
+                                <tr className='cursor-pointer' key={row.id} onClick={() => { handleViewAssignments(row) }}>
                                     <td className='p-2 mx-2 min-w-[50px]'>{(currentPage - 1) * pageSize + index + 1}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{formatDate(row.created_at)}</td>
                                     <td className='p-2 mx-2 text-left'>
-                                        {role==='instructor'? (submissionsLoading[row.course_id] ? "Loading..." : (submissions[row.course_id]?.length || 0)) : row?.grade || 'pending'}
+                                        {role === 'instructor' ? (submissionsLoading[row.course_id] ? "Loading..." : (submissions[row.course_id]?.length || 0)) : row?.grade || 'pending'}
                                     </td>
-                                    <td className='p-2 mx-2'>{row.status || 'N/A'}</td>
-                                    {role === "admin" && <td className='p-2 mx-2'>
-                                        <button onClick={(e, ) => handleEdit(row, e)} className='bg-blue-500 text-white font-semibold px-2 py-1 rounded-md'>Edit</button>
+                                    <td className='p-2 mx-2'>{row?.grade ? 'graded' : 'pending'}</td>
+                                    {role === "instructor" && <td className='p-2 mx-2'>
+                                        <button onClick={(e,) => handleEdit(row, e)} className='bg-blue-500 text-white font-semibold px-2 py-1 rounded-md'>Edit</button>
                                     </td>}
                                 </tr>
                             ))}
@@ -179,7 +179,7 @@ if(role === "instructor"){
                 )}
             </div>
 
-           
+
         </div>
     );
 };

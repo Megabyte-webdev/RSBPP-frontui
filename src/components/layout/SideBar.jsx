@@ -71,7 +71,7 @@ const SideBar = ({ userCredentials }) => {
             {user?.role === "student" && (
               <div className="flex flex-wrap justify-between py-2">
                 <div className="border-end col">
-                  <p className="text-center"><b>{getEnrolledCourses?.data?.length}</b></p>
+                  <p className="text-center"><b>{getEnrolledCourses?.data?.length || 0}</b></p>
                   <p className="text-center">Courses</p>
                 </div>
                 <div className=" col">

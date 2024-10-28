@@ -86,7 +86,7 @@ if(editData && faculty){
     formData.append("created_by_id", userCredentials.user.id);
     formData.append("text_submission", remark);
     formData.append("status", editData ? editData.status:"pending");
-    console.log(formData)
+    console.log([...formData])
     
     const url = isEditMode
       ? `${BASE_URL}course/updateJournal`
@@ -95,7 +95,7 @@ if(editData && faculty){
     axios
       .post(url, formData, {
         headers: {
-          Authorization: `Bearer ${userCredentials.token}`,
+          Authorization: `Bearer ${userCredentials?.token}`,
         },
       })
       .then((response) => {
@@ -136,6 +136,7 @@ if(editData && faculty){
             </div>
             <select
               className="p-2 md:p-3 absolute w-[98%] min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
+              disabled={isEditMode}
               value={faculty}
               onChange={(e) => setFaculty(e.target.value)}
             >
@@ -169,6 +170,7 @@ if(editData && faculty){
             <select
               className="p-2 md:p-3 absolute w-[98%] min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
               value={course}
+              disabled={isEditMode}
               onChange={(e) => setCourse(e.target.value)}
             >
               <option disabled value="Select a Programme">

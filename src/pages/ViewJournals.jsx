@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ViewJournals = () => {
     const navigate = useNavigate();
-    const { getAllFaculty, setGetAllFaculty } = useContext(ResourceContext);
+    const { getAllFaculty, setGetAllFaculty, setGetAllCourses, getAllCourses } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
     const [journals, setJournals] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -18,6 +18,18 @@ const ViewJournals = () => {
     const [pageSize, setPageSize] = useState(5); // Number of journals per page
 
     useEffect(() => {
+        setGetAllCourses((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+
+    const myCourses = getAllCourses?.data?.filter(
+        (course) => parseInt(userCredentials?.user?.id) === parseInt(course.created_by_id)
+    ) || [];
+
+    useEffect(() => {
         if (!userCredentials) return;
 
         setLoading(true);
@@ -25,19 +37,26 @@ const ViewJournals = () => {
             Authorization: `Bearer ${userCredentials.token}`,
         };
 
+
         axios
             .get(`${BASE_URL}course/getAllJournal`, { headers: myHeaders })
             .then((response) => {
                 console.log('API Response:', response.data);
 
-                const userJournals =
-                    userCredentials?.user?.role === 'admin'
-                        ? response.data.allJournal
-                        : response.data.allJournal.filter(
-                            (journal) => journal.user_id === userCredentials.user.id
-                        );
+                let userJournals = [];
+                if (userCredentials?.user?.role === 'instructor') {
+                    // Filter journals based on instructor's courses
+                    const courseIds = myCourses.map((course) => course.id);
+                    userJournals = response.data.allJournal.filter((journal) =>
+                        courseIds.includes(journal.course_id)
+                    );
+                } else {
+                    // Filter journals for non-instructor users
+                    userJournals = response.data.allJournal.filter(
+                        (journal) => journal.user_id === userCredentials.user.id
+                    );
+                }
 
-                // Set the journals and trigger faculty data fetching
                 setJournals(userJournals);
                 setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
                 setLoading(false);
@@ -48,6 +67,7 @@ const ViewJournals = () => {
                 setLoading(false);
             });
     }, [userCredentials, setGetAllFaculty]);
+
 
     const getDetails = (attr, info, facId) => {
         const faculty = getAllFaculty?.data?.find((item) => item.id === facId);
@@ -160,13 +180,13 @@ const ViewJournals = () => {
                                     <td className="p-2 mx-2">
                                         <button
                                             onClick={(event) =>
-                                                userCredentials?.user?.role === "admin"
+                                                userCredentials?.user?.role === "instructor"
                                                     ? navigate('/remark-journal', { state: { journal: row } })
                                                     : handleEdit(event, row)
                                             }
                                             className="bg-blue-500 text-white font-semibold px-2 py-1 rounded-md"
                                         >
-                                            {userCredentials?.user?.role === "admin"
+                                            {userCredentials?.user?.role === "instructor"
                                                 ? row?.remark ? 'Edit' : 'Remark'
                                                 : 'Edit'}
                                         </button>

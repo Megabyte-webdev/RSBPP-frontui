@@ -84,7 +84,7 @@ const ProgramPreview = ({ details }) => {
             <div className='flex-1 w-full md:w-3/4'>
                 <p className='text-sm text-[#888] mb-3 font-medium'>{details?.description}</p>
                 <div
-                    className='course-objective'
+                    className='course-objective fs_sm'
                     dangerouslySetInnerHTML={{ __html: details?.objective }}
                 ></div>
                 <div

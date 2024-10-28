@@ -105,25 +105,19 @@ const App = () => {
               <Route path="/test" element={<CustomPagination />} />
               <Route path="/soon" element={<ComingSoon />} />
               <Route path="/user_update" element={<ProfileUpdate />} />
-
-              {/* Journal and Assignment Routes */}
-              {(role === "instructor" || role === "student") && (
-                <>
-                  <Route path="/add-journal" element={<AddJournal />} />
-                  <Route path="/journal-remark" element={<RemarkJournal />} />
-                  <Route path="/view-journals" element={<ViewJournals />} />
-                  <Route path="/upload-assignment" element={<UploadAssignment />} />
-                  <Route
-                    path="/view-assignments/:course"
-                    element={<SubmittedAssignments />}
-                  />
-                  <Route path="/view-assignments" element={<AllAssignment />} />
-                  <Route
-                    path="/view-grade/:assignment"
-                    element={<ViewGrade />}
-                  />
-                </>
-              )}
+              <Route path="/add-journal" element={<AddJournal />} />
+              <Route path="/journal-remark" element={<RemarkJournal />} />
+              <Route path="/view-journals" element={<ViewJournals />} />
+              <Route path="/upload-assignment" element={<UploadAssignment />} />
+              <Route
+                path="/view-assignments/:course"
+                element={<SubmittedAssignments />}
+              />
+              <Route path="/view-assignments" element={<AllAssignment />} />
+              <Route
+                path="/view-grade/:assignment"
+                element={<ViewGrade />}
+              />
 
               {role === "instructor" && (
                 <>
@@ -137,6 +131,8 @@ const App = () => {
                   <Route path="/faculty_add_course" element={<FacultyAddCourse />} />
                   <Route path="/instructor_courses" element={<InstructorCourses />} />
                   <Route path="/instructor_courses/:id" element={<FacultyEditCourse />} />
+                  <Route path="/remark-journal" element={<RemarkJournal />} />
+                  <Route path="/grade-assignment" element={<GradeAssignment />} />
                 </>
               )}
 
@@ -151,11 +147,6 @@ const App = () => {
                   <Route path="/courses_administration/:id" element={<CourseMembers />} />
                   <Route path="/faculty_administration" element={<FacultyAdministration />} />
                   <Route path="/add_instructor" element={<AddInstructor />} />
-                  <Route path="/remark-journal" element={<RemarkJournal />} />
-                  <Route path="/view-assignments" element={<AllAssignment />} />
-                  <Route path="/view-assignments/:course" element={<SubmittedAssignments />} />
-                  <Route path="/grade-assignment" element={<GradeAssignment />} />
-                  <Route path="/view-journals" element={<ViewJournals />} />
                 </>
               )}
             </Route>

@@ -62,22 +62,6 @@ export const sidebarConstants = [
         ]
     },
     {
-        title: "Forums",
-        logo: iconThree,
-        subOptions: [
-            {
-                title: "Chats",
-                // link: "/chats",
-                link: "/soon",
-            },
-            {
-                title: "Messages",
-                // link: "/messages",
-                link: "/soon",
-            }
-        ]
-    },
-    {
         title: "Profile",
         logo: iconEight,
         subOptions: [
@@ -106,27 +90,6 @@ export const adminConstants = [
                 title: "All Schedules",
                 link: "/time_table",
             },
-        ]
-    },{
-        title: "Journals",
-        logo: journal,
-        subOptions: [
-            {
-                title: "All Journals",
-                link: "/view-journals",
-            }
-        ]
-    },{
-        title: "Assignment",
-        logo: assignment,
-        subOptions: [
-            {
-                title: "Add Assignment",
-                link: "/upload-assignment",
-            },{
-                title: "View All Assignments",
-                link: "/view-assignments",
-            }
         ]
     },
     {

@@ -12,7 +12,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 const UploadAssignment = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { setGetAllFaculty, getAllFaculty, setGetAllCourses, getAllCourses } = useContext(ResourceContext);
+  const { setGetAllFaculty, getAllFaculty, setGetAllCourses, getAllCourses, setGetEnrolledCourses, getEnrolledCourses } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
   const role = userCredentials?.user.role.toLowerCase();
   const editData = location.state?.editData || null;
@@ -25,7 +25,9 @@ const UploadAssignment = () => {
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [assignmentId, setAssignmentId] = useState(null);
+  const [assignmentList, setAssignmentList] = useState(null);
+  const [assignment, setAssignment] = useState("Select an Assignment");
+  const [selectedAssignment, setSelectedAssignment] = useState(null);
 
   const fileInput = useRef(null);
   const myHeaders = { Authorization: `Bearer ${userCredentials.token}` };
@@ -35,37 +37,64 @@ const UploadAssignment = () => {
     setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
 
   }, []);
-useEffect(() => {
-        setGetAllCourses((prev) => {
-            return {
-                ...prev, isDataNeeded: true
-            }
-        })
-    }, [])
-useEffect(() => {
-  if (role === "instructor") {
-    if (!getAllCourses?.data || !getAllFaculty?.data) {
-      console.log('Waiting for data...');
-      return;
+
+  useEffect(() => {
+    setGetEnrolledCourses((prev) => {
+      return {
+        ...prev, isDataNeeded: true
+      }
+    })
+  }, [])
+
+  console.log(getEnrolledCourses?.data)
+
+  useEffect(() => {
+    setGetAllCourses((prev) => {
+      return {
+        ...prev, isDataNeeded: true
+      }
+    })
+  }, [])
+
+
+  // Filter faculties based on enrolled courses
+  const relevantFaculties = getAllFaculty?.data?.filter((faculty) =>
+    faculty.courses?.some((course) =>
+      getEnrolledCourses?.data?.some(
+        (enrolled) => enrolled.courseId === course.id
+      )
+    )
+  )
+    || [];
+  console.log(relevantFaculties)
+  useEffect(() => {
+    if (getEnrolledCourses?.data.length === 0) {
+      toast.error("You need to enroll for a course")
+    }
+  }, [getEnrolledCourses?.data])
+
+  useEffect(() => {
+    if (role === "instructor") {
+      if (!getAllCourses?.data || !getAllFaculty?.data) {
+        console.log('Waiting for data...');
+        return;
+      }
+
+      const myCourse = getAllCourses?.data?.find(one => parseInt(userCredentials?.user?.id) === parseInt(one.created_by_id));
+
+      if (myCourse) {
+        // Find and set the matching faculty for this course
+        const facultyItem = getAllFaculty?.data?.find(faculty => faculty.id === myCourse?.faculty_id
+        );
+
+        // Set faculty details if found
+        setSelectedFaculty(facultyItem || null);
+        setFaculty(facultyItem ? facultyItem.title : "Select a Faculty");
+      }
     }
 
-    const myCourse = getAllCourses?.data?.find(one => parseInt(userCredentials?.user?.id) === parseInt(one.created_by_id) );
-    
-    console.log(getAllCourses);
-    console.log(myCourse);
-    console.log(userCredentials?.user?.id);
-    
-    if (myCourse) {
-      // Find and set the matching faculty for this course
-      const facultyItem = getAllFaculty?.data?.find(faculty => faculty.id === myCourse?.faculty_id
-      );
 
-      // Set faculty details if found
-      setSelectedFaculty(facultyItem || null);
-      setFaculty(facultyItem ? facultyItem.title : "Select a Faculty");
-    }
-  }
-}, [getAllCourses, getAllFaculty]);
+  }, [getAllCourses, getAllFaculty]);
 
 
 
@@ -114,24 +143,25 @@ useEffect(() => {
         axios
           .get(`${BASE_URL}course/getAllAssignmentCourse/${courseItem.id}`, { headers: myHeaders })
           .then((response) => {
-            const newAssignmentId = response.data?.allAssignment[0]?.id || null;
-            setAssignmentId(newAssignmentId);
-            console.log(response.data?.allAssignment[0]); // Log fetched assignment data
-            console.log(newAssignmentId);
-            if (newAssignmentId === null) {
+            const newAssignments = response.data?.allAssignment;
+            setAssignmentList(newAssignments);
+            console.log(response.data?.allAssignment); // Log fetched assignment data
+            if (newAssignments === null) {
               toast.error("No Assignment Found for this course")
             } // Log the new assignment ID
           })
           .catch((error) => {
             console.error("Error fetching assignment:", error);
             toast.error("Error fetching assignment fr this course")
-            setAssignmentId(null);
+            setAssignmentList(null);
           });
       }
     }
-  }, [course, selectedFaculty, role]);
+  }, [course, selectedFaculty]);
 
-
+  useEffect(() => {
+    setSelectedAssignment(assignmentList?.find(one => one?.content === assignment))
+  }, [assignmentList, assignment])
   const uploadAssignment = () => {
     if (!selectedFaculty || !selectedCourse) {
       toast.error("Please select a valid faculty and course.");
@@ -158,7 +188,7 @@ useEffect(() => {
       formData.append("image", editData ? editData.image : selectedCourse.image);
       formData.append("status", "active");
     } else {
-      formData.append("assignment_id", assignmentId);
+      formData.append("assignment_id", selectedAssignment?.id);
       formData.append("course_id", selectedCourse.id);
       formData.append("faculty_id", selectedFaculty.id);
       formData.append("created_by_id", userCredentials?.user?.id);
@@ -235,34 +265,34 @@ useEffect(() => {
         <section className="relative flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
           <div className="flex flex-col gap-y-2">
             <p className="text-xs md:text-[16px] capitalize">{faculty}</p>
-            <p className="text-xs md:text-sm text-gray-600 capitalize overflow-hidden">
+            <p className="text-xs md:text-sm text-gray-500 capitalize overflow-hidden">
               {selectedFaculty
                 ? `${selectedFaculty.description.split(" ").slice(0, 8).join(" ")}...`
                 : "Select Faculty"}
             </p>
           </div>
-         <select
-  className="p-2 md:p-3 absolute w-[98%] min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md"
-  value={faculty}
-  onChange={(e) => setFaculty(e.target.value)}
->
-  <option disabled value="Select a Faculty">
-    Select a Faculty
-  </option>
-  {role === "instructor"
-    ? (
-        selectedFaculty && (
-          <option key={selectedFaculty?.id} value={selectedFaculty.title}>
-            {selectedFaculty?.title}
-          </option>
-        )
-      )
-    : getAllFaculty?.data?.map((item) => (
-        <option key={item.id} value={item.title}>
-          {item.title}
-        </option>
-      ))}
-</select>
+          <select
+            className="bg-gray-100 p-2 md:p-3 absolute w-[98%] min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md"
+            value={faculty}
+            onChange={(e) => setFaculty(e.target.value)}
+          >
+            <option disabled value="Select a Faculty">
+              Select a Faculty
+            </option>
+            {role === "instructor"
+              ? (
+                selectedFaculty && (
+                  <option key={selectedFaculty?.id} value={selectedFaculty.title}>
+                    {selectedFaculty?.title}
+                  </option>
+                )
+              )
+              : relevantFaculties?.map((item) => (
+                <option key={item.id} value={item.title}>
+                  {item.title}
+                </option>
+              ))}
+          </select>
 
           <p className="border-l border-gray-500 md:pl-7 pl-4 text-red-500">
             <IoIosArrowDown size="20" />
@@ -283,24 +313,62 @@ useEffect(() => {
             {prof}
           </small>
           <select
-            className="p-2 md:p-3 absolute w-[98%] min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
+            className="bg-gray-100 text-xs md:text-sm p-2 md:p-3 absolute w-full min-h-full left-0 bottom-0 opacity-0 cursor-pointer rounded-md"
             value={course}
             onChange={(e) => setCourse(e.target.value)}
           >
             <option disabled value="Select a Programme">
               Select a Course
             </option>
-            {selectedFaculty?.courses?.map((item, index) => (
-              <option key={index} value={item.title}>
-                {item.title}
-              </option>
-            ))}
+            {selectedFaculty?.courses?.map((item) => {
+              // If role is 'instructor', show only courses created by this instructor
+              if (role === "instructor" && item.created_by !== userCredentials?.user?.id) {
+                return null; // Skip courses not created by this instructor
+              }
+
+              // For any other role, show all courses
+              return (
+                <option key={item.id} value={item.id}>
+                  {item.title}
+                </option>
+              );
+            })}
           </select>
           <p className="pl-[2px] md:pl-4 text-red-500">
             <IoIosArrowDown size="20" />
           </p>
         </section>
       </div>
+      {/* Assignment list */}
+      {role === "student" && assignmentList && (
+        <div className="relative font-medium my-3">
+          <section className="flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
+            <div className="flex flex-col gap-y-2">
+              <p className="text-xs md:text-[16px] capitalize">{assignment}</p>
+              <p className="text-xs md:text-sm text-gray-500 capitalize">
+                Select Assignment
+              </p>
+            </div>
+            <select
+              className="bg-gray-100 text-xs md:text-sm p-2 md:p-3 absolute w-full min-h-full left-0 bottom-0 opacity-0 cursor-pointer rounded-md"
+              value={assignment}
+              onChange={(e) => setAssignment(e.target.value)}
+            >
+              <option disabled value="Select an Assignment">
+                Select Assignment
+              </option>
+              {assignmentList?.map((item, index) => (
+                <option key={index} value={item?.content}>
+                  {item?.content}
+                </option>
+              ))}
+            </select>
+            <p className="pl-[2px] md:pl-4 text-red-500">
+              <IoIosArrowDown size="20" />
+            </p>
+          </section>
+        </div>)}
+
 
       {/* Description Field */}
       <div className="font-medium my-2 border-[1px] border-red-500 p-2 md:p-3 rounded-md">
