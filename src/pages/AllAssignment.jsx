@@ -75,7 +75,7 @@ const AllAssignment = () => {
     }, [assignments, userCredentials]);
 
 
-const getContent(assignmentId){
+const getContent=(assignmentId) =>{
 const myHeaders = {
                     Authorization: `Bearer ${userCredentials.token}`,
                 };
