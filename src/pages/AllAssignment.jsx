@@ -157,7 +157,7 @@ const getContent = (assignmentId) => {
     return (
         <div className="flex flex-col p-4 md:p-8 min-h-max w-full font-sans">
             <p className="sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium">
-                All Assignments
+                {role === " instructor" ? 'All Assignments':'Submitted Assignments'}
             </p>
 
             {/* Pagination Controls */}
