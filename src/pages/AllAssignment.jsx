@@ -78,11 +78,11 @@ const AllAssignment = () => {
 
 const fetchContent = (assignmentId) => {
  
-   axios.get(`${BASE_URL}course/getAssignment/${assignmentId}`, { headers: myHeaders }).then(response=>
+   axios.get(`${BASE_URL}course/getAssignment/${assignmentId}`, { headers: myHeaders }).then((response)=>{
 return response?.data?.assignment 
-).catch(err=>
+}).catch((err)=>{
 return {content:"..."}
-)
+})
                    
 }
 
