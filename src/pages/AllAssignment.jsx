@@ -81,7 +81,7 @@ const fetchContent = async (assignmentId) => {
     try {
       const response = await axios.get(
         `${BASE_URL}course/getAssignment/${assignmentId}`,
-        { headers: myHeaders }
+        { headers: {Authorization: `Bearer ${userCredentials.token}`}, }
       );
       return response?.data?.assignment?.content || 'No content available';
     } catch (error) {
