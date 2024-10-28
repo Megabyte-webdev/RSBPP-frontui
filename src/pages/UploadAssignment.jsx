@@ -140,7 +140,7 @@ useEffect(() => {
 
 // Show dropdown if assignment list is available and role is "student"
 useEffect(() => {
-  if (role === "student" && assignmentList) {
+  if (role === "student" && (assignmentList && assignmentList?.length !== 0 ) {
     setShowAssignmentDropdown(true);
   }
 }, [assignmentList]);
@@ -157,7 +157,7 @@ useEffect(() => {
         .then((response) => {
           const newAssignments = response.data?.allAssignment;
           setAssignmentList(newAssignments);
-          if (!newAssignments && role !== "instructor") {
+          if ((!newAssignments || newAssignments?.length === 0)&& role === "student") {
             toast.error("No Assignment Found for this course");
           }
         })
