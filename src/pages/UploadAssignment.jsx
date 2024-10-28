@@ -253,7 +253,7 @@ const UploadAssignment = () => {
 
 
   return (
-    <div className="flex flex-col p-3 p-md-5 min-vh-100 poppins" style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
+    <div className="flex flex-col p-3 p-md-5 min-h-full poppins" style={{ backgroundColor: "hsla(219, 50%, 95%, .3)" }}>
       <p className="sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium">
         {(role === "instructor") ? (editData ? "Edit Assignment" : 'Add Assignment') : 'Upload Assignment'}
 
@@ -328,7 +328,7 @@ const UploadAssignment = () => {
 
               // For any other role, show all courses
               return (
-                <option key={item.id} value={item.id}>
+                <option key={item.title} value={item.title}>
                   {item.title}
                 </option>
               );
