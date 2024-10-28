@@ -8,6 +8,7 @@ import { TfiViewGrid } from 'react-icons/tfi';
 import { ResourceContext } from '../../context/ResourceContext';
 import { UserContext } from '../../context/AuthContext';
 import { cartsTotalFunction } from '../utils/getApi';
+import { Col } from 'react-bootstrap';
 
 const NavBar = () => {
     const navigate = useNavigate();
@@ -30,7 +31,7 @@ const NavBar = () => {
     console.count("render");
 
     return (
-        <div className='border-bottom shadow-sm p-3 px-md-5'>
+        <Col className='border-bottom shadow-sm p-3 px-md-5'>
             <div className="poppins d-flex justify-content-between align-items-center">
                 <div className="col-md-2 ms-4 ms-md-0 col-6">
                     <Link to={"/"}>
@@ -68,7 +69,7 @@ const NavBar = () => {
                     )}
                 </div>
             </div>
-        </div>
+        </Col>
     );
 };
 

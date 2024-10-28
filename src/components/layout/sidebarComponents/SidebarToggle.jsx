@@ -29,7 +29,7 @@ const SidebarToggle = ({ handleSubOptionClick, isOpenOption, handleClose, consta
                 >
                     <div className="ps-2 d-flex align-items-center text-nowrap fw-semibold">
                         <span className={`me-2  rounded ${instructor ? "blue_bg" : "sidebar_icon"}`}>
-                            <img width={20} height={20} src={constant.logo} alt="" />
+                            <img className="max-w-20" src={constant.logo} alt="" />
                         </span>
                         <Link to={constant.link} className='nav-link'>
                             <span>{constant.title} </span>

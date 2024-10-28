@@ -71,7 +71,7 @@ const Layout = () => {
             {userCredentials && (
                 <Row className="g-0 poppins">
                     <SideBar userCredentials={userCredentials} />
-                    <Col md={10}>
+                    <Col md={9}>
                         <MobileSidebar userCredentials={userCredentials} />
                         <NavBar />
                         <main>

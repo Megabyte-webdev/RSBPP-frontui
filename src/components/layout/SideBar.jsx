@@ -48,7 +48,7 @@ const SideBar = ({ userCredentials }) => {
   const myCoursesOnly = getAllCourses.data?.filter((course) => course.created_by_id == user.id)
 
   return (
-    <Col style={{ minHeight: "100vh" }}
+    <div style={{"width":"180px", "minHeight": "100vh" }}
       className={user?.role === "instructor" ? "white_sidebar prime_blue border-end d-none d-md-block" : "brown_sidebar border-end d-none d-md-block"}
       md={2}>
       <div
@@ -81,7 +81,7 @@ const SideBar = ({ userCredentials }) => {
               </div>
             )}
             {user?.role === "instructor" && (
-              <div className="d-flex justify-content-between py-2">
+              <div className="flex flex-wrap justify-between py-2">
                 <div className="border-end col">
                   <p className="text-center"><b>{myCoursesOnly?.length}</b></p>
                   <p className="text-center">Courses</p>
@@ -98,7 +98,7 @@ const SideBar = ({ userCredentials }) => {
           </div>
         </div>
       </div>
-    </Col>
+    </div>
   )
 }
 

@@ -94,9 +94,17 @@ const ViewJournals = () => {
         return `${year}-${month}-${day}`;
     };
 
-    const handleEdit = (event, journal) => {
-        event.stopPropagation(); // Prevent row click event
-        navigate('/add-journal', { state: { editData: journal } });
+    const handleJournal = (event, journal) => {
+        
+        
+        if(userCredentials?.user?.role === "student" && journal.remark){
+            navigate('/view-remark', { state: { journal: journal } })
+        }else if(userCredentials?.user?.role === "student" && journal.remark === null){
+            navigate('/add-journal', { state: { editData: journal } });
+        }
+        if(userCredentials?.user?.role === "instructor"){
+            navigate('/remark-journal', { state: { journal: journal } })
+        }
     };
 
     const totalPages = Math.ceil(journals.length / pageSize);
@@ -180,9 +188,7 @@ const ViewJournals = () => {
                                     <td className="p-2 mx-2">
                                         <button
                                             onClick={(event) =>
-                                                userCredentials?.user?.role === "instructor"
-                                                    ? navigate('/remark-journal', { state: { journal: row } })
-                                                    : handleEdit(event, row)
+                                                handleJournal(event, row)
                                             }
                                             className="bg-blue-500 text-white font-semibold px-2 py-1 rounded-md"
                                         >

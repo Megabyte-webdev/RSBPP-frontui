@@ -21,14 +21,39 @@ const AddJournal = () => {
   const [loading, setLoading] = useState(false);
   const [faculty, setFaculty] = useState("Select a Faculty");
   const [course, setCourse] = useState("Select a Programme");
-  const [prof, setProf] = useState("Prof Samuel Attong");
+  const [prof, setProf] = useState("");
   const [remark, setRemark] = useState("");
-  const { setGetAllFaculty, getAllFaculty } = useContext(ResourceContext);
+  const { setGetAllFaculty, getAllFaculty, getEnrolledCourses, setGetEnrolledCourses } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
 
-  // Populate data if in edit mode
+
+  
+  // Load all faculty data on component mount
   useEffect(() => {
     setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
+
+  }, []);
+
+  useEffect(() => {
+    setGetEnrolledCourses((prev) => {
+      return {
+        ...prev, isDataNeeded: true
+      }
+    })
+  }, [])
+
+
+  // Filter faculties based on enrolled courses
+  const relevantFaculties = getAllFaculty?.data?.filter((faculty) =>
+    faculty.courses?.some((course) =>
+      getEnrolledCourses?.data?.some(
+        (enrolled) => enrolled.courseId === course.id
+      )
+    )
+  )
+    || [];
+  // Populate data if in edit mode
+  useEffect(() => {
 
     if (isEditMode) {
       const selectedFaculty = getAllFaculty?.data?.find(
@@ -143,8 +168,8 @@ if(editData && faculty){
               <option disabled value="Select a Faculty">
                 Select a Faculty
               </option>
-              {getAllFaculty?.data?.map((item, index) => (
-                <option key={index} value={item.title}>
+              {relevantFaculties?.map((item) => (
+                <option key={item.id} value={item.title}>
                   {item.title}
                 </option>
               ))}

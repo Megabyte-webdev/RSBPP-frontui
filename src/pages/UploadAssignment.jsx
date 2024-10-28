@@ -20,7 +20,7 @@ const UploadAssignment = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [faculty, setFaculty] = useState("Select a Faculty");
   const [course, setCourse] = useState("Select a Programme");
-  const [prof, setProf] = useState("Prof Samuel Attong");
+  const [prof, setProf] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);

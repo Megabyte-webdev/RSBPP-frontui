@@ -59,6 +59,7 @@ import OnlinePrograms from "./components/onlineprograms/OnlinePrograms";
 import Programme from "./components/onlineprograms/Programme";
 import DigiKnowH from "./components/onlineprograms/DigiKnowH";
 import ViewJournals from "./pages/ViewJournals";
+import JournalRemark from "./pages/JournalRemark";
 import RemarkJournal from "./pages/RemarkJournal";
 import AddJournal from "./pages/AddJournal";
 import UploadAssignment from "./pages/UploadAssignment";
@@ -118,6 +119,7 @@ const App = () => {
                 path="/view-grade/:assignment"
                 element={<ViewGrade />}
               />
+              <Route path="/view-remark" element={<JournalRemark />} />
 
               {role === "instructor" && (
                 <>
