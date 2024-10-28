@@ -148,8 +148,8 @@ const AllAssignment = () => {
                         <thead className='bg-gray-200 font-medium'>
                             <tr>
                                 <th className='p-2 mx-2 text-left min-w-[50px]'>S/N</th>
-                                <th className='p-2 mx-2 text-left min-w-[150px]'>Course Name</th>
-   <th className='p-2 mx-2 text-left min-w-[150px]'>Assignment</th>
+                                <th className='p-2 mx-2 text-left min-w-[150px]'>Assignment</th>
+   <th className='p-2 mx-2 text-left min-w-[150px]'>Course Name</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Faculty</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Date Added</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>{role === "instructor" ? 'Submissions' : 'Grade'}</th>
@@ -161,7 +161,7 @@ const AllAssignment = () => {
                             {displayedAssignments.map((row, index) => (
                                 <tr className='cursor-pointer' key={row.id} onClick={() => { handleViewAssignments(row) }}>
                                     <td className='p-2 mx-2 min-w-[50px]'>{(currentPage - 1) * pageSize + index + 1}</td>
-<td className='p-2 mx-2 min-w-[150px]'>{row?. content}</td>
+<td className='p-2 mx-2 min-w-[150px]'>{row?.content}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{formatDate(row.created_at)}</td>
