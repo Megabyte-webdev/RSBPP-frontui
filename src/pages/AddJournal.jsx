@@ -120,8 +120,10 @@ if(editData && faculty){
     axios
       .post(url, formData, {
         headers: {
-          Authorization: `Bearer ${userCredentials?.token}`,
-        },
+  Authorization: `Bearer ${userCredentials?.token}`,
+  "Content-Type": "multipart/form-data", // Ensure this matches your backend's expectation
+},
+
       })
       .then((response) => {
         toast.success(response.data.message || "Journal saved successfully");
