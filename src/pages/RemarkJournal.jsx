@@ -1,5 +1,5 @@
 import { BsJournalCheck } from "react-icons/bs";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ResourceContext } from "../context/ResourceContext";
 import { useContext, useEffect, useRef, useState, useMemo } from "react";
 import { BASE_URL, IMAGE_URL } from "../components/utils/base";
@@ -10,6 +10,7 @@ import { Spinner } from "react-bootstrap";
 
 const RemarkJournal = () => {
   const location = useLocation();
+  const navigate= useNavigate();
   const remarkRef = useRef(null);
   const { journal } = location.state;
 
@@ -49,6 +50,7 @@ const RemarkJournal = () => {
   const handleRemark = () => {
     if (journal?.remark === remark) {
       remarkRef.current.focus();
+      toast.error("Enter a new remark")
       return;
     }
 
@@ -62,6 +64,7 @@ const RemarkJournal = () => {
       .then((response) => {
         toast.success(response.data.message || "Remark sent");
         setLoading(false);
+        navigate('/view-journals')
       })
       .catch((error) => {
         toast.error(error?.response?.data?.message || "An error occurred");
@@ -119,13 +122,12 @@ const RemarkJournal = () => {
             className="w-full h-24 p-3 border rounded-md"
             placeholder="Add Remark"
             value={remark}
-            disabled={role !== "admin"}
             onChange={(e) => setRemark(e.target.value)}
           />
         </div>
 
         {/* Action Button */}
-        {role === "admin" && (
+        {role === "instructor" && (
           <div className="flex justify-center mt-4">
             <button
               onClick={handleRemark}

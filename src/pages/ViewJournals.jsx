@@ -188,7 +188,7 @@ const ViewJournals = () => {
                                         >
                                             {userCredentials?.user?.role === "instructor"
                                                 ? row?.remark ? 'Edit' : 'Remark'
-                                                : 'Edit'}
+                                                : row?.remark ? 'View' : 'Edit'}
                                         </button>
                                     </td>
                                 </tr>

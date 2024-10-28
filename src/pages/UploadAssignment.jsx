@@ -28,6 +28,7 @@ const UploadAssignment = () => {
   const [assignmentList, setAssignmentList] = useState(null);
   const [assignment, setAssignment] = useState("Select an Assignment");
   const [selectedAssignment, setSelectedAssignment] = useState(null);
+  const [showAssignmentDropdown, setShowAssignmentDropdown] = useState(false); // New state
 
   const fileInput = useRef(null);
   const myHeaders = { Authorization: `Bearer ${userCredentials.token}` };
@@ -68,7 +69,7 @@ const UploadAssignment = () => {
     || [];
   console.log(relevantFaculties)
   useEffect(() => {
-    if (getEnrolledCourses?.data.length === 0) {
+    if (getEnrolledCourses?.data.length === 0 && role !== "instructor") {
       toast.error("You need to enroll for a course")
     }
   }, [getEnrolledCourses?.data])
@@ -132,32 +133,42 @@ const UploadAssignment = () => {
     }
     console.log(faculty)
   }, [faculty, getAllFaculty]);
+// Hide assignment dropdown on faculty or course change
+useEffect(() => {
+  setShowAssignmentDropdown(false); // Hide dropdown when faculty or course changes
+}, [faculty, course]);
 
-  // Sync selected course with user input and load assignments for non-admin users
-  useEffect(() => {
-    if (selectedFaculty) {
-      const courseItem = selectedFaculty.courses?.find(item => item.title === course);
-      setSelectedCourse(courseItem || null);
+// Show dropdown if assignment list is available and role is "student"
+useEffect(() => {
+  if (role === "student" && assignmentList) {
+    setShowAssignmentDropdown(true);
+  }
+}, [assignmentList]);
 
-      if (role !== "instructor" && courseItem) {
-        axios
-          .get(`${BASE_URL}course/getAllAssignmentCourse/${courseItem.id}`, { headers: myHeaders })
-          .then((response) => {
-            const newAssignments = response.data?.allAssignment;
-            setAssignmentList(newAssignments);
-            console.log(response.data?.allAssignment); // Log fetched assignment data
-            if (newAssignments === null) {
-              toast.error("No Assignment Found for this course")
-            } // Log the new assignment ID
-          })
-          .catch((error) => {
-            console.error("Error fetching assignment:", error);
-            toast.error("Error fetching assignment fr this course")
-            setAssignmentList(null);
-          });
-      }
+// Load assignments when course changes
+useEffect(() => {
+  if (selectedFaculty) {
+    const courseItem = selectedFaculty.courses?.find(item => item.title === course);
+    setSelectedCourse(courseItem || null);
+
+    if (role !== "instructor" && courseItem) {
+      axios
+        .get(`${BASE_URL}course/getAllAssignmentCourse/${courseItem.id}`, { headers: myHeaders })
+        .then((response) => {
+          const newAssignments = response.data?.allAssignment;
+          setAssignmentList(newAssignments);
+          if (!newAssignments && role !== "instructor") {
+            toast.error("No Assignment Found for this course");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching assignment:", error);
+          toast.error("Error fetching assignment for this course");
+          setAssignmentList(null);
+        });
     }
-  }, [course, selectedFaculty]);
+  }
+}, [course, selectedFaculty]);
 
   useEffect(() => {
     setSelectedAssignment(assignmentList?.find(one => one?.content === assignment))
@@ -320,19 +331,20 @@ const UploadAssignment = () => {
             <option disabled value="Select a Programme">
               Select a Course
             </option>
-            {selectedFaculty?.courses?.map((item) => {
-              // If role is 'instructor', show only courses created by this instructor
-              if (role === "instructor" && item.created_by !== userCredentials?.user?.id) {
-                return null; // Skip courses not created by this instructor
-              }
-
-              // For any other role, show all courses
-              return (
-                <option key={item?.id} value={item?.title}>
-                  {item?.title}
-                </option>
-              );
-            })}
+            {selectedFaculty?.courses?.length > 0 ? (
+  selectedFaculty.courses.map((item) => {
+    if (role === "instructor" && parseInt(item.created_by_id) !== parseInt(userCredentials?.user?.id)) {
+      return null; // Skip courses not created by this instructor
+    }
+    return (
+      <option key={item?.id} value={item?.title}>
+        {item?.title}
+      </option>
+    );
+  })
+) : (
+  <option disabled>No courses available</option>
+)}
           </select>
           <p className="pl-[2px] md:pl-4 text-red-500">
             <IoIosArrowDown size="20" />
@@ -340,8 +352,8 @@ const UploadAssignment = () => {
         </section>
       </div>
       {/* Assignment list */}
-      {role === "student" && assignmentList && (
-        <div className="relative font-medium my-3">
+      {showAssignmentDropdown && (
+        <div className="relative font-medium my-3 transition-all duration-400">
           <section className="flex justify-between items-center gap-2 border-[1px] border-red-500 rounded-md p-2 md:p-3">
             <div className="flex flex-col gap-y-2">
               <p className="text-xs md:text-[16px] capitalize">{assignment}</p>
