@@ -110,6 +110,7 @@ if(editData && faculty){
     formData.append("faculty_id", filteredData.id);
     formData.append("created_by_id", userCredentials.user.id);
     formData.append("text_submission", remark);
+formData.append("file_submission", "" );
     formData.append("status", editData ? editData.status:"pending");
     console.log([...formData])
     
