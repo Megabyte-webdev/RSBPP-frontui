@@ -11,7 +11,7 @@ import { UserContext } from '../context/AuthContext'
 import { ResourceContext } from '../context/ResourceContext'
 import LivesClassList from '../components/student-commponent/LivesClassList'
 import Loading from '../components/loader/Loading'
-import NewDashboardWidget from '../components/dashboard/NewDashboardWidget'
+// import NewDashboardWidget from '../components/dashboard/NewDashboardWidget'
 
 const DashboardTwo = () => {
     const { setSideBg } = useContext(ThemeContext);
@@ -55,7 +55,7 @@ const DashboardTwo = () => {
             <Row>
                 <Col md={8}>
                     <h5 className='my-4'>Wellcome to your Dashboard, {userCredentials.user?.first_name}</h5>
-                    <NewDashboardWidget />
+                    {/* <NewDashboardWidget /> */}
                     {/* <DashboardWidget /> */}
                     <Row>
                         <Col md={6} className=' my-4 dash_grid'>

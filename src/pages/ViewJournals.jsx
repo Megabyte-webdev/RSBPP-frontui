@@ -79,11 +79,10 @@ const ViewJournals = () => {
     };
 
     const sortJournalsByCourse = (journals) => {
-        return [...journals].sort((a, b) => {
-            const courseA = getDetails('course', a.course_id, a.faculty_id)?.title.toLowerCase() || '';
-            const courseB = getDetails('course', b.course_id, b.faculty_id)?.title.toLowerCase() || '';
-            return courseA.localeCompare(courseB);
-        });
+        return [...journals].sort((a, b) => 
+           new Date(b.created_at) - new Date(a.created_at)
+        );
+        
     };
 
     const formatDate = (timestamp) => {
