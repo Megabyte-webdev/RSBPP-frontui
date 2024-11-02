@@ -1,4 +1,3 @@
-
 import { useContext, useEffect, useState, useMemo } from 'react';
 import { BASE_URL, IMAGE_URL } from '../components/utils/base';
 import axios from 'axios';
@@ -16,6 +15,7 @@ const SubmittedAssignments = () => {
 
   const [assignments, setAssignments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [groupedAssignments, setGroupedAssignments] = useState({});
 
   const fetchAssignments = async (courseId) => {
     const myHeaders = {
@@ -53,6 +53,25 @@ const SubmittedAssignments = () => {
     };
   }, [getAllUsers]);
 
+  // Group assignments by assignment_id
+  useEffect(() => {
+    const groupAssignments = () => {
+      const grouped = assignments.reduce((acc, assignment) => {
+        const { assignment_id } = assignment;
+        if (!acc[assignment_id]) {
+          acc[assignment_id] = [];
+        }
+        acc[assignment_id].push(assignment);
+        return acc;
+      }, {});
+      setGroupedAssignments(grouped);
+    };
+
+    if (assignments.length) {
+      groupAssignments();
+    }
+  }, [assignments]);
+
   return (
     <div className="p-8 min-h-max bg-gray-200 flex flex-col gap-y-2">
       <p className="sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium">
@@ -61,41 +80,48 @@ const SubmittedAssignments = () => {
 
       {loading ? (
         <div className="text-xl font-semibold">Loading...</div>
-      ) : assignments.length === 0 ? (
+      ) : Object.keys(groupedAssignments).length === 0 ? (
         <div className="text-xl font-semibold">No Submitted Assignments</div>
       ) : (
-        <div className="w-full grid grid-cols-auto gap-4 pt-5 gap-y-6 px-3 sm:px-0">
-          {assignments.map((row) => {
-            const user = GetUserDetails(row.user_id);
+        <div className="w-full grid grid-cols-1 gap-4 pt-5 gap-y-6 px-3 sm:px-0">
+          {Object.entries(groupedAssignments).map(([assignmentId, rows]) => (
+            <div key={assignmentId} className="border-b-2 mb-4 pb-4">
+              <h2 className="text-lg font-bold">Assignment ID: {assignmentId}</h2>
+              <div className="grid grid-cols-1 gap-4">
+                {rows.map((row) => {
+                  const user = GetUserDetails(row.user_id);
 
-            return (
-              <div
-                key={row.id}
-                onClick={() => {
-                  navigate('/grade-assignment', { state: { assignment: row } });
-                  scrollTo(0, 0);
-                }}
-                className="min-h-[300px] cursor-pointer bg-white shadow-lg rounded-lg p-6 flex flex-col items-center"
-              >
-                <img
-                  src={`${IMAGE_URL}profile/${user.image}` || 'https://via.placeholder.com/100'}
-                  alt={row?.user_id}
-                  className="w-28 h-28 rounded-full mb-4"
-                />
-                <h3 className="text-lg text-center font-semibold mt-auto">
-                  {`${user.first_name} ${user.last_name}`}
-                </h3>
-                <p className="text-sm text-gray-600 my-[2px]">{user.role}</p>
-                <p className="text-sm text-gray-600 my-[2px]">{user.email}</p>
+                  return (
+                    <div
+                      key={row.id}
+                      onClick={() => {
+                        navigate('/grade-assignment', { state: { assignment: row } });
+                        scrollTo(0, 0);
+                      }}
+                      className="min-h-[300px] cursor-pointer bg-white shadow-lg rounded-lg p-6 flex flex-col items-center"
+                    >
+                      <img
+                        src={`${IMAGE_URL}profile/${user.image}` || 'https://via.placeholder.com/100'}
+                        alt={row?.user_id}
+                        className="w-28 h-28 rounded-full mb-4"
+                      />
+                      <h3 className="text-lg text-center font-semibold mt-auto">
+                        {`${user.first_name} ${user.last_name}`}
+                      </h3>
+                      <p className="text-sm text-gray-600 my-[2px]">{user.role}</p>
+                      <p className="text-sm text-gray-600 my-[2px]">{user.email}</p>
 
-                <div className="flex justify-between items-center text-[10px]">
-                  <p className={`mt-1 ${row?.grade !== null ? 'text-green-500' : 'text-red-500'} font-semibold`}>
-                    Grade: {row?.grade || 'Pending'}
-                  </p>
-                </div>
+                      <div className="flex justify-between items-center text-[10px]">
+                        <p className={`mt-1 ${row?.grade !== null ? 'text-green-500' : 'text-red-500'} font-semibold`}>
+                          Grade: {row?.grade || 'Pending'}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       )}
     </div>
