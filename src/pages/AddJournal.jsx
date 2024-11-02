@@ -21,39 +21,14 @@ const AddJournal = () => {
   const [loading, setLoading] = useState(false);
   const [faculty, setFaculty] = useState("Select a Faculty");
   const [course, setCourse] = useState("Select a Programme");
-  const [prof, setProf] = useState("");
+  const [prof, setProf] = useState("Prof Samuel Attong");
   const [remark, setRemark] = useState("");
-  const { setGetAllFaculty, getAllFaculty, getEnrolledCourses, setGetEnrolledCourses } = useContext(ResourceContext);
+  const { setGetAllFaculty, getAllFaculty } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
 
-
-  
-  // Load all faculty data on component mount
-  useEffect(() => {
-    setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
-
-  }, []);
-
-  useEffect(() => {
-    setGetEnrolledCourses((prev) => {
-      return {
-        ...prev, isDataNeeded: true
-      }
-    })
-  }, [])
-
-
-  // Filter faculties based on enrolled courses
-  const relevantFaculties = getAllFaculty?.data?.filter((faculty) =>
-    faculty.courses?.some((course) =>
-      getEnrolledCourses?.data?.some(
-        (enrolled) => enrolled.courseId === course.id
-      )
-    )
-  )
-    || [];
   // Populate data if in edit mode
   useEffect(() => {
+    setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
 
     if (isEditMode) {
       const selectedFaculty = getAllFaculty?.data?.find(
@@ -74,25 +49,15 @@ const AddJournal = () => {
       (item) => item.title === faculty
     );
     setFilteredData(selectedFaculty);
-if(editData && faculty){
-  const matchFaculty = getAllFaculty?.data?.find(
-    (item) => item.id === editData.faculty_id
-  );
 
-  if(faculty !== "Select a Faculty" && matchFaculty.title !== faculty){
-  console.log("select a course")
-  setCourse("Select a Programme")
-}else{
-  const selectedCourse = selectedFaculty?.courses?.find(
-    (course) => course.id === editData.course_id
-  );
-  setCourse(selectedCourse && selectedCourse.title)
-}
-}else{
-  setCourse("Select a Programme")
-}
+    const matchFaculty = getAllFaculty?.data?.find(
+      (item) => item.id === editData.faculty_id
+    );
+    if(faculty !== "Select a Faculty" && matchFaculty.title !== faculty){
+    console.log("select a course")
+    setCourse("Select a Programme")
     
-  }, [faculty, getAllFaculty]);
+  }  }, [faculty, getAllFaculty]);
 
   const handleCourseSelection = () =>
     filteredData?.courses?.find((item) => item.title === course);
@@ -105,24 +70,21 @@ if(editData && faculty){
 
     setLoading(true);
     const formData = new FormData();
-    editData && formData.append("id", editData.id);
     formData.append("course_id", selectedCourse.id);
     formData.append("faculty_id", filteredData.id);
     formData.append("created_by_id", userCredentials.user.id);
     formData.append("text_submission", remark);
-    formData.append("status", editData ? editData.status:"pending");
-    console.log([...formData])
+    formData.append("status", "");
     
     const url = isEditMode
-      ? `${BASE_URL}course/updateJournal`
+      ? `${BASE_URL}course/updateJournal/${editData.id}`
       : `${BASE_URL}course/addJournal`;
 
     axios
       .post(url, formData, {
         headers: {
-  Authorization : `Bearer ${userCredentials?.token}`
-},
-
+          Authorization: `Bearer ${userCredentials.token}`,
+        },
       })
       .then((response) => {
         toast.success(response.data.message || "Journal saved successfully");
@@ -162,15 +124,14 @@ if(editData && faculty){
             </div>
             <select
               className="p-2 md:p-3 absolute w-[98%] min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
-              disabled={isEditMode}
               value={faculty}
               onChange={(e) => setFaculty(e.target.value)}
             >
               <option disabled value="Select a Faculty">
                 Select a Faculty
               </option>
-              {relevantFaculties?.map((item) => (
-                <option key={item.id} value={item.title}>
+              {getAllFaculty?.data?.map((item, index) => (
+                <option key={index} value={item.title}>
                   {item.title}
                 </option>
               ))}
@@ -196,7 +157,6 @@ if(editData && faculty){
             <select
               className="p-2 md:p-3 absolute w-[98%] min-h-full left-0 top-0 text-sm opacity-0 cursor-pointer rounded-md border-[1px] border-red-500"
               value={course}
-              disabled={isEditMode}
               onChange={(e) => setCourse(e.target.value)}
             >
               <option disabled value="Select a Programme">
