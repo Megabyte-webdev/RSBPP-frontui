@@ -16,7 +16,7 @@ const {assignmentId}= location.state
 
   const [assignments, setAssignments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [groupedAssignments, setGroupedAssignments] = useState({});
+  const [groupedAssignments, setGroupedAssignments] = useState([]);
 
   const fetchAssignments = async (courseId) => {
     const myHeaders = {
