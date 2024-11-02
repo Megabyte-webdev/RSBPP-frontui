@@ -129,7 +129,7 @@ const AllAssignment = () => {
         if (role === "instructor") {
             const course = await getDetails('course', assignment.course_id, assignment.faculty_id);
             if (course) {
-                navigate(`/view-assignments/${course.title}`, { state: { courseId: assignment.course_id } });
+                navigate(`/view-assignments/${course.title}`, { state: { courseId: assignment.course_id, assignmentId: assignment.id} });
             }
         } else {
             navigate(`/view-grade/${assignment.course_label}`, { state: { assignment: assignment } });
