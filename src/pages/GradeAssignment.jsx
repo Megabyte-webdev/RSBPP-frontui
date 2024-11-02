@@ -29,7 +29,7 @@ const GradeAssignment = () => {
         },
       })
       .then((response) => {
-        const submission = response.data.allAssignmentSubmit.find(sub => sub.user_id === assignment.user_id && sub.assignment_id === assignment.id);
+        const submission = response.data.allAssignmentSubmit.find(sub => sub.user_id === assignment.user_id && sub.assignment_id === assignment.assignment_id);
         if (submission) {
           setSubmissionId(submission.id);
         }
