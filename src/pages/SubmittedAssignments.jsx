@@ -74,25 +74,6 @@ const {assignmentId}= location.state
 
       {loading ? (
         <div className="text-xl font-semibold">Loading...</div>
-      ) : Object.keys(groupedAssignments).length === 0 ? (
-        <div className="text-xl font-semibold">No Submitted Assignments</div>
-      ) : (
-        <div className="w-full grid grid-cols-1 gap-4 pt-5 gap-y-6 px-3 sm:px-0">
-          {Object.entries(groupedAssignments).map(([assignmentId, rows]) => (
-            <div key={assignmentId} className="border-b-2 mb-4 pb-4">
-              <h2 className="text-lg font-bold">Assignment ID: {assignmentId}</h2>
-              <div className="grid grid-cols-1 gap-4">
-                {rows.map((row) => {
-                  const user = GetUserDetails(row.user_id);
-
-                  return (
-    <div className="p-8 min-h-max bg-gray-200 flex flex-col gap-y-2">
-      <p className="sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium">
-        View Submitted Assignments
-      </p>
-
-      {loading ? (
-        <div className="text-xl font-semibold">Loading...</div>
       ) : groupedAssignments.length === 0 ? (
         <div className="text-xl font-semibold">No Submitted Assignments</div>
       ) : (
