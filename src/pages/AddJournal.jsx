@@ -110,7 +110,8 @@ if(editData && faculty){
     formData.append("faculty_id", filteredData.id);
     formData.append("created_by_id", userCredentials.user.id);
     formData.append("text_submission", remark);
-    formData.append("status", editData ? editData.status:"pending");
+    formData.append("status", "draft"); // Replace "draft" with the expected default status.
+
     console.log([...formData])
 
     const url = isEditMode
