@@ -384,7 +384,7 @@ useEffect(() => {
 
       {/* Description Field */}
       <div className="font-medium my-2 border-[1px] border-red-500 p-2 md:p-3 rounded-md">
-        <p className='text-sm md:text-[16px]'>{role === "admin" ? "Assignment" : "Submission"}</p>
+        <p className='text-sm md:text-[16px]'>{role === "instructor" ? "Assignment" : "Submission"}</p>
         <textarea
           rows="4"
           value={description}
