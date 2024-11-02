@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import Widget from "../auth/Widget"
+// import Widget from "../auth/Widget"
 import { UserContext } from "../../context/AuthContext"
 import toast from "react-hot-toast"
 import axios from "axios"

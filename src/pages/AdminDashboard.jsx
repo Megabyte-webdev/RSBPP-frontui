@@ -4,7 +4,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { UserContext } from "../context/AuthContext";
 import { MdAddBox, MdOutlineCalendarMonth, MdOutlineCancel } from "react-icons/md";
 import { Link } from "react-router-dom";
-import DashboardWidget from "../components/dashboard/DashboardWidget";
+// import DashboardWidget from "../components/dashboard/DashboardWidget";
 import { FaVideo } from "react-icons/fa6";
 import RoundChart from "../components/general/RoundChart";
 import BarChart from "../components/general/BarCharts";
@@ -49,7 +49,7 @@ const AdminDashboard = () => {
     >
       <Col md={10} className="d-flex mb-4 justify-content-between">
         <h6 className="my-4">Upcoming Courses  Meeting</h6>
-        <DashboardWidget />
+        {/* <DashboardWidget /> */}
         <Link className="d-flex nav-link text-primary align-items-center">
           <span>
             <MdAddBox size={25} className="me-2" />
