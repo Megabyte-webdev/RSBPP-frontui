@@ -15,7 +15,7 @@ const AllAssignment = () => {
     const [loading, setLoading] = useState(true);
     const [submissions, setSubmissions] = useState({});
     const [submissionsLoading, setSubmissionsLoading] = useState({});
-const [assignmentContents, setAssignmentContents] = useState({});
+    const [assignmentContents, setAssignmentContents] = useState({});
 
     // Pagination states
     const [currentPage, setCurrentPage] = useState(1);
@@ -58,6 +58,7 @@ const [assignmentContents, setAssignmentContents] = useState({});
                 try {
                     const response = await axios.get(`${BASE_URL}course/getAssignmentSubmit/${assignment.course_id}`, { headers: myHeaders });
                     newSubmissions[assignment.course_id] = response.data.allAssignmentSubmit || [];
+                    console.log(response.data.allAssignmentSubmit)
                 } catch (error) {
                     console.error("Error fetching submissions:", error);
                     newSubmissions[assignment.course_id] = [];
@@ -77,29 +78,29 @@ const [assignmentContents, setAssignmentContents] = useState({});
 
 
 
-const fetchContent = async (assignmentId) => {
-    try {
-      const response = await axios.get(
-        `${BASE_URL}course/getAssignment/${assignmentId}`,
-        { headers: {Authorization: `Bearer ${userCredentials.token}`}, }
-      );
-      return response?.data?.assignment?.content || 'No content available';
-    } catch (error) {
-      console.error('Error fetching assignment content:', error);
-      return '...'; // Handle error gracefully
-    }
-  };
+    const fetchContent = async (assignmentId) => {
+        try {
+            const response = await axios.get(
+                `${BASE_URL}course/getAssignment/${assignmentId}`,
+                { headers: { Authorization: `Bearer ${userCredentials.token}` }, }
+            );
+            return response?.data?.assignment?.content || 'No content available';
+        } catch (error) {
+            console.error('Error fetching assignment content:', error);
+            return '...'; // Handle error gracefully
+        }
+    };
 
-const getContent = (assignmentId) => {
-    if (assignmentContents[assignmentId]) {
-      return assignmentContents[assignmentId]; // Return cached content if available
-    } else {
-      fetchContent(assignmentId).then((content) =>
-        setAssignmentContents((prev) => ({ ...prev, [assignmentId]: content }))
-      );
-      return 'Loading...'; // Display loading until content is fetched
-    }
-  };
+    const getContent = (assignmentId) => {
+        if (assignmentContents[assignmentId]) {
+            return assignmentContents[assignmentId]; // Return cached content if available
+        } else {
+            fetchContent(assignmentId).then((content) =>
+                setAssignmentContents((prev) => ({ ...prev, [assignmentId]: content }))
+            );
+            return 'Loading...'; // Display loading until content is fetched
+        }
+    };
 
     const getDetails = (attr, info, facId) => {
         const faculty = getAllFaculty?.data?.find((item) => item.id === facId);
@@ -157,7 +158,7 @@ const getContent = (assignmentId) => {
     return (
         <div className="flex flex-col p-4 md:p-8 min-h-max w-full font-sans">
             <p className="sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium">
-                {role === " instructor" ? 'All Assignments':'Submitted Assignments'}
+                {role === " instructor" ? 'All Assignments' : 'Submitted Assignments'}
             </p>
 
             {/* Pagination Controls */}
@@ -176,7 +177,7 @@ const getContent = (assignmentId) => {
                             <tr>
                                 <th className='p-2 mx-2 text-left min-w-[50px]'>S/N</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Assignment</th>
-   <th className='p-2 mx-2 text-left min-w-[150px]'>Course Name</th>
+                                <th className='p-2 mx-2 text-left min-w-[150px]'>Course Name</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Faculty</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>Date Added</th>
                                 <th className='p-2 mx-2 text-left min-w-[150px]'>{role === "instructor" ? 'Submissions' : 'Grade'}</th>
@@ -189,16 +190,20 @@ const getContent = (assignmentId) => {
                                 <tr className='cursor-pointer' key={row.id} onClick={() => { handleViewAssignments(row) }}>
                                     <td className='p-2 mx-2 min-w-[50px]'>{(currentPage - 1) * pageSize + index + 1}</td>
 
- <td className='p-2 mx-2 min-w-[150px]'>
-  {role === "instructor" ? row?.content : getContent(row?.assignment_id)}
-</td>
+                                    <td className='p-2 mx-2 min-w-[150px]'>
+                                        {role === "instructor" ? row?.content : getContent(row?.assignment_id)}
+                                    </td>
 
- <td className='p-2 mx-2 min-w-[150px]'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
-   
-                                <td className='p-2 mx-2 min-w-[150px]'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
+                                    <td className='p-2 mx-2 min-w-[150px]'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
+
+                                    <td className='p-2 mx-2 min-w-[150px]'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{formatDate(row.created_at)}</td>
                                     <td className='p-2 mx-2 text-left'>
-                                        {role === 'instructor' ? (submissionsLoading[row.course_id] ? "Loading..." : (submissions[row.course_id]?.length || 0)) : row?.grade || 'pending'}
+                                        {role === 'instructor' ? (submissionsLoading[row.course_id] ? "Loading..." : (Array.isArray(submissions[row.course_id]) ? (
+                                            submissions[row.course_id].filter(
+                                                (item) => row.content === item.assignment_label
+                                            ).length || 0
+                                        ) : 0)) : row?.grade || 'pending'}
                                     </td>
                                     <td className='p-2 mx-2'>{row?.grade ? 'graded' : 'pending'}</td>
                                     {role === "instructor" && <td className='p-2 mx-2'>
