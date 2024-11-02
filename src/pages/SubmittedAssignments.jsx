@@ -57,7 +57,7 @@ const {assignmentId}= location.state
   // Group assignments by assignment_id
   useEffect(() => {
     const groupAssignments = () => {
-      const grouped = assignments.filter((ass)=>ass.id === assignmentId)
+      const grouped = assignments.filter((ass)=>ass.assignment_id === assignmentId)
       setGroupedAssignments(grouped);
     };
 
