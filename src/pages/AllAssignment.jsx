@@ -201,7 +201,7 @@ const AllAssignment = () => {
                                     <td className='p-2 mx-2 text-left'>
                                         {role === 'instructor' ? (submissionsLoading[row.course_id] ? "Loading..." : (Array.isArray(submissions[row.course_id]) ? (
                                             submissions[row.course_id].filter(
-                                                (item) => row.content === item.assignment_label
+                                                (item) => row.id === item.assignment_id
                                             ).length || 0
                                         ) : 0)) : row?.grade || 'pending'}
                                     </td>
