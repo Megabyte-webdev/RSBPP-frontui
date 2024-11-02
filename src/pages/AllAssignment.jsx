@@ -198,14 +198,14 @@ const AllAssignment = () => {
 
                                     <td className='p-2 mx-2 min-w-[150px]'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{formatDate(row.created_at)}</td>
-                                 <td className='p-2 mx-2 text-left'>
+                                <td className='p-2 mx-2 text-left'>
     {role === 'instructor' ? (
         submissionsLoading[row.course_id] ? 
             "Loading..." : 
             (Array.isArray(submissions[row.course_id]) ? 
-                (submissions[row.course_id].filter(
+                submissions[row.course_id].filter(
                     (item) => row.id === item.assignment_id
-                ).length || 'No submissions') : 'No submissions'
+                ).length : 0
             )
     ) : row?.grade || 'pending'}
 </td>
