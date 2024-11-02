@@ -1,0 +1,26 @@
+
+.course-outline > p,
+.course-objective p{
+    font-size: 20px;
+    font-weight: 500;
+    color: black;
+}
+.course-objective p:nth-of-type(3){
+    font-size: 18px;
+}
+.course-outline >ul,
+.course-objective ul {
+    margin-left: 0.5rem;
+    margin-top: -20px;
+}
+
+.course-outline >ul li,
+.course-objective ul li{
+    font-size: 14px ;
+    font-weight: 500;
+    line-height: 1.25rem /* 20px */;
+    color: #888;
+    list-style-type: disc;
+    margin: 0.5rem 0 /* 8px */;
+    
+}

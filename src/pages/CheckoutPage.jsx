@@ -62,7 +62,7 @@ const CheckoutPage = () => {
                             <p>Rotterdam business school is required by law to collect applicable transaction taxes for purchases made in certain tax jurisdictions.</p>
                             <h4 className='d-flex mt-2'>
                                 <span className='mr-2'>Pay with Stripe</span>
-                                <img src={StripeImage} alt="" style={{width:"100px", height:"50px"}}/>
+                                <img src={StripeImage} alt="" className='w-40'/>
 
                             </h4>
                             {/* <div className='my-4'>

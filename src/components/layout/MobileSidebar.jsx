@@ -42,7 +42,7 @@ const MobileSidebar = ({ userCredentials }) => {
 
     return (
         <div
-            className={user?.role === "instructor" ? "white_sidebar prime_blue border-end d-md-none" : "brown_sidebar border-end d-md-none"}
+            className={user?.role === "instructor" ? "white_sidebar prime_blue border-end d-md-none" : "brown_sidebar border-end d-md-none !overflow-y-auto"}
 
         // className="d-md-none"
         >

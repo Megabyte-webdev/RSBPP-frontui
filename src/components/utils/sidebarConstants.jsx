@@ -7,6 +7,8 @@ import iconThree from "../../assets/side-icons/new3.png"
 import iconSeven from "../../assets/side-icons/new7.png"
 import iconEight from "../../assets/side-icons/user-update.svg"
 // import iconNine from "../../assets/side-icons/icon9.png"
+import journal from "../../assets/side-icons/journal-6.svg"
+import assignment from "../../assets/side-icons/assign-user-svgrepo-com.svg"
 
 export const sidebarConstants = [
     {
@@ -32,30 +34,34 @@ export const sidebarConstants = [
         ]
     },
     {
-        title: "Forums",
-        logo: iconThree,
+        title: "Jounals",
+        logo: journal,
         subOptions: [
             {
-                title: "Chats",
-                // link: "/chats",
-                link: "/soon",
+                title: "Add Journal",
+                link: "/add-journal",
             },
             {
-                title: "Messages",
-                // link: "/messages",
-                link: "/soon",
+                title: "View Journals",
+                link: "/view-journals",
             }
         ]
     },
     {
-        title: "Quizzes",
-        logo: iconSeven,
+        title: "Assignment",
+        logo: assignment,
         subOptions: [
             {
-                title: "Quiz",
-                // link: "/quiz",
-                link: "/soon",
-            }
+                title: "Upload Assignment",
+                link: "/upload-assignment",
+            },
+            {
+                title: "Submitted Assignments",
+                link: "/view-assignments",
+            },{
+title: "All Assignments",
+                link: "/all-assignments",
+}
         ]
     },
     {
@@ -171,5 +177,26 @@ export const facultyConstants = [
                 link: "/faculty_list",
             },
         ]
-    },
+        },{
+        title: "Journals",
+        logo: journal,
+        subOptions: [
+            {
+                title: "All Journals",
+                link: "/view-journals",
+            }
+        ]
+    },{
+        title: "Assignment",
+        logo: assignment,
+        subOptions: [
+            {
+                title: "Add Assignment",
+                link: "/upload-assignment",
+            },{
+                title: "View All Assignments",
+                link: "/view-assignments",
+            }
+        ]
+    }
 ]

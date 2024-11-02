@@ -27,7 +27,7 @@ const Widget = ({ handleClose }) => {
                             handleClose()
                         }}
                         className='nav-link pointer h-100'>
-                        <div className="p-3 rounded border-2 border_brown border h-100">
+                        <div className="p-3 rounded border-2 border_brown h-100">
                             <div className="d-flex justify-content-between">
                                 <h5>Certificate Course</h5>
                                 <div>
@@ -48,7 +48,7 @@ const Widget = ({ handleClose }) => {
                             handleClose()
                         }}
                         className='nav-link pointer h-100'>
-                        <div className="p-3 rounded border-2 border_brown border h-100">
+                        <div className="p-3 rounded border-2 border_brown h-100">
                             <div className="d-flex justify-content-between">
                                 <h5>Executive Online</h5>
                                 <div>
@@ -87,7 +87,7 @@ const Widget = ({ handleClose }) => {
             <div className="mt-5 col-6 mx-auto">
                 <Button
                     onClick={() => handleClose()}
-                    type="submit" className="brown_bg rounded-3 border-0 w-100">
+                    type="submit" className="brown_bg rounded-3-0 w-100">
                     {/* {isLoading && (
               <div className="spinner-border text-light" role="status">
                 <span className="visually-hidden">Loading...</span>

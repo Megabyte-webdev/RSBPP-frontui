@@ -1,0 +1,17 @@
+@font-face{
+    font-family: 'Ripple-Bold';
+    src: url('./Ripple-Bold.ttf');
+  }
+  @font-face{
+    font-family: 'Ripple-BoldItalic';
+    src: url('./Ripple-BoldItalic.ttf');
+  }
+
+  @font-face{
+    font-family: 'Ripple-Regular';
+    src: url('./Ripple-Regular.ttf');
+  }
+  @font-face{
+    font-family: 'Ripple-BoldItalic';
+    src: url('./Ripple-BoldItalic');
+  }

@@ -40,10 +40,10 @@ const SideBarOptions = ({ handleClose }) => {
   const makeActive = isOpenOption === "Dashboard" ? "sidebar_active" : "";
 
   return (
-    <div className="sidebar_height">
+    <div className="sidebar_height text-sm">
       <div className={makeActive}>
         <div
-          className="d-flex align-items-center px-3 py-2 mb-2 fs_sm justify-content-between pointer"
+          className="d-flex align-items-center sm:px-[4px] px-3 sm:py-[5px] py-2 mb-2 fs_sm justify-content-between pointer"
         >
           <div
             onClick={() => {
@@ -62,6 +62,8 @@ const SideBarOptions = ({ handleClose }) => {
           </div>
         </div>
       </div>
+
+      
       {student && sidebarConstants.map((constant) => (
         <SidebarToggle
           handleClose={handleClose}

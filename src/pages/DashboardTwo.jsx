@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import dashVideo from "../assets/dashboard-video.png"
 import classVideo from "../assets/dash-icons/classes.svg"
@@ -7,7 +7,7 @@ import schedule from "../assets/dash-icons/schedule.svg"
 import { Link } from 'react-router-dom'
 import { ThemeContext } from '../context/ThemeContext'
 import { UserContext } from '../context/AuthContext'
-import DashboardWidget from '../components/dashboard/DashboardWidget'
+//import DashboardWidget from '../components/dashboard/DashboardWidget'
 import { ResourceContext } from '../context/ResourceContext'
 import LivesClassList from '../components/student-commponent/LivesClassList'
 import Loading from '../components/loader/Loading'
@@ -51,7 +51,7 @@ const DashboardTwo = () => {
     console.log(sortClasses)
 
     return (
-        <div className='p-3 p-md-5' style={{ backgroundColor: "hsla(0, 0%, 85%, .1)" }}>
+        <div className='p-3 p-md:p-5' style={{ backgroundColor: "hsla(0, 0%, 85%, .1)" }}>
             <Row>
                 <Col md={8}>
                     <h5 className='my-4'>Wellcome to your Dashboard, {userCredentials.user?.first_name}</h5>
@@ -61,7 +61,7 @@ const DashboardTwo = () => {
                         <Col md={6} className=' my-4 dash_grid'>
                             <div className="shadow hover_effect h-100 p-0 rounded">
                                 <Link to={"/learning"} className='nav-link h-100'>
-                                    <img src={dashVideo} alt="" className="img-fluid h-100 w-100" />
+                                    <img src={dashVideo} alt="" className="img-fluid h-100 w-100 object-cover" />
                                 </Link>
                             </div>
                         </Col>
