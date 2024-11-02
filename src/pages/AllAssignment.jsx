@@ -198,13 +198,18 @@ const AllAssignment = () => {
 
                                     <td className='p-2 mx-2 min-w-[150px]'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{formatDate(row.created_at)}</td>
-                                    <td className='p-2 mx-2 text-left'>
-                                        {role === 'instructor' ? (submissionsLoading[row.course_id] ? "Loading..." : (Array.isArray(submissions[row.course_id]) ? (
-                                            submissions[row.course_id].filter(
-                                                (item) => row.id === item.assignment_id
-                                            ).length || 0
-                                        ) : 0)) : row?.grade || 'pending'}
-                                    </td>
+                                 <td className='p-2 mx-2 text-left'>
+    {role === 'instructor' ? (
+        submissionsLoading[row.course_id] ? 
+            "Loading..." : 
+            (Array.isArray(submissions[row.course_id]) ? 
+                (submissions[row.course_id].filter(
+                    (item) => row.id === item.assignment_id
+                ).length || 'No submissions') : 'No submissions'
+            )
+    ) : row?.grade || 'pending'}
+</td>
+
                                     <td className='p-2 mx-2'>{row?.grade ? 'graded' : 'pending'}</td>
                                     {role === "instructor" && <td className='p-2 mx-2'>
                                         <button onClick={(e,) => handleEdit(row, e)} className='bg-blue-500 text-white font-semibold px-2 py-1 rounded-md'>Edit</button>
