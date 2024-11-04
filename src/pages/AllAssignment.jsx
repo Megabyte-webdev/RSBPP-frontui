@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 import { BASE_URL } from '../components/utils/base';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 
 const AllAssignment = () => {
     const navigate = useNavigate();
+
+    const controller = useRef(AbortController || null)
     const { getAllFaculty, setGetAllFaculty } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
     const role = userCredentials?.user?.role;
@@ -23,13 +25,15 @@ const AllAssignment = () => {
 
     useEffect(() => {
         const fetchAssignments = async () => {
+             controller.current?.abort();
+controller.current = new AbortController();
             setLoading(true);
             const myHeaders = {
                 Authorization: `Bearer ${userCredentials.token}`,
             };
 
             try {
-                const response = await axios.get(`${BASE_URL}course/${role === "instructor" ? "getAllAssignment" : "getAssignmentSubmitCourseAll"}`, { headers: myHeaders });
+                const response = await axios.get(`${BASE_URL}course/${role === "instructor" ? "getAllAssignment" : "getAssignmentSubmitCourseAll"}`,{signal: controller.current?.signal}, { headers: myHeaders });
                 setAssignments(role === "instructor" ? response.data.allAssignment : response.data.allAssignmentSubmit || []);
                 setGetAllFaculty(prev => ({ ...prev, isDataNeeded: true }));
                 console.log(response.data)
