@@ -4,7 +4,7 @@ import RegistrationGuide from '../components/auth/RegistrationGuide'
 import RegistrationForm from '../components/auth/RegistrationForm'
 import RegOtpForm from '../components/auth/RegOtpForm'
 import RegOnboarding from '../components/auth/RegOnboarding'
-import Widget from '../components/auth/Widget'
+//import Widget from '../components/auth/Widget'
 
 const Registration = () => {
 
