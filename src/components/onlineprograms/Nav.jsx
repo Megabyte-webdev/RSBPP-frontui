@@ -31,7 +31,12 @@ setCartStore
                 cartsTotalFunction(token, userCredentials.user.id, setError, setCurrentTotal, (newCart) => {
                     setCartStore(newCart);
                 });
-            }
+            }else{
+    const fromLocal = localStorage.getItem("carts")
+        ? JSON.parse(localStorage.getItem("carts"))[0]
+        : null;
+setCartStore(fromLocal);
+}
         }, [userCredentials]);
 
 
