@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 import { BASE_URL } from '../components/utils/base';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -8,6 +8,11 @@ import { useNavigate } from 'react-router-dom';
 
 const AllAssignment = () => {
     const navigate = useNavigate();
+
+    const assignmentsControllerRef = useRef(null);
+    const submissionsControllerRef = useRef(null);
+    const contentControllerRef = useRef(null);
+
     const { getAllFaculty, setGetAllFaculty } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
     const role = userCredentials?.user?.role;
@@ -22,22 +27,30 @@ const AllAssignment = () => {
     const [pageSize, setPageSize] = useState(10); // Number of assignments per page
 
     useEffect(() => {
+        setLoading(true);
+        const controller = new AbortController();
         const fetchAssignments = async () => {
             setLoading(true);
-            const myHeaders = {
-                Authorization: `Bearer ${userCredentials.token}`,
-            };
+            const headers = { Authorization: `Bearer ${userCredentials.token}` };
 
             try {
-                const response = await axios.get(`${BASE_URL}course/${role === "instructor" ? "getAllAssignment" : "getAssignmentSubmitCourseAll"}`, { headers: myHeaders });
+                const response = await axios.get(
+                    `${BASE_URL}course/${role === "instructor" ? "getAllAssignment" : "getAssignmentSubmitCourseAll"}`,
+                    { headers, signal: controller.signal }
+                );
                 setAssignments(role === "instructor" ? response.data.allAssignment : response.data.allAssignmentSubmit || []);
                 setGetAllFaculty(prev => ({ ...prev, isDataNeeded: true }));
-                console.log(response.data)
             } catch (error) {
-                console.error("Error fetching assignments:", error);
-                toast.error("Failed to load assignments.");
+                if (axios.isCancel(error)) {
+                    console.log("Fetch aborted");
+                } else {
+                    console.error("Error fetching assignments:", error);
+                    toast.error("Failed to load assignments.");
+                }
             } finally {
-                setLoading(false);
+                if (!controller.signal.aborted) {
+                    setLoading(false);
+                }
             }
         };
 
@@ -45,28 +58,35 @@ const AllAssignment = () => {
     }, [userCredentials]);
 
     useEffect(() => {
+        const controller = new AbortController();
+
         const fetchSubmissions = async () => {
             const newSubmissionsLoading = {};
             const newSubmissions = {};
 
             for (const assignment of assignments) {
                 newSubmissionsLoading[assignment.course_id] = true;
-                const myHeaders = {
+                const headers = {
                     Authorization: `Bearer ${userCredentials.token}`,
                 };
 
                 try {
-                    const response = await axios.get(`${BASE_URL}course/getAssignmentSubmit/${assignment.course_id}`, { headers: myHeaders });
+                    const response = await axios.get(
+                        `${BASE_URL}course/getAssignmentSubmit/${assignment.course_id}`,
+                        { headers, signal: controller.signal }
+                    );
                     newSubmissions[assignment.course_id] = response.data.allAssignmentSubmit || [];
-                    console.log(response.data.allAssignmentSubmit)
                 } catch (error) {
-                    console.error("Error fetching submissions:", error);
-                    newSubmissions[assignment.course_id] = [];
+                    if (!axios.isCancel(error)) {
+                        console.error("Error fetching submissions:", error);
+                        newSubmissions[assignment.course_id] = [];
+                    }
                 } finally {
-                    newSubmissionsLoading[assignment.course_id] = false;
+                    if (!controller.signal.aborted) {
+                        newSubmissionsLoading[assignment.course_id] = false;
+                    }
                 }
             }
-
             setSubmissions(newSubmissions);
             setSubmissionsLoading(newSubmissionsLoading);
         };
@@ -74,19 +94,22 @@ const AllAssignment = () => {
         if (assignments.length > 0) {
             fetchSubmissions();
         }
+
     }, [assignments, userCredentials]);
 
-
-
     const fetchContent = async (assignmentId) => {
+        const controller = new AbortController();
+
         try {
             const response = await axios.get(
                 `${BASE_URL}course/getAssignment/${assignmentId}`,
-                { headers: { Authorization: `Bearer ${userCredentials.token}` }, }
+                { headers: { Authorization: `Bearer ${userCredentials.token}` }, signal: controller.signal }
             );
             return response?.data?.assignment?.content || 'No content available';
         } catch (error) {
-            console.error('Error fetching assignment content:', error);
+            if (!axios.isCancel(error)) {
+                console.error('Error fetching assignment content:', error);
+            }
             return '...'; // Handle error gracefully
         }
     };
@@ -111,36 +134,23 @@ const AllAssignment = () => {
         return faculty;
     };
 
-    const formatDate = (timestamp) => {
-        const dateObj = new Date(timestamp);
-        const year = dateObj.getFullYear();
-        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-        const day = String(dateObj.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    };
-
     const handleEdit = (assignment, event) => {
-        event.stopPropagation(); // Prevents the row click event
+        event.stopPropagation();
         navigate('/upload-assignment', { state: { editData: assignment } });
     };
-
 
     const handleViewAssignments = async (assignment) => {
         if (role === "instructor") {
             const course = await getDetails('course', assignment.course_id, assignment.faculty_id);
             if (course) {
-                navigate(`/view-assignments/${course.title}`, { state: { courseId: assignment.course_id, assignmentId: assignment.id} });
+                navigate(`/view-assignments/${course.title}`, { state: { courseId: assignment.course_id, assignmentId: assignment.id } });
             }
         } else {
             navigate(`/view-grade/${assignment.course_label}`, { state: { assignment: assignment } });
-
         }
     };
 
-    // Calculate total pages
     const totalPages = Math.ceil(assignments.length / pageSize);
-
-    // Slice assignments for current page
     const displayedAssignments = assignments.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
     const handleNextPage = () => {
@@ -161,7 +171,6 @@ const AllAssignment = () => {
                 {role === " instructor" ? 'All Assignments' : 'Submitted Assignments'}
             </p>
 
-            {/* Pagination Controls */}
             <div className="flex justify-between my-2 text-xs">
                 <button onClick={handlePreviousPage} disabled={currentPage === 1} className='bg-gray-300 text-gray-700 px-4 py-2 rounded-md disabled:opacity-50'>Prev</button>
                 <span>Page {currentPage} of {totalPages}</span>
@@ -187,28 +196,23 @@ const AllAssignment = () => {
                         </thead>
                         <tbody>
                             {displayedAssignments.map((row, index) => (
-                                <tr className='cursor-pointer' key={row.id} onClick={() => { handleViewAssignments(row) }}>
-                                    <td className='p-2 mx-2 min-w-[50px]'>{(currentPage - 1) * pageSize + index + 1}</td>
-
-                                    <td className='p-2 mx-2 min-w-[150px]'>
-                                        {role === "instructor" ? row?.content : getContent(row?.assignment_id)}
+                                <tr className='cursor-pointer' key={row.id} onClick={() => handleViewAssignments(row)}>
+                                    <td className='p-2 mx-2'>{(currentPage - 1) * pageSize + index + 1}</td>
+                                    <td className='p-2 mx-2'>{row.course_label}</td>
+                                    <td className='p-2 mx-2'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
+                                    <td className='p-2 mx-2'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
+                                    <td className='p-2 mx-2 min-w-[150px]'>{new Date(row.created_at).toLocaleDateString()}</td>
+                                    <td className='p-2 mx-2 text-left'>
+                                        {role === 'instructor' ? (
+                                            submissionsLoading[row.course_id] ?
+                                                "Loading..." :
+                                                (Array.isArray(submissions[row.course_id]) ?
+                                                    submissions[row.course_id].filter(
+                                                        (item) => row.id === item.assignment_id
+                                                    ).length : 0
+                                                )
+                                        ) : row?.grade || 'pending'}
                                     </td>
-
-                                    <td className='p-2 mx-2 min-w-[150px]'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
-
-                                    <td className='p-2 mx-2 min-w-[150px]'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
-                                    <td className='p-2 mx-2 min-w-[150px]'>{formatDate(row.created_at)}</td>
-                                <td className='p-2 mx-2 text-left'>
-    {role === 'instructor' ? (
-        submissionsLoading[row.course_id] ? 
-            "Loading..." : 
-            (Array.isArray(submissions[row.course_id]) ? 
-                submissions[row.course_id].filter(
-                    (item) => row.id === item.assignment_id
-                ).length : 0
-            )
-    ) : row?.grade || 'pending'}
-</td>
 
                                     <td className='p-2 mx-2'>{row?.grade ? 'graded' : 'pending'}</td>
                                     {role === "instructor" && <td className='p-2 mx-2'>
@@ -219,11 +223,9 @@ const AllAssignment = () => {
                         </tbody>
                     </table>
                 ) : (
-                    <p>No assignments available.</p>
+                    <p>No assignments available</p>
                 )}
             </div>
-
-
         </div>
     );
 };

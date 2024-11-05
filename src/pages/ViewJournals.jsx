@@ -18,12 +18,10 @@ const ViewJournals = () => {
     const [pageSize, setPageSize] = useState(5); // Number of journals per page
 
     useEffect(() => {
-        setGetAllCourses((prev) => {
-            return {
-                ...prev, isDataNeeded: true
-            }
-        })
-    }, [])
+        setGetAllCourses((prev) => ({
+            ...prev, isDataNeeded: true
+        }));
+    }, []);
 
     const myCourses = getAllCourses?.data?.filter(
         (course) => parseInt(userCredentials?.user?.id) === parseInt(course.created_by_id)
@@ -33,25 +31,23 @@ const ViewJournals = () => {
         if (!userCredentials) return;
 
         setLoading(true);
+        const controller = new AbortController();
         const myHeaders = {
             Authorization: `Bearer ${userCredentials.token}`,
         };
 
-
         axios
-            .get(`${BASE_URL}course/getAllJournal`, { headers: myHeaders })
+            .get(`${BASE_URL}course/getAllJournal`, { headers: myHeaders, signal: controller.signal })
             .then((response) => {
                 console.log('API Response:', response.data);
 
                 let userJournals = [];
                 if (userCredentials?.user?.role === 'instructor') {
-                    // Filter journals based on instructor's courses
                     const courseIds = myCourses.map((course) => course.id);
                     userJournals = response.data.allJournal.filter((journal) =>
                         courseIds.includes(journal.course_id)
                     );
                 } else {
-                    // Filter journals for non-instructor users
                     userJournals = response.data.allJournal.filter(
                         (journal) => journal.user_id === userCredentials.user.id
                     );
@@ -62,12 +58,15 @@ const ViewJournals = () => {
                 setLoading(false);
             })
             .catch((error) => {
-                console.error('Error fetching journals:', error);
-                toast.error('Failed to load journals.');
-                setLoading(false);
+                if (!controller.signal.aborted) {
+                    console.error('Error fetching journals:', error);
+                    toast.error('Failed to load journals.');
+                    setLoading(false);
+                }
             });
-    }, [userCredentials, setGetAllFaculty]);
 
+        return () => controller.abort();
+    }, [userCredentials, setGetAllFaculty]);
 
     const getDetails = (attr, info, facId) => {
         const faculty = getAllFaculty?.data?.find((item) => item.id === facId);
@@ -94,15 +93,13 @@ const ViewJournals = () => {
     };
 
     const handleJournal = (event, journal) => {
-        
-        
-        if(userCredentials?.user?.role === "student" && journal.remark){
-            navigate('/view-remark', { state: { journal: journal } })
-        }else if(userCredentials?.user?.role === "student" && journal.remark === null){
+        if (userCredentials?.user?.role === "student" && journal.remark) {
+            navigate('/view-remark', { state: { journal: journal } });
+        } else if (userCredentials?.user?.role === "student" && journal.remark === null) {
             navigate('/add-journal', { state: { editData: journal } });
         }
-        if(userCredentials?.user?.role === "instructor"){
-            navigate('/remark-journal', { state: { journal: journal } })
+        if (userCredentials?.user?.role === "instructor") {
+            navigate('/remark-journal', { state: { journal: journal } });
         }
     };
 
@@ -167,10 +164,7 @@ const ViewJournals = () => {
                         </thead>
                         <tbody>
                             {displayedJournals.map((row, index) => (
-                                <tr
-                                    className="hover:bg-[rgba(180,180,180,.7)]"
-                                    key={row.id}
-                                >
+                                <tr className="hover:bg-[rgba(180,180,180,.7)]" key={row.id}>
                                     <td className="p-2 mx-2 min-w-[50px]">
                                         {(currentPage - 1) * pageSize + index + 1}
                                     </td>
@@ -180,15 +174,13 @@ const ViewJournals = () => {
                                     <td className="p-2 mx-2 min-w-[150px]">
                                         {getDetails('faculty', row.course_id, row.faculty_id)?.title}
                                     </td>
-                                    <td className="p-2 mx-2 min-w-[150px]">{formatDate(row.created_at)}</td>
+                                    <td className="p-2 mx-2 min-w-[150px]">{new Date(row.created_at).toLocaleDateString()}</td>
                                     <td className={`${row?.remark ? 'text-green-500' : 'text-red-500'} font-medium p-2 mx-2`}>
                                         {row.remark ? 'remarked' : 'pending'}
                                     </td>
                                     <td className="p-2 mx-2">
                                         <button
-                                            onClick={(event) =>
-                                                handleJournal(event, row)
-                                            }
+                                            onClick={(event) => handleJournal(event, row)}
                                             className="bg-blue-500 text-white font-semibold px-2 py-1 rounded-md"
                                         >
                                             {userCredentials?.user?.role === "instructor"

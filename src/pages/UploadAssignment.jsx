@@ -69,7 +69,7 @@ const UploadAssignment = () => {
     || [];
   console.log(relevantFaculties)
   useEffect(() => {
-    if (getEnrolledCourses?.data.length === 0 && role !== "instructor") {
+    if (getEnrolledCourses?.data?.length === 0 && role !== "instructor") {
       toast.error("You need to enroll for a course")
     }
   }, [getEnrolledCourses?.data])
@@ -143,6 +143,9 @@ useEffect(() => {
   if (role === "student" && (assignmentList && assignmentList?.length !== 0) ) {
     setShowAssignmentDropdown(true);
   }
+  // if (editData && assignmentList ){
+  //   setAssignment(assignmentList?.find(one=> one.content.trim() === editData.title.trim())?.content || "Select an Assignment")
+  // }
 }, [assignmentList]);
 
 // Load assignments when course changes

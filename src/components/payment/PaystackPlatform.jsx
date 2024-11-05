@@ -70,7 +70,7 @@ const PaystackPlatform = ({ accept, userCredentials, allDetails }) => {
                         ...prev, isDataNeeded: true
                     }
                 })
-                navigate("/success", { state: { allDetails: allDetails, info: info } })
+                navigate('/success', { state: { allDetails: allDetails, info: info } })
                 toast.success("successful payment");
             })
             .catch((error) => {
