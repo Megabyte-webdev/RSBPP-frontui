@@ -112,7 +112,7 @@ const UploadAssignment = () => {
 
       setFaculty(facultyItem ? facultyItem.title : "Select a Faculty");
       setCourse(courseItem ? courseItem.title : "Select a Programme");
-if(role === instructor"){
+if(role === "instructor"){
       setDescription(editData.content || "");
 }
     }
