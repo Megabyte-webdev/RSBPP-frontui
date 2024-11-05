@@ -9,7 +9,9 @@ import { useNavigate } from 'react-router-dom';
 const AllAssignment = () => {
     const navigate = useNavigate();
 
-    const controllerRef = useRef(null);
+    const assignmentsControllerRef = useRef(null);
+    const submissionsControllerRef = useRef(null);
+    const contentControllerRef = useRef(null);
 
     const { getAllFaculty, setGetAllFaculty } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
@@ -25,8 +27,8 @@ const AllAssignment = () => {
     const [pageSize, setPageSize] = useState(10); // Number of assignments per page
 
     useEffect(() => {
-        // Create a new AbortController when fetching assignments
-        controllerRef.current = new AbortController();
+        assignmentsControllerRef.current = new AbortController();
+
         const fetchAssignments = async () => {
             setLoading(true);
             const myHeaders = {
@@ -36,11 +38,10 @@ const AllAssignment = () => {
             try {
                 const response = await axios.get(
                     `${BASE_URL}course/${role === "instructor" ? "getAllAssignment" : "getAssignmentSubmitCourseAll"}`,
-                    { headers: myHeaders, signal: controllerRef.current.signal }
+                    { headers: myHeaders, signal: assignmentsControllerRef.current.signal }
                 );
                 setAssignments(role === "instructor" ? response.data.allAssignment : response.data.allAssignmentSubmit || []);
                 setGetAllFaculty(prev => ({ ...prev, isDataNeeded: true }));
-                console.log(response.data);
             } catch (error) {
                 if (axios.isCancel(error)) {
                     console.log("Fetch aborted");
@@ -55,14 +56,14 @@ const AllAssignment = () => {
 
         fetchAssignments();
 
-        // Cleanup on component unmount
         return () => {
-            if (controllerRef.current) controllerRef.current.abort();
+            if (assignmentsControllerRef.current) assignmentsControllerRef.current.abort();
         };
     }, [userCredentials]);
 
-
     useEffect(() => {
+        submissionsControllerRef.current = new AbortController();
+
         const fetchSubmissions = async () => {
             const newSubmissionsLoading = {};
             const newSubmissions = {};
@@ -74,12 +75,16 @@ const AllAssignment = () => {
                 };
 
                 try {
-                    const response = await axios.get(`${BASE_URL}course/getAssignmentSubmit/${assignment.course_id}`, { headers: myHeaders });
+                    const response = await axios.get(
+                        `${BASE_URL}course/getAssignmentSubmit/${assignment.course_id}`,
+                        { headers: myHeaders, signal: submissionsControllerRef.current.signal }
+                    );
                     newSubmissions[assignment.course_id] = response.data.allAssignmentSubmit || [];
-                    console.log(response.data.allAssignmentSubmit)
                 } catch (error) {
-                    console.error("Error fetching submissions:", error);
-                    newSubmissions[assignment.course_id] = [];
+                    if (!axios.isCancel(error)) {
+                        console.error("Error fetching submissions:", error);
+                        newSubmissions[assignment.course_id] = [];
+                    }
                 } finally {
                     newSubmissionsLoading[assignment.course_id] = false;
                 }
@@ -92,19 +97,24 @@ const AllAssignment = () => {
         if (assignments.length > 0) {
             fetchSubmissions();
         }
+
+        return () => {
+            if (submissionsControllerRef.current) submissionsControllerRef.current.abort();
+        };
     }, [assignments, userCredentials]);
 
-
-
     const fetchContent = async (assignmentId) => {
+        contentControllerRef.current = new AbortController();
         try {
             const response = await axios.get(
                 `${BASE_URL}course/getAssignment/${assignmentId}`,
-                { headers: { Authorization: `Bearer ${userCredentials.token}` }, }
+                { headers: { Authorization: `Bearer ${userCredentials.token}` }, signal: contentControllerRef.current.signal }
             );
             return response?.data?.assignment?.content || 'No content available';
         } catch (error) {
-            console.error('Error fetching assignment content:', error);
+            if (!axios.isCancel(error)) {
+                console.error('Error fetching assignment content:', error);
+            }
             return '...'; // Handle error gracefully
         }
     };
@@ -138,10 +148,9 @@ const AllAssignment = () => {
     };
 
     const handleEdit = (assignment, event) => {
-        event.stopPropagation(); // Prevents the row click event
+        event.stopPropagation();
         navigate('/upload-assignment', { state: { editData: assignment } });
     };
-
 
     const handleViewAssignments = async (assignment) => {
         if (role === "instructor") {
@@ -151,14 +160,10 @@ const AllAssignment = () => {
             }
         } else {
             navigate(`/view-grade/${assignment.course_label}`, { state: { assignment: assignment } });
-
         }
     };
 
-    // Calculate total pages
     const totalPages = Math.ceil(assignments.length / pageSize);
-
-    // Slice assignments for current page
     const displayedAssignments = assignments.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
     const handleNextPage = () => {
@@ -179,7 +184,6 @@ const AllAssignment = () => {
                 {role === " instructor" ? 'All Assignments' : 'Submitted Assignments'}
             </p>
 
-            {/* Pagination Controls */}
             <div className="flex justify-between my-2 text-xs">
                 <button onClick={handlePreviousPage} disabled={currentPage === 1} className='bg-gray-300 text-gray-700 px-4 py-2 rounded-md disabled:opacity-50'>Prev</button>
                 <span>Page {currentPage} of {totalPages}</span>
@@ -205,43 +209,27 @@ const AllAssignment = () => {
                         </thead>
                         <tbody>
                             {displayedAssignments.map((row, index) => (
-                                <tr className='cursor-pointer' key={row.id} onClick={() => { handleViewAssignments(row) }}>
-                                    <td className='p-2 mx-2 min-w-[50px]'>{(currentPage - 1) * pageSize + index + 1}</td>
-
-                                    <td className='p-2 mx-2 min-w-[150px]'>
-                                        {role === "instructor" ? row?.content : getContent(row?.assignment_id)}
-                                    </td>
-
-                                    <td className='p-2 mx-2 min-w-[150px]'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
-
-                                    <td className='p-2 mx-2 min-w-[150px]'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
-                                    <td className='p-2 mx-2 min-w-[150px]'>{formatDate(row.created_at)}</td>
-                                <td className='p-2 mx-2 text-left'>
-    {role === 'instructor' ? (
-        submissionsLoading[row.course_id] ? 
-            "Loading..." : 
-            (Array.isArray(submissions[row.course_id]) ? 
-                submissions[row.course_id].filter(
-                    (item) => row.id === item.assignment_id
-                ).length : 0
-            )
-    ) : row?.grade || 'pending'}
-</td>
-
-                                    <td className='p-2 mx-2'>{row?.grade ? 'graded' : 'pending'}</td>
-                                    {role === "instructor" && <td className='p-2 mx-2'>
-                                        <button onClick={(e,) => handleEdit(row, e)} className='bg-blue-500 text-white font-semibold px-2 py-1 rounded-md'>Edit</button>
-                                    </td>}
+                                <tr className='cursor-pointer' key={row.id} onClick={() => handleViewAssignments(row)}>
+                                    <td className='p-2 mx-2'>{(currentPage - 1) * pageSize + index + 1}</td>
+                                    <td className='p-2 mx-2'>{row.course_label}</td>
+                                    <td className='p-2 mx-2'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
+                                    <td className='p-2 mx-2'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
+                                    <td className='p-2 mx-2'>{formatDate(row.date_added)}</td>
+                                    <td className='p-2 mx-2'>{role === "instructor" ? submissionsLoading[row.course_id] ? 'Loading...' : submissions[row.course_id]?.length || 0 : row.grade}</td>
+                                    <td className='p-2 mx-2'>{row.status}</td>
+                                    {role === "instructor" && (
+                                        <td className='p-2 mx-2'>
+                                            <button onClick={(event) => handleEdit(row, event)} className="text-blue-500">Edit</button>
+                                        </td>
+                                    )}
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 ) : (
-                    <p>No assignments available.</p>
+                    <p>No assignments available</p>
                 )}
             </div>
-
-
         </div>
     );
 };
