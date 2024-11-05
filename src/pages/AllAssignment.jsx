@@ -9,7 +9,8 @@ import { useNavigate } from 'react-router-dom';
 const AllAssignment = () => {
     const navigate = useNavigate();
 
-    const controller = useRef(AbortController || null)
+    const controllerRef = useRef(null);
+
     const { getAllFaculty, setGetAllFaculty } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
     const role = userCredentials?.user?.role;
@@ -24,29 +25,42 @@ const AllAssignment = () => {
     const [pageSize, setPageSize] = useState(10); // Number of assignments per page
 
     useEffect(() => {
+        // Create a new AbortController when fetching assignments
+        controllerRef.current = new AbortController();
         const fetchAssignments = async () => {
-             controller.current?.abort();
-controller.current = new AbortController();
             setLoading(true);
             const myHeaders = {
                 Authorization: `Bearer ${userCredentials.token}`,
             };
 
             try {
-                const response = await axios.get(`${BASE_URL}course/${role === "instructor" ? "getAllAssignment" : "getAssignmentSubmitCourseAll"}`,{signal: controller.current?.signal}, { headers: myHeaders });
+                const response = await axios.get(
+                    `${BASE_URL}course/${role === "instructor" ? "getAllAssignment" : "getAssignmentSubmitCourseAll"}`,
+                    { headers: myHeaders, signal: controllerRef.current.signal }
+                );
                 setAssignments(role === "instructor" ? response.data.allAssignment : response.data.allAssignmentSubmit || []);
                 setGetAllFaculty(prev => ({ ...prev, isDataNeeded: true }));
-                console.log(response.data)
+                console.log(response.data);
             } catch (error) {
-                console.error("Error fetching assignments:", error);
-                toast.error("Failed to load assignments.");
+                if (axios.isCancel(error)) {
+                    console.log("Fetch aborted");
+                } else {
+                    console.error("Error fetching assignments:", error);
+                    toast.error("Failed to load assignments.");
+                }
             } finally {
                 setLoading(false);
             }
         };
 
         fetchAssignments();
+
+        // Cleanup on component unmount
+        return () => {
+            if (controllerRef.current) controllerRef.current.abort();
+        };
     }, [userCredentials]);
+
 
     useEffect(() => {
         const fetchSubmissions = async () => {
