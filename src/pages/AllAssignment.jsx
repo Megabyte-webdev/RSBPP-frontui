@@ -198,7 +198,10 @@ const AllAssignment = () => {
                             {displayedAssignments.map((row, index) => (
                                 <tr className='cursor-pointer' key={row.id} onClick={() => handleViewAssignments(row)}>
                                     <td className='p-2 mx-2'>{(currentPage - 1) * pageSize + index + 1}</td>
-                                    <td className='p-2 mx-2'>{row.course_label}</td>
+                                    
+                                    <td className='p-2 mx-2 min-w-[150px]'>
+                                        {role === "instructor" ? row?.content : getContent(row?.assignment_id)}
+                                    </td>  
                                     <td className='p-2 mx-2'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
                                     <td className='p-2 mx-2'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
                                     <td className='p-2 mx-2 min-w-[150px]'>{new Date(row.created_at).toLocaleDateString()}</td>
