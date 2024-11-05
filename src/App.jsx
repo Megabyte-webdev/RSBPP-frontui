@@ -167,9 +167,9 @@ const App = () => {
             )}
 
             <Route path="/login" element={<NewLogin />} />
+            <Route path="/registration" element={<Registration />} />
  <Route path="/carts" element={<Carts />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/registration" element={<Registration />} />
             <Route path="/verify_email" element={<Login />} />
 
             <Route path="/" element={<OnlineProgramsLayout />}>
