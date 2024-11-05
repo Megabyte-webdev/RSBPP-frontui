@@ -11,11 +11,11 @@ const GivenAssignment = () => {
     const { getAllFaculty, setGetAllFaculty, getEnrolledCourses, setGetEnrolledCourses } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
     const role = userCredentials?.user?.role;
-    
+
     // State for assignments and loading
     const [assignments, setAssignments] = useState([]);
     const [loading, setLoading] = useState(true);
-    
+
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
     const [assignmentsPerPage] = useState(5); // Number of assignments to display per page
@@ -27,6 +27,8 @@ const GivenAssignment = () => {
     }, []);
 
     useEffect(() => {
+        const controller = new AbortController();
+        
         const fetchAssignments = async () => {
             setLoading(true);
             const headers = { Authorization: `Bearer ${userCredentials.token}` };
@@ -46,7 +48,7 @@ const GivenAssignment = () => {
 
                     try {
                         const url = `${BASE_URL}course/getAllAssignmentCourse/${course.courseId}`;
-                        const response = await axios.get(url, { headers });
+                        const response = await axios.get(url, { headers, signal: controller.signal });
                         console.log(`Response from API for course ${course.courseId}:`, response.data);
 
                         // Access assignments from the correct key
@@ -57,7 +59,9 @@ const GivenAssignment = () => {
                             fetchedAssignments.push(...assignmentsFromCourse); // Merge fetched assignments
                         }
                     } catch (error) {
-                        console.error(`Error fetching assignments for course ${course.courseId}:`, error);
+                        if (!controller.signal.aborted) {
+                            console.error(`Error fetching assignments for course ${course.courseId}:`, error);
+                        }
                     }
                 }));
 
@@ -66,8 +70,10 @@ const GivenAssignment = () => {
 
                 setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
             } catch (error) {
-                console.error("Error fetching assignments:", error);
-                toast.error("Failed to load assignments.");
+                if (!controller.signal.aborted) {
+                    console.error("Error fetching assignments:", error);
+                    toast.error("Failed to load assignments.");
+                }
             } finally {
                 setLoading(false);
             }
@@ -76,6 +82,8 @@ const GivenAssignment = () => {
         if (getEnrolledCourses.data) {
             fetchAssignments();
         }
+
+        return () => controller.abort();
     }, [getEnrolledCourses, userCredentials]);
 
     console.log("Assignments State:", assignments); // Log assignments to check their values
@@ -100,8 +108,8 @@ const GivenAssignment = () => {
             <p className="sticky top-18 bg-transparent ml-auto my-2 flex items-center gap-2 font-medium">
                 All Assignments
             </p>
-                        {/* Pagination Controls */}
-                        <div className="flex justify-between mt-4 text-xs">
+            {/* Pagination Controls */}
+            <div className="flex justify-between mt-4 text-xs">
                 <button 
                     disabled={currentPage === 1} 
                     onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} 
@@ -118,7 +126,6 @@ const GivenAssignment = () => {
                     Next
                 </button>
             </div>
-
 
             <div className='overflow-x-auto mt-6'>
                 {loading ? (
@@ -156,7 +163,6 @@ const GivenAssignment = () => {
                     <p>No assignments available.</p>
                 )}
             </div>
-
         </div>
     );
 };
