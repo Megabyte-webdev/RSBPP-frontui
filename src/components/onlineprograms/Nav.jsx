@@ -27,7 +27,7 @@ setCartStore
 
         // Refetch cart data on location change
         useEffect(() => {
-            if (userCredentials) {
+            if (userCredentials !== null) {
                 cartsTotalFunction(token, userCredentials.user.id, setError, setCurrentTotal, (newCart) => {
                     setCartStore(newCart);
                 });
