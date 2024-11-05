@@ -138,11 +138,7 @@ const Carts = () => {
                                             </p>
                                         </div>
                                         <button
-                                            onClick={() =>
-                                                navigate(userCredentials ? '/checkout' : '/registration', {
-                                                    state: { cartCourses: cartStore?.data, currentTotal },
-                                                })
-                                            }
+                                            onClick={() =>userCredentials ?navigate('/checkout', {state: { cartCourses: cartStore?.data, currentTotal }}) : navigate('/registration') }
                                             className="col-12 btn bg-black rounded-full py-2 text-white"
                                         >
                                             Checkout
