@@ -112,7 +112,9 @@ const UploadAssignment = () => {
 
       setFaculty(facultyItem ? facultyItem.title : "Select a Faculty");
       setCourse(courseItem ? courseItem.title : "Select a Programme");
+if(role === instructor"){
       setDescription(editData.content || "");
+}
     }
   }, [editData, getAllFaculty]);
 
@@ -181,11 +183,19 @@ useEffect(() => {
       toast.error("Please select a valid faculty and course.");
       return;
     }
+if(assignmentList && !assignment){
+toast.error("Please select an assignment");
+      return;
+}
 
     if (!selectedFile && !editData) {
       toast.error("Please upload a file.");
       return;
     }
+if(!selectedFile){
+toast.error("Please upload the assignment submission file")
+return;
+}
 
     setLoading(true);
     const formData = new FormData();
