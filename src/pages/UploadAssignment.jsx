@@ -183,18 +183,14 @@ useEffect(() => {
       toast.error("Please select a valid faculty and course.");
       return;
     }
-if(assignmentList && !assignment){
+if(assignmentList && !selectedAssignment){
 toast.error("Please select an assignment");
       return;
 }
 
     if (!selectedFile && !editData) {
       toast.error("Please upload a file.");
-      return;
-    }
-if(!selectedFile){
-toast.error("Please upload the assignment submission file")
-return;
+      return
 }
 
     setLoading(true);
