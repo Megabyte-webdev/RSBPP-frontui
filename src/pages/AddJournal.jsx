@@ -130,6 +130,7 @@ if(editData && faculty){
         toast.success(response.data.message || "Journal saved successfully");
         setLoading(false);
         navigate("/view-journals");
+        scrollTo(0,0);
       })
       .catch((error) => {
         console.error(error);
