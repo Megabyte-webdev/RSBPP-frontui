@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/base";
 import axios from "axios";
 import '../../fonts/fonts.css';
+import { Spinner } from "react-bootstrap";
 
 const Programmes = () => {
   const [loading, setLoading] = useState(false);
@@ -75,7 +76,7 @@ const Programmes = () => {
       {/* Right side */}
       <div className="bg-gray-100 px-4 md:px-1 mt-2 flex-1 w-full min-h-full text-[#8B0002]">
         {loading ? (
-          <div>Loading...</div>
+          <div className="w-full h-full flex items-center justify-center"><Spinner /></div>
         ) : (
           Object.entries(groupedData).map(([faculty, programs]) => (
             <section className="py-2" key={faculty}>

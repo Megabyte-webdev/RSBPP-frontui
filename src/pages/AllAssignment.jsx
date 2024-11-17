@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { UserContext } from '../context/AuthContext';
 import { ResourceContext } from '../context/ResourceContext';
 import { useNavigate } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
 
 const AllAssignment = () => {
     const navigate = useNavigate();
@@ -183,7 +184,7 @@ const AllAssignment = () => {
 
             <div className='overflow-x-auto mt-6'>
                 {loading ? (
-                    <p>Loading...</p>
+                    <p className="w-full h-full flex items-center justify-center"><Spinner /></p>
                 ) : displayedAssignments.length > 0 ? (
                     <table className="w-full min-w-[700px] overflow-auto bg-white rounded-lg border border-gray-300">
                         <thead className='bg-gray-200 font-medium'>
