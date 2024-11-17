@@ -55,6 +55,10 @@ const AllAssignment = () => {
         };
 
         fetchAssignments();
+
+        return () => {
+            if (assignmentsControllerRef.current) assignmentsControllerRef.current.abort();
+        };
     }, [userCredentials]);
 
     useEffect(() => {
