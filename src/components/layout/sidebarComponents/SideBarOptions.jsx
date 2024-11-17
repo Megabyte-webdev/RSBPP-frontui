@@ -4,7 +4,7 @@ import iconEight from "../../../assets/side-icons/new8.png"
 import iconNine from "../../../assets/side-icons/icon9.png"
 import iconTen from "../../../assets/side-icons/new10.png"
 import iconEleven from "../../../assets/side-icons/new11.png"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import SidebarToggle from "./SidebarToggle";
 import { UserContext } from "../../../context/AuthContext"
@@ -21,11 +21,12 @@ const SideBarOptions = ({ handleClose }) => {
   const instructor = role === "instructor"
   const studentOrInstructor = role === "student" || role === "instructor"
   // console.log(adminOrInstructor)
-
+const navigate= useNavigate();
   function Logout() {
     localStorage.removeItem("userDetails")
     setUserCredentials(null)
     toast.success("logout successful");
+    navigate("/login")
 
   }
   const handleSubOptionClick = (clickedOptionTitle) => {

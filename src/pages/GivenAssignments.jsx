@@ -6,6 +6,7 @@ import { UserContext } from '../context/AuthContext';
 import { ResourceContext } from '../context/ResourceContext';
 import { useNavigate } from 'react-router-dom';
 import AssignmentTable from './AssignmentTable'; // Import the AssignmentTable component
+import { Spinner } from 'react-bootstrap';
 
 const GivenAssignment = () => {
     const navigate = useNavigate();
@@ -108,7 +109,7 @@ const GivenAssignment = () => {
             </p>
 
             {/* Loading State */}
-            {loading && <p>Loading assignments...</p>}
+            {loading && <p className="w-full h-full flex items-center justify-center"><Spinner /></p>}
 
             {/* Error State */}
             {error && <p className="text-red-500">{error}</p>}
