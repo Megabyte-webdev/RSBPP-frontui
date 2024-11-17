@@ -69,7 +69,7 @@ const UploadAssignment = () => {
     || [];
   console.log(relevantFaculties)
   useEffect(() => {
-    if (getEnrolledCourses?.data.length === 0 && role !== "instructor") {
+    if (getEnrolledCourses?.data?.length === 0 && role !== "instructor") {
       toast.error("You need to enroll for a course")
     }
   }, [getEnrolledCourses?.data])
@@ -112,7 +112,9 @@ const UploadAssignment = () => {
 
       setFaculty(facultyItem ? facultyItem.title : "Select a Faculty");
       setCourse(courseItem ? courseItem.title : "Select a Programme");
+if(role === "instructor"){
       setDescription(editData.content || "");
+}
     }
   }, [editData, getAllFaculty]);
 
@@ -143,6 +145,9 @@ useEffect(() => {
   if (role === "student" && (assignmentList && assignmentList?.length !== 0) ) {
     setShowAssignmentDropdown(true);
   }
+  // if (editData && assignmentList ){
+  //   setAssignment(assignmentList?.find(one=> one.content.trim() === editData.title.trim())?.content || "Select an Assignment")
+  // }
 }, [assignmentList]);
 
 // Load assignments when course changes
@@ -178,11 +183,15 @@ useEffect(() => {
       toast.error("Please select a valid faculty and course.");
       return;
     }
+if(assignmentList && !selectedAssignment){
+toast.error("Please select an assignment");
+      return;
+}
 
     if (!selectedFile && !editData) {
       toast.error("Please upload a file.");
-      return;
-    }
+      return
+}
 
     setLoading(true);
     const formData = new FormData();

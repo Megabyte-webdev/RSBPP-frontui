@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { UserContext } from '../context/AuthContext';
 import { ResourceContext } from '../context/ResourceContext';
 import { useNavigate } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
 
 const ViewJournals = () => {
     const navigate = useNavigate();
@@ -78,11 +79,10 @@ const ViewJournals = () => {
     };
 
     const sortJournalsByCourse = (journals) => {
-        return [...journals].sort((a, b) => {
-            const courseA = getDetails('course', a.course_id, a.faculty_id)?.title.toLowerCase() || '';
-            const courseB = getDetails('course', b.course_id, b.faculty_id)?.title.toLowerCase() || '';
-            return courseA.localeCompare(courseB);
-        });
+        return [...journals].sort((a, b) => 
+           new Date(b.created_at) - new Date(a.created_at)
+        );
+        
     };
 
     const formatDate = (timestamp) => {
@@ -150,7 +150,7 @@ const ViewJournals = () => {
 
             <div className="overflow-x-auto mt-6">
                 {loading ? (
-                    <p>Loading...</p>
+                    <p className="w-full h-full flex items-center justify-center"><Spinner /></p>
                 ) : displayedJournals.length > 0 ? (
                     <table className="w-full min-w-[700px] overflow-auto bg-white rounded-lg border border-gray-300">
                         <thead className="bg-gray-200 font-medium">
@@ -175,7 +175,7 @@ const ViewJournals = () => {
                                     <td className="p-2 mx-2 min-w-[150px]">
                                         {getDetails('faculty', row.course_id, row.faculty_id)?.title}
                                     </td>
-                                    <td className="p-2 mx-2 min-w-[150px]">{formatDate(row.created_at)}</td>
+                                    <td className="p-2 mx-2 min-w-[150px]">{new Date(row.created_at).toLocaleDateString()}</td>
                                     <td className={`${row?.remark ? 'text-green-500' : 'text-red-500'} font-medium p-2 mx-2`}>
                                         {row.remark ? 'remarked' : 'pending'}
                                     </td>

@@ -28,10 +28,12 @@ const Programme = () => {
   }, [courseId]);
 
   scrollTo(0, 0);
+  
   return (
+    
     programInfo ?
       <>
-        <Hero programme={true} title={programInfo.title && programInfo.title} />
+        <Hero programme={true} title={programInfo.title && programInfo.title} programInfo={programInfo} />
         <ProgramPreview details={programInfo && programInfo} />
       </>
       :

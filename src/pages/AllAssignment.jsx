@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { UserContext } from '../context/AuthContext';
 import { ResourceContext } from '../context/ResourceContext';
 import { useNavigate } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
 
 const AllAssignment = () => {
     const navigate = useNavigate();
@@ -27,18 +28,16 @@ const AllAssignment = () => {
     const [pageSize, setPageSize] = useState(10); // Number of assignments per page
 
     useEffect(() => {
-        assignmentsControllerRef.current = new AbortController();
-
+        setLoading(true);
+        const controller = new AbortController();
         const fetchAssignments = async () => {
             setLoading(true);
-            const myHeaders = {
-                Authorization: `Bearer ${userCredentials.token}`,
-            };
+            const headers = { Authorization: `Bearer ${userCredentials.token}` };
 
             try {
                 const response = await axios.get(
                     `${BASE_URL}course/${role === "instructor" ? "getAllAssignment" : "getAssignmentSubmitCourseAll"}`,
-                    { headers: myHeaders, signal: assignmentsControllerRef.current.signal }
+                    { headers, signal: controller.signal }
                 );
                 setAssignments(role === "instructor" ? response.data.allAssignment : response.data.allAssignmentSubmit || []);
                 setGetAllFaculty(prev => ({ ...prev, isDataNeeded: true }));
@@ -50,7 +49,9 @@ const AllAssignment = () => {
                     toast.error("Failed to load assignments.");
                 }
             } finally {
-                setLoading(false);
+                if (!controller.signal.aborted) {
+                    setLoading(false);
+                }
             }
         };
 
@@ -62,7 +63,7 @@ const AllAssignment = () => {
     }, [userCredentials]);
 
     useEffect(() => {
-        submissionsControllerRef.current = new AbortController();
+        const controller = new AbortController();
 
         const fetchSubmissions = async () => {
             const newSubmissionsLoading = {};
@@ -70,14 +71,14 @@ const AllAssignment = () => {
 
             for (const assignment of assignments) {
                 newSubmissionsLoading[assignment.course_id] = true;
-                const myHeaders = {
+                const headers = {
                     Authorization: `Bearer ${userCredentials.token}`,
                 };
 
                 try {
                     const response = await axios.get(
                         `${BASE_URL}course/getAssignmentSubmit/${assignment.course_id}`,
-                        { headers: myHeaders, signal: submissionsControllerRef.current.signal }
+                        { headers, signal: controller.signal }
                     );
                     newSubmissions[assignment.course_id] = response.data.allAssignmentSubmit || [];
                 } catch (error) {
@@ -86,10 +87,11 @@ const AllAssignment = () => {
                         newSubmissions[assignment.course_id] = [];
                     }
                 } finally {
-                    newSubmissionsLoading[assignment.course_id] = false;
+                    if (!controller.signal.aborted) {
+                        newSubmissionsLoading[assignment.course_id] = false;
+                    }
                 }
             }
-
             setSubmissions(newSubmissions);
             setSubmissionsLoading(newSubmissionsLoading);
         };
@@ -98,17 +100,15 @@ const AllAssignment = () => {
             fetchSubmissions();
         }
 
-        return () => {
-            if (submissionsControllerRef.current) submissionsControllerRef.current.abort();
-        };
     }, [assignments, userCredentials]);
 
     const fetchContent = async (assignmentId) => {
-        contentControllerRef.current = new AbortController();
+        const controller = new AbortController();
+
         try {
             const response = await axios.get(
                 `${BASE_URL}course/getAssignment/${assignmentId}`,
-                { headers: { Authorization: `Bearer ${userCredentials.token}` }, signal: contentControllerRef.current.signal }
+                { headers: { Authorization: `Bearer ${userCredentials.token}` }, signal: controller.signal }
             );
             return response?.data?.assignment?.content || 'No content available';
         } catch (error) {
@@ -139,14 +139,6 @@ const AllAssignment = () => {
         return faculty;
     };
 
-    const formatDate = (timestamp) => {
-        const dateObj = new Date(timestamp);
-        const year = dateObj.getFullYear();
-        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-        const day = String(dateObj.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    };
-
     const handleEdit = (assignment, event) => {
         event.stopPropagation();
         navigate('/upload-assignment', { state: { editData: assignment } });
@@ -156,7 +148,7 @@ const AllAssignment = () => {
         if (role === "instructor") {
             const course = await getDetails('course', assignment.course_id, assignment.faculty_id);
             if (course) {
-                navigate(`/view-assignments/${course.title}`, { state: { courseId: assignment.course_id, assignmentId: assignment.id} });
+                navigate(`/view-assignments/${course.title}`, { state: { courseId: assignment.course_id, assignmentId: assignment.id } });
             }
         } else {
             navigate(`/view-grade/${assignment.course_label}`, { state: { assignment: assignment } });
@@ -192,7 +184,7 @@ const AllAssignment = () => {
 
             <div className='overflow-x-auto mt-6'>
                 {loading ? (
-                    <p>Loading...</p>
+                    <p className="w-full h-full flex items-center justify-center"><Spinner /></p>
                 ) : displayedAssignments.length > 0 ? (
                     <table className="w-full min-w-[700px] overflow-auto bg-white rounded-lg border border-gray-300">
                         <thead className='bg-gray-200 font-medium'>
@@ -211,17 +203,29 @@ const AllAssignment = () => {
                             {displayedAssignments.map((row, index) => (
                                 <tr className='cursor-pointer' key={row.id} onClick={() => handleViewAssignments(row)}>
                                     <td className='p-2 mx-2'>{(currentPage - 1) * pageSize + index + 1}</td>
-                                    <td className='p-2 mx-2'>{row.course_label}</td>
+                                    
+                                    <td className='p-2 mx-2 min-w-[150px]'>
+                                        {role === "instructor" ? row?.content : getContent(row?.assignment_id)}
+                                    </td>  
                                     <td className='p-2 mx-2'>{getDetails('course', row.course_id, row.faculty_id)?.title}</td>
                                     <td className='p-2 mx-2'>{getDetails('faculty', row.course_id, row.faculty_id)?.title}</td>
-                                    <td className='p-2 mx-2'>{formatDate(row.date_added)}</td>
-                                    <td className='p-2 mx-2'>{role === "instructor" ? submissionsLoading[row.course_id] ? 'Loading...' : submissions[row.course_id]?.length || 0 : row.grade}</td>
-                                    <td className='p-2 mx-2'>{row.status}</td>
-                                    {role === "instructor" && (
-                                        <td className='p-2 mx-2'>
-                                            <button onClick={(event) => handleEdit(row, event)} className="text-blue-500">Edit</button>
-                                        </td>
-                                    )}
+                                    <td className='p-2 mx-2 min-w-[150px]'>{new Date(row.created_at).toLocaleDateString()}</td>
+                                    <td className='p-2 mx-2 text-left'>
+                                        {role === 'instructor' ? (
+                                            submissionsLoading[row.course_id] ?
+                                                "Loading..." :
+                                                (Array.isArray(submissions[row.course_id]) ?
+                                                    submissions[row.course_id].filter(
+                                                        (item) => row.id === item.assignment_id
+                                                    ).length : 0
+                                                )
+                                        ) : row?.grade || 'pending'}
+                                    </td>
+
+                                    <td className='p-2 mx-2'>{row?.grade ? 'graded' : 'pending'}</td>
+                                    {role === "instructor" && <td className='p-2 mx-2'>
+                                        <button onClick={(e,) => handleEdit(row, e)} className='bg-blue-500 text-white font-semibold px-2 py-1 rounded-md'>Edit</button>
+                                    </td>}
                                 </tr>
                             ))}
                         </tbody>

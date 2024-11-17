@@ -160,15 +160,16 @@ const App = () => {
             {userCredentials && (
               <>
                 <Route path="/learning/:id" element={<LearningDetails />} />
-                <Route path="/carts" element={<Carts />} />
+               
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/success" element={<SuccessfulCheckoutPage />} />
               </>
             )}
 
             <Route path="/login" element={<NewLogin />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/registration" element={<Registration />} />
+ <Route path="/carts" element={<Carts />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/verify_email" element={<Login />} />
 
             <Route path="/" element={<OnlineProgramsLayout />}>

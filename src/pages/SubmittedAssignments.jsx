@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { UserContext } from '../context/AuthContext';
 import { ResourceContext } from '../context/ResourceContext';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
 
 const SubmittedAssignments = () => {
   const location = useLocation();
@@ -73,7 +74,7 @@ const {assignmentId}= location.state
       </p>
 
       {loading ? (
-        <div className="text-xl font-semibold">Loading...</div>
+        <p className="w-full h-full flex items-center justify-center"><Spinner /></p>
       ) : groupedAssignments.length === 0 ? (
         <div className="text-xl font-semibold">No Submitted Assignments</div>
       ) : (
@@ -88,7 +89,7 @@ const {assignmentId}= location.state
                   navigate('/grade-assignment', { state: { assignment: row } });
                   scrollTo(0, 0);
                 }}
-                className="min-h-[300px] cursor-pointer bg-white shadow-lg rounded-lg p-6 flex flex-col items-center"
+                className="min-h-[300px] break-all cursor-pointer bg-white shadow-lg rounded-lg p-6 flex flex-col items-center"
               >
                 <img
                   src={`${IMAGE_URL}profile/${user.image}` || 'https://via.placeholder.com/100'}
@@ -98,8 +99,8 @@ const {assignmentId}= location.state
                 <h3 className="text-lg text-center font-semibold mt-auto">
                   {`${user.first_name} ${user.last_name}`}
                 </h3>
-                <p className="text-sm text-gray-600 my-[2px]">{user.role}</p>
-                <p className="text-sm text-gray-600 my-[2px]">{user.email}</p>
+                <p className="text-sm text-gray-600 my-[2px]">{user?.role}</p>
+                <p className="text-sm text-gray-600 my-[2px] text-center">{user?.email}</p>
 
                 <div className="flex justify-between items-center text-[10px]">
                   <p className={`mt-1 ${row?.grade !== null ? 'text-green-500' : 'text-red-500'} font-semibold`}>

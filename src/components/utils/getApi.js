@@ -150,7 +150,7 @@ export const cartsTotalFunction = (
       .then((response) => {
         setCurrentTotal(response.data.totalPrice);
         console.log(response, response?.data?.Cart);
-        setCartStore({data: response?.data?.Cart})
+        if(setCartStore) setCartStore({data: response?.data?.Cart})
       })
       .catch((error) => {
         console.log(error);
