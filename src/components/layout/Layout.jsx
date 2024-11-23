@@ -13,7 +13,7 @@ import { ResourceContext } from "../../context/ResourceContext";
 const Layout = () => {
     const navigate = useNavigate();
     const { userCredentials } = useContext(UserContext);
-    const { setGetAllCarts,getAllCarts, setCartStore } = useContext(ResourceContext);
+    const { setGetAllCarts, getAllCarts, setCartStore } = useContext(ResourceContext);
 
     const carts = JSON.parse(localStorage.getItem("carts") && localStorage.getItem("carts")) || null;
 
