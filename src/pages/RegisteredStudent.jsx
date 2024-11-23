@@ -12,14 +12,17 @@ import AllFaculties from '../components/stats/AllFaculties';
 import AllCourses from '../components/stats/AllCourses';
 import { UserContext } from '../context/AuthContext';
 import AllStudents from '../components/stats/AllStudents';
+import AllCategory from '../components/stats/AllCategory';
 
 const RegisteredStudent = () => {
     const { getAllFaculty,
         setGetAllFaculty,
         getAllUsers,
         getAllCourses,
+        getAllCategory,
         setGetAllCourses,
-        setGetAllUsers } = useContext(ResourceContext)
+        setGetAllUsers,
+        setGetAllCategory } = useContext(ResourceContext)
 
     const {userCredentials} = useContext(UserContext)
     const [show, setShow] = useState("users")
@@ -34,6 +37,13 @@ const RegisteredStudent = () => {
 
     useEffect(() => {
         setGetAllFaculty((prev) => {
+            return {
+                ...prev, isDataNeeded: true
+            }
+        })
+    }, [])
+    useEffect(() => {
+        setGetAllCategory((prev) => {
             return {
                 ...prev, isDataNeeded: true
             }
@@ -111,6 +121,28 @@ const RegisteredStudent = () => {
                         </div>
                     </Col>
                     <Col md={3} xs={6} className='mb-3 mb-md-0'>
+                        <div className={show === "category" ? "registra_nav" : ""}>
+                            <div
+                                onClick={() => setShow("category")}
+                                className="border-end p-1 pointer d-flex">
+                                <div className="student_stats_icon">
+                                    <span>
+                                        <GrMonitor size={30} />
+                                    </span>
+                                </div>
+                                <div className="ms-2">
+                                    <p className="fs_sm ash_text">Category</p>
+                                    <h4>{getAllFaculty.data?.length}</h4>
+                                    <p className='fs_xsm prime_brown'>
+                                        <span> <FaArrowUpLong /> </span>
+                                        <span>16%</span>
+                                        <span className='ash_text ms-2'>This month</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </Col>
+                    <Col md={3} xs={6} className='mb-3 mb-md-0'>
                         <div className={show === "faculty" ? "registra_nav" : ""}>
                             <div
                                 onClick={() => setShow("faculty")}
@@ -160,6 +192,7 @@ const RegisteredStudent = () => {
             {show === "members" && (<AllStudents getAllUsers={studentsOnly} />)}
             {show === "faculty" && (<AllFaculties userCredentials={userCredentials} getAllFaculty={getAllFaculty.data} />)}
             {show === "courses" && (<AllCourses getAllCourses={getAllCourses.data} />)}
+            {show === "category" && (<AllCategory getAllFaculty={getAllFaculty.data} />)}
 
         </div>
     )

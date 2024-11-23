@@ -272,7 +272,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                                 className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
                                                 <option value="">--select --</option>
                                                 <option value="online">Online</option>
-                                                <option value="offline">Offline</option>
+                                                <option value="digiknowh">Digiknowh</option>
                                             </select>
                                         </div>
                                         <div className="mb-3 col-md-6">

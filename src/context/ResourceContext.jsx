@@ -27,7 +27,10 @@ function ResourceContextProvider({ children }) {
         data: null,
         isDataNeeded: false,
     });
-
+    const [getAllCategory, setGetAllCategory] = useState({
+        data: null,
+        isDataNeeded: false,
+    });
     const [getAllCourses, setGetAllCourses] = useState({
         data: null,
         isDataNeeded: false,
@@ -69,6 +72,16 @@ function ResourceContextProvider({ children }) {
             getItemFunc(token, setGetAllUsers, setErrorMessage, endPoint, dataArray)
         }
     }, [getAllUsers.isDataNeeded]);
+
+    //Faculty Resource useEffect
+    useEffect(() => {
+        setErrorMessage('');
+        if (getAllCategory.isDataNeeded) {
+            const endPoint = "faculty/getCategoryAll"
+            const dataArray = "CategoryAll"
+            getItemFunc(token, setGetAllCategory, setErrorMessage, endPoint, dataArray)
+        }
+    }, [getAllCategory.isDataNeeded]);
 
     //Faculty Resource useEffect
     useEffect(() => {
@@ -154,6 +167,8 @@ function ResourceContextProvider({ children }) {
                 setGetAllFaculty,
                 getAllCourses,
                 setGetAllCourses,
+                getAllCategory,
+                setGetAllCategory,
                 getAllCarts,
                 setGetAllCarts,
                 getEnrolledCourses,
