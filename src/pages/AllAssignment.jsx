@@ -61,28 +61,28 @@ const AllAssignment = () => {
             if (assignmentsControllerRef.current) assignmentsControllerRef.current.abort();
         };
     }, [userCredentials]);
-
     useEffect(() => {
         const controller = new AbortController();
-
-        const fetchSubmissions = () => {
+    
+        const fetchSubmissions = async () => {
             const newSubmissionsLoading = {};
             const newSubmissions = {};
-
+    
+            // Iterate over assignments and fetch submission data
             for (const assignment of assignments) {
                 newSubmissionsLoading[assignment.course_id] = true;
                 const headers = {
                     Authorization: `Bearer ${userCredentials.token}`,
                 };
-
+    
                 try {
-                    const response = axios.get(
+                    const response = await axios.get(
                         `${BASE_URL}course/getAssignmentSubmit/${assignment.course_id}`,
                         { headers, signal: controller.signal }
                     );
                     newSubmissions[assignment.course_id] = response.data.allAssignmentSubmit || [];
                 } catch (error) {
-                    if (!axios.isCancel(error)) {
+                    if (!controller.signal.aborted) {
                         console.error("Error fetching submissions:", error);
                         newSubmissions[assignment.course_id] = [];
                     }
@@ -92,16 +92,23 @@ const AllAssignment = () => {
                     }
                 }
             }
+    
+            // Update the state after all fetches are complete
             setSubmissions(newSubmissions);
             setSubmissionsLoading(newSubmissionsLoading);
         };
-
+    
+        // Trigger the fetch function only if there are assignments
         if (assignments.length > 0) {
             fetchSubmissions();
         }
-
-    }, [assignments, userCredentials]);
-
+    
+        return () => {
+            // Clean up and abort requests if the component unmounts or effect re-runs
+            controller.abort();
+        };
+    }, [assignments, userCredentials]); // Dependencies: assignments and userCredentials
+    
     const fetchContent = async (assignmentId) => {
         const controller = new AbortController();
 
@@ -122,13 +129,27 @@ const AllAssignment = () => {
     const getContent = (assignmentId) => {
         if (assignmentContents[assignmentId]) {
             return assignmentContents[assignmentId]; // Return cached content if available
+        } else if (assignmentContents[assignmentId] === 'loading') {
+            return 'Loading...'; // Display loading while content is being fetched
         } else {
-            fetchContent(assignmentId).then((content) =>
-                setAssignmentContents((prev) => ({ ...prev, [assignmentId]: content }))
-            );
-            return 'Loading...'; // Display loading until content is fetched
+            // Mark as loading and fetch the content
+            setAssignmentContents((prev) => ({
+                ...prev,
+                [assignmentId]: 'loading', // Mark the assignment as loading
+            }));
+    
+            fetchContent(assignmentId).then((content) => {
+                // Once content is fetched, update the state
+                setAssignmentContents((prev) => ({
+                    ...prev,
+                    [assignmentId]: content, // Set the fetched content
+                }));
+            });
+    
+            return '...'; // Return loading until content is fetched
         }
     };
+    
 
     const getDetails = (attr, info, facId) => {
         const faculty = getAllFaculty?.data?.find((item) => item.id === facId);
@@ -213,7 +234,7 @@ const AllAssignment = () => {
                                     <td className='p-2 mx-2 text-left'>
                                         {role === 'instructor' ? (
                                             submissionsLoading[row.course_id] ?
-                                                "Loading..." :
+                                                <Spinner /> :
                                                 (Array.isArray(submissions[row.course_id]) ?
                                                     submissions[row.course_id].filter(
                                                         (item) => row.id === item.assignment_id
