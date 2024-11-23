@@ -65,7 +65,7 @@ const AllAssignment = () => {
     useEffect(() => {
         const controller = new AbortController();
 
-        const fetchSubmissions = async () => {
+        const fetchSubmissions = () => {
             const newSubmissionsLoading = {};
             const newSubmissions = {};
 
@@ -76,7 +76,7 @@ const AllAssignment = () => {
                 };
 
                 try {
-                    const response = await axios.get(
+                    const response = axios.get(
                         `${BASE_URL}course/getAssignmentSubmit/${assignment.course_id}`,
                         { headers, signal: controller.signal }
                     );
