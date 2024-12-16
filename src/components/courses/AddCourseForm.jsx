@@ -1,82 +1,95 @@
-import { useContext, useEffect, useState } from "react"
-// import Widget from "../auth/Widget"
-import { UserContext } from "../../context/AuthContext"
-import toast from "react-hot-toast"
-import axios from "axios"
-import { ResourceContext } from "../../context/ResourceContext"
-import { BASE_URL } from "../utils/base"
-import { Spinner } from "react-bootstrap"
-import ReactQuill from "react-quill"
-import 'react-quill/dist/quill.snow.css';
-import { editorFormats, editorModules } from "../utils/textEditor"
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../context/AuthContext";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { ResourceContext } from "../../context/ResourceContext";
+import { BASE_URL } from "../utils/base";
+import { Spinner } from "react-bootstrap";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { editorFormats, editorModules } from "../utils/textEditor";
 
-const AddCourseForm = ({ isOpen, setIsOpen }) => {
-    const { getAllFaculty,
+const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
+    
+    const {
+        getAllCategory,
+        setGetAllCategory,
         setGetAllFaculty,
+        getAllFaculty,
         getAllCourses,
-        setGetAllCourses, } = useContext(ResourceContext);
+        setGetAllCourses,
+    } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
 
-    const [loading, setLoading] = useState(false)
-    const [errorMsg, setErrorMsg] = useState("")
-    const [showMsg, setShowMsg] = useState("")
-    const [comments, setComments] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+    const [showMsg, setShowMsg] = useState("");
+    const [comments, setComments] = useState("");
+
     const [details, setDetails] = useState({
         title: "",
-        // code: "",
         description: "",
         objective: "",
         outlines: "",
         duration: "",
-        course_type: "",
         program: "",
+        category_id: "",
         faculty_id: "",
         price: "",
         participate: "",
         curriculum: "",
-    })
+    });
 
     useEffect(() => {
-        setGetAllFaculty((prev) => {
-            return {
-                ...prev, isDataNeeded: true
-            }
-        })
-    }, [])
+        setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
+        setGetAllCategory((prev) => ({ ...prev, isDataNeeded: true }));
+        if (editCourse) {
+            console.log(editCourse)
+            setDetails({
+                title: editCourse?.title || "",
+                description: editCourse?.description || "",
+                objective: editCourse?.objective || "",
+                outlines: editCourse?.outlines || "",
+                duration: editCourse?.duration || "",
+                program: editCourse?.program || "",
+                category_id: getAllCategory.data?.find(one=>one.label === editCourse?.course_type)?.id || "",
+                faculty_id: editCourse?.faculty_id || "",
+                price: editCourse?.price || "",
+                participate: editCourse?.participate || "",
+                curriculum: editCourse?.curriculum || "",
+            });
+        }else{
+            resetStates();
+        }
+        
+    }, [editCourse]);
 
-    // close Modal
-    const handleIsClose = () => (
-        setIsOpen((prev) => {
-            return {
-                ...prev, display: "none"
-            }
-        })
-    )
+    const handleIsClose = () =>
+        setIsOpen((prev) => ({ ...prev, display: "none" }));
 
     const resetStates = () => {
         setDetails({
             title: "",
-            // code: "",
             description: "",
             objective: "",
             outlines: "",
             duration: "",
-            course_type: "",
             program: "",
+            category_id: "",
             faculty_id: "",
             price: "",
             participate: "",
             curriculum: "",
         });
+        setErrorMsg("");
     };
+
     const handleOnChange = (e) => {
-        const { value, name, type, checked } = e.target
-        setDetails((prev) => {
-            return {
-                ...prev,
-                [name]: type === "checkbox" ? checked : value
-            };
-        });
+        const { value, name, type, checked } = e.target;
+        setDetails((prev) => ({
+            ...prev,
+            [name]: type === "checkbox" ? checked : value,
+        }));
         setErrorMsg("");
     };
 
@@ -107,80 +120,46 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setErrorMsg("")
+        setErrorMsg("");
         setLoading(true);
-        setGetAllCourses((prev) => {
-            return {
-                ...prev, isDataNeeded: false
-            }
-        })
-        axios.post(`${BASE_URL}course/addCourse`, details, {
-            headers: {
-                Authorization: `Bearer ${userCredentials.token}`,
-            },
-        })
+        setGetAllCourses((prev) => ({ ...prev, isDataNeeded: false }));
+
+        const apiEndpoint = editCourse
+            ? `${BASE_URL}course/updateCourse/${editCourse.id}`
+            : `${BASE_URL}course/addCourse`;
+
+        const apiCall = editCourse
+            ? axios.post(apiEndpoint, details, {
+                headers: { Authorization: `Bearer ${userCredentials.token}` },
+            })
+            : axios.post(apiEndpoint, details, {
+                headers: { Authorization: `Bearer ${userCredentials.token}` },
+            });
+
+            // console.log(apiCall)
+
+        apiCall
             .then((response) => {
-                // console.log(response)
-                setGetAllCourses((prev) => {
-                    return {
-                        ...prev, isDataNeeded: true
-                    }
-                })
-                resetStates()
-                handleIsClose()
-                setLoading(false)
-                toast.success("successful");
+                setGetAllCourses((prev) => ({ ...prev, isDataNeeded: true }));
+                resetStates();
+                handleIsClose();
+                setLoading(false);
+                toast.success(editCourse ? "Course updated successfully" : "Course added successfully");
             })
             .catch((error) => {
-                console.log(error.response.data.message)
-                if (error = error.response?.data) {
-                    console.log(error)
-                    if (error.errors?.created_by_id) {
-                        console.log(error.errors.created_by_id)
-                        setErrorMsg(error.errors.created_by_id[0])
-                        setShowMsg(true)
-                        setLoading(false);
-                    } else if (error.errors?.curriculum) {
-                        console.log(error.errors.curriculum[0])
-                        setErrorMsg(error.errors.curriculum[0])
-                        setShowMsg(true)
-                        setLoading(false);
-                    } else if (error.errors?.objective) {
-                        console.log(error.errors.objective[0])
-                        setErrorMsg(error.errors.objective[0])
-                        setShowMsg(true)
-                        setLoading(false);
-                    } else if (error.errors?.outlines) {
-                        console.log(error.errors.outlines[0])
-                        setErrorMsg(error.errors.outlines[0])
-                        setShowMsg(true)
-                        setLoading(false);
-                    } else if (error.errors?.faculty_id) {
-                        console.log(error.errors.faculty_id[0])
-                        setErrorMsg(error.errors.faculty_id[0])
-                        setShowMsg(true)
-                        setLoading(false);
-                    } else if (error.errors?.program) {
-                        console.log(error.errors.program[0])
-                        setErrorMsg(error.errors.program[0])
-                        setShowMsg(true)
-                        setLoading(false);
-                    } else {
-                        console.log(error?.message)
-                        setErrorMsg(error.message)
-                        setShowMsg(true)
-                        setLoading(false);
-                    }
-                } else {
-                    console.log(error)
-                    setErrorMsg(error.message)
-                    setShowMsg(true)
-                    setLoading(false);
-                }
+                const errorMessage = error.response?.data?.message || error.message;
+                setErrorMsg(errorMessage);
+                setShowMsg(true);
+                setLoading(false);
             });
-    }
+    };
 
-    // console.log(details)
+    useEffect(() => {
+        if (isOpen) {
+            window.scrollTo(0,0);
+        }
+    }, []);
+    
     return (
         <div>
             {isOpen && (
@@ -199,14 +178,36 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                     <div className="modal-dialog modal-dialog-scrollable modal-lg">
                         <div className="modal-content h-100">
                             <div className="modal-header bottom_brown">
-                                <h1 className="modal-title fs-5" id="staticBackdropLabel">Create Course</h1>
+                                <h1 className="modal-title fs-5" id="staticBackdropLabel">
+                                    {editCourse ? "Edit Course" : "Create Course"}
+                                </h1>
                                 <button
                                     onClick={() => handleIsClose()}
-                                    type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                ></button>
                             </div>
                             <div className="modal-body px-md-5">
                                 <form onSubmit={handleSubmit}>
                                     <div className="row">
+                                        <div className="mb-3 col-md-6">
+                                            <label htmlFor="category" className="form-label">Category</label>
+                                            <select
+                                                id="category"
+                                                value={details.category_id}
+                                                name="category_id"
+                                                onChange={handleOnChange}
+                                                className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
+                                                <option value="">--select --</option>
+                                                {
+                                                    getAllCategory.data?.map((each) => (
+                                                        <option key={each.id} value={each.id}>{each.label}</option>
+                                                    ))
+                                                }
+                                            </select>
+                                        </div>
                                         <div className="mb-3 col-md-6">
                                             <label htmlFor="faculty" className="form-label">Faculty</label>
                                             <select
@@ -262,7 +263,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                                 onChange={handleOnChange}
                                                 className="form-control" id="duration" aria-describedby="emailHelp" />
                                         </div>
-                                        <div className="mb-3 col-md-6">
+                                        {/* <div className="mb-3 col-md-6">
                                             <label htmlFor="type" className="form-label">Course Type</label>
                                             <select
                                                 id="type"
@@ -274,7 +275,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                                 <option value="online">Online</option>
                                                 <option value="digiknowh">Digiknowh</option>
                                             </select>
-                                        </div>
+                                        </div> */}
                                         <div className="mb-3 col-md-6">
                                             <label htmlFor="program" className="form-label">Program</label>
                                             <select
@@ -309,10 +310,12 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                                 className="form-control" id="participant" aria-describedby="emailHelp" />
                                         </div>
                                         <div className="my-4">
-                                            <label htmlFor="outlines" className="form-label">Create Outlines</label>
+                                            <label htmlFor="outlines" className="form-label">
+                                                Create Outlines
+                                            </label>
                                             <ReactQuill
                                                 id="outlines"
-                                                onChange={handleOutline}
+                                                onChange={()=>{handleOutline}}
                                                 value={details.outlines}
                                                 modules={editorModules}
                                                 formats={editorFormats}
@@ -322,7 +325,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                             <label htmlFor="objectives" className="form-label">Create Objectives</label>
                                             <ReactQuill
                                                 id="objectives"
-                                                onChange={handleObjectives}
+                                                onChange={()=>handleObjectives}
                                                 value={details.objective}
                                                 modules={editorModules}
                                                 formats={editorFormats}
@@ -332,7 +335,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                             <label htmlFor="curriculum" className="form-label">Create Curriculum</label>
                                             <ReactQuill
                                                 id="curriculum"
-                                                onChange={handleCurricullum}
+                                                onChange={()=>handleCurricullum}
                                                 value={details.curriculum}
                                                 modules={editorModules}
                                                 formats={editorFormats}
@@ -340,10 +343,18 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                                         </div>
                                     </div>
 
-                                    {showMsg && (<p className="text-center mb-3 text-danger">{errorMsg}</p>)}
+                                    {showMsg && (
+                                        <p className="text-center mb-3 text-danger">{errorMsg}</p>
+                                    )}
                                     <button
-                                        className='btn btn-lg brown_bg text-white fs_sm w-50'>Submit
-                                        {loading && (<span className='ms-2'><Spinner size='sm' /></span>)}
+                                        className="btn btn-lg brown_bg text-white fs_sm w-50"
+                                    >
+                                        {editCourse ? "Update" : "Submit"}
+                                        {loading && (
+                                            <span className="ms-2">
+                                                <Spinner size="sm" />
+                                            </span>
+                                        )}
                                     </button>
                                 </form>
                             </div>
@@ -352,7 +363,7 @@ const AddCourseForm = ({ isOpen, setIsOpen }) => {
                 </div>
             )}
         </div>
-    )
-}
+    );
+};
 
-export default AddCourseForm
+export default AddCourseForm;
