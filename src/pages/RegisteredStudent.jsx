@@ -68,7 +68,7 @@ const RegisteredStudent = () => {
 
     const studentsOnly = getAllUsers.data?.filter((student) => student.role === "student");
 
-
+console.log(getAllCategory)
     return (
         <div
             className="p-3 p-md-5"
@@ -132,7 +132,7 @@ const RegisteredStudent = () => {
                                 </div>
                                 <div className="ms-2">
                                     <p className="fs_sm ash_text">Category</p>
-                                    <h4>{getAllFaculty.data?.length}</h4>
+                                    <h4>{getAllCategory.data?.length}</h4>
                                     <p className='fs_xsm prime_brown'>
                                         <span> <FaArrowUpLong /> </span>
                                         <span>16%</span>
@@ -192,7 +192,7 @@ const RegisteredStudent = () => {
             {show === "members" && (<AllStudents getAllUsers={studentsOnly} />)}
             {show === "faculty" && (<AllFaculties userCredentials={userCredentials} getAllFaculty={getAllFaculty.data} />)}
             {show === "courses" && (<AllCourses getAllCourses={getAllCourses.data} />)}
-            {show === "category" && (<AllCategory getAllFaculty={getAllFaculty.data} />)}
+            {show === "category" && (<AllCategory userCredentials={userCredentials} getAllCategory={getAllCategory.data} />)}
 
         </div>
     )

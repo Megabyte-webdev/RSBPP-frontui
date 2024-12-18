@@ -2,18 +2,18 @@ import { useContext, useEffect, useMemo, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import THead from '../general/THead'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
-import AddFacultyForm from '../faculty/AddFacultyForm'
+import AddCategoryForm from './AddCategoryForm'
 import Pagination from '../general/Pagination'
 import toast from 'react-hot-toast'
 import { ResourceContext } from '../../context/ResourceContext'
 import { BASE_URL } from '../utils/base'
-import FacultyList from './FacultyList'
+import CategoryList from './CategoryList'
 
 const PageSize = 7;
 
-const AllCategory = ({ getAllFaculty, userCredentials }) => {
-
-    const { setGetAllFaculty } = useContext(ResourceContext);
+const AllCategory = ({ getAllCategory, userCredentials }) => {
+    console.log(getAllCategory)
+    const { setGetAllCategory } = useContext(ResourceContext);
 
     const [searchInput, setSearchInput] = useState("");
     // const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,10 +30,10 @@ const AllCategory = ({ getAllFaculty, userCredentials }) => {
             }
         })
     )
-    const sortType = getAllFaculty?.sort((a, b) => b.id - a.id)
+    const sortType = getAllCategory?.sort((a, b) => b.id - a.id)
 
     const typeSearch = sortType?.filter((user) =>
-        user.title.toLowerCase().includes(searchInput.toLowerCase())
+        user?.label.toLowerCase()?.includes(searchInput.toLowerCase())
     )
 
 
@@ -50,13 +50,13 @@ const AllCategory = ({ getAllFaculty, userCredentials }) => {
 
     useEffect(() => {
         setTotalPage(Math.ceil(typeSearch?.length / PageSize));
-    }, [typeSearch, getAllFaculty])
+    }, [typeSearch, getAllCategory])
 
     // pagination methods Ends here
 
     const deleteFunc = async (id, setIsSubmitting) => {
         setIsSubmitting(true)
-        setGetAllFaculty((prev) => {
+        setGetAllCategory((prev) => {
             return {
                 ...prev, isDataNeeded: false
             }
@@ -70,12 +70,12 @@ const AllCategory = ({ getAllFaculty, userCredentials }) => {
             },
         }
         try {
-            const response = await fetch(`${BASE_URL}faculty/deleteFaculty/${id}`, params);
+            const response = await fetch(`${BASE_URL}faculty/deleteCategory/${id}`, params);
             if (response.ok) {
                 await response.json();
                 setIsSubmitting(false)
                 // console.log(response)
-                setGetAllFaculty((prev) => {
+                setGetAllCategory((prev) => {
                     return {
                         ...prev, isDataNeeded: true
                     }
@@ -98,7 +98,7 @@ const AllCategory = ({ getAllFaculty, userCredentials }) => {
 
     return (
         <div>
-            <AddFacultyForm
+            <AddCategoryForm
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
                 handleDisplay={handleDisplay} />
@@ -130,7 +130,7 @@ const AllCategory = ({ getAllFaculty, userCredentials }) => {
                         <table className="table  table-hover">
                             <thead>
                                 <tr>
-                                    <THead name="Faculty" />
+                                    <THead name="Category" />
                                     <THead name="Description" />
                                     <THead name="Action" />
                                 </tr>
@@ -138,14 +138,14 @@ const AllCategory = ({ getAllFaculty, userCredentials }) => {
                             <tbody>
                                 {currentTableData?.map((user) => {
                                     return (
-                                        <FacultyList key={user.id} user={user} deleteFunc={deleteFunc} />
+                                        <CategoryList key={user.id} user={user} deleteFunc={deleteFunc} />
                                     )
                                 })}
                             </tbody>
                         </table>
                     </div>
                 </div>
-                {getAllFaculty && (
+                {getAllCategory && (
                     <div className="mt-5 ash_text d-md-flex justify-content-between">
                         <div>
                             <p>Showing {currentPage}/{totalPage} of  {typeSearch?.length} entries</p>
