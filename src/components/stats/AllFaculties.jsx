@@ -14,6 +14,7 @@ const PageSize = 7;
 const AllFaculties = ({ getAllFaculty, userCredentials }) => {
 
     const { setGetAllFaculty } = useContext(ResourceContext);
+    const [editFaculty, setEditFaculty] = useState("");
 
     const [searchInput, setSearchInput] = useState("");
     // const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,13 +24,24 @@ const AllFaculties = ({ getAllFaculty, userCredentials }) => {
         display: "none"
     }
     )
-    const handleDisplay = () => (
-        setIsOpen((prev) => {
-            return {
-                ...prev, display: "block"
-            }
-        })
-    )
+    // Open the AddCourseForm for creating a new course
+    const handleDisplay = () => {
+        setEditFaculty(null); // Clear editCourse for create mode
+        setIsOpen((prev) => ({
+            ...prev,
+            display: "block",
+        }));
+    };
+
+    // Open the AddCourseForm for editing an existing course
+    const handleEdit = (course) => {
+        setEditFaculty(course); // Set the course to be edited
+        setIsOpen((prev) => ({
+            ...prev,
+            display: "block",
+        }));
+    };
+
     const sortType = getAllFaculty?.sort((a, b) => b.id - a.id)
 
     const typeSearch = sortType?.filter((user) =>
@@ -82,15 +94,16 @@ const AllFaculties = ({ getAllFaculty, userCredentials }) => {
                 })
 
             }
+            toast.error("An error occured");
         } catch (error) {
             console.log(error);
             if (error.response) {
                 setIsSubmitting(false)
-                toast.danger(error.response.data.message);
+                toast.error(error.response.data.message);
                 console.log(error.response);
             } else {
                 setIsSubmitting(false)
-                toast.danger(error.message);
+                toast.error(error.message);
                 console.log(error.message);
             }
         }
@@ -101,7 +114,7 @@ const AllFaculties = ({ getAllFaculty, userCredentials }) => {
             <AddFacultyForm
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                handleDisplay={handleDisplay} />
+                editFaculty={editFaculty} />
             <div className="p-3 my-5 bg-white rounded-3 shadow-sm">
                 <div className="d-md-flex justify-content-between">
                     <div className="mb-3">
@@ -136,9 +149,9 @@ const AllFaculties = ({ getAllFaculty, userCredentials }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {currentTableData?.map((user) => {
+                                {currentTableData?.map((faculty) => {
                                     return (
-                                        <FacultyList key={user.id} user={user} deleteFunc={deleteFunc} />
+                                        <FacultyList key={faculty.id} faculty={faculty} deleteFunc={deleteFunc} handleEdit={handleEdit} />
                                     )
                                 })}
                             </tbody>

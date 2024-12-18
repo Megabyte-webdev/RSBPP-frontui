@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useState,useEffect } from "react"
 // import Widget from "../auth/Widget"
 import { UserContext } from "../../context/AuthContext"
 import toast from "react-hot-toast"
@@ -7,7 +7,7 @@ import { ResourceContext } from "../../context/ResourceContext"
 import { BASE_URL } from "../utils/base"
 import { Spinner } from "react-bootstrap"
 
-const AddFacultyForm = ({ isOpen, setIsOpen }) => {
+const AddFacultyForm = ({ isOpen, setIsOpen, editFaculty=null }) => {
     const { getAllFaculty, setGetAllFaculty } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
 
@@ -36,6 +36,19 @@ const AddFacultyForm = ({ isOpen, setIsOpen }) => {
 
         });
     };
+    useEffect(() => {
+        if (editFaculty) {
+           console.log(editFaculty)
+           setDetails({
+               title: editFaculty?.title || "",
+               description: editFaculty?.description || ""
+           });
+       }else{
+           resetStates();
+       }
+       
+   }, [editFaculty]);
+
     const handleOnChange = (e) => {
         const { value, name, type, checked } = e.target
         setDetails((prev) => {
@@ -46,44 +59,42 @@ const AddFacultyForm = ({ isOpen, setIsOpen }) => {
         });
         setErrorMsg("");
     };
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        setGetAllFaculty((prev) => {
-            return {
-                ...prev, isDataNeeded: false
-            }
-        })
-        setLoading(true)
-        axios.post(`${BASE_URL}faculty/addFaculty`, details, {
-            headers: {
-                Authorization: `Bearer ${userCredentials.token}`,
-            },
-        })
-            .then((response) => {
-                console.log(response)
-                setGetAllFaculty((prev) => {
-                    return {
-                        ...prev, isDataNeeded: true
-                    }
-                })
-                resetStates()
-                handleIsClose()
-                setLoading(false)
-                toast.success("successful");
+        setErrorMsg("");
+        setLoading(true);
+        console.log(details)
+        setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: false }));
+        const apiEndpoint = editFaculty
+            ? `${BASE_URL}faculty/updateFaculty`
+            : `${BASE_URL}faculty/addFaculty`;
+
+        const apiCall = editFaculty
+            ? axios.post(apiEndpoint, details, {
+                headers: { Authorization: `Bearer ${userCredentials.token}` },
+            })
+            : axios.post(apiEndpoint, details, {
+                headers: { Authorization: `Bearer ${userCredentials.token}` },
+            });
+
+            // console.log(apiCall)
+
+        apiCall
+            .then(() => {
+                setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
+                resetStates();
+                handleIsClose();
+                setLoading(false);
+                toast.success(editFaculty ? "Faculty updated successfully" : "Faculty created successfully");
             })
             .catch((error) => {
-                if (error.response) {
-                    setErrorMsg(error.response.data.message)
-                    setShowMsg(true)
-                    setLoading(false);
-                } else {
-                    setErrorMsg(error.message)
-                    setShowMsg(true)
-                    setLoading(false);
-                }
+                console.log(error)
+                const errorMessage = error.response?.data?.message || error.message;
+                setErrorMsg(errorMessage);
+                setShowMsg(true);
+                setLoading(false);
             });
-    }
+    };
 
     // console.log(details)
     return (
@@ -104,7 +115,7 @@ const AddFacultyForm = ({ isOpen, setIsOpen }) => {
                     <div className="modal-dialog modal-dialog-scrollable modal-sm">
                         <div className="modal-content h-100">
                             <div className="modal-header bottom_brown">
-                                <h1 className="modal-title fs-5" id="staticBackdropLabel">Add Faculty</h1>
+                                <h1 className="modal-title fs-5" id="staticBackdropLabel">{editFaculty ? "Edit Faculty" : "Add Faculty"}</h1>
                                 <button
                                     onClick={() => handleIsClose()}
                                     type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -133,7 +144,7 @@ const AddFacultyForm = ({ isOpen, setIsOpen }) => {
                                     </div>
                                     {showMsg && (<p className="text-center mb-3 text-danger">{errorMsg}</p>)}
                                     <button
-                                        className='btn btn-lg brown_bg text-white fs_sm w-50'>Submit
+                                        className='btn btn-lg brown_bg text-white fs_sm w-50'>{editFaculty ? "Update" : "Submit"}
                                         {loading && (<span className='ms-2'><Spinner size='sm' /></span>)}
                                     </button>
                                 </form>

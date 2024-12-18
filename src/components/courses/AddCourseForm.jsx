@@ -122,6 +122,7 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
         e.preventDefault();
         setErrorMsg("");
         setLoading(true);
+        console.log(details)
         setGetAllCourses((prev) => ({ ...prev, isDataNeeded: false }));
 
         const apiEndpoint = editCourse
@@ -139,7 +140,7 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
             // console.log(apiCall)
 
         apiCall
-            .then((response) => {
+            .then(() => {
                 setGetAllCourses((prev) => ({ ...prev, isDataNeeded: true }));
                 resetStates();
                 handleIsClose();
@@ -147,6 +148,7 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
                 toast.success(editCourse ? "Course updated successfully" : "Course added successfully");
             })
             .catch((error) => {
+                console.log(error)
                 const errorMessage = error.response?.data?.message || error.message;
                 setErrorMsg(errorMessage);
                 setShowMsg(true);
@@ -315,7 +317,7 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
                                             </label>
                                             <ReactQuill
                                                 id="outlines"
-                                                onChange={()=>{handleOutline}}
+                                                onChange={handleOutline}
                                                 value={details.outlines}
                                                 modules={editorModules}
                                                 formats={editorFormats}
@@ -325,7 +327,7 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
                                             <label htmlFor="objectives" className="form-label">Create Objectives</label>
                                             <ReactQuill
                                                 id="objectives"
-                                                onChange={()=>handleObjectives}
+                                                onChange={handleObjectives}
                                                 value={details.objective}
                                                 modules={editorModules}
                                                 formats={editorFormats}
@@ -335,7 +337,7 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
                                             <label htmlFor="curriculum" className="form-label">Create Curriculum</label>
                                             <ReactQuill
                                                 id="curriculum"
-                                                onChange={()=>handleCurricullum}
+                                                onChange={handleCurricullum}
                                                 value={details.curriculum}
                                                 modules={editorModules}
                                                 formats={editorFormats}
@@ -347,6 +349,7 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
                                         <p className="text-center mb-3 text-danger">{errorMsg}</p>
                                     )}
                                     <button
+                                    disabled={loading}
                                         className="btn btn-lg brown_bg text-white fs_sm w-50"
                                     >
                                         {editCourse ? "Update" : "Submit"}
