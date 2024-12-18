@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 // import Widget from "../auth/Widget"
 import { UserContext } from "../../context/AuthContext"
 import toast from "react-hot-toast"
@@ -7,7 +7,7 @@ import { ResourceContext } from "../../context/ResourceContext"
 import { BASE_URL } from "../utils/base"
 import { Spinner } from "react-bootstrap"
 
-const AddCategoryForm = ({ isOpen, setIsOpen }) => {
+const AddCategoryForm = ({ isOpen, setIsOpen, editCategory=null }) => {
     const { getAllCategory, setGetAllCategory } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
 
@@ -36,6 +36,21 @@ const AddCategoryForm = ({ isOpen, setIsOpen }) => {
 
         });
     };
+
+    useEffect(() => {
+         if (editCategory) {
+            console.log(editCategory)
+            setDetails({
+                id:`${editCategory.id}`,
+                label: editCategory?.label || "",
+                description: editCategory?.description || ""
+            });
+        }else{
+            resetStates();
+        }
+        
+    }, [editCategory]);
+
     const handleOnChange = (e) => {
         const { value, name, type, checked } = e.target
         setDetails((prev) => {
@@ -49,41 +64,40 @@ const AddCategoryForm = ({ isOpen, setIsOpen }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setGetAllCategory((prev) => {
-            return {
-                ...prev, isDataNeeded: false
-            }
-        })
-        setLoading(true)
-        axios.post(`${BASE_URL}faculty/addCategory`, details, {
-            headers: {
-                Authorization: `Bearer ${userCredentials.token}`,
-            },
-        })
-            .then((response) => {
-                console.log(response)
-                setGetAllCategory((prev) => {
-                    return {
-                        ...prev, isDataNeeded: true
-                    }
-                })
-                resetStates()
-                handleIsClose()
-                setLoading(false)
-                toast.success("Category successfully created");
+        setErrorMsg("");
+        setLoading(true);
+        console.log(details)
+        setGetAllCategory((prev) => ({ ...prev, isDataNeeded: false }));
+        const apiEndpoint = editCategory
+            ? `${BASE_URL}faculty/updateCategory`
+            : `${BASE_URL}faculty/addCategory`;
+
+        const apiCall = editCategory
+            ? axios.post(apiEndpoint, details, {
+                headers: { Authorization: `Bearer ${userCredentials.token}` },
+            })
+            : axios.post(apiEndpoint, details, {
+                headers: { Authorization: `Bearer ${userCredentials.token}` },
+            });
+
+            // console.log(apiCall)
+
+        apiCall
+            .then(() => {
+                setGetAllCategory((prev) => ({ ...prev, isDataNeeded: true }));
+                resetStates();
+                handleIsClose();
+                setLoading(false);
+                toast.success(editCategory ? "Category updated successfully" : "Category created successfully");
             })
             .catch((error) => {
-                if (error.response) {
-                    setErrorMsg(error.response.data.message)
-                    setShowMsg(true)
-                    setLoading(false);
-                } else {
-                    setErrorMsg(error.message)
-                    setShowMsg(true)
-                    setLoading(false);
-                }
+                console.log(error)
+                const errorMessage = error.response?.data?.message || error.message;
+                setErrorMsg(errorMessage);
+                setShowMsg(true);
+                setLoading(false);
             });
-    }
+    };
 
     // console.log(details)
     return (
@@ -104,7 +118,7 @@ const AddCategoryForm = ({ isOpen, setIsOpen }) => {
                     <div className="modal-dialog modal-dialog-scrollable modal-md">
                         <div className="modal-content h-100">
                             <div className="modal-header bottom_brown">
-                                <h1 className="modal-label fs-5" id="staticBackdropLabel">Add Category</h1>
+                                <h1 className="modal-label fs-5" id="staticBackdropLabel"> {editCategory ? "Edit Category" : "Add Category"}</h1>
                                 <button
                                     onClick={() => handleIsClose()}
                                     type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -133,7 +147,7 @@ const AddCategoryForm = ({ isOpen, setIsOpen }) => {
                                     </div>
                                     {showMsg && (<p className="text-center mb-3 text-danger">{errorMsg}</p>)}
                                     <button
-                                        className='btn btn-lg brown_bg text-white fs_sm w-50'>Submit
+                                        className='btn btn-lg brown_bg text-white fs_sm w-50'>{editCategory ? "Update" : "Submit"}
                                         {loading && (<span className='ms-2'><Spinner size='sm' /></span>)}
                                     </button>
                                 </form>
