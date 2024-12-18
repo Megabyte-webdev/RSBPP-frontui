@@ -12,6 +12,7 @@ const ViewJournals = () => {
     const { getAllFaculty, setGetAllFaculty, setGetAllCourses, getAllCourses } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
     const [journals, setJournals] = useState([]);
+    const [displayedJournals, setDisplayedJournals] = useState([]);
     const [loading, setLoading] = useState(true);
 
     // Pagination states
@@ -24,13 +25,12 @@ const ViewJournals = () => {
         }));
     }, []);
 
-    const myCourses = getAllCourses?.data?.filter(
-        (course) => parseInt(userCredentials?.user?.id) === parseInt(course.created_by_id)
-    ) || [];
 
     useEffect(() => {
         if (!userCredentials) return;
-
+        const myCourses = getAllCourses?.data?.filter(
+            (course) => parseInt(userCredentials?.user?.id) === parseInt(course.created_by_id)
+        ) || [];
         setLoading(true);
         const controller = new AbortController();
         const myHeaders = {
@@ -40,21 +40,38 @@ const ViewJournals = () => {
         axios
             .get(`${BASE_URL}course/getAllJournal`, { headers: myHeaders, signal: controller.signal })
             .then((response) => {
-                console.log('API Response:', response.data);
+                console.log('Fetched Journals:', response.data);
 
                 let userJournals = [];
                 if (userCredentials?.user?.role === 'instructor') {
                     const courseIds = myCourses.map((course) => course.id);
+                    console.log('Instructor Course IDs:', courseIds);
                     userJournals = response.data.allJournal.filter((journal) =>
                         courseIds.includes(journal.course_id)
                     );
                 } else {
+                    console.log('Student ID:', userCredentials.user.id);
                     userJournals = response.data.allJournal.filter(
                         (journal) => journal.user_id === userCredentials.user.id
                     );
                 }
 
+                console.log('Filtered Journals:', userJournals);
+
                 setJournals(userJournals);
+
+                const sortJournalsByCourse = (journals) => {
+                    return [...journals]?.sort((a, b) =>
+                        new Date(b.created_at) - new Date(a.created_at)
+                    );
+
+                };
+                const displayedJournals = sortJournalsByCourse(userJournals)?.slice(
+                    (currentPage - 1) * pageSize,
+                    currentPage * pageSize
+                );
+                console.log('displayedJournals', displayedJournals);
+                setDisplayedJournals(displayedJournals)
                 setGetAllFaculty((prev) => ({ ...prev, isDataNeeded: true }));
                 setLoading(false);
             })
@@ -67,7 +84,7 @@ const ViewJournals = () => {
             });
 
         return () => controller.abort();
-    }, [userCredentials, setGetAllFaculty]);
+    }, [getAllCourses]);
 
     const getDetails = (attr, info, facId) => {
         const faculty = getAllFaculty?.data?.find((item) => item.id === facId);
@@ -78,12 +95,6 @@ const ViewJournals = () => {
         return faculty;
     };
 
-    const sortJournalsByCourse = (journals) => {
-        return [...journals].sort((a, b) => 
-           new Date(b.created_at) - new Date(a.created_at)
-        );
-        
-    };
 
     const formatDate = (timestamp) => {
         const dateObj = new Date(timestamp);
@@ -105,10 +116,6 @@ const ViewJournals = () => {
     };
 
     const totalPages = Math.ceil(journals.length / pageSize);
-    const displayedJournals = sortJournalsByCourse(journals).slice(
-        (currentPage - 1) * pageSize,
-        currentPage * pageSize
-    );
 
     const handleNextPage = () => {
         if (currentPage < totalPages) {
@@ -150,8 +157,8 @@ const ViewJournals = () => {
 
             <div className="overflow-x-auto mt-6">
                 {loading ? (
-                    <p className="w-full h-full flex items-center justify-center"><Spinner /></p>
-                ) : displayedJournals.length > 0 ? (
+                    <div className="w-full h-full flex items-center justify-center"><Spinner /></div>
+                ) : journals?.length > 0 ? (
                     <table className="w-full min-w-[700px] overflow-auto bg-white rounded-lg border border-gray-300">
                         <thead className="bg-gray-200 font-medium">
                             <tr>

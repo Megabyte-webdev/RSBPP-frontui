@@ -78,7 +78,7 @@ function ResourceContextProvider({ children }) {
         setErrorMessage('');
         if (getAllCategory.isDataNeeded) {
             const endPoint = "faculty/getCategoryAll"
-            const dataArray = "CategoryAll"
+            const dataArray = "data"
             getItemFunc(token, setGetAllCategory, setErrorMessage, endPoint, dataArray)
         }
     }, [getAllCategory.isDataNeeded]);

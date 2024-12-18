@@ -80,7 +80,7 @@ const GradeAssignment = () => {
   }, [assignment.user_id, getAllUsers]);
 
   return (
-    <div className="px-[2%] flex flex-col items-center gap-3 min-[800px]:items-start min-[800px]:flex-row">
+    <div className="px-[2%] flex flex-col items-center gap-3 lg:items-start lg:flex-row">
       <div className="w-80 gap-4 pt-5 gap-y-6 px-2 sm:px-0">
         <div
           key={assignment.id}
