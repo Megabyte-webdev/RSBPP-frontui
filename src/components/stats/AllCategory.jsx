@@ -16,6 +16,7 @@ const AllCategory = ({ getAllCategory, userCredentials }) => {
     const { setGetAllCategory } = useContext(ResourceContext);
 
     const [searchInput, setSearchInput] = useState("");
+    const [editCategory, setEditCategory] = useState("");
     // const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [isOpen, setIsOpen] = useState({
@@ -23,17 +24,11 @@ const AllCategory = ({ getAllCategory, userCredentials }) => {
         display: "none"
     }
     )
-    const handleDisplay = () => (
-        setIsOpen((prev) => {
-            return {
-                ...prev, display: "block"
-            }
-        })
-    )
+   
     const sortType = getAllCategory?.sort((a, b) => b.id - a.id)
 
-    const typeSearch = sortType?.filter((user) =>
-        user?.label.toLowerCase()?.includes(searchInput.toLowerCase())
+    const typeSearch = sortType?.filter((category) =>
+        category?.label.toLowerCase()?.includes(searchInput.toLowerCase())
     )
 
 
@@ -80,28 +75,48 @@ const AllCategory = ({ getAllCategory, userCredentials }) => {
                         ...prev, isDataNeeded: true
                     }
                 })
+                toast.success("Category deleted successfully")
 
             }
+            setIsSubmitting(false)
+            toast.error("An error occured");
         } catch (error) {
             console.log(error);
             if (error.response) {
                 setIsSubmitting(false)
-                toast.danger(error.response.data.message);
+                toast.error(error.response.data.message);
                 console.log(error.response);
             } else {
                 setIsSubmitting(false)
-                toast.danger(error.message);
+                toast.error(error.message);
                 console.log(error.message);
             }
         }
     }
+     // Open the AddCourseForm for creating a new course
+     const handleDisplay = () => {
+        setEditCategory(null); // Clear editCourse for create mode
+        setIsOpen((prev) => ({
+            ...prev,
+            display: "block",
+        }));
+    };
+
+// Open the AddCourseForm for editing an existing course
+const handleEdit = (course) => {
+    setEditCategory(course); // Set the course to be edited
+    setIsOpen((prev) => ({
+        ...prev,
+        display: "block",
+    }));
+};
 
     return (
         <div>
             <AddCategoryForm
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                handleDisplay={handleDisplay} />
+                editCategory={editCategory} />
             <div className="p-3 my-5 bg-white rounded-3 shadow-sm">
                 <div className="d-md-flex justify-content-between">
                     <div className="mb-3">
@@ -114,12 +129,12 @@ const AllCategory = ({ getAllCategory, userCredentials }) => {
                                 <div className='position-relative'>
                                     <input
                                         onChange={(e) => setSearchInput(e.target.value)}
-                                        type="text" className="btn border bg-white text-start px-5 py-2 w-100" id="search" placeholder='Search' />
+                                        type="text" className="border bg-white text-start px-5 py-2 w-100" id="search" placeholder='Search' />
                                     <span className="position-absolute start-0 top-0 p-2"><FiSearch /> </span>
                                 </div>
                             </div>
                             <div className="col">
-                                <button onClick={() => handleDisplay()}
+                                <button onClick={handleDisplay}
                                     className='btn brown_bg text-white px-4'>Add Category</button>
                             </div>
                         </div>
@@ -136,9 +151,9 @@ const AllCategory = ({ getAllCategory, userCredentials }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {currentTableData?.map((user) => {
+                                {currentTableData?.map((category) => {
                                     return (
-                                        <CategoryList key={user.id} user={user} deleteFunc={deleteFunc} />
+                                        <CategoryList key={category.id} category={category} handleEdit={handleEdit} deleteFunc={deleteFunc} />
                                     )
                                 })}
                             </tbody>
