@@ -109,7 +109,8 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
                 console.log(response)
                 
                 setLoading(false)
-                toast.success("Profile updated successfully");
+                toast.success(response.data?.message);
+               
             })
             .catch((error) => {
                 console.log(error)
