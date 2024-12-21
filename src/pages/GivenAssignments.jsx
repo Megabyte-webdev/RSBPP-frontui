@@ -63,6 +63,7 @@ const GivenAssignment = () => {
                 // Update state only if component is still mounted
                 if (!controller.signal.aborted) {
                     setAssignments(fetchedAssignments);
+                    console.log(fetchedAssignments)
                 }
             } catch (error) {
                 if (!controller.signal.aborted) {
@@ -100,6 +101,7 @@ const GivenAssignment = () => {
     const indexOfLastAssignment = currentPage * assignmentsPerPage;
     const indexOfFirstAssignment = indexOfLastAssignment - assignmentsPerPage;
     const currentAssignments = assignments.slice(indexOfFirstAssignment, indexOfLastAssignment);
+    console.log(currentAssignments)
     const totalPages = Math.ceil(assignments.length / assignmentsPerPage);
 
     return (

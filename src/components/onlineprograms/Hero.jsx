@@ -12,7 +12,7 @@ programme ?       <div className='relative z-10 min-h-[400px] w-full text-white 
 <p className='bg-[#8B0002] w-max px-2 h-max capitalize'>{displayType}</p>
 
         <h1 className='font-extrabold text-3xl md:text-5xl my-2 pt-4'>{title ? title: 'Loading...'}</h1>
-        <p>Start Date: 21st October 2024</p>
+        {/* <p>Start Date: 21st October 2024</p> */}
 <p>Start Duration : {programInfo?.duration} Hours </p>
 
         </div>

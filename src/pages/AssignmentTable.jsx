@@ -1,6 +1,7 @@
 import React from 'react';
 
 const AssignmentTable = ({ assignments, navigate, getDetails, indexOfFirstAssignment }) => {
+    
     return (
         <table className="w-full min-w-[700px] overflow-auto bg-white rounded-lg border border-gray-300">
             <thead className='bg-gray-200 font-medium'>
