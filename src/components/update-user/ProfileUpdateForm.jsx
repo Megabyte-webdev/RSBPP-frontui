@@ -10,7 +10,7 @@ import userPics from "../../assets/user-icon.png"
 
 
 const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
-    const { userCredentials } = useContext(UserContext)
+    const { userCredentials, setUserCredentials } = useContext(UserContext)
     const user = userCredentials?.user
 
     const {
@@ -107,14 +107,10 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
         })
             .then((response) => {
                 console.log(response)
-                // setGetAllCourses((prev) => {
-                //     return {
-                //         ...prev, isDataNeeded: true
-                //     }
-                // })
-                // resetStates()
+                
                 setLoading(false)
-                toast.success("Profile updated successfully");
+                toast.success(response.data?.message);
+               
             })
             .catch((error) => {
                 console.log(error)
