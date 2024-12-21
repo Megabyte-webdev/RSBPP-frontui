@@ -15,8 +15,8 @@ const Programme = ({displayType}) => {
       .get(`${BASE_URL}guest/getCourseById/${courseId}`)
       .then((response) => {
         const {course}=response.data
-        setProgramInfo(course);
-        console.log(course);
+        setProgramInfo(course[0]);
+        console.log(course[0]);
       })
       .catch((err) => {
         console.log(err);
