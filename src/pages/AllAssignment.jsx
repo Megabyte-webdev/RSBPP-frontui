@@ -33,13 +33,14 @@ const AllAssignment = () => {
         const fetchAssignments = async () => {
             setLoading(true);
             const headers = { Authorization: `Bearer ${userCredentials.token}` };
-
+            setGetAllFaculty(prev => ({ ...prev, isDataNeeded: false }));
             try {
                 const response = await axios.get(
                     `${BASE_URL}course/${role === "instructor" ? "getAllAssignment" : "getAssignmentSubmitCourseAll"}`,
                     { headers, signal: controller.signal }
                 );
                 setAssignments(role === "instructor" ? response.data.allAssignment : response.data.allAssignmentSubmit || []);
+                console.log(response.data)
                 setGetAllFaculty(prev => ({ ...prev, isDataNeeded: true }));
             } catch (error) {
                 if (axios.isCancel(error)) {
@@ -152,6 +153,7 @@ const AllAssignment = () => {
     
 
     const getDetails = (attr, info, facId) => {
+        console.log(getAllFaculty)
         const faculty = getAllFaculty?.data?.find((item) => item.id === facId);
         if (!faculty) return { title: 'N/A' };
         if (attr === 'course') {
