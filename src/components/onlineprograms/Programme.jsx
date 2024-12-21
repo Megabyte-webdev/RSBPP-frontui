@@ -5,22 +5,18 @@ import { useLocation } from "react-router-dom";
 //import programList from './programList';
 import axios from "axios";
 import { BASE_URL, TOKEN } from "../utils/base";
-const Programme = () => {
+const Programme = ({displayType}) => {
   const { state } = useLocation();
   const courseId = state.courseId;
   console.log(courseId);
   const [programInfo, setProgramInfo] = useState(null);
   useEffect(() => {
     axios
-      .get(`${BASE_URL}course/getCourseById/${courseId}`, {
-        headers: {
-          Authorization: `Bearer ${TOKEN}`,
-        },
-      })
+      .get(`${BASE_URL}guest/getCourseById/${courseId}`)
       .then((response) => {
         const {course}=response.data
         setProgramInfo(course);
-        console.log(programInfo);
+        console.log(course);
       })
       .catch((err) => {
         console.log(err);
@@ -33,7 +29,7 @@ const Programme = () => {
     
     programInfo ?
       <>
-        <Hero programme={true} title={programInfo.title && programInfo.title} programInfo={programInfo} />
+        <Hero programme={true} title={programInfo.title && programInfo.title} programInfo={programInfo} displayType={displayType} />
         <ProgramPreview details={programInfo && programInfo} />
       </>
       :

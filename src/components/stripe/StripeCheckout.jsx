@@ -16,6 +16,7 @@ const StripeCheckout = ({ token, amount, }) => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [clientSecret, setClientSecret] = useState("");
+  const [formReady, setFormReady] = useState(false); // New state to track form readiness
 
   useEffect(() => {
     axios.post(`${BASE_URL}payment/stripe-payment-intent`, {amount: amount}, {
@@ -35,7 +36,17 @@ const StripeCheckout = ({ token, amount, }) => {
             setErrorMessage(error.message);
         }
     });
-  }, [amount]);
+  }, [amount, token]);
+
+  useEffect(() => {
+    if (elements && clientSecret) {
+      const paymentElement = elements.getElement(PaymentElement);
+      if (paymentElement) {
+        paymentElement.on("ready", () => setFormReady(true));
+      }
+    }
+  }, [elements, clientSecret]);
+
 
   const handlePaymentSuccess = async () => {
     
@@ -93,9 +104,15 @@ const StripeCheckout = ({ token, amount, }) => {
   return (
     <form onSubmit={handleSubmit}>
       <PaymentElement />
-      <button className="btn btn-outline-info mt-4" type="submit" disabled={loading}>
-        {loading ? "Processing....." : "Pay"}
-      </button>
+      {formReady && stripe && elements && clientSecret && (
+        <button
+          className="btn btn-outline-info mt-4"
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? "Processing....." : "Pay"}
+        </button>
+      )}
       {/* Show error message to your customers */}
       {errorMessage && <div className='text-danger'>{errorMessage}</div>}
     </form>

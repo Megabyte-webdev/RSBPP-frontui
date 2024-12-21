@@ -44,7 +44,7 @@ const SuccessfulCheckoutPage = () => {
                         <div className="col-md-6 my-3">
                             <div className="col-md-10 mb-3">
                                 <h3>Payments Confirmation Successfully !</h3>
-                                <p>Thank you for choosing to study with us! Your Reservation is Confirmed. If there anything you need, please donot hesitate to reach out to your host!</p>
+                                <p>Thank you for choosing to study with us! Your Reservation is Confirmed. If there anything you need, please do not hesitate to reach out to your host!</p>
                             </div>
                             <div className="d-flex align-items-center mb-4">
                                 <div>

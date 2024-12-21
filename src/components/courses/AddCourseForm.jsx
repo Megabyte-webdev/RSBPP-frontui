@@ -34,6 +34,7 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
         duration: "",
         program: "",
         category_id: "",
+        course_type:"",
         faculty_id: "",
         price: "",
         participate: "",
@@ -52,10 +53,11 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
                 outlines: editCourse?.outlines || "",
                 duration: editCourse?.duration || "",
                 program: editCourse?.program || "",
-                category_id: getAllCategory.data?.find(one=>one.label === editCourse?.course_type)?.id || "",
+                course_type: editCourse?.course_type || "",
+                category_id: getAllCategory.data?.find(one=>one.id === editCourse?.category_id)?.id || "",
                 faculty_id: editCourse?.faculty_id || "",
                 price: editCourse?.price || "",
-                participate: editCourse?.participate || "",
+                participate: editCourse?.participate?.toString() || "",
                 curriculum: editCourse?.curriculum || "",
             });
         }else{
@@ -74,6 +76,7 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
             objective: "",
             outlines: "",
             duration: "",
+            course_type:"",
             program: "",
             category_id: "",
             faculty_id: "",
@@ -146,11 +149,26 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
                 handleIsClose();
                 setLoading(false);
                 toast.success(editCourse ? "Course updated successfully" : "Course added successfully");
-            })
-            .catch((error) => {
-                console.log(error)
-                const errorMessage = error.response?.data?.message || error.message;
-                setErrorMsg(errorMessage);
+            }).catch((error) => {
+                console.log(error);
+            
+                // Extract validation errors if available
+                const validationErrors = error.response?.data?.errors;
+            
+                if (validationErrors) {
+                    // Format the errors into a user-friendly string
+                    const formattedErrors = Object.entries(validationErrors)
+                        .map(([field, messages]) => `${field}: ${messages.join(', ')}`)
+                        .join('\n');
+                    
+                    // Set the formatted errors as the error message
+                    setErrorMsg(formattedErrors);
+                } else {
+                    // Default to the general error message
+                    const errorMessage = error.response?.data?.message || error.message;
+                    setErrorMsg(errorMessage);
+                }
+            
                 setShowMsg(true);
                 setLoading(false);
             });
@@ -265,7 +283,7 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
                                                 onChange={handleOnChange}
                                                 className="form-control" id="duration" aria-describedby="emailHelp" />
                                         </div>
-                                        {/* <div className="mb-3 col-md-6">
+                                         <div className="mb-3 col-md-6">
                                             <label htmlFor="type" className="form-label">Course Type</label>
                                             <select
                                                 id="type"
@@ -275,9 +293,9 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
                                                 className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
                                                 <option value="">--select --</option>
                                                 <option value="online">Online</option>
-                                                <option value="digiknowh">Digiknowh</option>
+                                                <option value="offline">Offline</option>
                                             </select>
-                                        </div> */}
+                                        </div> 
                                         <div className="mb-3 col-md-6">
                                             <label htmlFor="program" className="form-label">Program</label>
                                             <select

@@ -31,7 +31,7 @@ const Layout = () => {
     };
 
     useEffect(() => {
-        if (userCredentials === null) {
+        if (userCredentials === null && userCredentials?.role === "student") {
             // Redirect to login and reset cart state for guests
             navigate("/login");
             setCartStore({ user: "guest", data: [] });
@@ -41,7 +41,7 @@ const Layout = () => {
         }
 
         // Transfer guest cart items to user cart if user logs in
-        if (carts !== null && userCredentials !== null) {
+        if (carts !== null && userCredentials !== null && userCredentials?.role === "student") {
             console.log(carts[0])
             navigate("/carts");
                 carts[0]?.data.map((course)=>{
