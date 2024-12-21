@@ -19,10 +19,10 @@ const Programmes = () => {
       .get(`${BASE_URL}guest/getAllCourses`)
       .then((response) => {
         const { allCourses } = response.data;
-
+        //console.log(allCourses)
         // Filter online programs and group by faculty label
         const onlinePrograms = allCourses.filter(
-          (program) => program.course_type === "online"
+          (program) => program?.course_type === "online" && program?.category_label !== "offline"
         );
 
         const groupedByFaculty = onlinePrograms.reduce((acc, program) => {
@@ -78,7 +78,10 @@ const Programmes = () => {
         {loading ? (
           <div className="w-full h-full flex items-center justify-center"><Spinner /></div>
         ) : (
-          Object.entries(groupedData).map(([faculty, programs]) => (
+          Object.entries(groupedData).length === 0 ?
+          <h4 className="text-xl">No Courses Available For Now</h4>
+          :
+          Object.entries(groupedData).sort(([a], [b]) => (a === "Others" ? 1 : b === "Others" ? -1 : a.localeCompare(b))).map(([faculty, programs]) => (
             <section className="py-2" key={faculty}>
               <h2 className="text-3xl my-3">{faculty}</h2>
               <ul className="flex flex-wrap gap-y-3 justify-between px-0 font-medium">

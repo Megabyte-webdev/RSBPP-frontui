@@ -58,14 +58,14 @@ const AllCategory = ({ getAllCategory, userCredentials }) => {
         })
 
         const params = {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': "application/json",
                 'Authorization': `Bearer ${userCredentials.token}`
             },
         }
         try {
-            const response = await fetch(`${BASE_URL}faculty/deleteCategory/${id}`, params);
+            const response = await fetch(`${BASE_URL}faculty/deleteCourseByCategory/${id}`, params);
             if (response.ok) {
                 await response.json();
                 setIsSubmitting(false)
@@ -77,9 +77,11 @@ const AllCategory = ({ getAllCategory, userCredentials }) => {
                 })
                 toast.success("Category deleted successfully")
 
+            }else{
+                setIsSubmitting(false)
+                toast.error("An error occured");
             }
-            setIsSubmitting(false)
-            toast.error("An error occured");
+            
         } catch (error) {
             console.log(error);
             if (error.response) {

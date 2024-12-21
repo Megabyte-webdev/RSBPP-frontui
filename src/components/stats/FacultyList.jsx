@@ -5,7 +5,7 @@ const FacultyList = ({ faculty, deleteFunc,handleEdit }) => {
 
     return (
         <tr>
-            <td>{faculty?.label}</td>
+            <td>{faculty?.title}</td>
             <td>{faculty?.description}</td>
             <td className="">
                 <button

@@ -174,8 +174,9 @@ const App = () => {
 
             <Route path="/" element={<OnlineProgramsLayout />}>
               <Route path="/online-programmes" element={<OnlinePrograms />} />
-              <Route path="/online-programmes/:program" element={<Programme />} />
+              <Route path="/online-programmes/:program" element={<Programme displayType="online programmes"/>} />
               <Route path="/digiknowh" element={<DigiKnowH />} />
+              <Route path="/digiknowh/:program" element={<Programme displayType="digiknowh" />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/not-found" replace />} />
