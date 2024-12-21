@@ -3,7 +3,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { UserContext } from '../../context/AuthContext'
 import { ResourceContext } from '../../context/ResourceContext'
-import { BASE_URL } from '../utils/base'
+import { BASE_URL, IMAGE_URL } from '../utils/base'
 import { Spinner } from 'react-bootstrap'
 import { CiCircleCheck } from 'react-icons/ci'
 import userPics from "../../assets/user-icon.png"
@@ -24,7 +24,7 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
     const [errorMsg, setErrorMsg] = useState(null)
     const [showMsg, setShowMsg] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [profileImageUrl, setProfileImageUrl] = useState(user.image ? user.image  : null);
+    const [profileImageUrl, setProfileImageUrl] = useState(user.image ? `${IMAGE_URL}profile/${user.image}` : null);
 
 
     const [details, setDetails] = useState({
@@ -44,12 +44,12 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
         address: user?.address ? user.address : "",
         industry: user?.industry ? user.industry : "",
         profession: user?.profession ? user.profession : "",
-        image: null,
+        image: user?.image,
         contact_number: user?.contact_number ? user.contact_number : "",
         experience: user?.experience ? user.experience : "",
         specialization: user?.specialization ? user.specialization : "",
     })
-
+    console.log(details)
     useEffect(() => {
         setGetAllCourses((prev) => {
             return {
@@ -92,6 +92,7 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrorMsg(null)
+        console.log(details)
         setGetAllCourses((prev) => {
             return {
                 ...prev, isDataNeeded: false
@@ -106,14 +107,14 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
         })
             .then((response) => {
                 console.log(response)
-                setGetAllCourses((prev) => {
-                    return {
-                        ...prev, isDataNeeded: true
-                    }
-                })
+                // setGetAllCourses((prev) => {
+                //     return {
+                //         ...prev, isDataNeeded: true
+                //     }
+                // })
                 // resetStates()
                 setLoading(false)
-                toast.success("successful");
+                toast.success("Profile updated successfully");
             })
             .catch((error) => {
                 console.log(error)
@@ -139,7 +140,7 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
                 }
             });
     }
-console.log(errorMsg)
+    console.log(errorMsg)
     const getImageURL = (e) => {
         const { name } = e.target;
         const file = e.target.files[0]; //filelist is an object carrying all details of file, .files[0] collects the value from key 0 (not array), and stores it in file
@@ -152,9 +153,9 @@ console.log(errorMsg)
         } else {
             // Handle invalid file type
             alert('Please select a valid JPEG or PNG file.');
-        } 
+        }
     };
-    console.log(details)
+    // console.log(details)
 
     return (
         <div className='p-3 py-5'>
@@ -244,6 +245,7 @@ console.log(errorMsg)
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
+                                <label className='mb-2' htmlFor="contact_number">Contact Number </label>
                                     <input type="text" onChange={handleOnChange} value={details.contact_number} name='contact_number' placeholder='Contact Number' className="form-control border-0 input_bg" required />
                                 </div>
                             </div>
@@ -286,7 +288,7 @@ console.log(errorMsg)
                         <div className="col-md-6">
                             <div className="mb-3">
                                 <label htmlFor="cv" className='border rounded-3 w-100 bg-white btn text-secondary'>
-                                    {details.image ? details.image.name : "Profile Image"}  <span className='text-success'>
+                                    {details.image ? "Change profile image" : "Profile Image"}  <span className='text-success'>
                                         {profileCV && <CiCircleCheck size={25} />}
                                     </span>
                                 </label>
@@ -310,7 +312,7 @@ console.log(errorMsg)
                     <div className="my-3 d-flex justify-content-center">
                         <div className="fw-semibold col-6">
                             {/* <button className='btn fw-semibold normal_btn Fborder-primary outline-primary me-3 text-primary'>Cancel</button> */}
-                            <button className='btn w-100 hover_effect fw-semibold normal_btn brown_bg btn-lg text-white'>Submit {loading && (<Spinner size='sm' />)} </button>
+                            <button type="submit" className='btn w-100 hover_effect fw-semibold normal_btn brown_bg btn-lg text-white'>Submit {loading && (<Spinner size='sm' />)} </button>
                         </div>
                     </div>
                 </div>

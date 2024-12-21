@@ -21,6 +21,7 @@ import StripeImage from "../assets/stripe.png"
 const CheckoutPage = () => {
     const navigate = useNavigate();
     const [accept, setAccept] = useState(false)
+    const [proceed, setProceed] = useState(false)
     const { state } = useLocation()
 
     const { userCredentials } = useContext(UserContext);
@@ -36,6 +37,12 @@ const CheckoutPage = () => {
     const toggleAccept = () => {
         setAccept(prev => !prev)
     }
+    useEffect(() => {
+        // Reset `proceed` to false if `accept` is unchecked
+        if (!accept) {
+          setProceed(false);
+        }
+      }, [accept]);
     useEffect(() => {
         cartsTotalFunction(token, userId, setError, setCurrentTotal)
     }, [])
@@ -152,15 +159,23 @@ const CheckoutPage = () => {
                                     </div>
                                     {/* <button className='btn brown_bg mt-4 text-white w-100'>Pay for my  Booking</button> */}
                                     {/* <PaystackPlatform userCredentials={userCredentials} allDetails={state} accept={accept} /> */}
-                                    {accept ? (
-                                    // <button onClick={() => navigate('/stripe/payment', {state: {token: userCredentials.token, amount:state.currentTotal} })} className='btn brown_bg mt-4 text-white w-100'>Proceed to payment</button>
-                                    <StripeElement token={userCredentials.token} amount={state.currentTotal}/>
-                                    ) : (
+                                   {proceed && accept ? (
+                                        // Show the Stripe element when `proceed` is true and `accept` is checked
+                                        <StripeElement
+                                            token={userCredentials.token}
+                                            amount={state.currentTotal}
+                                        />
+                                        ) : (
+                                        // Always show the "Agree to proceed" button unless `proceed` and `accept` are both true
                                         <button
-                                            disabled={true}
-                                            className='btn brown_bg mt-4 text-white w-100'
-                                        > Agree to proceed</button>
-                                    )}
+                                            disabled={!accept} // Disable the button unless `accept` is true
+                                            onClick={() => setProceed(true)} // Set `proceed` to true when clicked
+                                            className="btn brown_bg mt-4 text-white w-100"
+                                        >
+                                            Agree to proceed
+                                        </button>
+                                        )}
+
                                     {/* <Payment /> */}
                                 </div>
                             </div>

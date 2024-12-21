@@ -191,7 +191,7 @@ console.log(getAllCategory)
             {show === "users" && (<AllUsers userCredentials={userCredentials} getAllUsers={getAllUsers.data} />)}
             {show === "members" && (<AllStudents getAllUsers={studentsOnly} />)}
             {show === "faculty" && (<AllFaculties userCredentials={userCredentials} getAllFaculty={getAllFaculty.data} />)}
-            {show === "courses" && (<AllCourses getAllCourses={getAllCourses.data} />)}
+            {show === "courses" && (<AllCourses userCredentials={userCredentials} getAllCourses={getAllCourses.data} />)}
             {show === "category" && (<AllCategory userCredentials={userCredentials} getAllCategory={getAllCategory.data} />)}
 
         </div>

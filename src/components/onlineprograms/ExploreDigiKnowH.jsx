@@ -4,7 +4,7 @@ import {FaCheck} from 'react-icons/fa'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../utils/base';
-
+import { Spinner } from "react-bootstrap";
 const ExploreDigiKnowH =()=>{
    const [loading, setLoading] = useState(false);
    const [groupedData, setGroupedData] = useState([]);
@@ -18,7 +18,7 @@ const ExploreDigiKnowH =()=>{
  
          // Filter online programs and group by faculty label
          const digiknowhPrograms = allCourses.filter(
-           (program) => program.course_type === "digiknowh"
+           (program) => program?.course_type === "online" && program?.category_label === "digiknowh"
          );
  
          setGroupedData(digiknowhPrograms);
@@ -59,13 +59,13 @@ Overall, the DigiKnowH programme promises an engaging and enriching experience f
 <div className='w-full md:w-1/2' >
 <img className='w-full h-[300px] md:h-[600px] object-cover' src={DigiImg} alt=""/>
 <h3 className='my-3 text-2xl font-medium'>Digital Skills Programme ( DigiknowH)</h3>
-<ul className='flex flex-wrap gap-y-3 justify-between px-0 font-medium'>
+<ul className='flex flex-wrap gap-y-3 justify-between px-0 font-medium overflow-y-auto'>
 
         {loading ? (
-          <div>Loading...</div>
+          <div className="w-full h-full flex items-center justify-center"><Spinner /></div>
         ) :(
-          groupedData.length !== 0 ?groupedData?.map(([faculty, programs]) => (
-           <Link to={`/digiknowh/${program?.title
+          groupedData.length !== 0 ?groupedData?.map((program) => (
+           <Link key={program?.id} to={`/digiknowh/${program.title
                         .replace(/[:\s]+/g, "-")
                         .toLowerCase()}`}
                       state={{ courseId: program?.id }} className='flex-initial basis-full text-sm md:text-[17px] underline text-inherit flex items-center'><p><FaCheck className='text-xl mr-2 text-red-700' /></p> {program?.title}</Link>

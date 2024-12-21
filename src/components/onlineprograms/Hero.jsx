@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom'
 import img from '../../assets/online-programmes/digiknow.jpg'
 import '../../fonts/fonts.css'
-const Hero = ({programme =false, title="Online Programmes", programInfo}) => {
+const Hero = ({programme =false, title="Online Programmes", programInfo, displayType=""}) => {
 console.log(programme)
         return (
     <div className='font-[Ripple-Bold] relative min-h-[230px] md:min-h-[350px] flex justify-center align-center'>
@@ -9,7 +9,7 @@ console.log(programme)
        <div className='z-1 bg-[#8B0002] opacity-[0.61] absolute top-0 right-0 bottom-0 left-0 m-auto' ></div> 
      {
 programme ?       <div className='relative z-10 min-h-[400px] w-full text-white flex flex-col justify-center px-[4%] lg:px-[5%] gap-y-2'> 
-<p className='bg-[#8B0002] w-max px-2 h-max'>Online Programmes</p>
+<p className='bg-[#8B0002] w-max px-2 h-max capitalize'>{displayType}</p>
 
         <h1 className='font-extrabold text-3xl md:text-5xl my-2 pt-4'>{title ? title: 'Loading...'}</h1>
         <p>Start Date: 21st October 2024</p>

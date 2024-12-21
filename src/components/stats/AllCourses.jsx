@@ -1,26 +1,33 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useContext } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import THead from '../general/THead';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import AddCourseForm from '../courses/AddCourseForm';
 import Pagination from '../general/Pagination';
-
+import toast from 'react-hot-toast';
+import { ResourceContext } from '../../context/ResourceContext';
+import { BASE_URL } from '../utils/base';
 const PageSize = 7;
 
-const AllCourses = ({ getAllCourses }) => {
-    const [searchInput, setSearchInput] = useState("");
+const AllCourses = ({ getAllCourses, userCredentials }) => {
+    const { setGetAllCourses } = useContext(ResourceContext);
+
+    const [searchInput, setSearchInput] = useState('');
     const [isOpen, setIsOpen] = useState({
-        backgroundColor: "rgba(0, 0, 0, 0.15)",
-        display: "none"
+        backgroundColor: 'rgba(0, 0, 0, 0.15)',
+        display: 'none',
     });
     const [editCourse, setEditCourse] = useState(null); // State to hold the course being edited
+    const [isSubmitting, setIsSubmitting] = useState(null); // State to track the loading state of a specific course
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPage, setTotalPage] = useState();
 
     // Open the AddCourseForm for creating a new course
     const handleDisplay = () => {
         setEditCourse(null); // Clear editCourse for create mode
         setIsOpen((prev) => ({
             ...prev,
-            display: "block",
+            display: 'block',
         }));
     };
 
@@ -29,7 +36,7 @@ const AllCourses = ({ getAllCourses }) => {
         setEditCourse(course); // Set the course to be edited
         setIsOpen((prev) => ({
             ...prev,
-            display: "block",
+            display: 'block',
         }));
     };
 
@@ -39,10 +46,7 @@ const AllCourses = ({ getAllCourses }) => {
         course.title.toLowerCase().includes(searchInput.toLowerCase())
     );
 
-    // Pagination
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPage, setTotalPage] = useState();
-
+    // Pagination logic
     const currentTableData = useMemo(() => {
         const firstPageIndex = (currentPage - 1) * PageSize;
         const lastPageIndex = firstPageIndex + PageSize;
@@ -52,6 +56,44 @@ const AllCourses = ({ getAllCourses }) => {
     useEffect(() => {
         setTotalPage(Math.ceil(filteredCourses?.length / PageSize));
     }, [filteredCourses]);
+
+    // Delete a course
+    const deleteFunc = async (id) => {
+        setIsSubmitting(id); // Set the ID of the course being deleted
+        setGetAllCourses((prev) => ({
+            ...prev,
+            isDataNeeded: false,
+        }));
+
+        const params = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userCredentials.token}`,
+            },
+        };
+
+        try {
+            const response = await fetch(`${BASE_URL}course/deleteCourse/${id}`, params);
+            if (response.ok) {
+                await response.json();
+                setGetAllCourses((prev) => ({
+                    ...prev,
+                    isDataNeeded: true,
+                }));
+                toast.success('Course deleted successfully');
+            } else {
+                setIsSubmitting(null);
+                throw new Error('Failed to delete course');
+                
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error(error.message || 'An error occurred');
+        } finally {
+            setIsSubmitting(null); // Reset the loading state
+        }
+    };
 
     return (
         <div>
@@ -101,6 +143,7 @@ const AllCourses = ({ getAllCourses }) => {
                             <thead>
                                 <tr>
                                     <THead name="Type" />
+                                    <THead name="Category" />
                                     <THead name="Course" />
                                     <THead name="Program" />
                                     <THead name="Price" />
@@ -111,20 +154,34 @@ const AllCourses = ({ getAllCourses }) => {
                                 {currentTableData?.map((course) => (
                                     <tr key={course.id}>
                                         <td>{course.course_type}</td>
+                                        <td>{course.category_label}</td>
                                         <td>{course.title}</td>
                                         <td>{course.program}</td>
                                         <td>{course.price}</td>
-                                        <td>
+                                        <td className="">
                                             <button
-                                                className="btn"
+                                                className="btn m-1"
                                                 style={{
-                                                    border: "1px solid hsla(166, 79%, 42%, 1)",
-                                                    backgroundColor: "hsla(166, 79%, 42%, 0.38)",
-                                                    color: "hsla(166, 79%, 42%, 1)",
+                                                    border: '1px solid hsla(166, 79%, 42%, 1)',
+                                                    backgroundColor: 'hsla(166, 79%, 42%, 0.38)',
+                                                    color: 'hsla(166, 79%, 42%, 1)',
                                                 }}
                                                 onClick={() => handleEdit(course)}
                                             >
                                                 Edit
+                                            </button>
+
+                                            <button
+                                                disabled={isSubmitting === course.id}
+                                                onClick={() => deleteFunc(course.id)}
+                                                className="btn w-max m-1"
+                                                style={{
+                                                    border: '1px solid hsla(166, 79%, 42%, 1)',
+                                                    backgroundColor: 'hsla(166, 79%, 42%, 0.38)',
+                                                    color: 'hsla(166, 79%, 42%, 1)',
+                                                }}
+                                            >
+                                                {isSubmitting === course.id ? 'Deleting...' : 'Delete'}
                                             </button>
                                         </td>
                                     </tr>
