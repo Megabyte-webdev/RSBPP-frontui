@@ -37,7 +37,8 @@ const FacultyAddCourse = () => {
         image: "",
     })
     const [courseImageUrl, setCourseImageUrl] = useState("");
-
+const [selectedFaculty, setSelectedFaculty] = useState(null);
+    
     useEffect(() => {
         setGetAllCourses((prev) => {
             return {
@@ -54,6 +55,32 @@ const FacultyAddCourse = () => {
             }
         })
     }, [])
+
+
+    useEffect(() => {
+
+      const myCourse = getAllCourses?.data?.find(one => parseInt(userCredentials?.user?.id) === parseInt(one.created_by_id));
+
+      if (myCourse) {
+        // Find and set the matching faculty for this course
+        const facultyItem = getAllFaculty?.data?.find(faculty => faculty.id === myCourse?.faculty_id
+        );
+
+        // Set faculty details if found
+        setSelectedFaculty(facultyItem || null);
+        setDetails((prev) => {
+            return {
+                ...prev,
+                faculty_id: facultyItem?.id || ""
+            };
+        });
+      }
+    }
+
+
+  }, [getAllCourses, getAllFaculty]);
+
+    
     const resetStates = () => {
         setDetails({
             title: "",
@@ -219,7 +246,7 @@ const FacultyAddCourse = () => {
                                 className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
                                 <option value="">--select --</option>
                                 {
-                                    getAllFaculty.data?.map((each) => (
+                                    selectedFaculty?.map((each) => (
                                         <option key={each.id} value={each.id}>{each.title}</option>
                                     ))
                                 }
