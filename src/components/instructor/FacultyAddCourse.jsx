@@ -75,7 +75,6 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
             };
         });
       }
-    }
 
 
   }, [getAllCourses, getAllFaculty]);
