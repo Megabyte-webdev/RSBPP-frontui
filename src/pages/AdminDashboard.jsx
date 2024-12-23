@@ -2,21 +2,27 @@ import React, { useContext, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { ThemeContext } from "../context/ThemeContext";
 import { UserContext } from "../context/AuthContext";
+import { ResourceContext } from "../context/ResourceContext";
 import { MdAddBox, MdOutlineCalendarMonth, MdOutlineCancel } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 // import DashboardWidget from "../components/dashboard/DashboardWidget";
 import { FaVideo } from "react-icons/fa6";
 import RoundChart from "../components/general/RoundChart";
 import BarChart from "../components/general/BarCharts";
 
 const AdminDashboard = () => {
+  const navigate=useNavigate();
   const { setSideBg } = useContext(ThemeContext);
+  const { setGetAllUsers, getAllUsers } = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
   //   console.log(userCredentials);
 
   useEffect(() => {
     setSideBg("brown_sidebar");
+    setGetAllUsers((prev) => ({ ...prev, isDataNeeded: true }));
   }, []);
+
+  console.log(getAllUsers?.data)
 
   const strokeProps = {
     strokeCap: "round",
@@ -105,25 +111,30 @@ const AdminDashboard = () => {
         </Col>
       </Row>
       <Col md={11}>
-        <Row className="my-5">
-          <Col className="my-3 my-md-0" md={5}>
+        <div className="flex flex-wrap my-5">
+          <Col className="my-3 my-md-0 w-full min-w-60" md={5}>
             <div className="shadow-sm h-100 rounded p-3">
               <div className="d-flex mb-4 border-bottom justify-content-between">
                 <p className="my-4">Recently enrolled Students</p>
-                <Link className="d-flex nav-link text-primary align-items-center">
+                <div onClick={()=>navigate("/registra")} className="d-flex nav-link text-primary align-items-center">
                   <p className="fw-bold">see all</p>
-                </Link>
-              </div>
-              <div className="d-flex align-items-center justify-content-center">
-                <div className="light_sky rounded p-1 text-primary">
-                  <span className="fw-bold">AA</span>
                 </div>
-                <div className="px-2">
-                  <p className="fs_sm">Adepoju Ademola</p>
-                  <p className="fs_xsm">Hello, Mr John i am yet to get your class b res...</p>
-                </div>
-                <p className="fs_xsm">10:25 am</p>
               </div>
+              {
+                getAllUsers?.data?.filter(item=>item.role === "student")?.slice(0,7)?.map((user) => (
+                  <div key={user?.id} className="d-flex align-items-center justify-content-center">
+                    <div className="light_sky rounded p-1 text-primary">
+                      <span className="fw-bold">{`${user?.first_name[0]} ${user?.last_name[0]}`}</span>
+                    </div>
+                    <div className="px-2 mr-auto">
+                      <p className="fs_sm">{`${user?.first_name} ${user?.last_name}`}</p>
+                      <p className="fs_xsm">{user?.organization}</p>
+                    </div>
+                    <p className="fs_xsm">10:25 am</p>
+                  </div>
+                ))
+              }
+{/* 
               <div className="d-flex align-items-center justify-content-center">
                 <div className="light_sky rounded p-1 text-primary">
                   <span className="fw-bold">AA</span>
@@ -153,10 +164,10 @@ const AdminDashboard = () => {
                   <p className="fs_xsm">Hello, Mr John i am yet to get your class b res...</p>
                 </div>
                 <p className="fs_xsm">10:25 am</p>
-              </div>
+              </div> */}
             </div>
           </Col>
-          <Col className="my-3 my-md-0" md={3}>
+          <Col className="my-3 my-md-0 w-full min-w-40" md={3}>
             <div className="shadow rounded h-100 p-2">
               <p className="fw-bold">Class Progress</p>
               <div className="light_sky my-2 rounded p-1">
@@ -249,7 +260,7 @@ const AdminDashboard = () => {
               </div>
             </div>
           </Col>
-        </Row>
+        </div>
       </Col>
       <div className="rounded bg-white py-5">
         <Row>

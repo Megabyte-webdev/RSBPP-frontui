@@ -69,16 +69,16 @@ const Layout = () => {
     return (
         <div>
             {userCredentials && (
-                <Row className="g-0 poppins">
+                <div className="g-0 poppins flex">
                     <SideBar userCredentials={userCredentials} />
-                    <Col md={9}>
+                    <div className="w-full">
                         <MobileSidebar userCredentials={userCredentials} />
                         <NavBar />
                         <main>
                             <Outlet />
                         </main>
-                    </Col>
-                </Row>
+                    </div>
+                </div>
             )}
         </div>
     );
