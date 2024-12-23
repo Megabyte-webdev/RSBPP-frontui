@@ -13,13 +13,14 @@ import BarChart from "../components/general/BarCharts";
 const AdminDashboard = () => {
   const navigate=useNavigate();
   const { setSideBg } = useContext(ThemeContext);
-  const { setGetAllUsers, getAllUsers } = useContext(ResourceContext);
+  const { setGetAllUsers, getAllUsers, getAllSchedules, setGetAllSchedules} = useContext(ResourceContext);
   const { userCredentials } = useContext(UserContext);
   //   console.log(userCredentials);
 
   useEffect(() => {
     setSideBg("brown_sidebar");
     setGetAllUsers((prev) => ({ ...prev, isDataNeeded: true }));
+    setGetAllSchedules((prev) => ({ ...prev, isDataNeeded: true }));
   }, []);
 
   console.log(getAllUsers?.data)
@@ -74,7 +75,7 @@ const AdminDashboard = () => {
               </div>
               <div>
                 <p>No. of meetings</p>
-                <p><b>336</b> <span className="fs_xsm">This Month</span></p>
+                <p><b>{getAllSchedules.data?.length}</b> <span className="fs_xsm">This Month</span></p>
               </div>
             </div>
           </div>
@@ -213,21 +214,23 @@ const AdminDashboard = () => {
                   <p className="fw-bold">see all</p>
                 </Link>
               </div>
-              <div className="light_sky my-2 rounded p-1">
+              {getAllSchedules.data?.slice(0,5)?.map(schedule=>(
+              <div key={schedule?.id} className="light_sky my-2 rounded p-1">
                 <div className="d-flex align-items-center justify-content-center">
                   <div className="rounded p-1 px-2 text-white" style={{ backgroundColor: "#0052B4" }}>
-                    <span className="fw-bold">31</span>
+                    <span className="fw-bold">{schedule?.day?.split("-")[2]}</span>
                   </div>
                   <div className="px-2">
-                    <p className="fs_sm">Meeting with the VC</p>
-                    <p className="fs_xsm"> <Link to={""}>Meeting link//www.zoom.com Upcoming</Link> </p>
+                    <p className="fs_sm">{schedule?.title}</p>
+                    <p className="fs_xsm"> <Link to={""}>{schedule?.meeting_code}</Link> </p>
                   </div>
                   <div className="">
-                    <p className="fs_xsm">10:25 am</p>
+                    <p className="fs_xsm">{schedule?.start_time}</p>
                     <p className="fs_xsm text-danger">Due soon</p>
                   </div>
                 </div>
-              </div>
+              </div>))}
+              {/*
               <div className="light_sky my-2 rounded p-1">
                 <div className="d-flex align-items-center justify-content-center">
                   <div className="rounded p-1 px-2 text-white" style={{ backgroundColor: "#0052B4" }}>
@@ -257,7 +260,7 @@ const AdminDashboard = () => {
                     <p className="fs_xsm text-danger">Due soon</p>
                   </div>
                 </div>
-              </div>
+              </div>*/}
             </div>
           </Col>
         </div>
