@@ -220,13 +220,13 @@ const AdminDashboard = () => {
                   <div className="rounded p-1 px-2 text-white" style={{ backgroundColor: "#0052B4" }}>
                     <span className="fw-bold">{schedule?.day?.split("-")[2]}</span>
                   </div>
-                  <div className="px-2">
+                  <div className="px-2 mr-auto">
                     <p className="fs_sm">{schedule?.title}</p>
                     <p className="fs_xsm"> <Link to={""}>{schedule?.meeting_code}</Link> </p>
                   </div>
                   <div className="">
-                    <p className="fs_xsm">{schedule?.start_time}</p>
-                    <p className="fs_xsm text-danger">Due soon</p>
+                    <p className="fs_xsm">{schedule?.start_time?.slice(0,5)}</p>
+                    <p className="fs_xsm text-danger">{schedule?.end_time?.slice(0,5)}</p>
                   </div>
                 </div>
               </div>))}
