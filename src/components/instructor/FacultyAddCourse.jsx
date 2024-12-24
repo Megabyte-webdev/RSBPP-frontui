@@ -300,7 +300,6 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
                                 onChange={handleOnChange}
                                 className="form-control" id="duration" aria-describedby="emailHelp" />
                         </div>
-                        <div className="mb-3 col-md-6">
                         
                         <div className="mb-3 col-md-6">
                             <label htmlFor="program" className="form-label">Program</label>
