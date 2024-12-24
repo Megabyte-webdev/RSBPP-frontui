@@ -10,7 +10,9 @@ export default {
       "Ripple-BoldItalic":['Ripple-BoldItalic'] ,
       "Ripple-Regular":['Ripple-Regular'],
       gridTemplateColumns:{
-        'auto': "repeat(auto-fill, minmax(250px, 1fr))"
+        'auto': "repeat(auto-fill, minmax(250px, 1fr))",
+        'responsive': "repeat(auto-fill, minmax(200px, 1fr))",
+        'responsive3': "repeat(auto-fill, minmax(300px, 1fr))"
       }
       
     },

@@ -71,7 +71,6 @@ const CreateInstructorForm = () => {
             }
         })
     }, [])
-    console.log(getAllFaculty.data)
     const handleOnChange = (e) => {
         const { value, name, type, checked } = e.target
         setDetails((prev) => {
@@ -107,7 +106,7 @@ const CreateInstructorForm = () => {
                 })
                 resetStates()
                 setLoading(false)
-                navigate("verify_email")
+                // navigate("/verify_email")
                 toast.success("successful");
             })
             .catch((error) => {
@@ -201,9 +200,9 @@ const CreateInstructorForm = () => {
                             </div>
                         </div>
                         <div className="col-md-6">
-                            <div className="mb-3 row">
+                            <div className="my-3 row">
                                 <div className="">
-                                    <input type="date" onChange={handleOnChange} value={details.date_of_birth} name='date_of_birth' placeholder='Date of Birth *' className="form-control border-0 input_bg" id="dateAndTime" />
+                                    <input type="date" onChange={handleOnChange} value={details?.date_of_birth} name='date_of_birth' placeholder="Date of Birth *" className="form-control border-0 input_bg" id="dateAndTime" />
                                 </div>
                             </div>
                         </div>

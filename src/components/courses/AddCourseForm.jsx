@@ -34,7 +34,7 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
         duration: "",
         program: "",
         category_id: "",
-        course_type:"",
+        course_type:"online",
         faculty_id: "",
         price: "",
         participate: "",
@@ -76,7 +76,7 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
             objective: "",
             outlines: "",
             duration: "",
-            course_type:"",
+            course_type:"online",
             program: "",
             category_id: "",
             faculty_id: "",
@@ -283,7 +283,7 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
                                                 onChange={handleOnChange}
                                                 className="form-control" id="duration" aria-describedby="emailHelp" />
                                         </div>
-                                         <div className="mb-3 col-md-6">
+                                         {/* <div className="mb-3 col-md-6">
                                             <label htmlFor="type" className="form-label">Course Type</label>
                                             <select
                                                 id="type"
@@ -292,10 +292,10 @@ const AddCourseForm = ({ isOpen, setIsOpen, editCourse = null }) => {
                                                 onChange={handleOnChange}
                                                 className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
                                                 <option value="">--select --</option>
-                                                <option value="online">Online</option>
-                                                <option value="offline">Offline</option>
+                                                <option value="online" selected={true}>Online</option>
+                                               
                                             </select>
-                                        </div> 
+                                        </div>  */}
                                         <div className="mb-3 col-md-6">
                                             <label htmlFor="program" className="form-label">Program</label>
                                             <select
