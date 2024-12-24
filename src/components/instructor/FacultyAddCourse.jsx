@@ -28,7 +28,7 @@ const FacultyAddCourse = () => {
         objective: "",
         outlines: "",
         duration: "",
-        course_type: "",
+        course_type: "online",
         program: "",
         faculty_id: "",
         price: "",
@@ -59,11 +59,11 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
 
     useEffect(() => {
 
-      const myCourse = getAllCourses?.data?.find(one => parseInt(userCredentials?.user?.id) === parseInt(one.created_by_id));
+      //const myCourse = getAllCourses?.data?.find(one => parseInt(userCredentials?.user?.id) === parseInt(one.created_by_id));
 
       if (myCourse) {
         // Find and set the matching faculty for this course
-        const facultyItem = getAllFaculty?.data?.find(faculty => faculty.id === myCourse?.faculty_id
+        const facultyItem = getAllFaculty?.data?.find(faculty => faculty.id === parseInt(userCredentials?.user?.faculty_id)
         );
 
         // Set faculty details if found
@@ -89,7 +89,7 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
             objective: "",
             outlines: "",
             duration: "",
-            course_type: "",
+            course_type: "online",
             program: "",
             faculty_id: "",
             price: "",
@@ -301,18 +301,7 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
                                 className="form-control" id="duration" aria-describedby="emailHelp" />
                         </div>
                         <div className="mb-3 col-md-6">
-                            <label htmlFor="type" className="form-label">Course Type</label>
-                            <select
-                                id="type"
-                                value={details.course_type}
-                                name="course_type"
-                                onChange={handleOnChange}
-                                className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
-                                <option value="">--select --</option>
-                                <option value="online">Online</option>
-                                <option value="offline">Offline</option>
-                            </select>
-                        </div>
+                        
                         <div className="mb-3 col-md-6">
                             <label htmlFor="program" className="form-label">Program</label>
                             <select
