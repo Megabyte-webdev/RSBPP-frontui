@@ -80,7 +80,7 @@ const FacultyEditCourse = () => {
             objective: "",
             outlines: "",
             duration: "",
-            course_type: "",
+            course_type: "online",
             program: "",
             faculty_id: "",
             price: "",
@@ -314,19 +314,7 @@ const FacultyEditCourse = () => {
                                 onChange={handleOnChange}
                                 className="form-control" id="duration" aria-describedby="emailHelp" />
                         </div>
-                        <div className="mb-3 col-md-6">
-                            <label htmlFor="type" className="form-label">Course Type</label>
-                            <select
-                                id="type"
-                                value={details.course_type}
-                                name="course_type"
-                                onChange={handleOnChange}
-                                className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
-                                <option value="">--select --</option>
-                                <option value="online">Online</option>
-                                <option value="offline">Offline</option>
-                            </select>
-                        </div>
+                        
                         <div className="mb-3 col-md-6">
                             <label htmlFor="program" className="form-label">Program</label>
                             <select
