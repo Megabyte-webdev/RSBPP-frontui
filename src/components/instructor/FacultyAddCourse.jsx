@@ -63,7 +63,7 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
 
 if(getAllfaculty.data){
         // Find and set the matching faculty for this course
-        const facultyItem = getAllFaculty?.data?.find(faculty => parseInt(faculty?.faculty_id) === parseInt(userCredentials?.user?.faculty_id));
+        const facultyItem = getAllFaculty?.data?.find(faculty => faculty?.faculty_id === userCredentials?.user?.faculty_id);
 
         // Set faculty details if found
         setSelectedFaculty(facultyItem || null);
