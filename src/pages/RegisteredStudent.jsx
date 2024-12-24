@@ -13,8 +13,10 @@ import AllCourses from '../components/stats/AllCourses';
 import { UserContext } from '../context/AuthContext';
 import AllStudents from '../components/stats/AllStudents';
 import AllCategory from '../components/stats/AllCategory';
-
+import {useLocation} from 'react-router-dom'
 const RegisteredStudent = () => {
+    const location=useLocation();
+
     const { getAllFaculty,
         setGetAllFaculty,
         getAllUsers,
@@ -25,8 +27,16 @@ const RegisteredStudent = () => {
         setGetAllCategory } = useContext(ResourceContext)
 
     const {userCredentials} = useContext(UserContext)
-    const [show, setShow] = useState("users")
+    const [show, setShow] = useState()
 
+    useEffect(() => {
+        console.log(location.state?.id)
+       if(location.state?.id){
+        setShow(location.state?.id)
+       }else{
+        setShow("users")
+       }
+    }, [location.state?.id])
     useEffect(() => {
         setGetAllUsers((prev) => {
             return {
