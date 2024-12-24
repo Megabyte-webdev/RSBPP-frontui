@@ -61,10 +61,10 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
 
       //const myCourse = getAllCourses?.data?.find(one => parseInt(userCredentials?.user?.id) === parseInt(one.created_by_id));
 
-      if (myCourse) {
+
         // Find and set the matching faculty for this course
         const facultyItem = getAllFaculty?.data?.find(faculty => faculty.id === parseInt(userCredentials?.user?.faculty_id)
-        );
+    
 
         // Set faculty details if found
         setSelectedFaculty(facultyItem || null);
@@ -295,7 +295,7 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
                             <input
                                 required
                                 type="text"
-                                value={details.duration}
+                                value={details?.duration}
                                 name="duration"
                                 onChange={handleOnChange}
                                 className="form-control" id="duration" aria-describedby="emailHelp" />
@@ -305,7 +305,7 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
                             <label htmlFor="program" className="form-label">Program</label>
                             <select
                                 id="program"
-                                value={details.program}
+                                value={details?.program}
                                 name="program"
                                 onChange={handleOnChange}
                                 className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
