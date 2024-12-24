@@ -61,10 +61,9 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
 
       //const myCourse = getAllCourses?.data?.find(one => parseInt(userCredentials?.user?.id) === parseInt(one.created_by_id));
 
-
+if(getAllfaculty.data){
         // Find and set the matching faculty for this course
-        const facultyItem = getAllFaculty?.data?.find(faculty => faculty.faculty_id === userCredentials?.user?.faculty_id
-    );
+        const facultyItem = getAllFaculty?.data?.find(faculty => parseInt(faculty.faculty_id) === parseInt(userCredentials?.user?.faculty_id));
 
         // Set faculty details if found
         setSelectedFaculty(facultyItem || null);
@@ -74,9 +73,9 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
                 faculty_id: facultyItem?.id || ""
             };
         });
+}
 
-
-  }, [getAllCourses, getAllFaculty]);
+  }, [getAllFaculty]);
 
     
     const resetStates = () => {
