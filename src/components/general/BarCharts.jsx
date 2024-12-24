@@ -1,84 +1,57 @@
-import Chart from 'react-apexcharts'
+import React from 'react';
+import Chart from 'react-apexcharts';
 
-function BarChart() {
-
-
-    const data = {
-
-        series: [{
-            name: 'Cash Flow',
-            data: [10, 20, 30, 40, 5]
-        }],
-        options: {
-            chart: {
-                type: 'bar',
-                height: 350,
-                toolbar: {
-                    show: false,
-                },
-            },
-            plotOptions: {
-                bar: {
-                    colors: {
-                        ranges: [{
-                            from: -100,
-                            to: -46,
-                            color: '#dee2e6'
-                        }, {
-                            from: -45,
-                            to: 0,
-                            color: '#dee2e6'
-                        }]
-                    },
-                    columnWidth: '20%',
-                    borderRadius: 4,
-                    borderRadiusApplication: "end",
-                    dataLabels: {
-                        position: 'top', // top, center, bottom
-                    },
-                }
-            },
-            fill: {
-                // type: "solid",
-                colors: ["#AB3335"]
-            },
-            dataLabels: {
-                enabled: false,
-            },
-            yaxis: {
-                title: {
-                    text: undefined,
-                },
-                labels: {
-                    formatter: function (y) {
-                        return y.toFixed(0);
-                    }
-                }
-            },
-            xaxis: {
-                type: 'string',
-                categories: [
-                    "Mon", "Tue", "Wed", "Thu", "Fri"
-                ],
-                labels: {
-                    rotate: -90
-                }
-            }
-        },
-
-
+const BarChart = ({ users }) => {
+  // Process data to count users by role
+  const roles = users?.reduce((acc, user) => {
+    if (user.role) {
+      acc[user.role] = (acc[user.role] || 0) + 1;
     }
+    return acc;
+  }, {});
 
+  // Prepare data for the bar chart
+  const roleNames =  roles && Object?.keys(roles);
+  const roleCounts = roles && Object?.values(roles);
 
+  const chartData = {
+    series: [{
+      name: 'Users',
+      data: roleCounts,
+    }],
+    options: {
+      chart: {
+        type: 'bar',
+        height: 350,
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          endingShape: 'rounded',
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      xaxis: {
+        categories: roleNames,  // The role names will be displayed on the x-axis
+      },
+      title: {
+        text: 'Users by Role',
+        align: 'center',
+        style: {
+          fontSize: '18px',
+          fontWeight: 'bold',
+        },
+      },
+    },
+  };
 
-    return (
-        <div >
-            <div>
-                <Chart options={data.options} series={data.series} type='bar' height={""} />
-            </div>
+  return (
+    <div>
+      <Chart options={chartData.options} series={chartData.series} type="bar" height={350} />
+    </div>
+  );
+};
 
-        </div>
-    )
-}
-
-export default BarChart
+export default BarChart;
