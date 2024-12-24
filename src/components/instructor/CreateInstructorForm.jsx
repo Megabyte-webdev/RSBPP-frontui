@@ -71,7 +71,6 @@ const CreateInstructorForm = () => {
             }
         })
     }, [])
-    console.log(getAllFaculty.data)
     const handleOnChange = (e) => {
         const { value, name, type, checked } = e.target
         setDetails((prev) => {
@@ -107,7 +106,7 @@ const CreateInstructorForm = () => {
                 })
                 resetStates()
                 setLoading(false)
-                navigate("verify_email")
+                // navigate("/verify_email")
                 toast.success("successful");
             })
             .catch((error) => {
