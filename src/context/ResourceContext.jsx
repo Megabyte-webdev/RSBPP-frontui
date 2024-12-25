@@ -146,7 +146,7 @@ function ResourceContextProvider({ children }) {
     //All Instructors Schedules Resource useEffect
     useEffect(() => {
         setErrorMessage('');
-        if (getAllInstructorsSchedules.isDataNeeded) {
+        if (getAllInstructorsSchedules.isDataNeeded && userId) {
             const endPoint = `schedule/scheduleByInstructorId/${userId}`
             const dataArray = "schedule"
             getItemFunc(token, setGetAllInstructorsSchedules, setErrorMessage, endPoint, dataArray)

@@ -33,7 +33,7 @@ const FacultyViewer = ({ isOpen, setIsOpen, faculty }) => {
                     <div className="modal-dialog modal-dialog-scrollable modal-lg">
                         <div className="modal-content h-100">
                             <div className="modal-header bottom_brown">
-                                <h1 className="modal-title fs-5" id="staticBackdropLabel">{faculty.title}</h1>
+                                <h1 className="modal-title fs-5" id="staticBackdropLabel">{faculty?.title}</h1>
                                 <button
                                     onClick={() => handleIsClose()}
                                     type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -50,7 +50,7 @@ const FacultyViewer = ({ isOpen, setIsOpen, faculty }) => {
                                                 <thead>
                                                     <tr>
                                                         <THead name="No:" />
-                                                        <THead name="Type" />
+                                                        <THead name="Category" />
                                                         <THead name="Course" />
                                                         <THead name="Program" />
                                                         <THead name="Price ($)" />
@@ -63,10 +63,10 @@ const FacultyViewer = ({ isOpen, setIsOpen, faculty }) => {
                                                             onClick={()=> navigate('/courses_administration')} 
                                                             key={list.id}>
                                                                 <th scope="row">{index + 1} </th>
-                                                                <td>{list.course_type}</td>
-                                                                <td>{list.title}</td>
-                                                                <td>{list.program}</td>
-                                                                <td>{list.price}</td>
+                                                                <td>{list.category_label}</td>
+                                                                <td>{list?.title}</td>
+                                                                <td>{list?.program}</td>
+                                                                <td>{list?.price}</td>
                                                             </tr>
                                                         )
                                                     })}

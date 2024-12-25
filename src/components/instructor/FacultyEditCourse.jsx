@@ -16,8 +16,9 @@ const FacultyEditCourse = () => {
         setGetAllFaculty,
         getAllInstructors,
         setGetAllInstructors,
-        getAllCourses,
-        setGetAllCourses, } = useContext(ResourceContext);
+        setGetAllCourses,
+        getAllCategory,
+        setGetAllCategory } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
 
     const [loading, setLoading] = useState(false)
@@ -39,16 +40,17 @@ const FacultyEditCourse = () => {
         course_type: prev.course_type,
         program: prev.program,
         faculty_id: prev.faculty_id,
+        category_id: prev.category_id,
         price: prev.price,
         participate: prev.participate,
         curriculum: prev.curriculum,
-        image: prev.image,
+        // image: prev?.image,
     })
-    
-    const [courseImageUrl, setCourseImageUrl] = useState(prev.image ? prev.image  : null);
+
+    const [courseImageUrl, setCourseImageUrl] = useState(prev.image ? prev.image : null);
 
     useEffect(() => {
-        setGetAllCourses((prev) => {
+        setGetAllCategory((prev) => {
             return {
                 ...prev, isDataNeeded: true
             }
@@ -80,9 +82,10 @@ const FacultyEditCourse = () => {
             objective: "",
             outlines: "",
             duration: "",
-            course_type: "",
+            course_type: "online",
             program: "",
             faculty_id: "",
+            category_id: "",
             price: "",
             participate: "",
             curriculum: "",
@@ -102,7 +105,7 @@ const FacultyEditCourse = () => {
         } else {
             // Handle invalid file type
             alert('Please select a valid JPEG or PNG file.');
-        } 
+        }
     };
 
 
@@ -142,82 +145,68 @@ const FacultyEditCourse = () => {
         setErrorMsg("");
     };
 
-    const handleSubmitUpdate = (e) => {
-        e.preventDefault();
-        setErrorMsg("")
-        setLoading(true);
-        setGetAllCourses((prev) => {
-            return {
-                ...prev, isDataNeeded: false
-            }
-        })
-        axios.post(`${BASE_URL}course/updateCourse/${prev.id}`, details, {
-            headers: {
-                Authorization: `Bearer ${userCredentials.token}`,
-                'Content-Type': 'multipart/form-data',
-            },
-        })
-            .then((response) => {
-                setGetAllCourses((prev) => {
-                    return {
-                        ...prev, isDataNeeded: true
-                    }
-                })
-                resetStates()
-                setLoading(false)
-                toast.success("successful update");
-                navigate( instructor ? "/instructor_courses" : "/faculty_courses")
-            })
-            .catch((error) => {
-                console.log(error.response.data.message)
-                if (error = error.response?.data) {
-                    console.log(error)
-                    if (error.errors?.created_by_id) {
-                        console.log(error.errors.created_by_id)
-                        setErrorMsg(error.errors.created_by_id[0])
-                        setShowMsg(true)
-                        setLoading(false);
-                    } else if (error.errors?.curriculum) {
-                        console.log(error.errors.curriculum[0])
-                        setErrorMsg(error.errors.curriculum[0])
-                        setShowMsg(true)
-                        setLoading(false);
-                    } else if (error.errors?.objective) {
-                        console.log(error.errors.objective[0])
-                        setErrorMsg(error.errors.objective[0])
-                        setShowMsg(true)
-                        setLoading(false);
-                    } else if (error.errors?.outlines) {
-                        console.log(error.errors.outlines[0])
-                        setErrorMsg(error.errors.outlines[0])
-                        setShowMsg(true)
-                        setLoading(false);
-                    } else if (error.errors?.faculty_id) {
-                        console.log(error.errors.faculty_id[0])
-                        setErrorMsg(error.errors.faculty_id[0])
-                        setShowMsg(true)
-                        setLoading(false);
-                    } else if (error.errors?.program) {
-                        console.log(error.errors.program[0])
-                        setErrorMsg(error.errors.program[0])
-                        setShowMsg(true)
-                        setLoading(false);
-                    } else {
-                        console.log(error?.message)
-                        setErrorMsg(error.message)
-                        setShowMsg(true)
-                        setLoading(false);
-                    }
-                } else {
-                    console.log(error)
-                    setErrorMsg(error.message)
-                    setShowMsg(true)
-                    setLoading(false);
+  const handleSubmitUpdate = (e) => {
+    e.preventDefault();
+    setErrorMsg("");
+    setLoading(true);
+
+    const formData = new FormData();
+
+    // Append all details to FormData
+    for (const key in details) {
+        if (details[key]) {
+            formData.append(key, details[key]);
+        }
+    }
+
+    setGetAllCourses((prev) => {
+        return {
+            ...prev, isDataNeeded: false
+        }
+    });
+
+    axios.post(`${BASE_URL}course/updateCourse/${prev.id}`, formData, {
+        headers: {
+            Authorization: `Bearer ${userCredentials.token}`,
+            'Content-Type': 'multipart/form-data', // Ensure the content type is correct
+        },
+    })
+        .then((response) => {
+            setGetAllCourses((prev) => {
+                return {
+                    ...prev, isDataNeeded: true
                 }
             });
-    }
+            resetStates();
+            setLoading(false);
+            toast.success("successful update");
+            navigate(instructor ? "/instructor_courses" : "/faculty_courses");
+        })
+        .catch((error) => {
+            // Extract validation errors if available
+            const validationErrors = error.response?.data?.errors;
+
+            if (validationErrors) {
+                // Format the errors into a user-friendly string
+                const formattedErrors = Object.entries(validationErrors)
+                    .map(([field, messages]) => `${field}: ${messages.join(', ')}`)
+                    .join('\n');
+                console.log(formattedErrors);
+
+                // Set the formatted errors as the error message
+                setErrorMsg(formattedErrors);
+            } else {
+                // Default to the general error message
+                const errorMessage = error.response?.data?.message || error.message;
+                setErrorMsg(errorMessage);
+            }
+            setShowMsg(true);
+            setLoading(false);
+        });
+};
+
     // const allInstructors = getAllUsers.data?.filter((user) => user.role === "instructor")
-    console.log(details)
+    //console.log(details)
 
     return (
         <div
@@ -228,6 +217,23 @@ const FacultyEditCourse = () => {
                 <h4 className='mb-3'>Edit Course</h4>
                 <form onSubmit={handleSubmitUpdate}>
                     <div className="row">
+
+                        <div className="mb-3 col-md-6">
+                            <label htmlFor="category" className="form-label">Category</label>
+                            <select
+                                id="category"
+                                value={details.category_id}
+                                name="category_id"
+                                onChange={handleOnChange}
+                                className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
+                                <option value="">--select --</option>
+                                {
+                                    getAllCategory.data?.map((each) => (
+                                        <option key={each.id} value={each.id}>{each.label}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
 
                         <div className="mb-3 col-md-6">
                             <label htmlFor="faculty" className="form-label">Faculty</label>
@@ -279,7 +285,7 @@ const FacultyEditCourse = () => {
                                 // required
                                 type="file"
                                 accept="image/*"
-                                // value={details.image}
+                                // value={details?.image}
                                 name="image"
                                 onChange={getImageURL}
                                 className="form-control" id="image" aria-describedby="emailHelp" />
@@ -314,19 +320,7 @@ const FacultyEditCourse = () => {
                                 onChange={handleOnChange}
                                 className="form-control" id="duration" aria-describedby="emailHelp" />
                         </div>
-                        <div className="mb-3 col-md-6">
-                            <label htmlFor="type" className="form-label">Course Type</label>
-                            <select
-                                id="type"
-                                value={details.course_type}
-                                name="course_type"
-                                onChange={handleOnChange}
-                                className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
-                                <option value="">--select --</option>
-                                <option value="online">Online</option>
-                                <option value="offline">Offline</option>
-                            </select>
-                        </div>
+
                         <div className="mb-3 col-md-6">
                             <label htmlFor="program" className="form-label">Program</label>
                             <select

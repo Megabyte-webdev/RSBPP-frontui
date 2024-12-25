@@ -13,8 +13,9 @@ const FacultyAddCourse = () => {
     const navigate = useNavigate()
     const { getAllFaculty,
         setGetAllFaculty,
-        getAllCourses,
-        setGetAllCourses, } = useContext(ResourceContext);
+        getAllCategory,
+        setGetAllCategory,
+        setGetAllCourses } = useContext(ResourceContext);
     const { userCredentials } = useContext(UserContext);
 
     const [loading, setLoading] = useState(false)
@@ -28,19 +29,20 @@ const FacultyAddCourse = () => {
         objective: "",
         outlines: "",
         duration: "",
-        course_type: "",
+        course_type: "online",
         program: "",
         faculty_id: "",
+        category_id: "",
         price: "",
         participate: "",
         curriculum: "",
         image: "",
     })
     const [courseImageUrl, setCourseImageUrl] = useState("");
-const [selectedFaculty, setSelectedFaculty] = useState(null);
-    
+    const [selectedFaculty, setSelectedFaculty] = useState(null);
+
     useEffect(() => {
-        setGetAllCourses((prev) => {
+        setGetAllCategory((prev) => {
             return {
                 ...prev, isDataNeeded: true
             }
@@ -59,27 +61,25 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
 
     useEffect(() => {
 
-      const myCourse = getAllCourses?.data?.find(one => parseInt(userCredentials?.user?.id) === parseInt(one.created_by_id));
+        //const myCourse = getAllCourses?.data?.find(one => parseInt(userCredentials?.user?.id) === parseInt(one.created_by_id));
 
-      if (myCourse) {
-        // Find and set the matching faculty for this course
-        const facultyItem = getAllFaculty?.data?.find(faculty => faculty.id === myCourse?.faculty_id
-        );
+        if (getAllFaculty.data) {
+            // Find and set the matching faculty for this course
+            const facultyItem = getAllFaculty?.data?.filter(faculty => faculty.id === parseInt(userCredentials?.user?.faculty_id));
+            // Set faculty details if found
+            console.log(userCredentials.user)
+            setSelectedFaculty(facultyItem || null);
+            setDetails((prev) => {
+                return {
+                    ...prev,
+                    faculty_id: facultyItem[0]?.id || ""
+                };
+            });
+        }
 
-        // Set faculty details if found
-        setSelectedFaculty(facultyItem || null);
-        setDetails((prev) => {
-            return {
-                ...prev,
-                faculty_id: facultyItem?.id || ""
-            };
-        });
-      }
+    }, [getAllFaculty]);
 
 
-  }, [getAllCourses, getAllFaculty]);
-
-    
     const resetStates = () => {
         setDetails({
             title: "",
@@ -89,7 +89,8 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
             objective: "",
             outlines: "",
             duration: "",
-            course_type: "",
+            course_type: "online",
+            category_id: "",
             program: "",
             faculty_id: "",
             price: "",
@@ -146,7 +147,7 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
         } else {
             // Handle invalid file type
             alert('Please select a valid JPEG or PNG file.');
-        } 
+        }
     };
 
     const handleSubmit = (e) => {
@@ -236,6 +237,22 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
                 <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="mb-3 col-md-6">
+                            <label htmlFor="category" className="form-label">Category</label>
+                            <select
+                                id="category"
+                                value={details.category_id}
+                                name="category_id"
+                                onChange={handleOnChange}
+                                className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
+                                <option value="">--select --</option>
+                                {
+                                    getAllCategory.data?.map((each) => (
+                                        <option key={each.id} value={each.id}>{each.label}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                        <div className="mb-3 col-md-6">
                             <label htmlFor="faculty" className="form-label">Faculty</label>
                             <select
                                 id="faculty"
@@ -243,9 +260,9 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
                                 name="faculty_id"
                                 onChange={handleOnChange}
                                 className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
-                                <option value="">--select --</option>
+                                <option value="" disabled={true}>--select --</option>
                                 {
-                                    selectedFaculty?.map((each) => (
+                                    selectedFaculty?.map((each, index) => (
                                         <option key={each.id} value={each.id}>{each.title}</option>
                                     ))
                                 }
@@ -295,29 +312,17 @@ const [selectedFaculty, setSelectedFaculty] = useState(null);
                             <input
                                 required
                                 type="text"
-                                value={details.duration}
+                                value={details?.duration}
                                 name="duration"
                                 onChange={handleOnChange}
                                 className="form-control" id="duration" aria-describedby="emailHelp" />
                         </div>
-                        <div className="mb-3 col-md-6">
-                            <label htmlFor="type" className="form-label">Course Type</label>
-                            <select
-                                id="type"
-                                value={details.course_type}
-                                name="course_type"
-                                onChange={handleOnChange}
-                                className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">
-                                <option value="">--select --</option>
-                                <option value="online">Online</option>
-                                <option value="offline">Offline</option>
-                            </select>
-                        </div>
+
                         <div className="mb-3 col-md-6">
                             <label htmlFor="program" className="form-label">Program</label>
                             <select
                                 id="program"
-                                value={details.program}
+                                value={details?.program}
                                 name="program"
                                 onChange={handleOnChange}
                                 className="form- py-2 w-100 border rounded px-2" aria-label="Default select example">

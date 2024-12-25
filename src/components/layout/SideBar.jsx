@@ -48,9 +48,8 @@ const SideBar = ({ userCredentials }) => {
   const myCoursesOnly = getAllCourses.data?.filter((course) => course.created_by_id == user.id)
 
   return (
-    <div style={{"width":"180px", "minHeight": "100vh" }}
-      className={user?.role === "instructor" ? "white_sidebar prime_blue border-end d-none d-md-block" : "brown_sidebar border-end d-none d-md-block"}
-      md={2}>
+    <div style={{"minWidth":"200px" }}
+      className={user?.role === "instructor" ? "white_sidebar prime_blue border-end d-none d-md-block" : "brown_sidebar border-end d-none d-md-block h-full overflow-y-auto"}>
       <div
       // className={role === "instructor" ? "white_sidebar border-end d-none d-md-block" : "brown_sidebar border-end d-none d-md-block"}
       >

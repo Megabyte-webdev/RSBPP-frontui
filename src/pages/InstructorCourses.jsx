@@ -61,7 +61,7 @@ const InstructorCourses = () => {
     const typeSearch = getAllCourses.data?.filter((user) =>
         user.title?.toLowerCase().includes(searchInput.toLowerCase())
     )
-    const offLineCourse = typeSearch?.filter((course) => course.course_type === "offline" && course.created_by_id == userId)
+    // const offLineCourse = typeSearch?.filter((course) => course.course_type === "offline" && course.created_by_id == userId)
     const onLineCourse = typeSearch?.filter((course) => course.course_type === "online" && course.created_by_id == userId)
 
     // const listUsers = getAllCourses.data?.map((course) => {
@@ -144,7 +144,7 @@ const InstructorCourses = () => {
                         )}
                     </div>
                 </div>
-                <div className='my-5'>
+                {/* <div className='my-5'>
                     <p className="fw-bold">Offline Course</p>
                     <div className="my-5">
                         {getAllCourses.data && (
@@ -162,7 +162,7 @@ const InstructorCourses = () => {
                             </CourseCarousel>
                         )}
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

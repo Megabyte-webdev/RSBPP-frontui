@@ -137,9 +137,9 @@ const AllCourses = ({ getAllCourses, userCredentials }) => {
                         <h5>Details</h5>
                     </div>
                 </div>
-                <div className="overflow_y_md_50 overflow_y_80">
-                    <div className="mt-4 table-responsive-md">
-                        <table className="table table-hover">
+                <div className=" w-full overflow-x-auto">
+                    <div className="mt-4">
+                        <table className="table-hover">
                             <thead>
                                 <tr>
                                     <THead name="Type" />

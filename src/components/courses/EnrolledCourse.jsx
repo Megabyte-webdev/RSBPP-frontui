@@ -4,6 +4,7 @@ import enrollIcon from "../../assets/enroll-icon.svg"
 import CourseTimeTable from "./CourseTimeTable"
 import { useEffect, useState } from "react"
 import { Spinner } from "react-bootstrap"
+import { IMAGE_URL } from "../utils/base"
 
 const EnrolledCourse = ({ course, myClasses }) => {
 
@@ -34,7 +35,7 @@ const EnrolledCourse = ({ course, myClasses }) => {
             <div className="mb-3 d-flex">
                 <div className="w-100 p-2 py-5 rounded-start d-flex" style={{ backgroundColor: "hsla(359, 54%, 44%, 0.15)" }}>
                     <div>
-                        <img src={enrollIcon} alt="" className="me-2" />
+                        <img src={course?.image ?`${IMAGE_URL}${course?.image}` :enrollIcon} alt="" className="me-2" />
                     </div>
                     <div>
                         <h6>{course.title}</h6>

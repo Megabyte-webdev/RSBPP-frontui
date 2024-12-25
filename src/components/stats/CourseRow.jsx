@@ -32,9 +32,10 @@ const {userCredentials} = useContext(UserContext)
                 setIsOpen={setIsOpen}
                 data={data}
                 faculty={faculty}
-                handleDisplay={handleDisplay} />
+                handleDisplay={handleDisplay}
+                userCredentials={userCredentials} />
 
-            <td>{user.course_type}</td>
+            <td>{user.category_label}</td>
             <td>{user.title}</td>
             {/* <td>{user.code}</td> */}
             {/* <td>{user.description}</td> */}

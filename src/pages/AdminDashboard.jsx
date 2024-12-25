@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 import { ThemeContext } from "../context/ThemeContext";
 import { UserContext } from "../context/AuthContext";
 import { ResourceContext } from "../context/ResourceContext";
@@ -138,41 +138,50 @@ const AdminDashboard = () => {
       </Row>
       <Col>
         <div className="flex flex-wrap my-5 justify-between gap-3">
-          <Col className="my-3 my-md-0 w-full min-w-60">
-            <div className="shadow-sm h-100 rounded p-3">
-              <div className="d-flex mb-4 border-bottom justify-content-between">
+          <Col className="my-3 my-md-0 w-full min-w-80">
+            <div className="shadow-sm min-h-60 rounded p-2 pt-0">
+              <div className=" d-flex mb-4 border-bottom justify-content-between">
                 <p className="my-4">Recently enrolled Students</p>
-                <div onClick={() => navigate("/registra")} className="d-flex nav-link text-primary align-items-center">
+                <div onClick={() => navigate("/registra", { state: { id: "members" } })} className="d-flex nav-link text-primary align-items-center cursor-pointer">
                   <p className="fw-bold">see all</p>
                 </div>
               </div>
+              {getAllUsers?.data === null && <p className="w-full h-full flex items-center justify-center"><Spinner /></p>}
+
               {
-                getAllUsers?.data?.filter(item => item.role === "student")?.slice(0, 7)?.map((user) => (
-                  <div key={user?.id} className="d-flex align-items-center justify-content-center">
-                    <div className="light_sky rounded p-1 text-primary">
-                      <span className="fw-bold">{`${user?.first_name[0]} ${user?.last_name[0]}`}</span>
+                getAllUsers?.data
+                  ?.filter(item => item.role === "student")
+                  ?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))?.slice(0, 7)?.map((user) => (
+                    <div key={user?.id} className="d-flex align-items-center justify-content-center py-1">
+                      <div className="light_sky rounded p-1 text-primary">
+                        <span className="fw-bold">{`${user?.first_name[0]} ${user?.last_name[0]}`}</span>
+                      </div>
+                      <div className="px-2 mr-auto">
+                        <p className="fs_sm">{`${user?.first_name} ${user?.last_name}`}</p>
+                        <p className="fs_xsm">{user?.organization}</p>
+                      </div>
+                      <p className="fs_xsm">
+                        {new Date(user?.created_at)?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
+                      </p>
+
                     </div>
-                    <div className="px-2 mr-auto">
-                      <p className="fs_sm">{`${user?.first_name} ${user?.last_name}`}</p>
-                      <p className="fs_xsm">{user?.organization}</p>
-                    </div>
-                    <p className="fs_xsm">10:25 am</p>
-                  </div>
-                ))
+                  ))
               }
             </div>
           </Col>
 
-          <Col className="my-3 my-md-0  min-w-60" >
-            <div className="shadow h-100 p-2">
-              <div className="d-flex justify-content-between">
+          <Col className="my-3 my-md-0  min-w-80" >
+            <div className="shadow min-h-60 p-2 pt-0 overflow-y-auto">
+              <div className=" bg-white d-flex border-bottom justify-content-between">
                 <p className="my-4">Upcoming Activities</p>
-                <Link className="d-flex nav-link text-primary align-items-center">
+                <Link to="/time_table" className="d-flex nav-link text-primary align-items-center">
                   <p className="fw-bold">see all</p>
                 </Link>
               </div>
-              {getAllSchedules.data?.slice(0, 5)?.map(schedule => (
-                <div key={schedule?.id} className="light_sky my-2 rounded p-1">
+              {getAllSchedules?.data === null && <p className="w-full h-full flex items-center justify-center"><Spinner /></p>}
+
+              {getAllSchedules?.data?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))?.slice(0, 5)?.map(schedule => (
+                <div key={schedule?.id} onClick={() => navigate('/time_table', { state: { startDate: schedule?.start } })} className="cursor-pointer light_sky my-2 rounded p-1">
                   <div className="d-flex align-items-center justify-content-center">
                     <div className="rounded p-1 px-2 text-white" style={{ backgroundColor: "#0052B4" }}>
                       <span className="fw-bold">{schedule?.day?.split("-")[2]}</span>
@@ -195,7 +204,7 @@ const AdminDashboard = () => {
       <div className="p-6 bg-gray-50 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">Courses and Users Overview</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Courses Overview Section */}
           <div className="bg-white p-4 rounded-lg shadow-md ">
             <h3 className="text-xl font-medium text-gray-700 mb-4">Courses Overview</h3>
