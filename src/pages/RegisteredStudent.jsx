@@ -85,8 +85,8 @@ console.log(getAllCategory)
             style={{ backgroundColor: "hsla(0, 0%, 85%, .1)" }}
         >
             <div className="p-3 bg-white rounded-3 shadow-sm">
-                <Row>
-                    <Col md={3} xs={6} className='mb-3 mb-md-0'>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+                    <div className='mb-3'>
                         <div className={show === "users" ? "registra_nav" : ""}>
                             <div
                                 onClick={() => setShow("users")}
@@ -107,8 +107,8 @@ console.log(getAllCategory)
                                 </div>
                             </div>
                         </div>
-                    </Col>
-                    <Col md={3} xs={6} className='mb-3 mb-md-0'>
+                    </div>
+                    <div className='mb-3'>
                         <div className={show === "members" ? "registra_nav" : ""}>
                             <div
                                 onClick={() => setShow("members")}
@@ -129,8 +129,8 @@ console.log(getAllCategory)
                                 </div>
                             </div>
                         </div>
-                    </Col>
-                    <Col md={3} xs={6} className='mb-3 mb-md-0'>
+                    </div>
+                    <div className='mb-3'>
                         <div className={show === "category" ? "registra_nav" : ""}>
                             <div
                                 onClick={() => setShow("category")}
@@ -151,8 +151,8 @@ console.log(getAllCategory)
                                 </div>
                             </div>
                         </div>
-                    </Col>
-                    <Col md={3} xs={6} className='mb-3 mb-md-0'>
+                    </div>
+                    <div className='mb-3'>
                         <div className={show === "faculty" ? "registra_nav" : ""}>
                             <div
                                 onClick={() => setShow("faculty")}
@@ -173,8 +173,8 @@ console.log(getAllCategory)
                                 </div>
                             </div>
                         </div>
-                    </Col>
-                    <Col md={3} xs={6} className='mb-3 mb-md-0'>
+                    </div>
+                    <div className='mb-3'>
                         <div className={show === "courses" ? "registra_nav" : ""}>
                             <div
                                 onClick={() => setShow("courses")}
@@ -195,8 +195,8 @@ console.log(getAllCategory)
                                 </div>
                             </div>
                         </div>
-                    </Col>
-                </Row>
+                    </div>
+                </div>
             </div>
             {show === "users" && (<AllUsers userCredentials={userCredentials} getAllUsers={getAllUsers.data} />)}
             {show === "members" && (<AllStudents getAllUsers={studentsOnly} />)}

@@ -40,16 +40,16 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
         dob: user?.dob ? user.dob : "",
         country: user?.country ? user.country : "",
         state: user?.state ? user.state : "",
-        gender: user?.gender ? user.gender : "",
+        // gender: user?.gender ? user.gender : "",
         address: user?.address ? user.address : "",
         industry: user?.industry ? user.industry : "",
         profession: user?.profession ? user.profession : "",
         image: user?.image,
-        contact_number: user?.contact_number ? user.contact_number : "",
+       // contact_number: user?.contact_number ? user.contact_number : "",
         experience: user?.experience ? user.experience : "",
         specialization: user?.specialization ? user.specialization : "",
     })
-    console.log(details)
+    console.log(user, details)
     useEffect(() => {
         setGetAllCourses((prev) => {
             return {
@@ -177,27 +177,31 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="text" value={details.first_name} name='first_name' placeholder='First Name *' required className="form-control border-0 input_bg" id="dateAndTime" />
+                                <label className='mb-2' htmlFor="first_name">First Name </label>
+                                    <input type="text" onChange={handleOnChange} value={details.first_name} name='first_name' placeholder='First Name *' required className="form-control border-0 input_bg" id="dateAndTime" />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="text " value={details.last_name} name='last_name' placeholder='Last Name *' required className="form-control border-0 input_bg" id="dateAndTime" />
+                                <label className='mb-2' htmlFor="last_name">Last Name </label>
+                                    <input type="text " onChange={handleOnChange} value={details.last_name} name='last_name' placeholder='Last Name *' required className="form-control border-0 input_bg" id="dateAndTime" />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
-                                    <input type="text " value={details.email} name='email' placeholder='Email *' required className="form-control border-0 input_bg" id="dateAndTime" />
+                                <label className='mb-2' htmlFor="email">Email </label>
+                                    <input type="text " disabled={true} value={details.email} name='email' placeholder='Email *' required className="form-control border-0 input_bg disabled:opacity-50" id="dateAndTime" />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
+                                <label className='mb-2' htmlFor="position">Position </label>
                                     <input type="text" onChange={handleOnChange} value={details.position} name='position' placeholder='Position *' required className="form-control border-0 input_bg" id="dateAndTime" />
                                 </div>
                             </div>
@@ -205,6 +209,7 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
+                                <label className='mb-2' htmlFor="organization">Organization </label>
                                     <input type="text " onChange={handleOnChange} value={details.organization} name='organization' placeholder='Organization *' required className="form-control border-0 input_bg" id="dateAndTime" />
                                 </div>
                             </div>
@@ -221,7 +226,7 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
                                 </select>
                             </div>
                         </div> */}
-                        <div className="col-md-6">
+                        {/* <div className="col-md-6">
                             <div className="mb-3">
                                 <select id="setDuration" onChange={handleOnChange} value={details.gender} name='gender' className="form-select input_bg border-0">
                                     <option defaultValue={""} value={""}>Gender *</option>
@@ -229,7 +234,7 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
                                     <option value={"female"}>Female</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
@@ -238,17 +243,18 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-6">
+                        {/* <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
                                 <label className='mb-2' htmlFor="contact_number">Contact Number </label>
                                     <input type="text" onChange={handleOnChange} value={details.contact_number} name='contact_number' placeholder='Contact Number' className="form-control border-0 input_bg" required />
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
+                                <label className='mb-2' htmlFor="country">Country </label>
                                     <input type="text " onChange={handleOnChange} value={details.country} name='country' placeholder='Country' className="form-control border-0 input_bg" id="dateAndTime" required />
                                 </div>
                             </div>
@@ -256,6 +262,7 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
+                                <label className='mb-2' htmlFor="state">State </label>
                                     <input type="text " onChange={handleOnChange} value={details.state} name='state' placeholder='State' className="form-control border-0 input_bg" id="dateAndTime" required />
                                 </div>
                             </div>
@@ -263,25 +270,28 @@ const ProfileUpdateForm = ({ setProfileCV, profileCV }) => {
                         <div className="col-md-6">
                             <div className="mb-3 row">
                                 <div className="">
+                                <label className='mb-2' htmlFor="address">Address </label>
                                     <input type="text " onChange={handleOnChange} value={details.address} name='address' placeholder='Address' className="form-control border-0 input_bg" required />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
-                            <div className="mb-3 row">
+                            <div className="mb-3">
                                 <div className="">
+                                <label className='mb-2' htmlFor="industry">Industry </label>
                                     <input type="text " onChange={handleOnChange} value={details.industry} name='industry' placeholder='Industry' className="form-control border-0 input_bg" required />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
-                            <div className="mb-3 row">
+                            <div className="mb-0 row">
                                 <div className="">
+                                <label className='mb-2' htmlFor="profession">Profession </label>
                                     <input type="text " onChange={handleOnChange} value={details.profession} name='profession' placeholder='Profession' className="form-control border-0 input_bg" required />
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-6">
+                        <div className="mt-3">
                             <div className="mb-3">
                                 <label htmlFor="cv" className='border rounded-3 w-100 bg-white btn text-secondary'>
                                     {details.image ? "Change profile image" : "Profile Image"}  <span className='text-success'>

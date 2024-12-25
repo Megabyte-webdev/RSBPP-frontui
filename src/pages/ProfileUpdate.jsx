@@ -29,9 +29,9 @@ const ProfileUpdate = () => {
                 </div>
             </div>
             <Row>
-                <Col md={9} className='mb-3'>
+                <div className='mb-3'>
                     <ProfileUpdateForm setProfileCV={setProfileCV} profileCV={profileCV} />
-                </Col>
+                </div>
                 <Col md={3} className='mb-3'>
                 </Col>
             </Row>

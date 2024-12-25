@@ -4,7 +4,7 @@ import { ResourceContext } from '../context/ResourceContext'
 import { useLocation } from 'react-router-dom'
 const ClassSchedules = () => {
     const location =useLocation();
-    const {startDate}=location?.state;
+    const {startDate}=location?.state || {};
 
     const { getAllSchedules,
         setGetAllSchedules, errorMesage } = useContext(ResourceContext)

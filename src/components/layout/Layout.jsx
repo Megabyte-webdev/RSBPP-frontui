@@ -69,12 +69,12 @@ const Layout = () => {
     return (
         <div>
             {userCredentials && (
-                <div className="g-0 poppins flex">
+                <div className="g-0 poppins flex h-screen">
                     <SideBar userCredentials={userCredentials} />
                     <div className="w-full">
+                        <main className="h-full overflow-y-auto">
                         <MobileSidebar userCredentials={userCredentials} />
                         <NavBar />
-                        <main>
                             <Outlet />
                         </main>
                     </div>

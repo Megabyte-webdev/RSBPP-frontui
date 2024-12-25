@@ -140,7 +140,7 @@ const CourseAdministration = () => {
                                     <thead>
                                         <tr>
                                             <THead name="" />
-                                            <THead name="Type" />
+                                            <THead name="Category" />
                                             <THead name="Course" />
                                             {/* <THead name="Code" /> */}
                                             {/* <THead name="Description" /> */}

@@ -12,7 +12,7 @@ import payStack from "../assets/dash-icons/Paystack 1.svg"
 import axios from 'axios';
 import { ResourceContext } from '../context/ResourceContext';
 import { UserContext } from '../context/AuthContext';
-import { BASE_URL } from '../components/utils/base';
+import { BASE_URL, IMAGE_URL } from '../components/utils/base';
 
 const LearningDetails = () => {
     const navigate = useNavigate();
@@ -75,7 +75,7 @@ const LearningDetails = () => {
                 <div className="flex justify-center items-center">
                     <div>
                         <span> <BiSolidBadgeCheck size={25} /> </span>
-                        <span>{state.course.course_type}</span>
+                        <span>{state.course.category_label}</span>
                     </div>
                 </div>
                 <div className="text-center ">
@@ -87,7 +87,7 @@ const LearningDetails = () => {
                 <div className="d-flex justify-content-center">
                     <div className="d-flex justify-content-center col-md-7 my-5 px-md-5">
                         <div
-                            onClick={() => navigate("/courses")}
+                            onClick={() => navigate(`${userCredentials.user.role === "instructor" ? "/meetings_history": "/courses"}`)}
                             className="d-flex pointer align-items-center">
                             <span className="me-2">
                                 <MdOutlineVideoChat size={35} />
@@ -125,8 +125,8 @@ const LearningDetails = () => {
                                         <p>{state.course.description}</p>
                                     </div>
                                     <div className="mb-3">
-                                        <p className="fw-bold fs-5">Course Type</p>
-                                        <p>{state.course.course_type}</p>
+                                        <p className="fw-bold fs-5">Course Category</p>
+                                        <p>{state.course.category_label}</p>
                                     </div>
                                     <div className="mb-3">
                                         <p className="fw-bold fs-5">Course Code</p>
@@ -184,14 +184,14 @@ const LearningDetails = () => {
                                 <div className="rounded my-2 p-3 py-4 bg-white">
                                     <div className="d-flex justify-content-center">
                                         <div>
-                                            <img src={user} alt="" className="" />
+                                            <img src={data.image ? `${IMAGE_URL}${data.title}` : user} alt="" className="" />
                                         </div>
                                     </div>
                                     {state.instructorDetails ? (
                                         <div className='my-5'>
                                             <div className="d-flex justify-content-between mb-3">
                                                 <p>Instructor :</p>
-                                                <p className='fw-semibold'> {data.title} {data.first_name} {data.last_name} ({data.degree})</p>
+                                                <p className='fw-semibold'> {data.title} {data.first_name} {data.last_name} {data.degree && `(${data.degree})`}</p>
                                             </div>
                                             <div className="d-flex justify-content-between mb-3">
                                                 <p>Emails :</p>

@@ -322,6 +322,7 @@ const UpdateForm = ({ setProfileCV, profileCV }) => {
                             <div className="">
                                 <select id="setDuration" onChange={handleOnChange} value={details.specialization} name='specialization' className="form-select input_bg border-0">
                                     <option defaultValue={""}>--Specialization--</option>
+                                    <option value={"Information technology"}>Information teechnology</option>
                                     <option value={"Accountant"}>Accountant</option>
                                     <option value={"Banking"}>Banking</option>
                                     <option value={"Entrepreneurship"}>Entrepreneurship</option>

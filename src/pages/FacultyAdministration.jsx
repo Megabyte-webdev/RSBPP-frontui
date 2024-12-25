@@ -47,7 +47,7 @@ const FacultyAdministration = () => {
         setTotalPage(Math.ceil(typeSearch?.length / PageSize));
     }, [typeSearch, getAllFaculty.data])
 
-    // console.log(currentTableData)
+    console.log(getAllFaculty)
     return (
         <div
             className="p-3 p-md-5 min-vh-100"
@@ -69,7 +69,7 @@ const FacultyAdministration = () => {
                             <div className="col-md-6">
                                 <div className="row">
                                     <div className="col">
-                                        <div className='position-relative'>
+                                        <div className='relative'>
                                             <input
                                                 onChange={(e) => setSearchInput(e.target.value)}
                                                 type="text" className="btn border bg-white text-start px-5 py-2 w-100" id="search" placeholder='Search' />

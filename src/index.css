@@ -438,8 +438,6 @@ input:focus-visible {
 
 .registra_nav {
   background-color: hsla(359, 54%, 44%, 0.1) !important;
-  height: 100%;
-  border-radius: 5px;
 }
 
 input[type="radio"].red_radio {
