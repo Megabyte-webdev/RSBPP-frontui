@@ -33,13 +33,13 @@ const EnrolledCourse = ({ course, myClasses }) => {
     return (
         <div className="">
             <div className="mb-3 d-flex">
-                <div className="w-100 p-2 py-5 rounded-start d-flex" style={{ backgroundColor: "hsla(359, 54%, 44%, 0.15)" }}>
-                    <div>
-                        <img src={course?.image ?`${IMAGE_URL}${course?.image}` :enrollIcon} alt="" className="me-2" />
+                <div className="w-100 p-2 md:py-5 rounded-start flex flex-col gap-2 md:flex-row" style={{ backgroundColor: "hsla(359, 54%, 44%, 0.15)" }}>
+                    <div className="flex-shrink-0">
+                        <img src={course?.image ?`${IMAGE_URL}${course?.image}` :enrollIcon} alt="" className="w-20 h-20 rounded-full" />
                     </div>
                     <div>
                         <h6>{course.title}</h6>
-                        <p>{course.description} </p>
+                        <p>{course.description?.slice(0,100)}... </p>
                         {/* <p>Furthermore, it would address the crucial questions along the path towards a financially sustainable venture. Participants who successfully complete the course would be well positioned for entrepreneurship competencies now and real capital acquisition in the future</p> */}
                     </div>
                 </div>
@@ -56,9 +56,9 @@ const EnrolledCourse = ({ course, myClasses }) => {
                     <p><b>{date.toDateString()}</b></p>
                 )} */}
                 <div className="my-4">
-                    <div className="row">
+                    <div className="grid grid-cols-responsive gap-2">
                         {list?.map((schedule) => (
-                            <div key={schedule.id} className="col-md-6 col mb-3">
+                            <div key={schedule.id} className="">
                                 <CourseTimeTable schedule={schedule} course={course} themeProp={activeClass} themeColor={white} />
                             </div>
                         ))}

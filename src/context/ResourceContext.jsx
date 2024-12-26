@@ -106,12 +106,12 @@ function ResourceContextProvider({ children }) {
     //Carts Resource useEffect
     useEffect(() => {
         setErrorMessage('');
-        if (getAllCarts.isDataNeeded) {
+        if (getAllCarts.isDataNeeded && userId) {
             const endPoint = `cart/getCart/${userId}`
             const dataArray = "Cart"
             getItemFunc(token, setGetAllCarts, setErrorMessage, endPoint, dataArray)
         }
-    }, [getAllCarts.isDataNeeded]);
+    }, [getAllCarts.isDataNeeded, userId]);
 
     //Enroll Courses Resource useEffect
     useEffect(() => {
@@ -151,7 +151,7 @@ function ResourceContextProvider({ children }) {
             const dataArray = "schedule"
             getItemFunc(token, setGetAllInstructorsSchedules, setErrorMessage, endPoint, dataArray)
         }
-    }, [getAllInstructorsSchedules.isDataNeeded]);
+    }, [getAllInstructorsSchedules.isDataNeeded, userId]);
 
 
 
